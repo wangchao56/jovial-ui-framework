@@ -13,7 +13,7 @@
 // &__hover => .z-button__hover
 @mixin e($element) {
   @at-root {
-    #{& + $element-speparator + $element} {
+    #{& + $element-separator + $element} {
       @content;
     }
   }
@@ -22,7 +22,7 @@
 // &--primary => .z-button--primary
 @mixin m($modifier) {
   @at-root {
-    #{& + $modifier-separator + $modifier} {
+    #{& + $element-separator + $modifier} {
       @content;
     }
   }

@@ -23,6 +23,8 @@ const style = computed(() => {
 
   if (props.size) {
     result.fontSize = `${props.size}px`;
+    result.lineHeight = `${props.size}px`;
+    result.width = `${props.size}px`;
   }
 
   return result;

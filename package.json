@@ -24,6 +24,8 @@
     ]
   },
   "devDependencies": {
-    "sass": "^1.83.0"
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "sass": "^1.83.0",
+    "sass-loader": "^16.0.4"
   }
 }

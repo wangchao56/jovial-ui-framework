@@ -1,7 +1,8 @@
 import JvIcon from "@jovial/components/icon/index";
+import JvTree from "@jovial/components/tree";
 import * as SvgVicons from "@vicons/material";
 import "@jovial/theme-chalk/src/index.scss";
-const plugins = [JvIcon];
+const plugins = [JvIcon, JvTree];
 
 export function setupVue3({ app }) {
   app.provide("test", "hello");

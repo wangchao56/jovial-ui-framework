@@ -1,0 +1,38 @@
+@use "mixins/mixins.scss" as *;
+
+@include b("tree") {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: max-content;
+}
+@include b("tree-node") {
+  display: inline-block;
+  vertical-align: middle;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: #f5f7fa;
+  }
+
+  @include e("content") {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  @include e("expand-icon") {
+    display: inline-block;
+    vertical-align: middle;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out;
+    &.expanded {
+      transform: rotate(90deg);
+    }
+    &.is-leaf {
+      fill: transparent;
+      visibility: hidden;
+      cursor: default;
+    }
+  }
+}

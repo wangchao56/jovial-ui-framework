@@ -11,4 +11,10 @@ export const iconProps = {
   },
 } as const;
 
+export const iconSlots = {
+  default: {
+    type: String,
+  },
+};
+
 export type IconProps = ExtractPropTypes<typeof iconProps>;
