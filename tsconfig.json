@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "ESNext", // 设置模块类型为 ESNext
+    "declaration": false, // 不生成声明文件
+    "noImplicitAny": false, // 允许不明确标注类型的变量，默认使用 any 类型
+    "removeComments": true, // 在输出中移除注释
+    "moduleResolution": "node", // 使用 Node.js 风格的模块解析
+    "esModuleInterop": true, // 启用 CommonJS 与 ES 模块之间的互操作支持
+    "jsx": "preserve", // 保持 JSX 原样（用于 React）
+    "noLib": false, // 包含标准库文件
+    "target": "ES6", // 编译到 ES6 标准
+    "sourceMap": true, // 为调试生成源映射
+    "lib": ["ESNext", "DOM"], // 指定要包括的库文件
+    "allowSyntheticDefaultImports": true, // 允许从没有默认导出的模块中导入默认值
+    "experimentalDecorators": true, // 启用对装饰器的实验性支持
+    "forceConsistentCasingInFileNames": true, // 禁止对同一文件的不一致的大小写引用
+    "resolveJsonModule": true, // 允许导入 JSON 模块
+    "strict": true, // 启用所有严格的类型检查选项
+    "skipLibCheck": true // 跳过对声明文件的类型检查
+  },
+  "exclude": [
+    // 在编译时排除这些路径
+    "node_modules",
+    "**/_tests_",
+    "dist/"
+  ]
+}

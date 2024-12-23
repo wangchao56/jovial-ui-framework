@@ -1,0 +1,38 @@
+// 设置bem 规范的变量
+@use "config" as *;
+@forward "config";
+
+// .jv-button
+@mixin b($block) {
+  $B: $namespace + "-" + $block;
+  .#{$B} {
+    @content;
+  }
+}
+
+// &__hover => .z-button__hover
+@mixin e($element) {
+  @at-root {
+    #{& + $element-speparator + $element} {
+      @content;
+    }
+  }
+}
+
+// &--primary => .z-button--primary
+@mixin m($modifier) {
+  @at-root {
+    #{& + $modifier-separator + $modifier} {
+      @content;
+    }
+  }
+}
+
+//.jv-button.is-disabled
+@mixin when($state) {
+  @at-root {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}

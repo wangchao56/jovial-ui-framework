@@ -1,0 +1,96 @@
+/**
+ * @license
+ * 创建BEM规范
+ *  什么是BEM规范?
+ *      BEM（Block-Element-Modifier）
+ *      Block：块级元素，比如一个按钮，一个输入框，一个列表等。
+ *      Element：元素，比如按钮的文字，按钮的图标等。
+ *      Modifier：修改器，比如按钮的禁用状态，按钮的加载状态等。
+ *      BEM规范：
+ *          1. Block：块级元素，比如一个按钮，一个输入框，一个列表等。
+ *          2. Element：元素，比如按钮的文字，按钮的图标等。
+ *          3. Modifier：修改器，比如按钮的禁用状态，按钮的加载状态等。
+ */
+
+/**
+ *  创建BEM规范
+ * @param prefixName    块级元素名称
+ * @param blockSuffix   元素后缀
+ * @param element       元素名称
+ * @param modifier      修改器
+ * @returns
+ */
+function _bem(
+  prefixName: string,
+  blockSuffix: string,
+  element: string,
+  modifier: string
+) {
+  if (blockSuffix) {
+    prefixName += `-${blockSuffix}`;
+  }
+
+  if (element) {
+    prefixName += `__${element}`;
+  }
+  if (modifier) {
+    prefixName += `--${modifier}`;
+  }
+  return prefixName;
+}
+
+/**
+ * 创建BEM规范
+ * @param prefixName   块级元素名称
+ * @returns            返回一个对象，对象中包含b、e、m、be、em、bm、bem方法
+ */
+function createBEM(prefixName: string) {
+  const b = (blockSuffix: string = "") => _bem(prefixName, blockSuffix, "", "");
+
+  const e = (element: string) => _bem(prefixName, "", element, "");
+
+  const m = (modifier: string) => _bem(prefixName, "", "", modifier);
+
+  const be = (blockSuffix: string, element: string) =>
+    _bem(prefixName, blockSuffix, element, "");
+
+  const em = (element: string, modifier: string) =>
+    _bem(prefixName, "", element, modifier);
+  const bm = (blockSuffix: string, modifier: string) =>
+    _bem(prefixName, blockSuffix, "", modifier);
+  const bem = (blockSuffix: string, element: string, modifier: string) =>
+    _bem(prefixName, blockSuffix, element, modifier);
+
+  //判断状态
+  const is = (name: string, state) => (state ? `is-${name}` : "");
+
+  return {
+    b,
+    e,
+    m,
+    be,
+    em,
+    bm,
+    bem,
+    is,
+  };
+}
+
+/**
+ *
+ * @param namespace   命名空间
+ * @returns            返回一个对象，对象中包含b、e、m、be、em、bm、bem方法
+ */
+export function createNamespace(namespace: string) {
+  const prefixName = `jv-${namespace}`;
+
+  return createBEM(prefixName);
+}
+
+// const bem = createNamespace("button");
+// console.log(bem.b());
+// console.log(bem.e("icon"));
+// console.log(bem.m("loading"));
+// console.log(bem.be("icon", "icon"));
+// console.log(bem.em("icon", "success"));
+// console.log(bem.is("loading", ""));
