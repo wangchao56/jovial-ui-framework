@@ -1,18 +1,21 @@
 import { ExtractPropTypes, PropType } from "vue";
 
-type Key = string | number;
+export type Key = string | number;
 
 export interface TreeOptions {
   key?: Key;
   label?: Key;
-  children?: TreeNode[];
-  isLeaf: boolean;
+  children?: TreeOptions[];
+  isLeaf?: boolean;
+  disabled?: boolean;
   [key: string]: unknown;
 }
 
 export interface TreeNode extends Required<TreeOptions> {
   level: number;
   rawNode: TreeOptions;
+  children: TreeNode[];
+  isLeaf: boolean;
 }
 
 export const treePorps = {
@@ -37,10 +40,34 @@ export const treePorps = {
     type: Array as PropType<Key[]>,
     default: () => [],
   },
+
+  onLoad: {
+    type: Function as PropType<(node: TreeOptions) => Promise<TreeOptions[]>>,
+  },
+  //选中
   //    默认选中
   defaultSelectedKeys: {
     type: Array as PropType<Key[]>,
     default: () => [],
+  },
+  selectedKeys: {
+    type: Array as PropType<Key[]>,
+    default: () => [],
+  },
+  //是否可选 true
+  selectable: {
+    type: Boolean,
+    default: true,
+  },
+  //是否可拖拽
+  draggable: {
+    type: Boolean,
+    default: false,
+  },
+  //是否多选
+  multiple: {
+    type: Boolean,
+    default: false,
   },
 } as const;
 
@@ -48,6 +75,24 @@ export const treeNodeProps = {
   node: {
     type: Object as PropType<TreeNode>,
     required: true,
+  },
+  //是否可选 true
+  selectable: {
+    type: Boolean,
+    default: true,
+  },
+  //  是否展开
+  expanded: {
+    type: Boolean,
+    default: false,
+  },
+  loadingKeys: {
+    type: Object as PropType<Set<Key>>,
+    default: () => [],
+  },
+  selectedKeys: {
+    type: Array as PropType<Key[]>,
+    default: () => [],
   },
   // //  是否选中
   // checked: {
@@ -59,16 +104,22 @@ export const treeNodeProps = {
   //   type: Boolean,
   //   default: false,
   // },
-  //  是否展开
-  expanded: {
-    type: Boolean,
-    default: false,
-  },
 } as const;
 
 export const treeNodeEmits = {
   toggle: (node: TreeNode) => true,
+  select: (node: TreeNode) => true,
+  dragStart: (node: TreeNode) => true,
+  dragEnd: (node: TreeNode) => true,
+  dragEnter: (node: TreeNode) => true,
+  dragLeave: (node: TreeNode) => true,
+  dragOver: (node: TreeNode) => true,
+  drop: (node: TreeNode) => true,
 } as const;
+
+export const treeEmits = {
+  "update:selectedKeys": (keys: Key[]) => keys,
+};
 
 export type TreeProps = Partial<ExtractPropTypes<typeof treePorps>>;
 

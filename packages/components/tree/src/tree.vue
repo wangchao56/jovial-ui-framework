@@ -9,7 +9,10 @@
       :level="node.level"
       :raw-node="node.rawNode"
       :expanded="isExpanded(node)"
+      :loading-keys="loadingKeysRef"
+      :selected-keys="selectedKeysRef"
       @toggle="toggleNode"
+      @select="selectNode"
     >
       <template #suffix>
         <div>后缀</div>
@@ -19,12 +22,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
-import { treePorps, createOptions } from "./tree";
-import type { TreeNode, TreeOptions } from "./tree";
+import { computed, ref, unref, watch } from "vue";
+import { treePorps, createOptions, treeEmits } from "./tree";
+import type { Key, TreeNode, TreeOptions } from "./tree";
 import { createNamespace } from "@jovial/utils/index";
 import JvTreeNode from "./treeNode.vue";
 const props = defineProps(treePorps);
+const emit = defineEmits(treeEmits);
 defineOptions({ name: "jv-tree" });
 const bem = createNamespace("tree");
 
@@ -36,7 +40,10 @@ const treeOption = createOptions(
   props.childrenField
 );
 
-function createTree(data: TreeOptions[]): TreeNode[] {
+function createTree(
+  data: TreeOptions[],
+  parent: TreeNode | null = null
+): TreeNode[] {
   function traversalTree(data: TreeOptions[], parent: TreeNode | null = null) {
     return data.map((item) => {
       const children = treeOption.getChildren(item) || [];
@@ -48,6 +55,7 @@ function createTree(data: TreeOptions[]): TreeNode[] {
         level: parent ? parent.level + 1 : 0,
         //判断 是否是叶子节点
         isLeaf: item.isLeaf ?? children.length === 0,
+        disabled: item.disabled ?? false,
       };
 
       if (children.length > 0) {
@@ -57,14 +65,13 @@ function createTree(data: TreeOptions[]): TreeNode[] {
       return node;
     });
   }
-  const result = traversalTree(data);
+  const result = traversalTree(data, parent);
   return result;
 }
 watch(
   () => props.data,
   (newVal) => {
     tree.value = createTree(newVal);
-    console.log(tree.value);
   },
   { immediate: true }
 );
@@ -76,28 +83,7 @@ const flattenTree = computed(() => {
   let flattedNodes: TreeNode[] = []; //最终拍平的节点
   const nodes = tree.value || []; //格式话后的数据
   let stack: TreeNode[] = [];
-  //   //深度优先遍历
-  //   function dfs(nodes: TreeNode[], parent: TreeNode | null = null) {
-  //     nodes.forEach((node) => {
-  //       //判断是否展开
-  //       const expanded = expandedKeys.has(node.key);
-  //       //添加到拍平的数组中
-  //       flattedNodes.push({
-  //         ...node,
-  //         expanded,
-  //         parent,
-  //       });
-
-  //       //递归子节点
-  //       if (expanded && node.children) {
-  //         dfs(node.children, node);
-  //       }
-  //     });
-  //   }
-  //   //遍历花费的时间
-  //   console.time("dfs");
-  //   dfs(nodes);
-  //   console.timeEnd("dfs");
+  //深度优先遍历
   console.time("dfs");
 
   for (let i = nodes.length - 1; i >= 0; --i) {
@@ -124,22 +110,88 @@ function isExpanded(node: TreeNode) {
   return expandedKeysSet.value.has(node.key);
 }
 
+const loadingKeysRef = ref<Set<Key>>(new Set());
+
+function triggerLoading(node: TreeNode) {
+  if (!node.children.length && !node.isLeaf) {
+    if (!unref(loadingKeysRef).has(node.key)) {
+      loadingKeysRef.value.add(node.key);
+      if (props.onLoad) {
+        props.onLoad(node.rawNode).then((_children) => {
+          node.rawNode.children = _children;
+
+          node.children = createTree(_children, node);
+
+          loadingKeysRef.value.delete(node.key);
+        });
+      }
+    }
+  }
+}
+
 //展开节点
 function expandNode(node: TreeNode) {
   expandedKeysSet.value.add(node.key);
+  //实现对应的异步加载数据
+
+  triggerLoading(node);
 }
 //折叠节点
 function collapseNode(node: TreeNode) {
   expandedKeysSet.value.delete(node.key);
 }
-
+/**
+ * 切换节点的展开或折叠状态
+ *
+ * @param node 节点对象，类型为 TreeNode
+ */
 function toggleNode(node: TreeNode) {
-  if (isExpanded(node)) {
+  if (
+    unref(expandedKeysSet).has(node.key) &&
+    !unref(loadingKeysRef).has(node.key)
+  )
     collapseNode(node);
-  } else {
-    expandNode(node);
-  }
+  else expandNode(node);
 }
 
-console.log(flattenTree);
+//实现选中节点
+const selectedKeysRef = ref<Key[]>([]);
+
+watch(
+  () => props.selectedKeys,
+  (newVal) => {
+    if (newVal) selectedKeysRef.value = newVal;
+  },
+  { immediate: true }
+);
+
+function selectNode(node: TreeNode) {
+  console.log("selectNode", node, props.selectable);
+
+  // 如果设置了不可选择属性，则直接返回
+  if (!props.selectable) return;
+
+  // 将 selectedKeysRef 的值转换为一个数组
+  let selectedKeys = Array.from(selectedKeysRef.value);
+
+  // 如果设置了多选属性
+  if (props.multiple) {
+    // 查找节点键在 selectedKeys 中的索引
+    const index = selectedKeys.indexOf(node.key);
+    // 如果节点键存在于 selectedKeys 中，则移除该键
+    // 否则，将节点键添加到 selectedKeys 中
+    index > -1 ? selectedKeys.splice(index, 1) : selectedKeys.push(node.key);
+  } else {
+    // 如果节点键存在于 selectedKeys 中，则清空 selectedKeys
+    if (selectedKeys.includes(node.key)) {
+      selectedKeys = [];
+    } else {
+      // 否则，将节点键作为唯一元素放入 selectedKeys 中
+      selectedKeys = [node.key];
+    }
+  }
+
+  // 触发 update:selectedKeys 事件，传递更新后的 selectedKeys
+  emit("update:selectedKeys", selectedKeys);
+}
 </script>

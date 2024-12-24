@@ -1,12 +1,23 @@
 @use "mixins/mixins.scss" as *;
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @include b("icon") {
   display: inline-block;
   width: 1.5rem;
   height: min-content;
-  font-size: 1.5rem;
-  line-height: 1.5rem;
+  font-size: 1.5rem !important;
+  line-height: 1.5rem !important;
   vertical-align: middle;
   text-align: center;
   font-style: normal;
+  svg.loading {
+    animation: spin 1s linear infinite;
+  }
 }

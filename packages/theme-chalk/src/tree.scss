@@ -10,8 +10,30 @@
   display: inline-block;
   vertical-align: middle;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
   &:hover {
     background-color: #f5f7fa;
+  }
+
+  @include e("label") {
+  }
+
+  &:not(.is-disabled) {
+    .jv-tree-node__label {
+      cursor: pointer;
+      display: flex;
+      flex: 1;
+    }
+  }
+
+  &.is-disabled {
+    .jv-tree-node__label {
+      cursor: not-allowed;
+      opacity: 0.5;
+      color: #c0c4cc;
+      display: flex;
+      flex: 1;
+    }
   }
 
   @include e("content") {
@@ -23,6 +45,7 @@
 
   @include e("expand-icon") {
     display: inline-block;
+    width: 24px;
     vertical-align: middle;
     transform: rotate(0deg);
     transition: transform 0.3s ease-in-out;
@@ -34,5 +57,10 @@
       visibility: hidden;
       cursor: default;
     }
+  }
+
+  // 是否选中
+  @include when("selected") {
+    background-color: #2c5591 !important;
   }
 }
