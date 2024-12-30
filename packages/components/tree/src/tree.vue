@@ -22,8 +22,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, unref, watch } from 'vue'
-import { treePorps, createOptions, treeEmits } from './tree'
+import { computed, provide, ref, unref, useSlots, watch } from 'vue'
+import { treePorps, createOptions, treeEmits, treeInjectKey } from './tree'
 import type { Key, TreeNode, TreeOptions } from './tree'
 import { createNamespace } from '@jovial/utils/index'
 import JvTreeNode from './treeNode.vue'
@@ -31,6 +31,9 @@ const props = defineProps(treePorps)
 const emit = defineEmits(treeEmits)
 defineOptions({ name: 'jv-tree' })
 const bem = createNamespace('tree')
+
+//传递依赖
+provide(treeInjectKey, { slots: useSlots() })
 
 const tree = ref<TreeNode[]>([])
 
@@ -55,7 +58,7 @@ function createTree(
         level: parent ? parent.level + 1 : 0,
         //判断 是否是叶子节点
         isLeaf: item.isLeaf ?? children.length === 0,
-        disabled: item.disabled ?? false
+        disabled: !!item.disabled
       }
 
       if (children.length > 0) {

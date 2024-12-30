@@ -140,6 +140,20 @@ watch(
         selectable
       ></jv-tree>
     </Variant>
+    <Variant title="自定以节点">
+      <jv-tree
+        :data="data"
+        label-field="value"
+        key-field="id"
+        children-field="children"
+        v-model:selected-keys="selectedKeys"
+        selectable
+      >
+        <template #default="{ node }">
+          <div>{{ node.key || 'key' }} - {{ node.label || '' }}</div>
+        </template>
+      </jv-tree>
+    </Variant>
   </Story>
 </template>
 

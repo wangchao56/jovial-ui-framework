@@ -28,11 +28,10 @@
       <!-- select-icon-->
       <span v-if="selectable" :class="bem.e('select-icon')"></span>
 
-      <span
-        :class="[bem.e('label')]"
-        @click="() => selectable && !node.disabled && emit('select', node)"
-        >{{ node.label }}</span
-      >
+      <span :class="[bem.e('label')]" @click="handleSelect"
+        ><JvTreeNodeContent :node="props.node"
+      /></span>
+
       <!-- 后缀 -->
       <slot name="suffix"></slot>
     </div>
@@ -41,11 +40,12 @@
 
 <script setup lang="ts">
 import { createNamespace } from '@jovial/utils'
-import { treeNodeEmits, treeNodeProps } from './tree'
+import { treeInjectKey, treeNodeEmits, treeNodeProps } from './tree'
 import JvIcon from '@jovial/components/icon'
 import Loading from './icons/Loading'
 import Switcher from './icons/Switcher'
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
+import JvTreeNodeContent from './tree-node-content'
 
 defineOptions({ name: 'JvTreeNode' })
 const props = defineProps(treeNodeProps)
@@ -56,6 +56,17 @@ const bem = createNamespace('tree-node')
 const loading = computed(() => props.loadingKeys.has(props.node.key))
 //是否选中
 const isSelected = computed(() => props.selectedKeys.includes(props.node.key))
-</script>
+const handleSelect = () => {
+  if (!props.selectable) {
+    console.warn('Node is not selectable.') // 添加日志记录
+    return
+  }
+  if (props.node.disabled) {
+    console.warn('Node is disabled and cannot be selected.') // 添加日志记录
+    return
+  }
+  emit('select', props.node)
+}
 
-<style lang="scss" scoped></style>
+// 注入
+</script>
