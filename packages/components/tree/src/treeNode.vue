@@ -44,10 +44,12 @@ import { treeNodeEmits, treeNodeProps } from './tree'
 import JvIcon from '@jovial/components/icon'
 import Loading from './icons/Loading'
 import Switcher from './icons/Switcher'
-import { computed, inject } from 'vue'
+import { computed } from 'vue'
 import JvTreeNodeContent from './tree-node-content'
-
-defineOptions({ name: 'JvTreeNode' })
+defineOptions({
+  name: 'JvTreeNode',
+  inheritAttrs: false
+})
 const props = defineProps(treeNodeProps)
 const emit = defineEmits(treeNodeEmits)
 

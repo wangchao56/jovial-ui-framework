@@ -11,12 +11,12 @@ export const virtualScrollProps = {
   },
   size: {
     type: Number,
-    default: 50
+    default: 35
   },
   itemHeight: {
     type: Number,
-    default: 50
+    default: 35
   }
 }
 
-export type VirtualSrcollProps = ExtractPropTypes<typeof virtualScrollProps>
+export type VirtualScrollProps = ExtractPropTypes<typeof virtualScrollProps>
