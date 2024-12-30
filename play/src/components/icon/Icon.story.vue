@@ -3,7 +3,7 @@ import JvIcon from "@jovial/components/icon/src/icon.vue";
 </script>
 
 <template>
-  <Story title="Bise 基础组件/Icon">
+  <Story title="Bise 基础组件/Icon 图标">
     <Variant title="Default">
       <JvIcon size="24" color="red"> <ZoomOutTwotone /> </JvIcon>
     </Variant>

@@ -16,6 +16,7 @@ export interface TreeNode extends Required<TreeOptions> {
   rawNode: TreeOptions
   children: TreeNode[]
   isLeaf: boolean
+  parentKey?: Key
 }
 
 export const treePorps = {
@@ -45,11 +46,12 @@ export const treePorps = {
     type: Function as PropType<(node: TreeOptions) => Promise<TreeOptions[]>>
   },
   //选中
-  //    默认选中
+  //    默认选中节点的 key 数组
   defaultSelectedKeys: {
     type: Array as PropType<Key[]>,
     default: () => []
   },
+
   selectedKeys: {
     type: Array as PropType<Key[]>,
     default: () => []
@@ -72,6 +74,16 @@ export const treePorps = {
   virtualScroll: {
     type: Boolean,
     default: false
+  },
+  /** 是否显示复选框 */
+  showCheckbox: {
+    type: Boolean,
+    default: false
+  },
+  //当前选中节点的 key 数组
+  defaultCheckedKeys: {
+    type: Array as PropType<Key[]>,
+    default: () => []
   }
 } as const
 
@@ -97,22 +109,36 @@ export const treeNodeProps = {
   selectedKeys: {
     type: Array as PropType<Key[]>,
     default: () => []
+  },
+  /** 是否显示复选框 */
+  showCheckbox: {
+    type: Boolean,
+    default: false
+  },
+  //  是否选中
+  checked: {
+    type: Boolean,
+    default: false
+  },
+  //  是否半选中
+  indeterminate: {
+    type: Boolean,
+    default: false
+  },
+  checkedKeys: {
+    type: Array as PropType<Key[]>,
+    default: () => []
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
-  // //  是否选中
-  // checked: {
-  //   type: Boolean,
-  //   default: false,
-  // },
-  // //  是否半选中
-  // indeterminate: {
-  //   type: Boolean,
-  //   default: false,
-  // },
 } as const
 
 export const treeNodeEmits = {
   toggle: (node: TreeNode) => true,
   select: (node: TreeNode) => true,
+  check: (node: TreeNode, checked: boolean) => typeof checked === 'boolean',
   dragStart: (node: TreeNode) => true,
   dragEnd: (node: TreeNode) => true,
   dragEnter: (node: TreeNode) => true,

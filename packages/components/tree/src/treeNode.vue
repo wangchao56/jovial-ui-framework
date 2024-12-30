@@ -26,8 +26,16 @@
         </JvIcon>
       </span>
       <!-- select-icon-->
-      <span v-if="selectable" :class="bem.e('select-icon')"></span>
-
+      <!-- <span v-if="selectable" :class="bem.e('select-icon')"></span> -->
+      <!-- 前缀 -->
+      <jv-checkbox
+        v-if="showCheckbox"
+        :model-value="props.checked"
+        :disabled="disabled"
+        :indeterminate="indeterminate"
+        @change="handleCheckboxChange"
+      ></jv-checkbox>
+      <!-- label渲染 -->
       <span :class="[bem.e('label')]" @click="handleSelect"
         ><JvTreeNodeContent :node="props.node"
       /></span>
@@ -42,6 +50,7 @@
 import { createNamespace } from '@jovial/utils'
 import { treeNodeEmits, treeNodeProps } from './tree'
 import JvIcon from '@jovial/components/icon'
+import JvCheckbox from '@jovial/components/checkbox'
 import Loading from './icons/Loading'
 import Switcher from './icons/Switcher'
 import { computed } from 'vue'
@@ -70,5 +79,8 @@ const handleSelect = () => {
   emit('select', props.node)
 }
 
+function handleCheckboxChange(checked: boolean) {
+  emit('check', props.node, checked)
+}
 // 注入
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div :class="bem.b()">
     <jv-virtual-scroll
-      v-if="props.virtualScroll"
+      v-if="props.virtualScroll && flattenTree.length"
       :items="flattenTree"
       :remain="8"
       :size="35"
@@ -17,8 +17,13 @@
           :expanded="isExpanded(_node)"
           :loading-keys="loadingKeysRef"
           :selected-keys="selectedKeysRef"
+          :show-checkbox="props.showCheckbox"
+          :checked="isChecked(_node)"
+          :disabled="isDisabled(_node)"
+          :indeterminate="isIndeterminate(_node)"
           @toggle="toggleNode"
           @select="selectNode"
+          @check="checkNode"
         >
         </jv-tree-node>
       </template>
@@ -35,8 +40,13 @@
         :expanded="isExpanded(node)"
         :loading-keys="loadingKeysRef"
         :selected-keys="selectedKeysRef"
+        :show-checkbox="props.showCheckbox"
+        :checked="isChecked(node)"
+        :disabled="isDisabled(node)"
+        :indeterminate="isIndeterminate(node)"
         @toggle="toggleNode"
         @select="selectNode"
+        @check="checkNode"
       >
       </jv-tree-node>
     </template>
@@ -44,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide, ref, unref, useSlots, watch } from 'vue'
+import { computed, onMounted, provide, ref, unref, useSlots, watch } from 'vue'
 import { treePorps, createOptions, treeEmits, treeInjectKey } from './tree'
 import type { Key, TreeNode, TreeOptions } from './tree'
 import { createNamespace } from '@jovial/utils/index'
@@ -82,7 +92,8 @@ function createTree(
         level: parent ? parent.level + 1 : 0,
         //判断 是否是叶子节点
         isLeaf: item.isLeaf ?? children.length === 0,
-        disabled: !!item.disabled
+        disabled: !!item.disabled,
+        parentKey: parent?.key
       }
 
       if (children.length > 0) {
@@ -135,6 +146,23 @@ const flattenTree = computed(() => {
 
 function isExpanded(node: TreeNode) {
   return expandedKeysSet.value.has(node.key)
+}
+
+const checkedKeysSetRef = ref(new Set(props.defaultCheckedKeys))
+
+function isChecked(node: TreeNode) {
+  // return props.checkedKeys?.includes(node.key)
+  return checkedKeysSetRef.value.has(node.key)
+}
+
+const indeterminateRefs = ref<Set<Key>>(new Set())
+
+function isIndeterminate(node: TreeNode) {
+  return indeterminateRefs.value.has(node.key)
+}
+
+function isDisabled(node: TreeNode) {
+  return !!node.disabled
 }
 
 const loadingKeysRef = ref<Set<Key>>(new Set())
@@ -221,4 +249,87 @@ function selectNode(node: TreeNode) {
   // 触发 update:selectedKeys 事件，传递更新后的 selectedKeys
   emit('update:selectedKeys', selectedKeys)
 }
+
+//自上而下的更新选中状态
+function toggleCheckKeys(node: TreeNode, checked: boolean) {
+  let checkedKeys = checkedKeysSetRef.value
+  if (checked) {
+    // 添加节点到选中状态
+    checkedKeys.add(node.key)
+    indeterminateRefs.value.delete(node.key)
+  } else {
+    // 从选中状态中移除节点
+    checkedKeys.delete(node.key)
+  }
+
+  const children = node.children
+  if (children) {
+    // 遍历子节点，根据父节点的选中状态更新它们的选中状态
+    for (const child of children) {
+      if (!child.disabled) {
+        toggleCheckKeys(child, checked)
+      }
+    }
+  }
+}
+
+function findNode(key: Key) {
+  return flattenTree.value.find((item) => item.key === key)
+}
+
+function updateCheckedKeys(node: TreeNode) {
+  // 检查节点是否有父节点
+  if (node.parentKey) {
+    // 找到父节点
+    const parentNode = findNode(node.parentKey)
+
+    if (parentNode) {
+      let allChecked = true // 默认状态：所有子节点都被选中
+      let hasChecked = false // 用于跟踪是否有任意子节点被选中
+
+      const nodes = parentNode.children // 获取父节点的所有子节点
+      for (const childNode of nodes) {
+        // 检查子节点是否被选中
+        if (checkedKeysSetRef.value.has(childNode.key)) {
+          hasChecked = true // 如果子节点被选中, 设置 hasChecked 为 true
+        } else if (indeterminateRefs.value.has(childNode.key)) {
+          allChecked = false // 如果子节点为不确定状态, 设置 allChecked 为 false
+          hasChecked = true // 同时有被选中的子节点
+        } else {
+          allChecked = false // 如果子节点未被选中, 设置 allChecked 为 false
+        }
+      }
+
+      // 根据子节点的状态更新父节点的状态
+      if (allChecked) {
+        checkedKeysSetRef.value.add(parentNode.key) // 如果所有子节点都被选中, 父节点也标记为选中
+        indeterminateRefs.value.delete(parentNode.key) // 移除父节点的不确定状态
+      } else if (hasChecked) {
+        checkedKeysSetRef.value.delete(parentNode.key) // 如果有被选中的子节点, 移除父节点的选中状态
+        indeterminateRefs.value.add(parentNode.key) // 父节点设置为不确定状态
+      } else {
+        checkedKeysSetRef.value.delete(parentNode.key) // 如果没有子节点被选中, 移除父节点的选中状态
+        indeterminateRefs.value.delete(parentNode.key) // 移除父节点的不确定状态
+      }
+
+      // 递归更新父节点的父节点
+      updateCheckedKeys(parentNode)
+    }
+  }
+}
+// 实现级联选择
+function checkNode(node: TreeNode, checked: boolean) {
+  console.log('checkNode', node, checked)
+  toggleCheckKeys(node, checked)
+  updateCheckedKeys(node)
+}
+
+onMounted(() => {
+  props.defaultCheckedKeys.forEach((key) => {
+    const node = findNode(key)
+    if (node) {
+      toggleCheckKeys(node, true)
+    }
+  })
+})
 </script>

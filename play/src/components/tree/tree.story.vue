@@ -90,7 +90,7 @@ watch(
 </script>
 
 <template>
-  <Story title="Tree 树形控件">
+  <Story title="数据展示组件/Tree 树形控件">
     <Variant title="默认">
       <jv-tree
         :data="data"
@@ -109,7 +109,7 @@ watch(
         :on-load="handleLoadData"
       ></jv-tree>
     </Variant>
-    <Variant title="可选择的">
+    <Variant title="可选择节点">
       <jv-tree
         :data="asyncData"
         label-field="label"
@@ -120,7 +120,7 @@ watch(
         selectable
       ></jv-tree>
     </Variant>
-    <Variant title="多选">
+    <Variant title="多选节点">
       <jv-tree
         :data="asyncData"
         label-field="label"
@@ -142,7 +142,7 @@ watch(
         selectable
       ></jv-tree>
     </Variant>
-    <Variant title="自定以节点">
+    <Variant title="自定义节点">
       <jv-tree
         :data="data"
         label-field="value"
@@ -163,6 +163,20 @@ watch(
         label-field="name"
         children-field="children"
         :virtual-scroll="true"
+      >
+        <template #default="{ node }">
+          <div>{{ node.key || 'key' }} - {{ node.label || '' }}</div>
+        </template>
+      </jv-tree>
+    </Variant>
+    <Variant title="级联选择">
+      <jv-tree
+        :data="data"
+        key-field="id"
+        label-field="value"
+        children-field="children"
+        :show-checkbox="true"
+        :default-checked-keys="['40']"
       >
         <template #default="{ node }">
           <div>{{ node.key || 'key' }} - {{ node.label || '' }}</div>

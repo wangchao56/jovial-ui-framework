@@ -1,20 +1,41 @@
 <template>
   <div :class="bem.b()">
-    <sapn :class="bem.e('input')">
-      <input type="checkbox" />
-    </sapn>
-    <sapn v-if="$slots.default || label" :class="bem.e('label')">
-      <slot></slot>
-      <template v-if="!$slots.default">
-        {{ label }}
-      </template>
-    </sapn>
+    <span :class="bem.e('input')">
+      <input
+        type="checkbox"
+        v-model="model"
+        ref="checkboxInputRef"
+        :disabled="disabled"
+        @change="handleChange"
+      />
+    </span>
+    <!-- 使用 span 标签并修复拼写错误 -->
+    <span v-if="$slots.default || label" :class="bem.e('label')">
+      <!-- 使用插槽的默认内容或显示 label -->
+      <slot v-if="$slots.default">{{ $slots.default }}</slot>
+      <span v-else>{{ label }}</span>
+    </span>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, useModel, watch } from 'vue'
 import { createNamespace } from '@jovial/utils'
-import { checkboxProps } from './checkbox'
-const bem = createNamespace('checkbox')
+import { checkboxEmits, checkboxProps } from './checkbox'
+defineOptions({ name: 'jv-checkbox' })
 const props = defineProps(checkboxProps)
+const emit = defineEmits(checkboxEmits)
+const bem = createNamespace('checkbox')
+const model = useModel(props, 'modelValue')
+const checkboxInputRef = ref<HTMLInputElement>()
+
+function handleChange(_: Event) {
+  emit('change', model.value)
+}
+function indeterminate(val: boolean) {
+  if (!checkboxInputRef.value) return // 待实现
+  // 待实现
+  checkboxInputRef.value!.indeterminate = val
+}
+watch(() => props.indeterminate, indeterminate)
 </script>
