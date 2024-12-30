@@ -1,7 +1,7 @@
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "Switcher",
+  name: 'Switcher',
   render() {
     return (
       <svg
@@ -13,6 +13,6 @@ export default defineComponent({
       >
         <path d="M7,10L12,15L17,10H7Z"></path>
       </svg>
-    );
-  },
-});
+    )
+  }
+})

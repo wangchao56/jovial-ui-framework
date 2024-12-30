@@ -1,64 +1,64 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import JvTree, { type TreeOptions } from "@jovial/components/tree";
+import { ref, watch } from 'vue'
+import JvTree, { type TreeOptions } from '@jovial/components/tree'
 /**
  * 创建数据
  */
-function createData(level: number, parentKey = ""): TreeOptions[] {
-  if (!level) return [];
-  const arr = new Array(6 - level).fill(0);
+function createData(level: number, parentKey = ''): TreeOptions[] {
+  if (!level) return []
+  const arr = new Array(6 - level).fill(0)
   return arr.map((_, index) => {
-    const key = parentKey + level + index;
+    const key = parentKey + level + index
     return {
       id: key,
       value: createLabel(level),
       children: createData(level - 1, key),
-      disabled: level == 1,
-    };
-  });
+      disabled: level == 1
+    }
+  })
 }
 
 function createAsyncData() {
   return [
     {
-      key: "1",
+      key: '1',
       label: nextLabel(),
-      isLeaf: false,
+      isLeaf: false
     },
     {
-      key: "2",
+      key: '2',
       label: nextLabel(),
-      isLeaf: false,
-    },
-  ];
+      isLeaf: false
+    }
+  ]
 }
 
 function createLabel(level: number): string {
-  if (level === 4) return "道生一";
-  if (level === 3) return `一生二`;
-  if (level === 2) return `二生三`;
-  if (level === 1) return `三生万物`;
+  if (level === 4) return '道生一'
+  if (level === 3) return `一生二`
+  if (level === 2) return `二生三`
+  if (level === 1) return `三生万物`
 
-  return "";
+  return ''
 }
 
 function nextLabel(currentLabel?: string | number): string {
   if (!currentLabel) {
-    return "Out of Tao, One is born";
+    return 'Out of Tao, One is born'
   }
-  if (currentLabel === "Out of Tao, One is born") {
-    return "Out of One, Two";
+  if (currentLabel === 'Out of Tao, One is born') {
+    return 'Out of One, Two'
   }
-  if (currentLabel === "Out of One, Two") {
-    return "Out of Two, Three";
+  if (currentLabel === 'Out of One, Two') {
+    return 'Out of Two, Three'
   }
-  if (currentLabel === "Out of Two, Three") {
-    return "Out of Three, the created universe";
+  if (currentLabel === 'Out of Two, Three') {
+    return 'Out of Three, the created universe'
   }
-  if (currentLabel === "Out of Three, the created universe") {
-    return "Out of Tao, One is born";
+  if (currentLabel === 'Out of Three, the created universe') {
+    return 'Out of Tao, One is born'
   }
-  return ""; // 处理未知标签的情况
+  return '' // 处理未知标签的情况
 }
 
 function handleLoadData(node: TreeOptions): Promise<TreeOptions[]> {
@@ -68,23 +68,23 @@ function handleLoadData(node: TreeOptions): Promise<TreeOptions[]> {
         {
           key: node.key + nextLabel(node.label as string),
           label: nextLabel(node.label as string),
-          isLeaf: false,
-        },
-      ]);
-    }, 2000);
-  });
+          isLeaf: false
+        }
+      ])
+    }, 2000)
+  })
 }
 
-const data = ref(createData(4));
-const asyncData = ref(createAsyncData());
+const data = ref(createData(4))
+const asyncData = ref(createAsyncData())
 
-const selectedKeys = ref([]);
+const selectedKeys = ref([])
 watch(
   () => selectedKeys.value,
   () => {
-    console.log("selectedKeys", selectedKeys);
+    console.log('selectedKeys', selectedKeys)
   }
-);
+)
 </script>
 
 <template>
@@ -182,36 +182,36 @@ watch(
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import JvTree from "@jovial/components/tree";
+import { ref } from 'vue'
+import JvTree from '@jovial/components/tree'
 
 // 示例树形数据
 const treeData = ref([
   {
-    id: "1",
-    name: "节点1",
+    id: '1',
+    name: '节点1',
     children: [
       {
-        id: "1-1",
-        name: "子节点1-1",
+        id: '1-1',
+        name: '子节点1-1'
       },
       {
-        id: "1-2",
-        name: "子节点1-2",
+        id: '1-2',
+        name: '子节点1-2',
         children: [
           {
-            id: "1-2-1",
-            name: "孙子节点1-2-1",
-          },
-        ],
-      },
-    ],
+            id: '1-2-1',
+            name: '孙子节点1-2-1'
+          }
+        ]
+      }
+    ]
   },
   {
-    id: "2",
-    name: "节点2",
-  },
-]);
+    id: '2',
+    name: '节点2'
+  }
+])
 </script>
 ```
 
