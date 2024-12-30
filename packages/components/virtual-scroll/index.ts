@@ -1,5 +1,5 @@
 /**
- * tree 组件的设计规范
+ * _virtualScroll 组件的设计规范
  */
 import _virtualScroll from './src/virtual-scroll'
 import { withInstall } from '@jovial/utils'
