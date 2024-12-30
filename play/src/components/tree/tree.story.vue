@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import JvTree, { type TreeOptions } from '@jovial/components/tree'
+import { virtualDataTemp } from '@jovial/utils'
 /**
  * 创建数据
  */
@@ -79,6 +80,7 @@ const data = ref(createData(4))
 const asyncData = ref(createAsyncData())
 
 const selectedKeys = ref([])
+const virtualData = virtualDataTemp.list
 watch(
   () => selectedKeys.value,
   () => {
@@ -148,6 +150,19 @@ watch(
         children-field="children"
         v-model:selected-keys="selectedKeys"
         selectable
+      >
+        <template #default="{ node }">
+          <div>{{ node.key || 'key' }} - {{ node.label || '' }}</div>
+        </template>
+      </jv-tree>
+    </Variant>
+    <Variant title="虚拟滚动">
+      <jv-tree
+        :data="virtualData"
+        key-field="id"
+        label-field="name"
+        children-field="children"
+        :virtual-scroll="true"
       >
         <template #default="{ node }">
           <div>{{ node.key || 'key' }} - {{ node.label || '' }}</div>

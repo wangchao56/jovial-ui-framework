@@ -1,23 +1,45 @@
 <template>
   <div :class="bem.b()">
-    <jv-tree-node
-      v-for="node in flattenTree"
-      :node="node"
-      :key="node.key"
-      :label="node.label"
-      :is-leaf="node.isLeaf"
-      :level="node.level"
-      :raw-node="node.rawNode"
-      :expanded="isExpanded(node)"
-      :loading-keys="loadingKeysRef"
-      :selected-keys="selectedKeysRef"
-      @toggle="toggleNode"
-      @select="selectNode"
+    <jv-virtual-scroll
+      v-if="props.virtualScroll"
+      :items="flattenTree"
+      :remain="8"
+      :size="35"
     >
-      <template #suffix>
-        <div>后缀</div>
+      <template #default="{ node: _node }">
+        <jv-tree-node
+          :node="_node"
+          :key="_node.label"
+          :label="_node.label"
+          :is-leaf="_node.isLeaf"
+          :level="_node.level"
+          :raw-node="_node.rawNode"
+          :expanded="isExpanded(_node)"
+          :loading-keys="loadingKeysRef"
+          :selected-keys="selectedKeysRef"
+          @toggle="toggleNode"
+          @select="selectNode"
+        >
+        </jv-tree-node>
       </template>
-    </jv-tree-node>
+    </jv-virtual-scroll>
+    <template v-else>
+      <jv-tree-node
+        v-for="node in flattenTree"
+        :node="node"
+        :key="node.key"
+        :label="node.label"
+        :is-leaf="node.isLeaf"
+        :level="node.level"
+        :raw-node="node.rawNode"
+        :expanded="isExpanded(node)"
+        :loading-keys="loadingKeysRef"
+        :selected-keys="selectedKeysRef"
+        @toggle="toggleNode"
+        @select="selectNode"
+      >
+      </jv-tree-node>
+    </template>
   </div>
 </template>
 
@@ -27,6 +49,8 @@ import { treePorps, createOptions, treeEmits, treeInjectKey } from './tree'
 import type { Key, TreeNode, TreeOptions } from './tree'
 import { createNamespace } from '@jovial/utils/index'
 import JvTreeNode from './treeNode.vue'
+import JvVirtualScroll from '../../virtual-scroll/index'
+
 const props = defineProps(treePorps)
 const emit = defineEmits(treeEmits)
 defineOptions({ name: 'jv-tree' })

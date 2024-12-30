@@ -68,6 +68,10 @@ export const treePorps = {
   multiple: {
     type: Boolean,
     default: false
+  },
+  virtualScroll: {
+    type: Boolean,
+    default: false
   }
 } as const
 

@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 import { createNamespace } from '@jovial/utils'
-import { treeInjectKey, treeNodeEmits, treeNodeProps } from './tree'
+import { treeNodeEmits, treeNodeProps } from './tree'
 import JvIcon from '@jovial/components/icon'
 import Loading from './icons/Loading'
 import Switcher from './icons/Switcher'
