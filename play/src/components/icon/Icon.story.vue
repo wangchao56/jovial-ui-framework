@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import JvIcon from "@jovial/components/icon/src/icon.vue";
+import JvIcon from '@jovial/components/icon/src/icon.vue'
 </script>
 
 <template>
   <Story title="Bise 基础组件/Icon 图标">
     <Variant title="Default">
-      <JvIcon size="24" color="red"> <ZoomOutTwotone /> </JvIcon>
+      <JvIcon :size="24" color="red"> <ZoomOutTwotone /> </JvIcon>
     </Variant>
     <Variant title="demo2">
       <JvIcon size="24" color="red">2324 </JvIcon>
