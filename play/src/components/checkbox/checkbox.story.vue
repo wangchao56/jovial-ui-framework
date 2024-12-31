@@ -10,7 +10,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <Story title="Bise 基础组件/CheckBox多选组件">
+  <Story title="基础组件/CheckBox多选组件">
     <Variant title="Default">
       <jv-checkbox
         v-model="checked"
