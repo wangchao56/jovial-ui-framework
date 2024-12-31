@@ -1,7 +1,26 @@
+// .eslintrc.js
 {
-  "plugins": ["prettier"],
-  "extends": ["plugin:prettier/recommended"],
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "plugins": ["vue", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "parser": "@typescript-eslint/parser",
+    "sourceType": "module"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended",
+    "plugin:prettier/recommended" // 这里确保包括 prettier 的推荐配置
+  ],
   "rules": {
-    "prettier/prettier": "error"
+    // 在这里添加您的其他规则\
+    "vue/html-self-closing": "off",
+    "vue/max-attributes-per-line": "off",
+    "vue/singleline-html-element-content-newline": "off",
+    "vue/multi-word-component-names": "off"
   }
 }
