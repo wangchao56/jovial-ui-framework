@@ -1,0 +1,65 @@
+@use 'mixins/mixins.scss' as *;
+
+@include b('space') {
+  min-width: 100%;
+  min-height: max-content;
+  display: flex;
+  flex-wrap: nowrap;
+  row-gap: var(--space-vertical-size);
+  column-gap: var(--space-size);
+  overflow: hidden;
+  padding: 16px;
+  box-sizing: border-box;
+  // 方向
+  @include m('horizontal') {
+    flex-direction: row;
+  }
+  @include m('vertical') {
+    flex-direction: column;
+  }
+
+  @include m('wrap') {
+    flex-wrap: wrap;
+  }
+  @include m('inline') {
+    display: inline-flex;
+  }
+
+  // 主轴
+
+  @include m('justify-start') {
+    justify-content: flex-start !important;
+  }
+  @include m('justify-center') {
+    justify-content: center;
+  }
+  @include m('justify-end') {
+    justify-content: flex-end;
+  }
+  @include m('justify-between') {
+    justify-content: space-between;
+  }
+  @include m('justify-around') {
+    justify-content: space-around;
+  }
+  @include m('justify-evenly') {
+    justify-content: space-evenly;
+  }
+
+  // 交叉轴
+  @include m('align-start') {
+    align-items: flex-start;
+  }
+  @include m('align-center') {
+    align-items: center;
+  }
+  @include m('align-end') {
+    align-items: flex-end;
+  }
+  @include m('align-stretch') {
+    align-items: stretch;
+  }
+  @include m('align-baseline') {
+    align-items: baseline;
+  }
+}

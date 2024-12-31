@@ -1,10 +1,10 @@
 // 设置bem 规范的变量
-@use "config" as *;
-@forward "config";
+@use 'config' as *;
+@forward 'config';
 
 // .jv-button
 @mixin b($block) {
-  $B: $namespace + "-" + $block;
+  $B: $namespace + '-' + $block;
   .#{$B} {
     @content;
   }
@@ -37,10 +37,8 @@
   }
 }
 
-
-
 @mixin button-variant($color, $background-color, $border-color) {
-  color: $color;
-  background-color: $background-color;
-  border-color: $border-color;
+  color: $color !important;
+  background-color: $background-color !important;
+  border-color: $border-color !important;
 }

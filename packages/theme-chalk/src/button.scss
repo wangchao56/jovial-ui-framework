@@ -2,94 +2,194 @@
 @use 'common/var.scss' as *;
 
 @include b('button') {
-  // 按钮样式
+  --jv-text-color-disabled: hsl(210, 6%, 21%);
+  --jv-btn-color: 0, 0%, 0%;
+  --jv-btn-bgcolor: 0, 0%, 100%;
+  font-family: 'Roboto', sans-serif;
   align-items: center;
-  display: inline-flex;
-  cursor: pointer;
-  outline: none;
-  border: #fafafa;
-  border-radius: 5px;
+  display: inline-grid;
+  grid-template-areas: 'prepend content append';
+  grid-template-columns: max-content auto max-content;
+  font-weight: 500;
+  justify-content: center;
+  letter-spacing: 0.0892857em;
+  line-height: normal;
+  max-width: 100%;
+  position: relative;
+  text-indent: 0.0892857em;
+  text-transform: uppercase;
+  transition-property: box-shadow, transform, opacity, background;
+  transition-duration: 0.28s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
-  min-height: 40px;
-  line-height: 1;
   vertical-align: middle;
-  padding: 0 20px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  outline: none;
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  @include e('prepend') {
+    grid-area: prepend;
+    justify-self: start;
+  }
+  @include e('append') {
+    grid-area: append;
+    justify-self: end;
+  }
+
+  // @include e('loader') {
+  //   ~ .jv-button__content {
+  //   }
+  // }
+
+  @include when('loading') {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    & > .jv-button__content {
+      visibility: hidden;
+      opacity: 0;
+    }
+    & > .jv-button__loader {
+      grid-area: content;
+      justify-self: center;
+    }
+  }
+
+  @include e('content') {
+    grid-area: content;
+    flex-direction: column;
+    line-height: 1.25;
+    font-size: 1rem;
+    color: hsl(var(--jv-btn-color));
+    background-color: hsla(var(--jv-btn-bgcolor), 0.04);
+    border-radius: inherit;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  @include when('stacked') {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    --jv-btn-height: 66px;
+    height: var(--jv-btn-height);
+  }
 
   @include m('tiny') {
+    --jv-btn-size: 0.625rem;
+    --jv-btn-height: 20px;
+    height: var(--jv-btn-height);
     padding: 0 15px;
+    & > .jv-button__content {
+      font-size: var(--jv-btn-size) !important;
+    }
   }
-
   @include m('small') {
+    --jv-btn-size: 0.75rem;
+    --jv-btn-height: 28px;
+    height: var(--jv-btn-height);
     padding: 0 18px;
+    & > .jv-button__content {
+      font-size: var(--jv-btn-size) !important;
+    }
   }
   @include m('medium') {
+    --jv-btn-size: 0.875rem;
+    --jv-btn-height: 36px;
+    height: var(--jv-btn-height);
     padding: 0 20px;
+    & > .jv-button__content {
+      font-size: var(--jv-btn-size) !important;
+    }
   }
-
   @include m('large') {
+    --jv-btn-size: 1rem;
+    --jv-btn-height: 44px;
+    height: var(--jv-btn-height);
     padding: 0 22px;
+    & > .jv-button__content {
+      font-size: var(--jv-btn-size) !important;
+    }
   }
   @include m('x-large') {
-    padding: 0 25px;
+    --jv-btn-size: 1.125rem;
+    --jv-btn-height: 52px;
+    height: var(--jv-btn-height);
+    padding: 0px 25px;
+    & > .jv-button__content {
+      font-size: var(--jv-btn-size) !important;
+    }
   }
 
   @include when('disabled') {
-    // 不可用状态处理
+    opacity: 0.6;
+    border: 1px solid var(--jv-text-color-disabled);
+    & > .jv-button__content {
+      color: var(--jv-text-color-disabled);
+      cursor: not-allowed;
+    }
+
     &:hover,
     &:focus {
+      background-color: transparent;
+      box-shadow: none;
       cursor: not-allowed;
     }
   }
+
   @include when('rounded') {
     border-radius: 50px;
   }
-
   @include when('dashed') {
     border: 1px dashed;
     background-color: transparent;
     padding: 0 19px;
   }
   @include when('block') {
-    display: block;
+    display: block inline-grid;
     width: 100%;
-  }
+  } // 按钮type颜色样式
 
-  // 按钮type颜色样式
+  @include m('default') {
+    //  移除背景颜色和阴影
+    padding: 0 16x;
+  }
   @include m('primary') {
     @include button-variant($color-white, $color-primary, $color-primary);
   }
-
   @include m('success') {
     @include button-variant($color-white, $color-success, $color-success);
   }
-
   @include m('warning') {
     @include button-variant($color-white, $color-warning, $color-warning);
   }
-
   @include m('info') {
     @include button-variant($color-white, $color-info, $color-info);
   }
-
   @include m('danger') {
     @include button-variant($color-white, $color-danger, $color-danger);
   }
-
   // 按钮变体样式
+
   @include m('text') {
     //  移除背景颜色和阴影
     background-color: transparent;
     box-shadow: none;
   }
-
   @include m('flat') {
     //   移除按钮的阴影效果
     box-shadow: none;
   }
-
   @include m('tonal') {
     // 按钮的背景颜色被设为文字颜色的高透明度版本
-    background-color: rgba($color-primary, 0.1);
+    background-color: hsla(var(--jv-btn-color), 0.1) !important;
   }
   @include m('plain') {
     //   移除背景颜色并且在未悬停时降低透明度
@@ -105,12 +205,13 @@
     background-color: transparent;
     padding: 0 19px;
   }
-
   @include m('elevated') {
     // 使用按钮的阴影强调
     box-shadow:
       0px 3px 1px -2px rgba(0, 0, 0, 0.2),
       0px 2px 2px rgba(0, 0, 0, 0.14),
       0px 1px 5px rgba(0, 0, 0, 0.12);
+    color: rgba(var(--jv-theme-on-surface), var(--jv-high-emphasis-opacity));
+    background: rgb(var(--jv-theme-surface));
   }
 }

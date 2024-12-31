@@ -1,4 +1,4 @@
-@use "mixins/mixins.scss" as *;
+@use 'mixins/mixins.scss' as *;
 
 @keyframes spin {
   0% {
@@ -8,16 +8,59 @@
     transform: rotate(360deg);
   }
 }
-@include b("icon") {
+@include b('icon') {
   display: inline-block;
-  width: 1.5rem;
-  height: min-content;
-  font-size: 1.5rem !important;
-  line-height: 1.5rem !important;
   vertical-align: middle;
   text-align: center;
-  font-style: normal;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+
   svg.loading {
     animation: spin 1s linear infinite;
+  }
+
+  @include m('tiny') {
+    --jv-icon-size: 16px;
+    font-size: var(--jv-icon-size);
+    height: var(--jv-icon-size);
+    width: var(--jv-icon-size);
+    line-height: var(--jv-icon-size);
+    max-height: var(--jv-icon-size);
+  }
+  @include m('small') {
+    --jv-icon-size: 20px;
+
+    font-size: var(--jv-icon-size);
+    height: var(--jv-icon-size);
+    width: var(--jv-icon-size);
+    line-height: var(--jv-icon-size);
+    max-height: var(--jv-icon-size);
+  }
+  @include m('medium') {
+    --jv-icon-size: 28px;
+
+    font-size: var(--jv-icon-size);
+    height: var(--jv-icon-size);
+    width: var(--jv-icon-size);
+    line-height: var(--jv-icon-size);
+    max-height: var(--jv-icon-size);
+  }
+  @include m('large') {
+    --jv-icon-size: 36px;
+    font-size: var(--jv-icon-size);
+    height: var(--jv-icon-size);
+    width: var(--jv-icon-size);
+    line-height: var(--jv-icon-size);
+    max-height: var(--jv-icon-size);
+  }
+  @include m('x-large') {
+    --jv-icon-size: 44px;
+    font-size: var(--jv-icon-size);
+    height: var(--jv-icon-size);
+    width: var(--jv-icon-size);
+    line-height: var(--jv-icon-size);
+    max-height: var(--jv-icon-size);
   }
 }
