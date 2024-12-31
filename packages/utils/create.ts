@@ -27,16 +27,16 @@ function _bem(
   modifier: string
 ) {
   if (blockSuffix) {
-    prefixName += `-${blockSuffix}`;
+    prefixName += `-${blockSuffix}`
   }
 
   if (element) {
-    prefixName += `__${element}`;
+    prefixName += `__${element}`
   }
   if (modifier) {
-    prefixName += `--${modifier}`;
+    prefixName += `--${modifier}`
   }
-  return prefixName;
+  return prefixName
 }
 
 /**
@@ -45,24 +45,24 @@ function _bem(
  * @returns            返回一个对象，对象中包含b、e、m、be、em、bm、bem方法
  */
 function createBEM(prefixName: string) {
-  const b = (blockSuffix: string = "") => _bem(prefixName, blockSuffix, "", "");
+  const b = (blockSuffix: string = '') => _bem(prefixName, blockSuffix, '', '')
 
-  const e = (element: string) => _bem(prefixName, "", element, "");
+  const e = (element: string) => _bem(prefixName, '', element, '')
 
-  const m = (modifier: string) => _bem(prefixName, "", "", modifier);
+  const m = (modifier: string) => _bem(prefixName, '', '', modifier)
 
   const be = (blockSuffix: string, element: string) =>
-    _bem(prefixName, blockSuffix, element, "");
+    _bem(prefixName, blockSuffix, element, '')
 
   const em = (element: string, modifier: string) =>
-    _bem(prefixName, "", element, modifier);
+    _bem(prefixName, '', element, modifier)
   const bm = (blockSuffix: string, modifier: string) =>
-    _bem(prefixName, blockSuffix, "", modifier);
+    _bem(prefixName, blockSuffix, '', modifier)
   const bem = (blockSuffix: string, element: string, modifier: string) =>
-    _bem(prefixName, blockSuffix, element, modifier);
+    _bem(prefixName, blockSuffix, element, modifier)
 
   //判断状态
-  const is = (name: string, state) => (state ? `is-${name}` : "");
+  const is = (name: string, state) => (state ? `is-${name}` : '')
 
   return {
     b,
@@ -72,8 +72,8 @@ function createBEM(prefixName: string) {
     em,
     bm,
     bem,
-    is,
-  };
+    is
+  }
 }
 
 /**
@@ -82,9 +82,9 @@ function createBEM(prefixName: string) {
  * @returns            返回一个对象，对象中包含b、e、m、be、em、bm、bem方法
  */
 export function createNamespace(namespace: string) {
-  const prefixName = `jv-${namespace}`;
+  const prefixName = `jv-${namespace}`
 
-  return createBEM(prefixName);
+  return createBEM(prefixName)
 }
 
 // const bem = createNamespace("button");
