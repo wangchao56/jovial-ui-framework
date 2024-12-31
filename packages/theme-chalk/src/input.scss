@@ -1,0 +1,99 @@
+@use 'mixins/mixins.scss' as *;
+
+@include b('input') {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  // width: 100%;
+  width: max-content;
+  border: 1px solid #ccc;
+
+  @include e('wrapper') {
+    box-sizing: border-box;
+    display: inline-flex;
+    border: 1px solid #ccc;
+    flex: 1;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s;
+    padding-right: 5px;
+    padding-left: 5px;
+    &:focus-within {
+      border-color: #409eff;
+      outline: 0;
+      box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+    }
+  }
+
+  @include e('inner') {
+    flex: 1;
+    border: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    padding: 0 8px;
+    height: 32px;
+    box-sizing: border-box;
+    background-color: transparent;
+    font-size: medium;
+    &::placeholder {
+      color: #c0c4cc;
+      font-size: 14px;
+    }
+  }
+
+  @include e('suffix') {
+    display: inline-flex;
+    margin-right: 5px;
+  }
+
+  @include e('prefix') {
+    display: inline-flex;
+    margin-left: 5px;
+  }
+
+  @include e('toggle') {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    &:hover {
+      color: #909399;
+    }
+    & > svg {
+      color: #c0c4cc;
+    }
+    & > i {
+      color: #c0c4cc;
+    }
+  }
+
+  @include e('clear') {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    &:hover {
+      color: #909399;
+    }
+    & > svg {
+      color: #c0c4cc;
+    }
+  }
+
+  @include m('disabled') {
+  }
+
+  @include m('large') {
+  }
+  @include m('small') {
+  }
+  @include m('tiny') {
+  }
+  @include m('medium') {
+  }
+}
