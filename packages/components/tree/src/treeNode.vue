@@ -51,8 +51,8 @@ import { createNamespace } from '@jovial/utils'
 import { treeNodeEmits, treeNodeProps } from './tree'
 import JvIcon from '@jovial/components/icon'
 import JvCheckbox from '@jovial/components/checkbox'
-import Loading from './icons/Loading'
-import Switcher from './icons/Switcher'
+import Loading from '../../internal-icon/Loading'
+import Switcher from '../../internal-icon/Switcher'
 import { computed } from 'vue'
 import JvTreeNodeContent from './tree-node-content'
 defineOptions({
@@ -79,8 +79,8 @@ const handleSelect = () => {
   emit('select', props.node)
 }
 
-function handleCheckboxChange(checked: boolean) {
-  emit('check', props.node, checked)
+function handleCheckboxChange(_checked: boolean) {
+  emit('check', props.node, _checked)
 }
 // 注入
 </script>
