@@ -1,8 +1,10 @@
 import { ExtractPropTypes, PropType } from 'vue'
 
+import { Size } from '../../button'
+
 export const iconProps = {
   size: {
-    type: [String, Number] as PropType<string | number>,
+    type: [String, Number] as PropType<Size| string | number>,
     default: '1em'
   },
   color: {
