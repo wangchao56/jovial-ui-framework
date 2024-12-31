@@ -22,7 +22,7 @@
 // &--primary => .z-button--primary
 @mixin m($modifier) {
   @at-root {
-    #{& + $element-separator + $modifier} {
+    #{& + $modifier-separator + $modifier} {
       @content;
     }
   }
@@ -35,4 +35,12 @@
       @content;
     }
   }
+}
+
+
+
+@mixin button-variant($color, $background-color, $border-color) {
+  color: $color;
+  background-color: $background-color;
+  border-color: $border-color;
 }
