@@ -25,7 +25,25 @@ enum TypeOptions {
   'Number' = '[object Number]',
   'Number&NaN' = '[object Number]',
   'RegExp' = '[object RegExp]',
-  'String' = '[object String]'
+  'String' = '[object String]',
+  'Undefined' = '[object Undefined]',
+  'Error' = '[object Error]',
+  'Symbol' = '[object Symbol]',
+  'Map' = '[object Map]',
+  'Set' = '[object Set]',
+  'WeakMap' = '[object WeakMap]',
+  'WeakSet' = '[object WeakSet]',
+  'Int8Array' = '[object Int8Array]',
+  'Uint8Array' = '[object Uint8Array]',
+  'Uint8ClampedArray' = '[object Uint8ClampedArray]',
+  'Int16Array' = '[object Int16Array]',
+  'Uint16Array' = '[object Uint16Array]',
+  'Int32Array' = '[object Int32Array]',
+  'Uint32Array' = '[object Uint32Array]',
+  'Float32Array' = '[object Float32Array]',
+  'Float64Array' = '[object Float64Array]',
+  'BigInt64Array' = '[object BigInt64Array]',
+  'BigUint64Array' = '[object BigUint64Array]'
 }
 
 /**
@@ -110,6 +128,56 @@ function isString(value: any): boolean {
   return getType(value) === TypeOptions.String
 }
 
+//判断是否为空
+function isEmpty(value: any): boolean {
+  if (isArray(value) || isString(value)) {
+    return value.length === 0
+  }
+  if (isNumberExcludeNaN(value)) {
+    return false
+  }
+  if (isObject(value)) {
+    return Object.keys(value).length === 0
+  }
+
+  return !value
+}
+/** 是否为undfined  */
+function isUndefined(value: any): boolean {
+  return getType(value) === TypeOptions.Undefined
+}
+
+function getNestedValue<
+  T extends {
+    [key: string]: any
+  },
+  K extends keyof T
+>(obj: T, keys: K | K[]): NonNullable<T[K]> | undefined {
+  let current: any = obj
+
+  if (Array.isArray(keys)) {
+    // 如果 keys 是数组
+    for (const key of keys) {
+      if (current && key in current) {
+        current = current[key]
+      } else {
+        return undefined // 如果某个键不存在，则返回 undefined
+      }
+    }
+  } else {
+    // 如果 keys 是单个键
+    const key = keys
+    if (current && key in current) {
+      current = current[key]
+    } else {
+      return undefined // 如果键不存在，则返回 undefined
+    }
+  }
+
+  // 使用类型断言来确保返回值的类型正确，但这里我们其实不需要显式断言，因为 TypeScript 应该能够推断出 current 的类型
+  // return current as NonNullable<T[K]>;
+  return current
+}
 export {
   isArray,
   isNull,
@@ -119,5 +187,8 @@ export {
   isNumber,
   isRegExp,
   isString,
-  isNumberExcludeNaN
+  isEmpty,
+  isUndefined,
+  isNumberExcludeNaN,
+  getNestedValue
 }

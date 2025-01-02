@@ -1,0 +1,36 @@
+@use 'mixins/mixins.scss' as *;
+
+@include b('form-item') {
+  display: inline-grid;
+  grid-template-areas:
+    'label content'
+    'error error'; /* 错误信息放置在新行 */
+
+  grid-gap: 10px; /* 设置区域之间的间距 */
+  padding: 10px; /* 内边距，使组件看起来更加整洁 */
+  border-radius: 5px; /* 圆角 */
+  background-color: #f9f9f9; /* 背景颜色 */
+
+  @include e('label') {
+    width: 45px; /* 标签宽度 */
+    text-align: end;
+    grid-area: label;
+    justify-self: end; /* 标签靠左 */
+    align-self: center;
+    font-size: 14px; /* 字体大小 */
+    font-weight: bold; /* 加粗字体 */
+    color: #333; /* 字体颜色 */
+  }
+
+  @include e('content') {
+    grid-area: content;
+  }
+
+  @include e('error') {
+    grid-area: error;
+    justify-self: center; /* 错误信息靠左 */
+    color: red; /* 错误信息字体颜色 */
+    font-size: 12px; /* 错误信息字体大小 */
+    margin-top: 5px; /* 顶部间距，确保与输入框分隔 */
+  }
+}

@@ -1,5 +1,6 @@
 import { EmitsOptions, InputHTMLAttributes, VNodeChild } from 'vue'
 import { Size } from '../../button'
+import { isString } from '@jovial/utils'
 
 export const inputProps = {} as const
 
@@ -36,17 +37,24 @@ export type InputEmits = {
   (e: 'update:modelValue', value: string): void
   (e: 'update:disabled', value: boolean): void
   (e: 'update:readonly', value: boolean): void
-  (e: 'blur'): void
-  (e: 'focus'): void
+  (e: 'blur', payload: FocusEvent): void
+  (e: 'focus', payload: FocusEvent): void
   (e: 'change', value: string | [string, string]): void
   (e: 'input', value: string | [string, string]): void
   (e: 'keydown', value: KeyboardEvent): void
+  (e: 'error', error: any): void
 }
 
 export const inputEmits: EmitsOptions = {
-  'update:modelValue': (value: string) => value !== '',
-  'update:disabled': (value: boolean) => value !== true,
-  'update:readonly': (value: boolean) => value !== true
+  'update:modelValue': (value: string) => isString(value),
+  'update:disabled': (value: boolean) => true,
+  'update:readonly': (value: boolean) => true,
+  blur: (e: FocusEvent) => e instanceof FocusEvent,
+  focus: (e: FocusEvent) => e instanceof FocusEvent,
+  change: (value: string) => isString(value),
+  input: (value: string) => isString(value),
+  keydown: (e: KeyboardEvent) => e instanceof KeyboardEvent,
+  clear: () => true
 }
 
 export type InputSlots = {
@@ -54,7 +62,7 @@ export type InputSlots = {
   prefix: (() => VNodeChild) | undefined
   suffix: (() => VNodeChild) | undefined
   prepend: (() => VNodeChild) | undefined
-  append: (() => VNodeChild) | undefined
+  append: (() => VNodeChild) | (() => string) | undefined
 }
 
 export type InputExposes = {

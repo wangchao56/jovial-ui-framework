@@ -1,12 +1,14 @@
 @use 'mixins/mixins.scss' as *;
 
 @include b('input') {
+  --jv-input-height: 36px;
+  --jv-input-toggle-width: 24px;
+
   position: relative;
   display: inline-flex;
   align-items: center;
-  // width: 100%;
-  width: max-content;
-  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
 
   @include e('wrapper') {
     box-sizing: border-box;
@@ -18,10 +20,19 @@
     transition: all 0.3s;
     padding-right: 5px;
     padding-left: 5px;
+    box-shadow:
+      1px 0 0 0 #ccc inset,
+      0 1px 0 0 #ccc inset,
+      0 -1px 0 0 #ccc inset;
     &:focus-within {
       border-color: #409eff;
+      --jv-input-shadow-color: rgba(64, 158, 255, 0.2);
       outline: 0;
-      box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+      box-shadow: 0 0 0 2px var(--jv-input-shadow-color);
+    }
+
+    &:has(.jv-input__toggle) > .jv-input__clear {
+      right: var(--jv-input-toggle-width);
     }
   }
 
@@ -32,7 +43,7 @@
     border: none;
     outline: none;
     padding: 0 8px;
-    height: 32px;
+    height: var(--jv-input-height);
     box-sizing: border-box;
     background-color: transparent;
     font-size: medium;
@@ -57,43 +68,86 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: var(--jv-input-toggle-width);
     height: 100%;
     transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     &:hover {
-      color: #909399;
+      & > .jv-icon {
+        color: #909399 !important;
+      }
     }
-    & > svg {
-      color: #c0c4cc;
-    }
-    & > i {
-      color: #c0c4cc;
+    & > .jv-icon {
+      color: #c0c4cc !important;
     }
   }
 
+  @include e('icon') {
+  }
+
   @include e('clear') {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    margin-right: 5px;
     height: 100%;
     transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     &:hover {
-      color: #909399;
+      & > .jv-icon {
+        color: #1b1c1c !important;
+      }
     }
-    & > svg {
-      color: #c0c4cc;
+    & > .jv-icon {
+      color: #c0c4cc !important;
     }
   }
 
   @include m('disabled') {
+    cursor: not-allowed;
+    & > .jv-input__wrapper {
+      background-color: #f5f7fa;
+      border-color: #e4e7ed;
+      color: #c0c4cc;
+      cursor: not-allowed;
+    }
   }
 
   @include m('large') {
   }
   @include m('small') {
+    height: 28px;
   }
   @include m('tiny') {
+    height: 24px;
   }
   @include m('medium') {
+    height: var(--jv-input-height);
+  }
+
+  @include b('input-group') {
+    @include e('append') {
+      display: inline-flex;
+      padding: 0 10px;
+      line-height: var(--jv-input-height);
+      border: 1px solid #ccc;
+      box-shadow:
+        0 0 0 1px #ccc inset,
+        0 1px 0 0 #ccc inset,
+        0 -1px 0 0 #ccc inset;
+    }
+    @include e('prepend') {
+      display: inline-flex;
+      padding: 0 10px;
+      line-height: var(--jv-input-height);
+      border: 1px solid #ccc;
+      box-shadow:
+        1px 0 0 0 #ccc inset,
+        0 1px 0 0 #ccc inset,
+        0 -1px 0 0 #ccc inset;
+    }
   }
 }

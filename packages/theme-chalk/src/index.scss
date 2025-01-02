@@ -5,6 +5,8 @@
 @use './button.scss';
 @use './space.scss';
 @use './input.scss';
+@use './form-item.scss';
+@use './form.scss';
 // 样式使用规范
 //1. 样式命名规范 bem
 //2. 颜色规范 hsl hsl(色调, 饱和度%, 明度%) hsla (色调, 饱和度%, 明度%, alpha) 使用hsla(hsl(), alpha)
