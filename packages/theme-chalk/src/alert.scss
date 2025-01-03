@@ -1,0 +1,77 @@
+@use 'mixins/mixins.scss' as *;
+
+@include b(alert) {
+  --jv-alert-color-border: #f00;
+  display: inline-grid;
+  grid-template-areas:
+    'icon header close'
+    'icon content close';
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px dashed var(--jv-alert-color-border);
+  background-color: #fff;
+  max-width: 300px; // 设置最大宽度
+  @include e(icon) {
+    grid-area: icon;
+    justify-self: start;
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+  }
+
+  @include e(header) {
+    grid-area: header;
+    justify-self: start;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  @include e(content) {
+    width: 100%;
+    grid-area: content;
+    justify-self: start;
+    font-size: 1rem;
+    line-height: 1.5;
+    white-space: nowrap; // 禁止文本换行
+    overflow: hidden; // 隐藏溢出内容
+    text-overflow: ellipsis; // 使用省略号表示溢出文本
+    cursor: pointer; // 添加鼠标指针样式，表示可点击
+  }
+
+  @include e(close) {
+    grid-area: close;
+    justify-self: end;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #666;
+    &:hover {
+      color: #333;
+    }
+  }
+
+  @include m(info) {
+    --jv-alert-color-border: #42b983;
+    background-color: #e9ecef;
+  }
+
+  @include m(success) {
+    --jv-alert-color-border: #4caf50;
+    background-color: #dff0d8;
+  }
+
+  @include m(warning) {
+    --jv-alert-color-border: #ffc107;
+    background-color: #fcf8e3;
+  }
+
+  @include m(danger) {
+    --jv-alert-color-border: #f44336;
+    background-color: #f2dede;
+  }
+
+  @include m(primary) {
+    --jv-alert-color-border: #3f51b5;
+    background-color: #3f51b5;
+  }
+}

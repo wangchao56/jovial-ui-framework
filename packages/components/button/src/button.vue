@@ -48,7 +48,7 @@ import Loading from '@jovial/components/internal-icon/Loading'
 import JvIcon from '@jovial/components/icon'
 defineOptions({
   name: 'JvButton',
-  inheritAttrs: false
+  inheritAttrs: true
 })
 const props = defineProps(buttonProps)
 defineSlots<ButtonSlots>()

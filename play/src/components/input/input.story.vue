@@ -2,6 +2,11 @@
 import JvInput from '@jovial/components/input/src/input.vue'
 import { logEvent } from 'histoire/client'
 import { reactive, ref, watchEffect } from 'vue'
+import {
+  AlternateEmailOutlined,
+  TextsmsTwotone,
+  VerifiedUserTwotone
+} from '@vicons/material'
 const username = ref('你好232')
 
 const model = reactive({

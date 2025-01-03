@@ -1,5 +1,5 @@
 ---
-group: '基础组件/button 按钮'
+group: '基础组件'
 icon: 'carbon:bookmark'
 ---
 

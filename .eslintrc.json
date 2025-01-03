@@ -13,6 +13,7 @@
   },
   "extends": [
     "eslint:recommended",
+    "@vue/typescript/recommended",
     "plugin:vue/vue3-recommended",
     "plugin:prettier/recommended" // 这里确保包括 prettier 的推荐配置
   ],

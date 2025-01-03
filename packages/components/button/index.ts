@@ -6,6 +6,7 @@ const button = withInstall(_button)
 export * from './src/button'
 
 export default button
+export type JvButtonInstance = InstanceType<typeof button>
 
 declare module 'vue' {
   export interface GlobalComponents {

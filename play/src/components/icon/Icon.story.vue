@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import JvIcon from '@jovial/components/icon/src/icon.vue'
+import { ZoomOutTwotone } from '@vicons/material'
 </script>
 
 <template>

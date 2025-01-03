@@ -1,3 +1,5 @@
+import { VNodeChild } from 'vue'
+
 export type Arrayable<T> = T | T[]
 
 export type ArrayMethodKey = keyof any[]
@@ -39,3 +41,21 @@ export type Path<T> =
         [K in keyof T]-?: PathImpl<Exclude<K, symbol>, T[K]>
       }[keyof T]
 export type FieldPath<T> = T extends object ? Path<T> : never
+
+export type Placement =
+  | 'top'
+  | 'top-start'
+  | 'top-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'left'
+  | 'left-start'
+  | 'left-end'
+  | 'right'
+  | 'right-start'
+  | 'right-end'
+
+type Slot<T extends any[] = any[]> = (...args: T) => VNodeChild
+
+export type TriggerType = 'hover' | 'click' | 'focus' | 'contextmenu'

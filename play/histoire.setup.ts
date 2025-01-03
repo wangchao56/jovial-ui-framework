@@ -1,26 +1,8 @@
-import JvIcon from '@jovial/components/icon/index'
-import JvTree from '@jovial/components/tree'
-import JvCheckbox from '@jovial/components/checkbox'
-import JvCharts from '@jovial/components/chart'
-import JvInput from '@jovial/components/input'
-import JvUpload from '@jovial/components/upload'
-import JvButton from '@jovial/components/button'
-import * as SvgVicons from '@vicons/material'
-import formComs from '@jovial/components/form'
-console.log(formComs, JvIcon)
-
-import '@jovial/theme-chalk/src/index.scss'
-const plugins = [JvIcon, JvTree, JvCheckbox, JvInput, JvButton, JvUpload]
-  .concat(Object.values(JvCharts).map((c: any) => c))
-  .concat(Object.values(formComs).map((c: any) => c))
+import { plugins } from './config'
 
 export function setupVue3({ app }) {
   app.provide('test', 'hello')
   plugins.forEach((plugin) => {
     app.use(plugin)
-  })
-
-  Object.keys(SvgVicons).forEach((key) => {
-    app.component(key, SvgVicons[key])
   })
 }
