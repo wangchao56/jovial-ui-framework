@@ -44,8 +44,8 @@ import { computed } from 'vue'
 import { createNamespace } from '@jovial/utils'
 import { ButtonEmits, buttonProps } from './button'
 import { ButtonSlots } from './button'
-import Loading from '@jovial/components/internal-icon/Loading'
-import JvIcon from '@jovial/components/icon'
+import { Loading } from '../../internal-icon/index'
+import JvIcon from '../../icon/src/icon.vue'
 defineOptions({
   name: 'JvButton',
   inheritAttrs: true

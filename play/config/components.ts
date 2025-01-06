@@ -7,6 +7,8 @@ import JvButton from '@jovial/components/button'
 import JvCalendar from '@jovial/components/calendar'
 import { JvForm, JvFormItem } from '@jovial/components/form'
 import { JvBarChart, JvLineChart, JvPieChart } from '@jovial/components/chart'
+import JvVirtualScrollList from '@jovial/components/virtual-scroll-list'
+
 import '@jovial/theme-chalk/src/index.scss'
 const plugins = [
   JvIcon,
@@ -20,7 +22,8 @@ const plugins = [
   JvBarChart,
   JvLineChart,
   JvPieChart,
-  JvCalendar
+  JvCalendar,
+  JvVirtualScrollList
 ]
 
 export { plugins }

@@ -1,10 +1,15 @@
 const fs = require('fs').promises
 const path = require('path')
-const capitalizeFirstLetter = require('./common').capitalizeFirstLetter
-const createStructure = require('./common').createStructure
+const {
+  createStructure,
+  toHumpFirstLower,
+  toHumpFirstUpper
+} = require('./common')
 // 从命令行参数获取基本目录名称
 const args = process.argv.slice(2)
 const baseNameArg = args.find((arg) => arg.startsWith('--name='))
+
+console.log(toHumpFirstLower, toHumpFirstUpper)
 
 if (!baseNameArg) {
   console.error('Please provide the base name using --name=<baseDirectoryName>')
@@ -28,13 +33,13 @@ const styleIndexFilePath = path.join(styleDirName, 'index.scss')
 // 定义组件文件和样式文件内容
 const fileContents = {
   [`${baseName}.ts`]: `
-    export const ${baseName}Props = {} as const;
-    export interface ${capitalizeFirstLetter(baseName)}Props {};
-    export const ${baseName}Emits = {} as const;
-    export type ${capitalizeFirstLetter(baseName)}Emits = {};
-    export const ${baseName}Slots = {} as const;
-    export type ${capitalizeFirstLetter(baseName)}Slots = {};
-    export type ${capitalizeFirstLetter(baseName)}Expose = {};
+    export const ${toHumpFirstLower(baseName)}Props = {} as const;
+    export interface ${toHumpFirstUpper(baseName)}Props {};
+    export const ${toHumpFirstLower(baseName)}Emits = {} as const;
+    export type ${toHumpFirstUpper(baseName)}Emits = {};
+    export const ${toHumpFirstLower(baseName)}Slots = {} as const;
+    export type ${toHumpFirstUpper(baseName)}Slots = {};
+    export type ${toHumpFirstUpper(baseName)}Expose = {};
   `,
   [`${baseName}.vue`]: `
     <template>
@@ -43,10 +48,10 @@ const fileContents = {
     <script setup lang="ts">
     import { ref } from 'vue';
     import { createNamespace } from '@jovial/utils';
-    import { ${baseName}Emits, ${baseName}Props } from './${baseName}';
-    defineOptions({ name: 'Jv${capitalizeFirstLetter(baseName)}' });
-    const props = defineProps(${baseName}Props);
-    const emit = defineEmits(${baseName}Emits);
+    import { ${toHumpFirstLower(baseName)}Emits, ${toHumpFirstLower(baseName)}Props } from './${baseName}';
+    defineOptions({ name: 'Jv${toHumpFirstUpper(baseName)}' });
+    const props = defineProps(${toHumpFirstLower(baseName)}Props);
+    const emit = defineEmits(${toHumpFirstLower(baseName)}Emits);
     const bem = createNamespace('${baseName}');
     </script>
   `
@@ -55,7 +60,7 @@ const fileContents = {
 const styleFileContents = {
   [`${baseName}.scss`]: `
     @use 'mixins/mixins.scss' as *;
-    @include b(${baseName}) {
+    @include b('${baseName}') {
       display: block;
     }
   `
@@ -66,21 +71,21 @@ const structure = {
   [baseName]: {
     src: fileContents,
     'index.ts': `
-      import _${capitalizeFirstLetter(baseName)} from './src/${baseName}.vue';
+      import _${toHumpFirstUpper(baseName)} from './src/${baseName}.vue';
       import { withInstall } from '@jovial/utils';
-      const ${baseName} = withInstall(_${capitalizeFirstLetter(baseName)});
+      const ${toHumpFirstUpper(baseName)} = withInstall(_${toHumpFirstUpper(baseName)});
       export * from './src/${baseName}';
-      export default ${baseName}; 
-      export type Jv${capitalizeFirstLetter(baseName)}Instance = InstanceType<typeof ${baseName}>
+      export default ${toHumpFirstUpper(baseName)}; 
+      export type Jv${toHumpFirstUpper(baseName)}Instance = InstanceType<typeof ${toHumpFirstUpper(baseName)}>
       export type {
-        ${capitalizeFirstLetter(baseName)}Emits,
-        ${capitalizeFirstLetter(baseName)}Props,
-        ${capitalizeFirstLetter(baseName)}Expose,
-        ${capitalizeFirstLetter(baseName)}Slots
+        ${toHumpFirstUpper(baseName)}Emits,
+        ${toHumpFirstUpper(baseName)}Props,
+        ${toHumpFirstUpper(baseName)}Expose,
+        ${toHumpFirstUpper(baseName)}Slots
       } from './src/${baseName}'
       declare module 'vue' {
         export interface GlobalComponents {
-          Jv${capitalizeFirstLetter(baseName)}: typeof ${baseName};
+          Jv${toHumpFirstUpper(baseName)}: typeof ${toHumpFirstUpper(baseName)};
         }
       }
     `

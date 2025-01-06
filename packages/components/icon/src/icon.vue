@@ -5,16 +5,15 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@jovial/utils/create'
 import { computed } from 'vue'
 import { iconProps } from './icon'
 import { SizeOptions } from '../../button'
-import { isNumberExcludeNaN, isString } from '@jovial/utils'
+import { isNumberExcludeNaN, isString, createNamespace } from '@jovial/utils'
+
 defineOptions({ name: 'JvIcon' })
-
 const bem = createNamespace('icon')
-
 const props = defineProps(iconProps)
+
 const iconClass = computed(() => {
   const baseClass = bem.b()
   const sizeClass =
@@ -41,5 +40,3 @@ const iconStyle = computed(() => {
   return result
 })
 </script>
-
-<style lang="scss" scoped></style>
