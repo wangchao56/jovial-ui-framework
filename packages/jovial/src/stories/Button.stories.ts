@@ -1,6 +1,15 @@
-import JvButton from '@components/JvButton'
+import JvButton from '@components/JvButton/src/button.vue'
 import { fn } from '@storybook/test'
 import type { Meta, StoryObj } from '@storybook/vue3'
+
+const template = `
+      <JvButton v-bind="args">
+        <template v-if="args.prepend" #prepend>{{ args.prepend }}</template>
+        <template v-if="args.append" #append>{{ args.append }}</template>
+        <template v-if="args.loading" #loading>Loading...</template>
+        {{ args.default }}
+      </JvButton>
+    `
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
@@ -9,7 +18,26 @@ const meta = {
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
-    size: { control: 'select', options: ['small', 'medium', 'large'] }
+    size: {
+      control: 'select',
+      options: ['tiny', 'small', 'medium', 'large', 'x-large']
+    },
+    default: {
+      control: 'text',
+      description: '默认插槽内容'
+    },
+    prepend: {
+      control: 'text',
+      description: '前置插槽内容'
+    },
+    append: {
+      control: 'text',
+      description: '后置插槽内容'
+    },
+    loading: {
+      control: 'boolean',
+      description: '加载状态插槽'
+    }
   },
   args: {
     type: 'primary',
@@ -27,27 +55,41 @@ type Story = StoryObj<typeof meta>
  */
 export const Primary: Story = {
   args: {
-    type: 'primary'
-  }
+    type: 'primary',
+    default: 'Primary Button'
+  },
+  render: (args) => ({
+    components: { JvButton },
+    setup() {
+      return { args }
+    },
+    template
+  })
+}
+export const Large: Story = {
+  args: {
+    size: 'large',
+    default: 'Large Button'
+  },
+  render: (args) => ({
+    components: { JvButton },
+    setup() {
+      return { args }
+    },
+    template
+  })
 }
 
-// export const Secondary: Story = {
-//   args: {
-//     type: false,
-//     label: 'Button'
-//   }
-// }
-
-// export const Large: Story = {
-//   args: {
-//     label: 'Button',
-//     size: 'large'
-//   }
-// }
-
-// export const Small: Story = {
-//   args: {
-//     label: 'Button',
-//     size: 'small'
-//   }
-// }
+export const Small: Story = {
+  args: {
+    size: 'small',
+    default: 'Small Button'
+  },
+  render: (args) => ({
+    components: { JvButton },
+    setup() {
+      return { args }
+    },
+    template
+  })
+}

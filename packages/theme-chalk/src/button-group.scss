@@ -1,7 +1,0 @@
-@use 'mixins/mixins.scss' as *;
-
-@include b('button-group') {
-  @include e('item') {
-    display: inline-block;
-  }
-}

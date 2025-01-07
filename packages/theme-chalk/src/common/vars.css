@@ -1,0 +1,89 @@
+:root {
+  /* color */
+  --jv-color-primary: #409eff;
+  --jv-color-white: #ffffff;
+  --jv-color-black: #000000;
+  --jv-color-success: #67c23a;
+  --jv-color-warning: #e6a23c;
+  --jv-color-danger: #f56c6c;
+  --jv-color-info: #909399;
+
+  --jv-color-primary-light: #66b1ff;
+  --jv-color-primary-dark: #337ab7;
+  --jv-color-success-light: #83d583;
+  --jv-color-success-dark: #529b2e;
+  --jv-color-warning-light: #f3c97a;
+  --jv-color-warning-dark: #b8822e;
+  --jv-color-danger-light: #f89898;
+  --jv-color-danger-dark: #c45656;
+  --jv-color-info-light: #b1b3b8;
+  --jv-color-info-dark: #6c6e73;
+
+  /*字体颜色*/
+  --jv-color-text-primary: #303133;
+  --jv-color-text-regular: #606266;
+  --jv-color-text-secondary: #909399;
+  --jv-color-text-placeholder: #c0c4cc;
+
+  --jv-color-bg-base: #f5f7fa;
+  --jv-color-bg-light: #ffffff;
+  --jv-color-bg-dark: #e4e7ed;
+  --jv-color-bg-darker: #d3dce6;
+
+  --jv-color-border-base: #dcdfe6;
+  --jv-color-border-light: #e4e7ed;
+  --jv-color-border-dark: #c0c4cc;
+  --jv-color-border-darker: #b4bccc;
+
+  /* border */
+  --jv-border-color: hsl(0, 0%, 100%);
+  --jv-border-opacity: 0.12;
+  /* opacity */
+
+  /* font */
+  --jv-font-family: 'Roboto', sans-serif;
+  --jv-font-size-small: 12px;
+  --jv-font-size-medium: 14px;
+  --jv-font-size-large: 16px;
+  --jv-font-weight-regular: 400;
+  --jv-font-weight-medium: 500;
+  --jv-font-weight-bold: 700;
+
+  /* text */
+  --jv-text-color: hsl(0, 0%, 0%);
+  --jv-text-opacity: 0.87;
+  --jv-text-secondary-color: hsl(0, 0%, 0%);
+  --jv-text-secondary-opacity: 0.6;
+  --jv-text-disabled-color: hsl(0, 0%, 0%);
+  --jv-text-disabled-opacity: 0.38;
+
+  /* disabled */
+  --jv-disabled-bg-color: hsl(0, 0%, 90%);
+  --jv-disabled-text-color: hsl(0, 0%, 60%);
+  --jv-disabled-opacity: 0.5;
+  --jv-disabled-border-color:  ;
+
+  /* spacing */
+  --jv-spacing-small: 8px;
+  --jv-spacing-medium: 16px;
+  --jv-spacing-large: 24px;
+
+  /* radius */
+  --jv-border-radius-small: 4px;
+  --jv-border-radius-medium: 8px;
+  --jv-border-radius-large: 12px;
+
+  /* shadows */
+  --jv-shadow-small: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --jv-shadow-medium: 0 3px 6px rgba(0, 0, 0, 0.16);
+  --jv-shadow-large: 0 10px 20px rgba(0, 0, 0, 0.19);
+
+  /* Variant */
+  --jv-variant-text-color: var(--text-100);
+  --jv-variant-flat-bg-color: var(--primary-100);
+  --jv-variant-tonal-bg-color: var(--primary-200);
+  --jv-variant-plain-bg-color: transparent;
+  --jv-variant-elevated-bg-color: var(--bg-200);
+  --jv-variant-outlined-border-color: var(--primary-100);
+  --jv-variant-outlined-border-width: 1px;
+}

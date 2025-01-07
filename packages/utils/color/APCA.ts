@@ -4,7 +4,7 @@
  * @see https://www.w3.org/WAI/GL/task-forces/silver/wiki/Visual_Contrast_of_Text_Subgroup
  */
 // Types
-import type { RGB } from '@/util'
+import type { RGB } from '../'
 
 // MAGICAL NUMBERS
 
@@ -18,7 +18,7 @@ const mainTRC = 2.4
 
 const Rco = 0.2126729 // sRGB Red Coefficient (from matrix)
 const Gco = 0.7151522 // sRGB Green Coefficient (from matrix)
-const Bco = 0.0721750 // sRGB Blue Coefficient (from matrix)
+const Bco = 0.072175 // sRGB Blue Coefficient (from matrix)
 
 // For Finding Raw SAPC Contrast from Relative Luminance (Y)
 
@@ -42,7 +42,7 @@ const loConFactor = 12.82051282051282 // = 1/0.078,
 const loConOffset = 0.06 // The simple offset
 const loClip = 0.001 // Output clip (lint trap #2)
 
-export function APCAcontrast (text: RGB, background: RGB) {
+export function APCAcontrast(text: RGB, background: RGB) {
   // Linearize sRGB
   const Rtxt = (text.r / 255) ** mainTRC
   const Gtxt = (text.g / 255) ** mainTRC
@@ -53,8 +53,8 @@ export function APCAcontrast (text: RGB, background: RGB) {
   const Bbg = (background.b / 255) ** mainTRC
 
   // Apply the standard coefficients and sum to Y
-  let Ytxt = (Rtxt * Rco) + (Gtxt * Gco) + (Btxt * Bco)
-  let Ybg = (Rbg * Rco) + (Gbg * Gco) + (Bbg * Bco)
+  let Ytxt = Rtxt * Rco + Gtxt * Gco + Btxt * Bco
+  let Ybg = Rbg * Rco + Gbg * Gco + Bbg * Bco
 
   // Soft clamp Y when near black.
   // Now clamping all colors to prevent crossover errors
@@ -71,7 +71,7 @@ export function APCAcontrast (text: RGB, background: RGB) {
     // For normal polarity, black text on white
     // Calculate the SAPC contrast value and scale
 
-    const SAPC = ((Ybg ** normBG) - (Ytxt ** normTXT)) * scaleBoW
+    const SAPC = (Ybg ** normBG - Ytxt ** normTXT) * scaleBoW
 
     // NEW! SAPC SmoothScale™
     // Low Contrast Smooth Scale Rollout to prevent polarity reversal
@@ -79,19 +79,23 @@ export function APCAcontrast (text: RGB, background: RGB) {
     // much of this is for very low contrasts, less than 10
     // therefore for most reversing needs, only loConOffset is important
     outputContrast =
-      (SAPC < loClip) ? 0.0
-      : (SAPC < loConThresh) ? SAPC - SAPC * loConFactor * loConOffset
-      : SAPC - loConOffset
+      SAPC < loClip
+        ? 0.0
+        : SAPC < loConThresh
+          ? SAPC - SAPC * loConFactor * loConOffset
+          : SAPC - loConOffset
   } else {
     // For reverse polarity, light text on dark
     // WoB should always return negative value.
 
-    const SAPC = ((Ybg ** revBG) - (Ytxt ** revTXT)) * scaleWoB
+    const SAPC = (Ybg ** revBG - Ytxt ** revTXT) * scaleWoB
 
     outputContrast =
-      (SAPC > -loClip) ? 0.0
-      : (SAPC > -loConThresh) ? SAPC - SAPC * loConFactor * loConOffset
-      : SAPC + loConOffset
+      SAPC > -loClip
+        ? 0.0
+        : SAPC > -loConThresh
+          ? SAPC - SAPC * loConFactor * loConOffset
+          : SAPC + loConOffset
   }
 
   return outputContrast * 100

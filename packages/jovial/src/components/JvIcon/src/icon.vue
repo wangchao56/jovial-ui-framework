@@ -9,10 +9,11 @@ import { isNumberExcludeNaN, isString, createNamespace } from '@jovial/utils'
 import { computed } from 'vue'
 import { iconProps } from './icon'
 import { SizeOptions } from '@jovial/typings'
+import type { IconProps } from './icon'
 
 defineOptions({ name: 'JvIcon' })
+const props = defineProps<IconProps>()
 const bem = createNamespace('icon')
-const props = defineProps(iconProps)
 
 const iconClass = computed(() => {
   const baseClass = bem.b()

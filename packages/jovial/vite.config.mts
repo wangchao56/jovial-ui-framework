@@ -18,6 +18,9 @@ export default defineConfig({
       '@components': '/src/components'
     }
   },
+  css: {
+    postcss: '../../postcss.config.js'
+  },
   optimizeDeps: {
     include: ['@vicons/material'] // 显式列出需要优化的依赖
   },

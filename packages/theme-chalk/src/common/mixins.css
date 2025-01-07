@@ -1,0 +1,14 @@
+/* 定义命名空间、元素分隔符、修饰符分隔符和状态前缀 */
+:root {
+  --namespace: 'jv';
+  --element-separator: '__';
+  --modifier-separator: '--';
+  --state-prefix: 'is-';
+}
+
+/* 定义 BEM 规范的 mixins */
+@define-mixin b $block {
+  .jv-$(block) {
+    @mixin-content;
+  }
+}

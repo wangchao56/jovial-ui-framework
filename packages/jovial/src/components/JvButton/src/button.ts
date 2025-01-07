@@ -3,115 +3,68 @@ import type { ExtractPropTypes, PropType, VNodeChild } from 'vue'
 
 export type Placement = 'left' | 'center' | 'right'
 
-export const buttonProps = {
-  /** 按钮内容 */
-  type: {
-    type: String as PropType<Type>,
-    default: 'default'
-  },
-  width: {
-    type: [String, Number] as PropType<string | number>,
-    default: '100%'
-  },
-  size: {
-    type: String as PropType<Size>,
-    default: 'medium'
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  loading: {
-    type: Boolean,
-    default: false
-  },
-  /** 图标 */
-  // icon: {
-  //   type: String,
-  //   default: ''
-  // },
-  // prependIcon: {
-  //   type: String,
-  //   default: ''
-  // },
-  // appendIcon: {
-  //   type: String,
-  //   default: ''
-  // },
-  rounded: {
-    type: Boolean,
-    default: false
-  },
-  dashed: {
-    type: Boolean,
-    default: false
-  },
-  block: {
-    type: Boolean,
-    default: false
-  },
-  stacked: {
-    type: Boolean,
-    default: false
-  },
-  color: {
-    type: String,
-    default: ''
-  },
-  bgColor: {
-    type: String,
-    default: ''
-  },
-  variant: {
-    type: String as PropType<Variant>,
-    default: 'elevated'
-  },
-  /** 原生 type 属性 */
-  nativeType: {
-    type: String as PropType<NativeType>,
-    default: 'button'
-  },
-  /** 原生 autofocus 属性 */
-  autofocus: {
-    type: Boolean,
-    default: false
-  }
-} as const
-
 export const buttonEmits = {
   click: (e: MouseEvent) => e instanceof MouseEvent,
   mousedown: (e: MouseEvent) => e instanceof MouseEvent,
   keydown: (e: KeyboardEvent) => e instanceof MouseEvent
 } as const
 
-export type ButtonSlots = {
-  default: ((...args: any[]) => any) | undefined
-  loading: (() => VNodeChild) | undefined
-  prepend: (() => VNodeChild) | undefined
-  append: (() => VNodeChild) | undefined
-}
-
 export interface ButtonProps {
-  /** 按钮内容 */
+  /** 按钮类型 */
   type?: Type
+  /** 按钮宽度，可以是字符串或数字 */
   width?: string | number
+  /** 按钮大小 */
   size?: Size
+  /** 是否禁用按钮 */
   disabled?: boolean
+  /** 是否显示加载状态 */
   loading?: boolean
+  /** 是否为圆角按钮 */
   rounded?: boolean
+  /** 是否为虚线按钮 */
   dashed?: boolean
+  /** 是否为块级按钮 */
   block?: boolean
+  /** 是否为堆叠按钮 */
   stacked?: boolean
+  /** 按钮颜色 */
   color?: string
+  /** 按钮背景颜色 */
   bgColor?: string
+  /** 按钮变体 */
   variant?: Variant
   /** 原生 type 属性 */
   nativeType?: NativeType
   /** 原生 autofocus 属性 */
   autofocus?: boolean
 }
+/** 按钮的事件类型 */
 export type ButtonEmits = {
-  (e: 'click', payload: MouseEvent): boolean
-  (e: 'mousedown', payload: MouseEvent): boolean
-  (e: 'keydown', payload: MouseEvent): boolean
+  /** 点击事件 */
+  (e: 'click', payload: MouseEvent): void
+  /** 鼠标按下事件 */
+  (e: 'mousedown', payload: MouseEvent): void
+  /** 键盘按下事件 */
+  (e: 'keydown', payload: KeyboardEvent): void
+}
+/** 按钮的插槽类型 */
+export type ButtonSlots = {
+  /** 默认插槽 */
+  default?: () => VNodeChild
+  /** 加载状态插槽 */
+  loading?: () => VNodeChild
+  /** 前置插槽 */
+  prepend?: () => VNodeChild
+  /** 后置插槽 */
+  append?: () => VNodeChild
+}
+/** 按钮的暴露类型 */
+export type ButtonExposed = {
+  /** 按钮的根元素 */
+  root: HTMLButtonElement | null
+  /** 设置按钮的加载状态 */
+  setLoading: (loading: boolean) => void
+  /** 设置按钮的禁用状态 */
+  setDisabled: (disabled: boolean) => void
 }
