@@ -1,7 +1,5 @@
 import { App } from 'vue'
-import components from './components'
-export * from './components'
-
+import * as components from './jovial/src/components'
 //全局安装
 export const install: any = function (app: App) {
   //判断是否安装

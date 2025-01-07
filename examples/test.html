@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="../jovial/dist/index.full.js"></script>
+    <title>Umd打包代码测试</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>{{ message }}</div>
+      <jv-button>按钮</jv-button>
+    </div>
+    <script>
+      const { createApp, ref } = Vue
+
+      createApp({
+        setup() {
+          const message = ref('Hello vue!')
+          return {
+            message
+          }
+        }
+      })
+        .use(JovialUI)
+        .mount('#app')
+    </script>
+  </body>
+</html>

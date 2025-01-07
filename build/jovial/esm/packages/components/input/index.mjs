@@ -1,0 +1,8 @@
+import _sfc_main from './src/input.vue2.mjs';
+import { withInstall } from '../../utils/with-install.mjs';
+export { inputEmits, inputProps } from './src/input.mjs';
+
+const input = withInstall(_sfc_main);
+
+export { input as default };
+//# sourceMappingURL=index.mjs.map

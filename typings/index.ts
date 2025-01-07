@@ -59,3 +59,28 @@ export type Placement =
 type Slot<T extends any[] = any[]> = (...args: T) => VNodeChild
 
 export type TriggerType = 'hover' | 'click' | 'focus' | 'contextmenu'
+export type Type =
+  | 'default'
+  | 'primary'
+  | 'success'
+  | 'info'
+  | 'warning'
+  | 'danger'
+export type Variant =
+  | 'text'
+  | 'flat'
+  | 'tonal'
+  | 'plain'
+  | 'elevated'
+  | 'outlined'
+export type Size = 'tiny' | 'small' | 'medium' | 'large' | 'x-large'
+export enum SizeOptions {
+  'TINY' = 'tiny',
+  'SMALL' = 'small',
+  'MEDIUM' = 'medium',
+  'LARGE' = 'large',
+  'X-LARGE' = 'x-large'
+}
+
+/**按钮的 DOM 的 type 属性 */
+export type NativeType = 'button' | 'submit' | 'reset'

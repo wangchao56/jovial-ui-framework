@@ -147,37 +147,6 @@ function isUndefined(value: any): boolean {
   return getType(value) === TypeOptions.Undefined
 }
 
-function getNestedValue<
-  T extends {
-    [key: string]: any
-  },
-  K extends keyof T
->(obj: T, keys: K | K[]): NonNullable<T[K]> | undefined {
-  let current: any = obj
-
-  if (Array.isArray(keys)) {
-    // 如果 keys 是数组
-    for (const key of keys) {
-      if (current && key in current) {
-        current = current[key]
-      } else {
-        return undefined // 如果某个键不存在，则返回 undefined
-      }
-    }
-  } else {
-    // 如果 keys 是单个键
-    const key = keys
-    if (current && key in current) {
-      current = current[key]
-    } else {
-      return undefined // 如果键不存在，则返回 undefined
-    }
-  }
-
-  // 使用类型断言来确保返回值的类型正确，但这里我们其实不需要显式断言，因为 TypeScript 应该能够推断出 current 的类型
-  // return current as NonNullable<T[K]>;
-  return current
-}
 export {
   isArray,
   isNull,
@@ -189,6 +158,5 @@ export {
   isString,
   isEmpty,
   isUndefined,
-  isNumberExcludeNaN,
-  getNestedValue
+  isNumberExcludeNaN
 }
