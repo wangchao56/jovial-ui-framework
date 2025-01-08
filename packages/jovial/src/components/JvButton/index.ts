@@ -1,5 +1,6 @@
-import _button from './src/button.vue'
 import { withInstall } from '@jovial/utils'
+import _button from './src/button.vue'
+
 export * from './src/button'
 
 const button = withInstall(_button)

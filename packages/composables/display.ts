@@ -1,3 +1,8 @@
+// Types
+import type { InjectionKey, PropType, Ref } from 'vue'
+import { getCurrentInstanceName, mergeDeep, propsFactory } from '@jovial/utils'
+import { IN_BROWSER, SUPPORTS_TOUCH } from '@jovial/utils/globals'
+
 // Utilities
 import {
   computed,
@@ -5,13 +10,8 @@ import {
   reactive,
   shallowRef,
   toRefs,
-  watchEffect
+  watchEffect,
 } from 'vue'
-import { getCurrentInstanceName, mergeDeep, propsFactory } from '@jovial/utils'
-import { IN_BROWSER, SUPPORTS_TOUCH } from '@jovial/utils/globals'
-
-// Types
-import type { InjectionKey, PropType, Ref } from 'vue'
 
 export const breakpoints = ['sm', 'md', 'lg', 'xl', 'xxl'] as const // no xs
 
@@ -41,9 +41,9 @@ export interface InternalDisplayOptions {
 export type SSROptions =
   | boolean
   | {
-      clientWidth: number
-      clientHeight?: number
-    }
+    clientWidth: number
+    clientHeight?: number
+  }
 
 export interface DisplayPlatform {
   android: boolean
@@ -87,11 +87,11 @@ export interface DisplayInstance {
   /** @internal */
   ssr: boolean
 
-  update(): void
+  update: () => void
 }
 
-export const DisplaySymbol: InjectionKey<DisplayInstance> =
-  Symbol.for('vuetify:display')
+export const DisplaySymbol: InjectionKey<DisplayInstance>
+  = Symbol.for('vuetify:display')
 
 const defaultDisplayOptions: DisplayOptions = {
   mobileBreakpoint: 'lg',
@@ -101,13 +101,11 @@ const defaultDisplayOptions: DisplayOptions = {
     md: 960,
     lg: 1280,
     xl: 1920,
-    xxl: 2560
-  }
+    xxl: 2560,
+  },
 }
 
-const parseDisplayOptions = (
-  options: DisplayOptions = defaultDisplayOptions
-) => {
+function parseDisplayOptions(options: DisplayOptions = defaultDisplayOptions) {
   return mergeDeep(defaultDisplayOptions, options) as InternalDisplayOptions
 }
 
@@ -155,13 +153,13 @@ function getPlatform(ssr?: SSROptions): DisplayPlatform {
     mac,
     linux,
     touch: SUPPORTS_TOUCH,
-    ssr: userAgent === 'ssr'
+    ssr: userAgent === 'ssr',
   }
 }
 
 export function createDisplay(
   options?: DisplayOptions,
-  ssr?: SSROptions
+  ssr?: SSROptions,
 ): DisplayInstance {
   const { thresholds, mobileBreakpoint } = parseDisplayOptions(options)
 
@@ -179,7 +177,6 @@ export function createDisplay(
     platform.value = getPlatform()
   }
 
-  // eslint-disable-next-line max-statements
   watchEffect(() => {
     const xs = width.value < thresholds.sm
     const sm = width.value < thresholds.md && !xs
@@ -198,8 +195,8 @@ export function createDisplay(
             : xl
               ? 'xl'
               : 'xxl'
-    const breakpointValue =
-      typeof mobileBreakpoint === 'number'
+    const breakpointValue
+      = typeof mobileBreakpoint === 'number'
         ? mobileBreakpoint
         : thresholds[mobileBreakpoint]
     const mobile = width.value < breakpointValue
@@ -238,27 +235,30 @@ export const makeDisplayProps = propsFactory(
   {
     mobile: {
       type: Boolean as PropType<boolean | null>,
-      default: false
+      default: false,
     },
-    mobileBreakpoint: [Number, String] as PropType<number | DisplayBreakpoint>
+    mobileBreakpoint: [Number, String] as PropType<number | DisplayBreakpoint>,
   },
-  'display'
+  'display',
 )
 
 export function useDisplay(
   props: DisplayProps = {},
-  name = getCurrentInstanceName()
+  name = getCurrentInstanceName(),
 ) {
   const display = inject(DisplaySymbol)
 
-  if (!display) throw new Error('Could not find Vuetify display injection')
+  if (!display)
+    throw new Error('Could not find Vuetify display injection')
 
   const mobile = computed(() => {
-    if (props.mobile != null) return props.mobile
-    if (!props.mobileBreakpoint) return display.mobile.value
+    if (props.mobile != null)
+      return props.mobile
+    if (!props.mobileBreakpoint)
+      return display.mobile.value
 
-    const breakpointValue =
-      typeof props.mobileBreakpoint === 'number'
+    const breakpointValue
+      = typeof props.mobileBreakpoint === 'number'
         ? props.mobileBreakpoint
         : display.thresholds.value[props.mobileBreakpoint]
 
@@ -266,7 +266,8 @@ export function useDisplay(
   })
 
   const displayClasses = computed(() => {
-    if (!name) return {}
+    if (!name)
+      return {}
 
     return { [`${name}--mobile`]: mobile.value }
   })

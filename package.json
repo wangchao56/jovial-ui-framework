@@ -2,17 +2,25 @@
   "name": "jovial-ui-framework",
   "version": "1.0.0",
   "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [
+    "jovial-ui-framework",
+    "jovial",
+    "ui",
+    "framework"
+  ],
   "scripts": {
     "dev": "pnpm -C packages/jovial dev",
     "s:dev": "pnpm -C packages/jovial storybook",
     "generate": "node script/createStructure.js",
     "gc": "node script/createStructure.js",
     "gensotry": "node script/createStory.js",
-    "gs": "node script/createStory.js"
+    "gs": "node script/createStory.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prepare": "husky install"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@better-scroll/core": "^2.5.1",
     "@better-scroll/mouse-wheel": "^2.5.1",
@@ -38,6 +46,9 @@
     ]
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^3.12.2",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
     "@eslint/js": "^9.17.0",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^28.0.2",
@@ -47,15 +58,20 @@
     "@vitejs/plugin-vue-jsx": "^4.1.1",
     "@vue/eslint-config-typescript": "^14.2.0",
     "autoprefixer": "^10.4.20",
-    "eslint": "^8.57.1",
+    "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-format": "^1.0.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-vue": "^9.32.0",
     "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
     "mockjs": "^1.1.0",
     "postcss": "^8.4.49",
     "postcss-advanced-variables": "^5.0.0",
+    "postcss-color-mix": "^1.1.0",
     "postcss-each": "^1.1.0",
+    "postcss-each-variables": "^0.3.0",
     "postcss-for": "^2.1.1",
     "postcss-import": "^16.1.0",
     "postcss-mixins": "^11.0.3",
@@ -68,5 +84,13 @@
     "sass": "^1.83.1",
     "sass-loader": "^16.0.4",
     "typescript-eslint": "^8.19.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "eslint --fix"
+    ],
+    "*.vue": [
+      "eslint --fix"
+    ]
   }
 }

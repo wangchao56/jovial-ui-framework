@@ -1,8 +1,8 @@
-// Utilities
-import { getCurrentInstance } from './getCurrentInstance'
-
 // Types
 import type { ComponentInternalInstance, InjectionKey } from 'vue'
+
+// Utilities
+import { getCurrentInstance } from './getCurrentInstance'
 
 export function injectSelf<T>(
   key: InjectionKey<T> | string,
@@ -10,7 +10,7 @@ export function injectSelf<T>(
 ): T | undefined
 export function injectSelf(
   key: InjectionKey<any> | string,
-  vm = getCurrentInstance('injectSelf')
+  vm = getCurrentInstance('injectSelf'),
 ) {
   const { provides } = vm
 

@@ -1,15 +1,15 @@
-const fs = require('fs').promises
-const path = require('path')
+const fs = require('node:fs').promises
+const path = require('node:path')
+// 从命令行参数获取基本目录名称
+const process = require('node:process')
 const {
   createStructure,
   toHumpFirstLower,
-  toHumpFirstUpper
+  toHumpFirstUpper,
 } = require('./common')
-// 从命令行参数获取基本目录名称
-const args = process.argv.slice(2)
-const baseNameArg = args.find((arg) => arg.startsWith('--name='))
 
-console.log(toHumpFirstLower, toHumpFirstUpper)
+const args = process.argv.slice(2)
+const baseNameArg = args.find(arg => arg.startsWith('--name='))
 
 if (!baseNameArg) {
   console.error('Please provide the base name using --name=<baseDirectoryName>')
@@ -17,7 +17,6 @@ if (!baseNameArg) {
 }
 
 const baseName = baseNameArg.split('=')[1]
-console.log('Base name:', baseName)
 
 // 定义组件目录和样式目录路径
 const outputPath = path.join(__dirname, '..', 'packages', 'components')
@@ -26,7 +25,7 @@ const styleDirName = path.join(
   '..',
   'packages',
   'theme-chalk',
-  'src'
+  'src',
 )
 const styleIndexFilePath = path.join(styleDirName, 'index.scss')
 
@@ -54,7 +53,7 @@ const fileContents = {
     const emit = defineEmits(${toHumpFirstLower(baseName)}Emits);
     const bem = createNamespace('${baseName}');
     </script>
-  `
+  `,
 }
 
 const styleFileContents = {
@@ -63,13 +62,13 @@ const styleFileContents = {
     @include b('${baseName}') {
       display: block;
     }
-  `
+  `,
 }
 
 // 定义目录结构
 const structure = {
   [baseName]: {
-    src: fileContents,
+    'src': fileContents,
     'index.ts': `
       import _${toHumpFirstUpper(baseName)} from './src/${baseName}.vue';
       import { withInstall } from '@jovial/utils';
@@ -88,8 +87,8 @@ const structure = {
           Jv${toHumpFirstUpper(baseName)}: typeof ${toHumpFirstUpper(baseName)};
         }
       }
-    `
-  }
+    `,
+  },
 }
 
 // 修改样式索引文件并生成样式文件
@@ -97,22 +96,24 @@ async function createStyleStructure() {
   let data
   try {
     data = await fs.readFile(styleIndexFilePath, 'utf8')
-  } catch (err) {
+  }
+  catch (err) {
     console.error(`Error reading style index file: ${err.message}`)
     return
   }
 
   const temp = `@use './${baseName}.scss';`
   if (data.includes(temp)) {
-    console.log(`Style file already exists: ${baseName}.scss`)
+    // console.log(`Style file already exists: ${baseName}.scss`)
     return
   }
   const modifiedData = data + temp
 
   try {
     await fs.writeFile(styleIndexFilePath, modifiedData, 'utf8')
-    console.log(`Style index file modified successfully.`)
-  } catch (err) {
+    // console.log(`Style index file modified successfully.`)
+  }
+  catch (err) {
     console.error(`Error writing to style index file: ${err.message}`)
     return
   }
@@ -121,7 +122,8 @@ async function createStyleStructure() {
     const currentPath = path.join(styleDirName, name)
     try {
       await fs.writeFile(currentPath, styleFileContents[name], 'utf8')
-    } catch (err) {
+    }
+    catch (err) {
       console.error(`Error writing style file ${name}: ${err.message}`)
     }
   }
@@ -132,8 +134,9 @@ async function createStyleStructure() {
   try {
     await createStructure(outputPath, structure)
     await createStyleStructure()
-    console.log('Directory and file creation successful!')
-  } catch (err) {
+    // console.log('Directory and file creation successful!')
+  }
+  catch (err) {
     console.error(`An error occurred: ${err.message}`)
   }
 })()

@@ -1,20 +1,20 @@
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
-var JvRenderVNodeContent = defineComponent({
-  name: "JvRenderVNodeContent",
+const JvRenderVNodeContent = defineComponent({
+  name: 'JvRenderVNodeContent',
   props: {
     render: {
       type: Function,
       default: undefined,
-      required: false
-    }
+      required: false,
+    },
   },
   setup(props, { slots }) {
     return () => {
-      return slots.default ? slots.default() : props.render ? props.render() : null;
-    };
-  }
-});
+      return slots.default ? slots.default() : props.render ? props.render() : null
+    }
+  },
+})
 
-export { JvRenderVNodeContent as default };
-//# sourceMappingURL=render-vnode-content.setup.mjs.map
+export { JvRenderVNodeContent as default }
+// # sourceMappingURL=render-vnode-content.setup.mjs.map

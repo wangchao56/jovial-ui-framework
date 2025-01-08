@@ -1,6 +1,6 @@
-const dialogProps = {};
-const dialogEmits = {};
-const dialogSlots = {};
+const dialogProps = {}
+const dialogEmits = {}
+const dialogSlots = {}
 
-export { dialogEmits, dialogProps, dialogSlots };
-//# sourceMappingURL=dialog.mjs.map
+export { dialogEmits, dialogProps, dialogSlots }
+// # sourceMappingURL=dialog.mjs.map

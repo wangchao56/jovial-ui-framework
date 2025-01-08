@@ -1,8 +1,9 @@
-import _sfc_main from './src/tree.vue2.mjs';
-import { withInstall } from '../../utils/with-install.mjs';
-export { createOptions, treeEmits, treeInjectKey, treeNodeContentProps, treeNodeEmits, treeNodeProps, treePorps } from './src/tree.mjs';
+import { withInstall } from '../../utils/with-install.mjs'
+import _sfc_main from './src/tree.vue2.mjs'
 
-const Tree = withInstall(_sfc_main);
+export { createOptions, treeEmits, treeInjectKey, treeNodeContentProps, treeNodeEmits, treeNodeProps, treePorps } from './src/tree.mjs'
 
-export { Tree as default };
-//# sourceMappingURL=index.mjs.map
+const Tree = withInstall(_sfc_main)
+
+export { Tree as default }
+// # sourceMappingURL=index.mjs.map

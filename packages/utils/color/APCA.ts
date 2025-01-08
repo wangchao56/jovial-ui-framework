@@ -58,11 +58,14 @@ export function APCAcontrast(text: RGB, background: RGB) {
 
   // Soft clamp Y when near black.
   // Now clamping all colors to prevent crossover errors
-  if (Ytxt <= blkThrs) Ytxt += (blkThrs - Ytxt) ** blkClmp
-  if (Ybg <= blkThrs) Ybg += (blkThrs - Ybg) ** blkClmp
+  if (Ytxt <= blkThrs)
+    Ytxt += (blkThrs - Ytxt) ** blkClmp
+  if (Ybg <= blkThrs)
+    Ybg += (blkThrs - Ybg) ** blkClmp
 
   // Return 0 Early for extremely low ∆Y (lint trap #1)
-  if (Math.abs(Ybg - Ytxt) < deltaYmin) return 0.0
+  if (Math.abs(Ybg - Ytxt) < deltaYmin)
+    return 0.0
 
   // SAPC CONTRAST
 
@@ -78,20 +81,21 @@ export function APCAcontrast(text: RGB, background: RGB) {
     // and also a low clip for very low contrasts (lint trap #2)
     // much of this is for very low contrasts, less than 10
     // therefore for most reversing needs, only loConOffset is important
-    outputContrast =
-      SAPC < loClip
+    outputContrast
+      = SAPC < loClip
         ? 0.0
         : SAPC < loConThresh
           ? SAPC - SAPC * loConFactor * loConOffset
           : SAPC - loConOffset
-  } else {
+  }
+  else {
     // For reverse polarity, light text on dark
     // WoB should always return negative value.
 
     const SAPC = (Ybg ** revBG - Ytxt ** revTXT) * scaleWoB
 
-    outputContrast =
-      SAPC > -loClip
+    outputContrast
+      = SAPC > -loClip
         ? 0.0
         : SAPC > -loConThresh
           ? SAPC - SAPC * loConFactor * loConOffset

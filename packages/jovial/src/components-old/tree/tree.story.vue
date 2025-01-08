@@ -1,20 +1,21 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
 import JvTree, { type TreeOptions } from '@jovial/components/tree'
+import { ref, watch } from 'vue'
 import { virtualDataTemp } from '../../../config/constants'
 /**
  * 创建数据
  */
 function createData(level: number, parentKey = ''): TreeOptions[] {
-  if (!level) return []
-  const arr = new Array(6 - level).fill(0)
+  if (!level)
+    return []
+  const arr = Array.from({ length: 6 - level }).fill(0)
   return arr.map((_, index) => {
     const key = parentKey + level + index
     return {
       id: key,
       value: createLabel(level),
       children: createData(level - 1, key),
-      disabled: level == 1
+      disabled: level == 1,
     }
   })
 }
@@ -24,21 +25,25 @@ function createAsyncData() {
     {
       key: '1',
       label: nextLabel(),
-      isLeaf: false
+      isLeaf: false,
     },
     {
       key: '2',
       label: nextLabel(),
-      isLeaf: false
-    }
+      isLeaf: false,
+    },
   ]
 }
 
 function createLabel(level: number): string {
-  if (level === 4) return '道生一'
-  if (level === 3) return `一生二`
-  if (level === 2) return `二生三`
-  if (level === 1) return `三生万物`
+  if (level === 4)
+    return '道生一'
+  if (level === 3)
+    return `一生二`
+  if (level === 2)
+    return `二生三`
+  if (level === 1)
+    return `三生万物`
 
   return ''
 }
@@ -69,8 +74,8 @@ function handleLoadData(node: TreeOptions): Promise<TreeOptions[]> {
         {
           key: node.key + nextLabel(node.label as string),
           label: nextLabel(node.label as string),
-          isLeaf: false
-        }
+          isLeaf: false,
+        },
       ])
     }, 2000)
   })
@@ -81,83 +86,78 @@ const asyncData = ref(createAsyncData())
 
 const selectedKeys = ref([])
 const virtualData = virtualDataTemp.list
-watch(
-  () => selectedKeys.value,
-  () => {
-    console.log('selectedKeys', selectedKeys)
-  }
-)
+
 </script>
 
 <template>
   <Story title="数据展示组件/Tree 树形控件">
     <Variant title="默认">
-      <jv-tree
+      <JvTree
         :data="data"
         label-field="value"
         key-field="id"
         children-field="children"
         :default-expanded-keys="['40', '41']"
-      ></jv-tree>
+      />
     </Variant>
     <Variant title="异步加载">
-      <jv-tree
+      <JvTree
         :data="asyncData"
         label-field="label"
         key-field="key"
         children-field="children"
         :on-load="handleLoadData"
-      ></jv-tree>
+      />
     </Variant>
     <Variant title="可选择节点">
-      <jv-tree
+      <JvTree
+        v-model:selected-keys="selectedKeys"
         :data="asyncData"
         label-field="label"
         key-field="key"
         children-field="children"
         :on-load="handleLoadData"
-        v-model:selected-keys="selectedKeys"
         selectable
-      ></jv-tree>
+      />
     </Variant>
     <Variant title="多选节点">
-      <jv-tree
+      <JvTree
+        v-model:selected-keys="selectedKeys"
         :data="asyncData"
         label-field="label"
         key-field="key"
         children-field="children"
         :on-load="handleLoadData"
-        v-model:selected-keys="selectedKeys"
         selectable
         multiple
-      ></jv-tree>
+      />
     </Variant>
     <Variant title="禁用">
-      <jv-tree
+      <JvTree
+        v-model:selected-keys="selectedKeys"
         :data="data"
         label-field="value"
         key-field="id"
         children-field="children"
-        v-model:selected-keys="selectedKeys"
         selectable
-      ></jv-tree>
+      />
     </Variant>
     <Variant title="自定义节点">
-      <jv-tree
+      <JvTree
+        v-model:selected-keys="selectedKeys"
         :data="data"
         label-field="value"
         key-field="id"
         children-field="children"
-        v-model:selected-keys="selectedKeys"
         selectable
       >
         <template #default="{ node }">
           <div>{{ node.key || 'key' }} - {{ node.label || '' }}</div>
         </template>
-      </jv-tree>
+      </JvTree>
     </Variant>
     <Variant title="虚拟滚动">
-      <jv-tree
+      <JvTree
         :data="virtualData"
         key-field="id"
         label-field="name"
@@ -167,10 +167,10 @@ watch(
         <template #default="{ node }">
           <div>{{ node.key || 'key' }} - {{ node.label || '' }}</div>
         </template>
-      </jv-tree>
+      </JvTree>
     </Variant>
     <Variant title="级联选择">
-      <jv-tree
+      <JvTree
         :data="data"
         key-field="id"
         label-field="value"
@@ -181,7 +181,7 @@ watch(
         <template #default="{ node }">
           <div>{{ node.key || 'key' }} - {{ node.label || '' }}</div>
         </template>
-      </jv-tree>
+      </JvTree>
     </Variant>
   </Story>
 </template>

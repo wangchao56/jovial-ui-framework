@@ -1,8 +1,9 @@
-import _sfc_main from './src/checkbox.vue2.mjs';
-import { withInstall } from '../../utils/with-install.mjs';
-export { checkboxEmits, checkboxProps } from './src/checkbox.mjs';
+import { withInstall } from '../../utils/with-install.mjs'
+import _sfc_main from './src/checkbox.vue2.mjs'
 
-const CheckBox = withInstall(_sfc_main);
+export { checkboxEmits, checkboxProps } from './src/checkbox.mjs'
 
-export { CheckBox as default };
-//# sourceMappingURL=index.mjs.map
+const CheckBox = withInstall(_sfc_main)
+
+export { CheckBox as default }
+// # sourceMappingURL=index.mjs.map

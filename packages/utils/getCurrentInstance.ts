@@ -1,16 +1,16 @@
-// Utilities
-import { getCurrentInstance as _getCurrentInstance } from 'vue'
-import { toKebabCase } from './helpers'
-
 // Types
 import type { ComponentInternalInstance } from 'vue'
+// Utilities
+import { getCurrentInstance as _getCurrentInstance } from 'vue'
+
+import { toKebabCase } from './helpers'
 
 export function getCurrentInstance(name: string, message?: string) {
   const vm = _getCurrentInstance()
 
   if (!vm) {
     throw new Error(
-      `[Vuetify] ${name} ${message || 'must be called from inside a setup function'}`
+      `[Vuetify] ${name} ${message || 'must be called from inside a setup function'}`,
     )
   }
 
@@ -28,7 +28,9 @@ let _map = new WeakMap<ComponentInternalInstance, number>()
 export function getUid() {
   const vm = getCurrentInstance('getUid')
 
-  if (_map.has(vm)) return _map.get(vm)!
+  if (_map.has(vm)) {
+    return _map.get(vm)!
+  }
   else {
     const uid = _uid++
     _map.set(vm, uid)

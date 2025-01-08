@@ -1,3 +1,4 @@
+/* eslint-disable ts/no-duplicate-enum-values */
 export function toCamelCase(str: string): string {
   return str
     .split('-')
@@ -43,7 +44,7 @@ enum TypeOptions {
   'Float32Array' = '[object Float32Array]',
   'Float64Array' = '[object Float64Array]',
   'BigInt64Array' = '[object BigInt64Array]',
-  'BigUint64Array' = '[object BigUint64Array]'
+  'BigUint64Array' = '[object BigUint64Array]',
 }
 
 /**
@@ -56,9 +57,9 @@ export function toJson(data: any) {
 }
 export function isObject(thing: any): boolean {
   return (
-    typeof thing === 'object' &&
-    thing !== null &&
-    Object.prototype.toString.call(thing) === TypeOptions.Object
+    typeof thing === 'object'
+    && thing !== null
+    && Object.prototype.toString.call(thing) === TypeOptions.Object
   )
 }
 export function isEmptyObject(thing: any) {
@@ -105,8 +106,8 @@ function isFunction(value: any): boolean {
  */
 function isNumber(value: any): boolean {
   return (
-    getType(value) === TypeOptions['Number&NaN'] ||
-    (typeof value === 'number' && isNaN(value))
+    getType(value) === TypeOptions['Number&NaN']
+    || (typeof value === 'number' && Number.isNaN(value))
   )
 }
 
@@ -117,7 +118,7 @@ function isNumber(value: any): boolean {
  * @returns 如果值为数字或NaN，则返回true；否则返回false。
  */
 function isNumberExcludeNaN(value: any): boolean {
-  return getType(value) === TypeOptions['Number&NaN'] && !isNaN(value)
+  return getType(value) === TypeOptions['Number&NaN'] && !Number.isNaN(value)
 }
 
 function isRegExp(value: any): boolean {
@@ -128,7 +129,7 @@ function isString(value: any): boolean {
   return getType(value) === TypeOptions.String
 }
 
-//判断是否为空
+// 判断是否为空
 function isEmpty(value: any): boolean {
   if (isArray(value) || isString(value)) {
     return value.length === 0
@@ -149,14 +150,14 @@ function isUndefined(value: any): boolean {
 
 export {
   isArray,
-  isNull,
   isBoolean,
   isDate,
+  isEmpty,
   isFunction,
+  isNull,
   isNumber,
+  isNumberExcludeNaN,
   isRegExp,
   isString,
-  isEmpty,
   isUndefined,
-  isNumberExcludeNaN
 }

@@ -1,38 +1,38 @@
-'use strict';
+'use strict'
 
 const alertProps = {
   title: {
     type: String,
-    default: ""
+    default: '',
   },
   type: {
     type: String,
-    default: "info"
+    default: 'info',
   },
   message: {
     type: String,
-    required: true
+    required: true,
   },
   closable: {
     type: Boolean,
-    default: true
+    default: true,
   },
   closeText: {
-    type: String
+    type: String,
   },
   showIcon: {
     type: Boolean,
-    default: false
-  }
-};
+    default: false,
+  },
+}
 const alertEmits = {
-  close: null
-};
+  close: null,
+}
 const alertSlots = {
-  default: null
-};
+  default: null,
+}
 
-exports.alertEmits = alertEmits;
-exports.alertProps = alertProps;
-exports.alertSlots = alertSlots;
-//# sourceMappingURL=alert.cjs.map
+exports.alertEmits = alertEmits
+exports.alertProps = alertProps
+exports.alertSlots = alertSlots
+// # sourceMappingURL=alert.cjs.map

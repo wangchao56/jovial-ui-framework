@@ -1,8 +1,9 @@
-import _sfc_main from './src/icon.vue2.mjs';
-import { withInstall } from '../../utils/with-install.mjs';
-export { iconProps, iconSlots } from './src/icon.mjs';
+import { withInstall } from '../../utils/with-install.mjs'
+import _sfc_main from './src/icon.vue2.mjs'
 
-const Icon = withInstall(_sfc_main);
+export { iconProps, iconSlots } from './src/icon.mjs'
 
-export { Icon as default };
-//# sourceMappingURL=index.mjs.map
+const Icon = withInstall(_sfc_main)
+
+export { Icon as default }
+// # sourceMappingURL=index.mjs.map

@@ -1,4 +1,4 @@
-var lodash = {exports: {}};
+const lodash = { exports: {} }
 
-export { lodash as __module };
-//# sourceMappingURL=lodash2.mjs.map
+export { lodash as __module }
+// # sourceMappingURL=lodash2.mjs.map

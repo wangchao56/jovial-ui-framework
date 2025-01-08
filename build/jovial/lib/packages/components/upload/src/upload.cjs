@@ -1,3 +1,3 @@
-'use strict';
+'use strict'
 
-//# sourceMappingURL=upload.cjs.map
+// # sourceMappingURL=upload.cjs.map

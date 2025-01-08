@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-Object.defineProperty(exports, '__esModule', { value: true });
+Object.defineProperty(exports, '__esModule', { value: true })
 
-var upload$1 = require('./src/upload.vue.cjs');
-var withInstall = require('../../utils/with-install.cjs');
+const withInstall = require('../../utils/with-install.cjs')
+const upload$1 = require('./src/upload.vue.cjs')
 
-const upload = withInstall.withInstall(upload$1.default);
+const upload = withInstall.withInstall(upload$1.default)
 
-exports.default = upload;
-//# sourceMappingURL=index.cjs.map
+exports.default = upload
+// # sourceMappingURL=index.cjs.map

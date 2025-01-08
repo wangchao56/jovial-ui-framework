@@ -1,41 +1,11 @@
-<template>
-  <div class="custom-scrollbar-container">
-    <div ref="wrapperRef" class="custom-scrollbar-wrapper">
-      <div class="custom-scrollbar-content">
-        <slot></slot>
-      </div>
-      <!-- custom-vertical-scrollbar-->
-      <div
-        v-if="scrollmode.vertical"
-        class="custom-vertical-scrollbar"
-        ref="verticalRef"
-      >
-        <div class="custom-vertical-indicator"></div>
-      </div>
-      <!-- custom-horizontal-scrollbar-->
-      <div
-        v-if="scrollmode.horizontal"
-        class="custom-horizontal-scrollbar"
-        ref="horizontalRef"
-      >
-        <div class="custom-horizontal-indicator"></div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import BScroll from '@better-scroll/core'
-import ScrollBar from '@better-scroll/scroll-bar'
-import { useBScroll } from '../../hooks'
 import MouseWheel from '@better-scroll/mouse-wheel'
-BScroll.use(ScrollBar)
-BScroll.use(MouseWheel)
+import ScrollBar from '@better-scroll/scroll-bar'
 
 defineOptions({
-  name: 'JvScrollBox'
+  name: 'JvScrollBox',
 })
-
 const props = defineProps({
   scrollMode: {
     type: Object as PropType<{
@@ -45,11 +15,13 @@ const props = defineProps({
     default() {
       return {
         vertical: true,
-        horizontal: false
+        horizontal: false,
       }
-    }
-  }
+    },
+  },
 })
+BScroll.use(ScrollBar)
+BScroll.use(MouseWheel)
 
 const wrapperRef = ref<HTMLElement | null>(null)
 const horizontalRef = ref<HTMLElement>()
@@ -57,12 +29,12 @@ const verticalRef = ref<HTMLElement>()
 const bscroll = ref<BScroll | null>(null)
 const scrollmode = computed(() => ({
   vertical: props.scrollMode?.vertical ?? true,
-  horizontal: props.scrollMode?.horizontal ?? false
+  horizontal: props.scrollMode?.horizontal ?? false,
 }))
 
 onMounted(() => {
   if (wrapperRef.value) {
-    console.log(2)
+    // console.log(2)
     // 使用插件
     // 初始化 BScroll 实例，并应用传入的配置
     bscroll.value = new BScroll(wrapperRef.value, {
@@ -73,18 +45,18 @@ onMounted(() => {
       mouseWheel: {
         speed: 10,
         invert: false,
-        easeTime: 300
+        easeTime: 300,
       },
       scrollbar: {
         customElements: [horizontalRef.value!, verticalRef.value!],
         fade: false,
         interactive: true,
-        scrollbarTrackClickable: true
-      }
+        scrollbarTrackClickable: true,
+      },
     })
   }
   nextTick(() => {
-    console.log('nextTick')
+    // console.log('nextTick')
 
     if (bscroll.value) {
       // 刷新 BScroll 实例，以适应新的内容或尺寸变化
@@ -100,6 +72,32 @@ onUnmounted(() => {
   }
 })
 </script>
+
+<template>
+  <div class="custom-scrollbar-container">
+    <div ref="wrapperRef" class="custom-scrollbar-wrapper">
+      <div class="custom-scrollbar-content">
+        <slot />
+      </div>
+      <!-- custom-vertical-scrollbar -->
+      <div
+        v-if="scrollmode.vertical"
+        ref="verticalRef"
+        class="custom-vertical-scrollbar"
+      >
+        <div class="custom-vertical-indicator" />
+      </div>
+      <!-- custom-horizontal-scrollbar -->
+      <div
+        v-if="scrollmode.horizontal"
+        ref="horizontalRef"
+        class="custom-horizontal-scrollbar"
+      >
+        <div class="custom-horizontal-indicator" />
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="css" scoped>
 .custom-scrollbar-container {

@@ -1,23 +1,23 @@
 const buttonProps = {
   type: {
     type: String,
-    default: "default"
+    default: 'default',
   },
   width: {
     type: [String, Number],
-    default: "100%"
+    default: '100%',
   },
   size: {
     type: String,
-    default: "medium"
+    default: 'medium',
   },
   disabled: {
     type: Boolean,
-    default: false
+    default: false,
   },
   loading: {
     type: Boolean,
-    default: false
+    default: false,
   },
   /** 图标 */
   // icon: {
@@ -34,48 +34,48 @@ const buttonProps = {
   // },
   rounded: {
     type: Boolean,
-    default: false
+    default: false,
   },
   dashed: {
     type: Boolean,
-    default: false
+    default: false,
   },
   block: {
     type: Boolean,
-    default: false
+    default: false,
   },
   stacked: {
     type: Boolean,
-    default: false
+    default: false,
   },
   color: {
     type: String,
-    default: ""
+    default: '',
   },
   bgColor: {
     type: String,
-    default: ""
+    default: '',
   },
   variant: {
     type: String,
-    default: "elevated"
+    default: 'elevated',
   },
   /** 原生 type 属性 */
   nativeType: {
     type: String,
-    default: "button"
+    default: 'button',
   },
   /** 原生 autofocus 属性 */
   autofocus: {
     type: Boolean,
-    default: false
-  }
-};
+    default: false,
+  },
+}
 const buttonEmits = {
-  click: (e) => e instanceof MouseEvent,
-  mousedown: (e) => e instanceof MouseEvent,
-  keydown: (e) => e instanceof MouseEvent
-};
+  click: e => e instanceof MouseEvent,
+  mousedown: e => e instanceof MouseEvent,
+  keydown: e => e instanceof MouseEvent,
+}
 
-export { buttonEmits, buttonProps };
-//# sourceMappingURL=button.mjs.map
+export { buttonEmits, buttonProps }
+// # sourceMappingURL=button.mjs.map

@@ -1,5 +1,4 @@
 import type { Preview } from '@storybook/vue3'
-import { setup } from '@storybook/vue3'
 import '@jovial/theme-chalk/src/index.css'
 
 const preview: Preview = {
@@ -7,31 +6,31 @@ const preview: Preview = {
     controls: {
       matchers: {
         color: /(background|color)$/i,
-        date: /Date$/i
-      }
+        date: /Date$/i,
+      },
     },
     backgrounds: {
       default: 'light',
       values: [
         {
           name: 'light',
-          value: '#ddd'
+          value: '#ddd',
         },
         {
           name: 'dark',
-          value: '#222'
+          value: '#222',
         },
         {
           name: 'black',
-          value: '#000'
+          value: '#000',
         },
         {
           name: 'white',
-          value: '#fff'
-        }
-      ]
-    }
-  }
+          value: '#fff',
+        },
+      ],
+    },
+  },
 }
 
 export default preview

@@ -1,5 +1,5 @@
 packages:
-  - 'packages/**' #存放组件代码
-  - scripts #存放脚本
+  - 'packages/**' # 存放组件代码
+  - scripts # 存放脚本
   - build # 存放构建脚本
-  - typings #存放类型代码
+  - typings # 存放类型代码

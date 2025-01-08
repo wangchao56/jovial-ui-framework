@@ -1,9 +1,9 @@
-// Utilities
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { refElement } from '@jovial/utils'
-
 // Types
 import type { ComponentPublicInstance } from 'vue'
+import { refElement } from '@jovial/utils'
+
+// Utilities
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 export interface MutationOptions {
   attr?: boolean
@@ -16,7 +16,7 @@ export interface MutationOptions {
 
 export function useMutationObserver(
   handler?: MutationCallback,
-  options?: MutationOptions
+  options?: MutationOptions,
 ) {
   const mutationRef = ref<ComponentPublicInstance | HTMLElement>()
   const { once, immediate, ...optionKeys } = options || {}
@@ -26,12 +26,14 @@ export function useMutationObserver(
     (mutations: MutationRecord[], observer: MutationObserver) => {
       handler?.(mutations, observer)
 
-      if (options?.once) observer.disconnect()
-    }
+      if (options?.once)
+        observer.disconnect()
+    },
   )
 
   onMounted(() => {
-    if (!options?.immediate) return
+    if (!options?.immediate)
+      return
 
     handler?.([], observer)
   })
@@ -43,22 +45,24 @@ export function useMutationObserver(
   watch(
     mutationRef,
     (newValue, oldValue) => {
-      if (oldValue) observer.disconnect()
+      if (oldValue)
+        observer.disconnect()
 
       const el = refElement(newValue)
 
-      if (!el) return
+      if (!el)
+        return
 
       observer.observe(el, {
         attributes: options?.attr ?? defaultValue,
         characterData: options?.char ?? defaultValue,
         childList: options?.child ?? defaultValue,
-        subtree: options?.sub ?? defaultValue
+        subtree: options?.sub ?? defaultValue,
       })
     },
     {
-      flush: 'post'
-    }
+      flush: 'post',
+    },
   )
 
   return { mutationRef }

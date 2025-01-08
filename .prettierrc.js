@@ -7,5 +7,5 @@ module.exports = {
   jsxBracketSameLine: false,
   trailingComma: 'none', // 影响代码格式化
   arrowParens: 'always',
-  endOfLine: 'auto'
+  endOfLine: 'auto',
 }

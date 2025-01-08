@@ -1,25 +1,25 @@
-// Composables
-import { useProxiedModel } from '@/composables/proxiedModel'
-
-// Utilities
-import { watch } from 'vue'
+import type { LocaleInstance, LocaleMessages, LocaleOptions } from '@/composables/locale'
 
 // Types
 import type { Ref } from 'vue'
-import type { I18n, useI18n } from 'vue-i18n'
-import type { LocaleInstance, LocaleMessages, LocaleOptions } from '@/composables/locale'
 
-type VueI18nAdapterParams = {
+import type { I18n, useI18n } from 'vue-i18n'
+// Composables
+import { useProxiedModel } from '@/composables/proxiedModel'
+// Utilities
+import { watch } from 'vue'
+
+interface VueI18nAdapterParams {
   i18n: I18n<any, {}, {}, string, false>
   useI18n: typeof useI18n
 }
 
-function useProvided <T> (props: any, prop: string, provided: Ref<T>) {
+function useProvided<T>(props: any, prop: string, provided: Ref<T>) {
   const internal = useProxiedModel(props, prop)
 
   internal.value = props[prop] ?? provided.value
 
-  watch(provided, v => {
+  watch(provided, (v) => {
     if (props[prop] == null) {
       internal.value = v
     }
@@ -28,7 +28,7 @@ function useProvided <T> (props: any, prop: string, provided: Ref<T>) {
   return internal as Ref<T>
 }
 
-function createProvideFunction (data: {
+function createProvideFunction(data: {
   current: Ref<string>
   fallback: Ref<string>
   messages: Ref<LocaleMessages>
@@ -48,7 +48,7 @@ function createProvideFunction (data: {
       inheritLocale: false,
     })
 
-    watch(current, v => {
+    watch(current, (v) => {
       i18n.locale.value = v
     })
 
@@ -64,7 +64,7 @@ function createProvideFunction (data: {
   }
 }
 
-export function createVueI18nAdapter ({ i18n, useI18n }: VueI18nAdapterParams): LocaleInstance {
+export function createVueI18nAdapter({ i18n, useI18n }: VueI18nAdapterParams): LocaleInstance {
   const current = i18n.global.locale
   const fallback = i18n.global.fallbackLocale as Ref<any>
   const messages = i18n.global.messages

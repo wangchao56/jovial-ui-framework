@@ -1,0 +1,179 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+/* 定义 CSS 变量 */
+:root {
+  --jv-calendar-background-color: #fff;
+  --jv-calendar-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.5);
+  --jv-calendar-title-padding: 20px;
+  --jv-calendar-title-font-size: 24px;
+  --jv-calendar-title-font-weight: bold;
+  --jv-calendar-title-box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+
+  --jv-calendar-table-header-background-color: #f9f9f9;
+  --jv-calendar-table-cell-selected-shadow: inset 0px -4px 0px 0px #56b0bc, inset 0px 4px 0px 0px #56b0bc,
+    inset 4px 0px 0px 0px #56b0bc, inset -4px 0px 0px 0px #56b0bc;
+
+  --jv-calendar-table-cell-color: #333;
+  --jv-calendar-table-cell-hover-color: #56b0bc;
+  --jv-calendar-table-cell-selected-color: #fff;
+  --jv-calendar-table-cell-prevandnext-color: #999;
+
+  --jv-calendar-table-tfoot-bg-color: #f9f9f9;
+  --jv-calendar-table-tfoot-font-size: 14px;
+  --jv-calendar-table-tfoot-font-weight: bold;
+  --jv-calendar-table-tfoot-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+
+  --jv-calendar-table-thead-bg-color: #f0f0f0;
+  --jv-calendar-table-thead-font-size: 16px;
+  --jv-calendar-table-thead-font-weight: bold;
+  --jv-calendar-table-thead-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+}
+
+@define-mixin e $element {
+  .jv-calendar-table__$(element) {
+    @mixin-content;
+  }
+}
+
+@mixin b calendar {
+  min-width: max-content;
+  width: 500px;
+  background-color: var(--jv-calendar-background-color);
+  box-shadow: var(--jv-calendar-box-shadow);
+
+  &__title {
+    padding: var(--jv-calendar-title-padding);
+    font-size: var(--jv-calendar-title-font-size);
+    font-weight: var(--jv-calendar-title-font-weight);
+    background-color: var(--jv-calendar-background-color);
+    box-shadow: var(--jv-calendar-title-box-shadow);
+  }
+}
+@mixin b calendar-table {
+  width: inherit;
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow:
+    4px 4px 16px rgba(0, 0, 0, 0.1),
+    -4px -4px 16px rgba(255, 255, 255, 0.5);
+
+  @mixin e caption {
+    caption-side: top;
+    display: table-caption;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #fff;
+    box-shadow:
+      inset 4px 4px 8px rgba(0, 0, 0, 0.05),
+      inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+  }
+
+  @mixin e header {
+    padding: 8px 24px;
+    background-color: var(--jv-calendar-table-header-background-color);
+    box-shadow:
+      inset 4px 4px 8px rgba(0, 0, 0, 0.05),
+      inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+  }
+
+  @mixin e actions {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  @mixin e button-group {
+    /* 样式定义 */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    column-gap: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow:
+      4px 4px 8px rgba(0, 0, 0, 0.1),
+      -4px -4px 8px rgba(255, 255, 255, 0.5);
+
+    .jv-button {
+      border-radius: 0px;
+      box-shadow: none; /* 移除按钮的默认阴影以保持一致性 */
+      &:not(:last-child) {
+        border-right: 1px solid #e0e0e0;
+      }
+    }
+  }
+
+  @mixin e thead {
+    user-select: none;
+    background-color: var(--jv-calendar-table-thead-bg-color);
+    box-shadow: var(--jv-calendar-table-tfoot-shadow);
+  }
+
+  @mixin e cell {
+    width: 14.2857%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px;
+    position: relative;
+    cursor: pointer;
+
+    &.is-selected {
+      position: relative;
+      box-shadow: var(--jv-calendar-table-cell-selected-shadow);
+      border-radius: 5px;
+      background: linear-gradient(145deg, #f0f0f0, #cacaca);
+      box-shadow:
+        6px 6px 12px #bebebe,
+        -6px -6px 12px #ffffff;
+    }
+
+    &.is-selected:before {
+      box-shadow: var(--jv-calendar-table-cell-selected-shadow);
+    }
+
+    &.is-today {
+      background-color: var(--jv-calendar-table-cell-hover-color);
+      box-shadow: var(--jv-calendar-table-cell-selected-shadow);
+      border-radius: 5px;
+      background: linear-gradient(145deg, #14b46c, var(--jv-calendar-table-cell-hover-color));
+      box-shadow:
+        6px 6px 12px #bebebe,
+        -6px -6px 12px #ffffff;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+      pointer-events: none;
+    }
+
+    &:not(.is-selected):hover {
+      border: none;
+      background-color: #f0f0f0;
+      box-shadow:
+        inset 2px 2px 4px rgba(0, 0, 0, 0.05),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.5);
+    }
+
+    &--prev-month {
+      color: var(--jv-calendar-table-cell-prevandnext-color);
+    }
+
+    &--next-month {
+      color: var(--jv-calendar-table-cell-prevandnext-color);
+    }
+  }
+
+  @mixin e tfoot {
+    background-color: var(--jv-calendar-table-tfoot-bg-color);
+    box-shadow: var(--jv-calendar-table-tfoot-shadow);
+  }
+}

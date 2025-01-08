@@ -4,10 +4,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 
 Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
 
-
-
 jovial
-
 
 在为“jovial”命名的前端框架选择主题颜色时，可以考虑与“jovial”这个词的含义相契合的颜色。字面上，"jovial" 意为“欢乐的、愉快的”，它传达了一种轻松、阳光、积极的情绪。因此，在颜色选择上，可以考虑以下几种与这个主题相符的颜色：
 
@@ -35,11 +32,13 @@ jovial
   - 主色：阳光黄 (#FFEB3B)
   - 辅色：橙色 (#FF9800)
   - 背景色：淡白色 (#FFFFFF)
+
 - **“清新”配色方案**：
 
   - 主色：蓝绿色 (#009688)
   - 辅色：淡绿色 (#4CAF50)
   - 背景色：淡灰色 (#F1F1F1)
+
 - **“轻快”配色方案**：
 
   - 主色：粉红色 (#E91E63)

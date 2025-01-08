@@ -1,47 +1,47 @@
-import { ref, reactive, computed, watch } from 'vue';
+import { computed, reactive, ref, watch } from 'vue'
 
 function useDynamicHeightVirtualList(props) {
-  const scrollWrapperRef = ref();
-  const barRef = ref();
+  const scrollWrapperRef = ref()
+  const barRef = ref()
   const state = reactive({
     start: 0,
-    end: props.remain
-  });
+    end: props.remain,
+  })
   const prev = computed(() => {
-    return Math.min(state.start, props.remain);
-  });
+    return Math.min(state.start, props.remain)
+  })
   const next = computed(() => {
-    return Math.min(props.remain, props.items.length - state.end);
-  });
+    return Math.min(props.remain, props.items.length - state.end)
+  })
   const virtualDataRef = computed(() => {
-    return props.items.slice(state.start - prev.value, state.end + next.value);
-  });
+    return props.items.slice(state.start - prev.value, state.end + next.value)
+  })
   const wrapperStyle = computed(() => ({
-    height: `${props.remain * props.itemHeight}px`
-  }));
+    height: `${props.remain * props.itemHeight}px`,
+  }))
   const scrollBarStyle = computed(() => ({
-    height: `${props.items.reduce((total, item) => total + item.height, 0)}px`
-  }));
-  const offset = ref(0);
+    height: `${props.items.reduce((total, item) => total + item.height, 0)}px`,
+  }))
+  const offset = ref(0)
   const handleScroll = () => {
-    const scrollTop = scrollWrapperRef.value.scrollTop || 0;
-    const height = props.itemHeight;
-    state.start = Math.floor(scrollTop / height);
-    state.end = Math.min(state.start + props.remain, props.items.length);
-    offset.value = state.start * height - props.items.slice(0, state.start).reduce((total, item) => total + item.height, 0);
-  };
+    const scrollTop = scrollWrapperRef.value.scrollTop || 0
+    const height = props.itemHeight
+    state.start = Math.floor(scrollTop / height)
+    state.end = Math.min(state.start + props.remain, props.items.length)
+    offset.value = state.start * height - props.items.slice(0, state.start).reduce((total, item) => total + item.height, 0)
+  }
   const initWrapper = () => {
     if (scrollWrapperRef.value) {
-      scrollWrapperRef.value.style.height = `${props.remain * props.itemHeight}px`;
+      scrollWrapperRef.value.style.height = `${props.remain * props.itemHeight}px`
     }
     if (barRef.value) {
       barRef.value.style.height = `${props.items.reduce(
         (total, item) => total + item.height,
-        0
-      )}px`;
+        0,
+      )}px`
     }
-  };
-  watch(() => props.items.length, initWrapper, { immediate: true });
+  }
+  watch(() => props.items.length, initWrapper, { immediate: true })
   return {
     scrollWrapperRef,
     barRef,
@@ -50,9 +50,9 @@ function useDynamicHeightVirtualList(props) {
     scrollBarStyle,
     offset,
     handleScroll,
-    initWrapper
-  };
+    initWrapper,
+  }
 }
 
-export { useDynamicHeightVirtualList };
-//# sourceMappingURL=useDynamicHeightVirtualList.mjs.map
+export { useDynamicHeightVirtualList }
+// # sourceMappingURL=useDynamicHeightVirtualList.mjs.map

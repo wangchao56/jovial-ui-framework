@@ -13,25 +13,25 @@
  */
 function _bem(prefixName, blockSuffix, element, modifier) {
   if (blockSuffix) {
-    prefixName += `-${blockSuffix}`;
+    prefixName += `-${blockSuffix}`
   }
   if (element) {
-    prefixName += `__${element}`;
+    prefixName += `__${element}`
   }
   if (modifier) {
-    prefixName += `--${modifier}`;
+    prefixName += `--${modifier}`
   }
-  return prefixName;
+  return prefixName
 }
 function createBEM(prefixName) {
-  const b = (blockSuffix = "") => _bem(prefixName, blockSuffix, "", "");
-  const e = (element) => _bem(prefixName, "", element, "");
-  const m = (modifier) => _bem(prefixName, "", "", modifier);
-  const be = (blockSuffix, element) => _bem(prefixName, blockSuffix, element, "");
-  const em = (element, modifier) => _bem(prefixName, "", element, modifier);
-  const bm = (blockSuffix, modifier) => _bem(prefixName, blockSuffix, "", modifier);
-  const bem = (blockSuffix, element, modifier) => _bem(prefixName, blockSuffix, element, modifier);
-  const is = (name, state) => state ? `is-${name}` : "";
+  const b = (blockSuffix = '') => _bem(prefixName, blockSuffix, '', '')
+  const e = element => _bem(prefixName, '', element, '')
+  const m = modifier => _bem(prefixName, '', '', modifier)
+  const be = (blockSuffix, element) => _bem(prefixName, blockSuffix, element, '')
+  const em = (element, modifier) => _bem(prefixName, '', element, modifier)
+  const bm = (blockSuffix, modifier) => _bem(prefixName, blockSuffix, '', modifier)
+  const bem = (blockSuffix, element, modifier) => _bem(prefixName, blockSuffix, element, modifier)
+  const is = (name, state) => state ? `is-${name}` : ''
   return {
     b,
     e,
@@ -40,13 +40,13 @@ function createBEM(prefixName) {
     em,
     bm,
     bem,
-    is
-  };
+    is,
+  }
 }
 function createNamespace(namespace) {
-  const prefixName = `jv-${namespace}`;
-  return createBEM(prefixName);
+  const prefixName = `jv-${namespace}`
+  return createBEM(prefixName)
 }
 
-export { createNamespace };
-//# sourceMappingURL=create.mjs.map
+export { createNamespace }
+// # sourceMappingURL=create.mjs.map

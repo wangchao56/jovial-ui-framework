@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-Object.defineProperty(exports, '__esModule', { value: true });
+Object.defineProperty(exports, '__esModule', { value: true })
 
-var virtualScroll = require('./src/virtual-scroll.cjs');
-var withInstall = require('../../utils/with-install.cjs');
-var virtual = require('./src/virtual.cjs');
+const withInstall = require('../../utils/with-install.cjs')
+const virtualScroll = require('./src/virtual-scroll.cjs')
+const virtual = require('./src/virtual.cjs')
 
-const VirtualScroll = withInstall.withInstall(virtualScroll.default);
+const VirtualScroll = withInstall.withInstall(virtualScroll.default)
 
-exports.virtualScrollProps = virtual.virtualScrollProps;
-exports.default = VirtualScroll;
-//# sourceMappingURL=index.cjs.map
+exports.virtualScrollProps = virtual.virtualScrollProps
+exports.default = VirtualScroll
+// # sourceMappingURL=index.cjs.map

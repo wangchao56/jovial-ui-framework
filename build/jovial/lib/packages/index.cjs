@@ -1,17 +1,18 @@
-'use strict';
+'use strict'
 
-Object.defineProperty(exports, '__esModule', { value: true });
+Object.defineProperty(exports, '__esModule', { value: true })
 
-var components = require('./components.cjs');
+const components = require('./components.cjs')
 
-const install = function(app) {
-  if (install == null ? undefined : install.installed) return;
+const install = function (app) {
+  if (install == null ? undefined : install.installed)
+    return
   components.default.forEach((component) => {
-    app.use(component);
-  });
-  install.installed = true;
-};
+    app.use(component)
+  })
+  install.installed = true
+}
 
-exports.default = install;
-exports.install = install;
-//# sourceMappingURL=index.cjs.map
+exports.default = install
+exports.install = install
+// # sourceMappingURL=index.cjs.map

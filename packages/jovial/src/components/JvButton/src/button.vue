@@ -1,61 +1,19 @@
-<template>
-  <button
-    ref="rootRef"
-    :class="[
-      bem.b(),
-      bem.m(type),
-      bem.m(size),
-      bem.m(variant),
-      bem.is('dashed', dashed),
-      bem.is('rounded', rounded),
-      bem.is('loading', _loading),
-      bem.is('disabled', _disabled),
-      bem.is('block', block),
-      bem.is('stacked', stacked)
-    ]"
-    :disabled="loading || disabled"
-    :style="buttonStyle"
-    :type="nativeType"
-    :autofocus="autofocus"
-    @click="emitClick"
-    @mousedown="emitMouseDown"
-  >
-    <span v-if="$slots.prepend" :class="bem.e('prepend')">
-      <slot name="prepend"></slot>
-    </span>
-
-    <span v-if="loading" :class="bem.e('loader')">
-      <JvIcon :size="size">
-        <Loading />
-      </JvIcon>
-    </span>
-
-    <span :class="bem.e('content')">
-      <!-- 默认插槽 -->
-      <slot> </slot>
-    </span>
-    <span v-if="$slots.append" :class="bem.e('append')">
-      <slot name="append"></slot>
-    </span>
-  </button>
-</template>
-
 <script setup lang="ts">
-import { computed } from 'vue'
-import { createNamespace } from '@jovial/utils'
 import type {
-  ButtonSlots,
   ButtonEmits,
+  ButtonExposed,
   ButtonProps,
-  ButtonExposed
+  ButtonSlots,
 } from './button'
 import { Loading } from '@components/internal-icon/index'
 import JvIcon from '@components/JvIcon/src/icon.vue'
-import './style.css'
+import { createNamespace } from '@jovial/utils'
+import { computed } from 'vue'
+import './button.css'
 
 defineOptions({
   name: 'JvButton',
-  inheritAttrs: true
+  inheritAttrs: true,
 })
 // 使用 withDefaults 为 props 设置默认值
 const props = withDefaults(defineProps<ButtonProps>(), {
@@ -72,10 +30,10 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   bgColor: '',
   variant: 'elevated',
   nativeType: 'button',
-  autofocus: false
+  autofocus: false,
 })
-const slots = defineSlots<ButtonSlots>()
 const emit = defineEmits<ButtonEmits>()
+defineSlots<ButtonSlots>()
 const bem = createNamespace('button')
 
 const rootRef = ref<HTMLButtonElement | null>(null)
@@ -89,9 +47,9 @@ function emitMouseDown(e: MouseEvent) {
 }
 
 const buttonStyle = computed(() => {
-  let result = {} as Record<string, string>
+  const result = {} as Record<string, string>
   if (props.color) {
-    result['color'] = props.color
+    result.color = props.color
   }
   if (props.bgColor) {
     result['background-color'] = props.bgColor
@@ -114,8 +72,50 @@ const exposed: ButtonExposed = {
   },
   setDisabled: (disabled: boolean) => {
     _disabled.value = disabled
-  }
+  },
 }
 
 defineExpose<ButtonExposed>(exposed)
 </script>
+
+<template>
+  <button
+    ref="rootRef"
+    :class="[
+      bem.b(),
+      bem.m(type),
+      bem.m(size),
+      bem.m(variant),
+      bem.is('dashed', dashed),
+      bem.is('rounded', rounded),
+      bem.is('loading', _loading),
+      bem.is('disabled', _disabled),
+      bem.is('block', block),
+      bem.is('stacked', stacked),
+    ]"
+    :disabled="loading || disabled"
+    :style="buttonStyle"
+    :type="nativeType"
+    :autofocus="autofocus"
+    @click="emitClick"
+    @mousedown="emitMouseDown"
+  >
+    <span v-if="$slots.prepend" :class="bem.e('prepend')">
+      <slot name="prepend" />
+    </span>
+
+    <span v-if="loading" :class="bem.e('loader')">
+      <JvIcon :size="size">
+        <Loading />
+      </JvIcon>
+    </span>
+
+    <span :class="bem.e('content')">
+      <!-- 默认插槽 -->
+      <slot />
+    </span>
+    <span v-if="$slots.append" :class="bem.e('append')">
+      <slot name="append" />
+    </span>
+  </button>
+</template>

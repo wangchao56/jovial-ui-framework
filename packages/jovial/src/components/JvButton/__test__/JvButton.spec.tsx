@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import JvButton from '../src/button.vue'
 
-describe('JvButton', () => {
+describe('jvButton', () => {
   it('renders correctly with default props', () => {
     const wrapper = mount(JvButton)
     expect(wrapper.classes()).toContain('jv-button')
@@ -12,8 +12,8 @@ describe('JvButton', () => {
   it('renders correctly with a label', () => {
     const wrapper = mount(JvButton, {
       slots: {
-        default: 'Button Label'
-      }
+        default: 'Button Label',
+      },
     })
     expect(wrapper.text()).toBe('Button Label')
   })
@@ -21,8 +21,8 @@ describe('JvButton', () => {
   it('applies the correct size class', () => {
     const wrapper = mount(JvButton, {
       props: {
-        size: 'large'
-      }
+        size: 'large',
+      },
     })
     expect(wrapper.classes()).toContain('jv-button--large')
   })
@@ -30,8 +30,8 @@ describe('JvButton', () => {
   it('applies the correct type class', () => {
     const wrapper = mount(JvButton, {
       props: {
-        type: 'primary'
-      }
+        type: 'primary',
+      },
     })
     expect(wrapper.classes()).toContain('jv-button--primary')
   })
@@ -45,8 +45,8 @@ describe('JvButton', () => {
   it('disables the button when disabled prop is true', () => {
     const wrapper = mount(JvButton, {
       props: {
-        disabled: true
-      }
+        disabled: true,
+      },
     })
     expect(wrapper.attributes('disabled')).toBeDefined()
   })
@@ -54,8 +54,8 @@ describe('JvButton', () => {
   it('shows loading state when loading prop is true', () => {
     const wrapper = mount(JvButton, {
       props: {
-        loading: true
-      }
+        loading: true,
+      },
     })
     expect(wrapper.find('.jv-button__loader').exists()).toBe(true)
   })

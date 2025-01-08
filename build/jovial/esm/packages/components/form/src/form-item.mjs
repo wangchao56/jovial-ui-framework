@@ -1,15 +1,15 @@
 const formItemProps = {
   prop: {
     type: [String, Array],
-    default: ""
+    default: '',
   },
   label: {
     type: String,
-    default: ""
+    default: '',
   },
   labelPosition: {
     type: String,
-    default: ""
+    default: '',
   },
   labelWidth: [String, Number],
   required: Boolean,
@@ -17,40 +17,40 @@ const formItemProps = {
   error: String,
   showMessage: {
     type: Boolean,
-    default: true
+    default: true,
   },
   inlineMessage: Boolean,
   size: {
     type: String,
-    default: ""
+    default: '',
   },
   validateStatus: {
     type: String,
-    default: ""
-  }
-};
-const formItemEmits = {};
+    default: '',
+  },
+}
+const formItemEmits = {}
 const formItemSlots = {
-  default: () => ({ name: "default" }),
-  label: () => ({ name: "label" }),
-  error: () => ({ name: "error" })
-};
+  default: () => ({ name: 'default' }),
+  label: () => ({ name: 'label' }),
+  error: () => ({ name: 'error' }),
+}
 const formItemExpose = [
-  "size",
-  "validate",
-  "validateMessage",
-  "validateState",
-  "resetField",
-  "clearValidate"
-];
-const formItemProviderKey = Symbol("formItem");
+  'size',
+  'validate',
+  'validateMessage',
+  'validateState',
+  'resetField',
+  'clearValidate',
+]
+const formItemProviderKey = Symbol('formItem')
 var VALIDATE_STATE = /* @__PURE__ */ ((VALIDATE_STATE2) => {
-  VALIDATE_STATE2["SUCCESS"] = "success";
-  VALIDATE_STATE2["WARNING"] = "warning";
-  VALIDATE_STATE2["ERROR"] = "error";
-  VALIDATE_STATE2["VALIDATING"] = "validating";
-  return VALIDATE_STATE2;
-})(VALIDATE_STATE || {});
+  VALIDATE_STATE2.SUCCESS = 'success'
+  VALIDATE_STATE2.WARNING = 'warning'
+  VALIDATE_STATE2.ERROR = 'error'
+  VALIDATE_STATE2.VALIDATING = 'validating'
+  return VALIDATE_STATE2
+})(VALIDATE_STATE || {})
 
-export { VALIDATE_STATE, formItemEmits, formItemExpose, formItemProps, formItemProviderKey, formItemSlots };
-//# sourceMappingURL=form-item.mjs.map
+export { formItemEmits, formItemExpose, formItemProps, formItemProviderKey, formItemSlots, VALIDATE_STATE }
+// # sourceMappingURL=form-item.mjs.map

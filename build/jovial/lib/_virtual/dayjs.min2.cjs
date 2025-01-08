@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-var dayjs_min = {exports: {}};
+const dayjs_min = { exports: {} }
 
-exports.__module = dayjs_min;
-//# sourceMappingURL=dayjs.min2.cjs.map
+exports.__module = dayjs_min
+// # sourceMappingURL=dayjs.min2.cjs.map

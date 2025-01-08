@@ -1,18 +1,3 @@
-// Composables
-import { createDate, DateAdapterSymbol, DateOptionsSymbol } from '@/composables/date/date'
-import { createDefaults, DefaultsSymbol } from '@/composables/defaults'
-import { createDisplay, DisplaySymbol } from '@/composables/display'
-import { createGoTo, GoToSymbol } from '@/composables/goto'
-import { createIcons, IconSymbol } from '@/composables/icons'
-import { createLocale, LocaleSymbol } from '@/composables/locale'
-import { createTheme, ThemeSymbol } from '@/composables/theme'
-
-// Utilities
-import { nextTick, reactive } from 'vue'
-import { defineComponent, getUid, IN_BROWSER, mergeDeep } from '@/util'
-
-// Types
-import type { App, ComponentPublicInstance, InjectionKey } from 'vue'
 import type { DateOptions } from '@/composables/date'
 import type { DefaultsOptions } from '@/composables/defaults'
 import type { DisplayOptions, SSROptions } from '@/composables/display'
@@ -20,8 +5,24 @@ import type { GoToOptions } from '@/composables/goto'
 import type { IconOptions } from '@/composables/icons'
 import type { LocaleOptions, RtlOptions } from '@/composables/locale'
 import type { ThemeOptions } from '@/composables/theme'
+
+// Types
+import type { App, ComponentPublicInstance, InjectionKey } from 'vue'
+// Composables
+import { createDate, DateAdapterSymbol, DateOptionsSymbol } from '@/composables/date/date'
+
+import { createDefaults, DefaultsSymbol } from '@/composables/defaults'
+import { createDisplay, DisplaySymbol } from '@/composables/display'
+import { createGoTo, GoToSymbol } from '@/composables/goto'
+import { createIcons, IconSymbol } from '@/composables/icons'
+import { createLocale, LocaleSymbol } from '@/composables/locale'
+import { createTheme, ThemeSymbol } from '@/composables/theme'
+import { defineComponent, getUid, IN_BROWSER, mergeDeep } from '@/util'
+// Utilities
+import { nextTick, reactive } from 'vue'
+
 export * from './composables'
-export type { DateOptions, DateInstance, DateModule } from '@/composables/date'
+export type { DateInstance, DateModule, DateOptions } from '@/composables/date'
 
 export interface VuetifyOptions {
   aliases?: Record<string, any>
@@ -40,7 +41,7 @@ export interface VuetifyOptions {
 
 export interface Blueprint extends Omit<VuetifyOptions, 'blueprint'> {}
 
-export function createVuetify (vuetify: VuetifyOptions = {}) {
+export function createVuetify(vuetify: VuetifyOptions = {}) {
   const { blueprint, ...rest } = vuetify
   const options: VuetifyOptions = mergeDeep(blueprint, rest)
   const {
@@ -90,7 +91,8 @@ export function createVuetify (vuetify: VuetifyOptions = {}) {
         app.$nuxt.hook('app:suspense:resolve', () => {
           display.update()
         })
-      } else {
+      }
+      else {
         const { mount } = app
         app.mount = (...args) => {
           const vm = mount(...args)
@@ -106,7 +108,7 @@ export function createVuetify (vuetify: VuetifyOptions = {}) {
     if (typeof __VUE_OPTIONS_API__ !== 'boolean' || __VUE_OPTIONS_API__) {
       app.mixin({
         computed: {
-          $vuetify () {
+          $vuetify() {
             return reactive({
               defaults: inject.call(this, DefaultsSymbol),
               display: inject.call(this, DisplaySymbol),
@@ -137,12 +139,12 @@ export const version = __VUETIFY_VERSION__
 createVuetify.version = version
 
 // Vue's inject() can only be used in setup
-function inject (this: ComponentPublicInstance, key: InjectionKey<any> | string) {
+function inject(this: ComponentPublicInstance, key: InjectionKey<any> | string) {
   const vm = this.$
 
   const provides = vm.parent?.provides ?? vm.vnode.appContext?.provides
 
   if (provides && (key as any) in provides) {
-    return provides[(key as string)]
+    return provides[key as string]
   }
 }

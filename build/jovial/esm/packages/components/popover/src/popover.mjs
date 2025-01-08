@@ -1,6 +1,6 @@
-const popoverProps = {};
-const popoverEmits = {};
-const popoverSlots = {};
+const popoverProps = {}
+const popoverEmits = {}
+const popoverSlots = {}
 
-export { popoverEmits, popoverProps, popoverSlots };
-//# sourceMappingURL=popover.mjs.map
+export { popoverEmits, popoverProps, popoverSlots }
+// # sourceMappingURL=popover.mjs.map

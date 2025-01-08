@@ -1,17 +1,17 @@
-import { resolve } from 'path'
-import {
-  pkgRoot,
-  outputUmd,
-  componentsDir,
-  utilsDir,
-  rootDir
-} from './common.mjs'
-import { rollup } from 'rollup'
-import vue from '@vitejs/plugin-vue'
-import esbuild from 'rollup-plugin-esbuild'
-import { nodeResolve } from '@rollup/plugin-node-resolve'
+import { resolve } from 'node:path'
 import alias from '@rollup/plugin-alias'
-export const umdBuildEntry = async () => {
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import vue from '@vitejs/plugin-vue'
+import { rollup } from 'rollup'
+import esbuild from 'rollup-plugin-esbuild'
+import {
+  outputUmd,
+  pkgRoot,
+  rootDir,
+  utilsDir,
+} from './common.mjs'
+
+export async function umdBuildEntry() {
   let bundle
   let buildFailed = false
   try {
@@ -25,23 +25,23 @@ export const umdBuildEntry = async () => {
         esbuild({
           include: /\.[jt]sx?$/, // 默认包含 js/ts 文件
           minify: process.env.NODE_ENV === 'production',
-          target: 'es2018' // 使 esbuild 输出兼容 es2018 的代码，可选参数
+          target: 'es2018', // 使 esbuild 输出兼容 es2018 的代码，可选参数
         }),
         alias({
           entries: [
             {
               find: '@jovial/utils',
-              replacement: resolve(utilsDir, 'index.ts')
+              replacement: resolve(utilsDir, 'index.ts'),
             },
             {
               find: '@jovial/typings',
-              replacement: resolve(rootDir, 'typings/index.ts')
-            }
-          ]
-        })
+              replacement: resolve(rootDir, 'typings/index.ts'),
+            },
+          ],
+        }),
       ],
       // 输出配置
-      external: ['vue', 'mock']
+      external: ['vue', 'mock'],
     })
 
     // 写入输出文件
@@ -50,13 +50,14 @@ export const umdBuildEntry = async () => {
       format: 'umd',
       name: 'JovialUI',
       globals: {
-        vue: 'Vue'
+        vue: 'Vue',
       },
-      exports: 'named'
+      exports: 'named',
     })
 
     // 一个文件名数组，表示此产物所依赖的文件
-  } catch (error) {
+  }
+  catch (error) {
     buildFailed = true
     // 进行一些错误报告
     console.error(error)

@@ -18,14 +18,14 @@
  * @param blockSuffix   元素后缀
  * @param element       元素名称
  * @param modifier      修改器
- * @returns
+ * @returns  String           返回一个字符串
  */
 function _bem(
   prefixName: string,
   blockSuffix: string,
   element: string,
-  modifier: string
-) {
+  modifier: string,
+): string {
   if (blockSuffix) {
     prefixName += `-${blockSuffix}`
   }
@@ -61,7 +61,7 @@ function createBEM(prefixName: string) {
   const bem = (blockSuffix: string, element: string, modifier: string) =>
     _bem(prefixName, blockSuffix, element, modifier)
 
-  //判断状态
+  // 判断状态
   const is = (name: string, state) => (state ? `is-${name}` : '')
 
   return {
@@ -72,7 +72,7 @@ function createBEM(prefixName: string) {
     em,
     bm,
     bem,
-    is
+    is,
   }
 }
 

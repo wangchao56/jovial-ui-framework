@@ -1,3 +1,3 @@
-'use strict';
+'use strict'
 
-//# sourceMappingURL=scroll.cjs.map
+// # sourceMappingURL=scroll.cjs.map

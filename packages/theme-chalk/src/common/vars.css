@@ -86,4 +86,14 @@
   --jv-variant-elevated-bg-color: var(--bg-200);
   --jv-variant-outlined-border-color: var(--primary-100);
   --jv-variant-outlined-border-width: 1px;
+
+  --colors: (primary: #409eff, success: #67c23a, warning: #e6a23c, danger: #f56c6c, info: #909399);
+  /* postcss生产色彩变量 */
+  @each $val, $color in var(--colors) {
+    --jv-color-$(val): $(color);
+    @for $i from 3 to 9 by 2 {
+      --jv-color-$(val)-light-$(i): mix(#fff, $(color), .$(i));
+      --jv-color-$(val)-dark-$(i): mix(#000, $(color), .$(i));
+    }
+  }
 }

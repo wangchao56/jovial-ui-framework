@@ -6,13 +6,19 @@ import { ZoomOutTwotone } from '@vicons/material'
 <template>
   <Story title="Bise 基础组件/Icon 图标">
     <Variant title="Default">
-      <JvIcon :size="24" color="red"> <ZoomOutTwotone /> </JvIcon>
+      <JvIcon :size="24" color="red">
+        <ZoomOutTwotone />
+      </JvIcon>
     </Variant>
     <Variant title="demo2">
-      <JvIcon size="24" color="red">2324 </JvIcon>
+      <JvIcon size="24" color="red">
+        2324
+      </JvIcon>
     </Variant>
     <Variant title="demo3">
-      <JvIcon size="24" color="red">gdgd </JvIcon>
+      <JvIcon size="24" color="red">
+        gdgd
+      </JvIcon>
     </Variant>
   </Story>
 </template>

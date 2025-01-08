@@ -1,8 +1,9 @@
-import _sfc_main from './src/tooltip.vue2.mjs';
-import { withInstall } from '../../utils/with-install.mjs';
-export { tooltipEmits, tooltipProps, tooltipSlots } from './src/tooltip.mjs';
+import { withInstall } from '../../utils/with-install.mjs'
+import _sfc_main from './src/tooltip.vue2.mjs'
 
-const tooltip = withInstall(_sfc_main);
+export { tooltipEmits, tooltipProps, tooltipSlots } from './src/tooltip.mjs'
 
-export { tooltip as default };
-//# sourceMappingURL=index.mjs.map
+const tooltip = withInstall(_sfc_main)
+
+export { tooltip as default }
+// # sourceMappingURL=index.mjs.map

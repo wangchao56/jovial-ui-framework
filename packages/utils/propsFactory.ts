@@ -1,5 +1,5 @@
 // Types
-import type { IfAny } from '@vue/shared' // eslint-disable-line vue/prefer-import-from-vue
+import type { IfAny } from '@vue/shared'
 import type { ComponentObjectPropsOptions, Prop, PropType } from 'vue'
 
 /**
@@ -29,10 +29,10 @@ import type { ComponentObjectPropsOptions, Prop, PropType } from 'vue'
  */
 
 export function propsFactory<
-  PropsOptions extends ComponentObjectPropsOptions
-> (props: PropsOptions, source: string) {
+  PropsOptions extends ComponentObjectPropsOptions,
+>(props: PropsOptions, source: string) {
   return <Defaults extends PartialKeys<PropsOptions> = {}>(
-    defaults?: Defaults
+    defaults?: Defaults,
   ): AppendDefault<PropsOptions, Defaults> => {
     return Object.keys(props).reduce<any>((obj, prop) => {
       const isObjectDefinition = typeof props[prop] === 'object' && props[prop] != null && !Array.isArray(props[prop])
@@ -43,7 +43,8 @@ export function propsFactory<
           ...definition,
           default: defaults[prop],
         }
-      } else {
+      }
+      else {
         obj[prop] = definition
       }
 
@@ -55,19 +56,17 @@ export function propsFactory<
     }, {})
   }
 }
-
 type AppendDefault<T extends ComponentObjectPropsOptions, D extends PartialKeys<T>> = {
   [P in keyof T]-?: unknown extends D[P]
     ? T[P]
-    : T[P] extends Record<string, unknown>
-      ? Omit<T[P], 'type' | 'default'> & {
-        type: PropType<MergeTypeDefault<T[P], D[P]>>
-        default: MergeDefault<T[P], D[P]>
-      }
+    : T[P] extends Record<string, unknown> ? Omit<T[P], 'type' | 'default'> & {
+      type: PropType<MergeTypeDefault<T[P], D[P]>>
+      default: MergeDefault<T[P], D[P]>
+    }
       : {
-        type: PropType<MergeTypeDefault<T[P], D[P]>>
-        default: MergeDefault<T[P], D[P]>
-      }
+          type: PropType<MergeTypeDefault<T[P], D[P]>>
+          default: MergeDefault<T[P], D[P]>
+        }
 }
 
 type MergeTypeDefault<T, D, P = InferPropType<T>> = unknown extends D
@@ -89,19 +88,19 @@ type InferPropType<T> = [T] extends [null]
     // As TS issue https://github.com/Microsoft/TypeScript/issues/14829
     // somehow `ObjectConstructor` when inferred from { (): T } becomes `any`
     // `BooleanConstructor` when inferred from PropConstructor(with PropMethod) becomes `Boolean`
-    ? any
-    : [T] extends [ObjectConstructor | { type: ObjectConstructor }]
-      ? Record<string, any>
-      : [T] extends [BooleanConstructor | { type: BooleanConstructor }]
-        ? boolean
-        : [T] extends [DateConstructor | { type: DateConstructor }]
-          ? Date
-          : [T] extends [(infer U)[] | { type: (infer U)[] }]
-            ? U extends DateConstructor
-              ? Date | InferPropType<U>
-              : InferPropType<U>
-            : [T] extends [Prop<infer V, infer D>]
-              ? unknown extends V
-                ? IfAny<V, V, D>
-                : V
-              : T
+      ? any
+      : [T] extends [ObjectConstructor | { type: ObjectConstructor }]
+          ? Record<string, any>
+          : [T] extends [BooleanConstructor | { type: BooleanConstructor }]
+              ? boolean
+              : [T] extends [DateConstructor | { type: DateConstructor }]
+                  ? Date
+                  : [T] extends [(infer U)[] | { type: (infer U)[] }]
+                      ? U extends DateConstructor
+                        ? Date | InferPropType<U>
+                        : InferPropType<U>
+                      : [T] extends [Prop<infer V, infer D>]
+                          ? unknown extends V
+                            ? IfAny<V, V, D>
+                            : V
+                          : T

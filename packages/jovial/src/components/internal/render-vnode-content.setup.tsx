@@ -1,4 +1,5 @@
-import { defineComponent, PropType, VNodeChild } from 'vue'
+import type { PropType, VNodeChild } from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'JvRenderVNodeContent',
@@ -6,8 +7,8 @@ export default defineComponent({
     render: {
       type: Function as PropType<((...args: any[]) => VNodeChild) | undefined>,
       default: undefined,
-      required: false
-    }
+      required: false,
+    },
   },
   setup(props, { slots }) {
     return () => {
@@ -17,5 +18,5 @@ export default defineComponent({
           ? props.render()
           : null
     }
-  }
+  },
 })

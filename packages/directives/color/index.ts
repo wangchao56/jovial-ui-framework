@@ -1,25 +1,22 @@
-// @ts-nocheck
-/* eslint-disable */
+// Types
+import type { VuetifyThemeVariant } from 'types/services/theme'
+import type { VNode, VNodeDirective } from 'vue'
 
+import colors from '../../util/colors'
 // Utilities
 import { classToHex, isCssColor, parseGradient } from '../../util/colorUtils'
-import colors from '../../util/colors'
-
-// Types
-import { VuetifyThemeVariant } from 'types/services/theme'
-import { VNode, VNodeDirective } from 'vue'
 
 interface BorderModifiers {
-  top?: Boolean
-  right?: Boolean
-  bottom?: Boolean
-  left?: Boolean
+  top?: boolean
+  right?: boolean
+  bottom?: boolean
+  left?: boolean
 }
 
 function setTextColor(
   el: HTMLElement,
   color: string,
-  currentTheme: Partial<VuetifyThemeVariant>
+  currentTheme: Partial<VuetifyThemeVariant>,
 ) {
   const cssColor = !isCssColor(color)
     ? classToHex(color, colors, currentTheme)
@@ -32,7 +29,7 @@ function setTextColor(
 function setBackgroundColor(
   el: HTMLElement,
   color: string,
-  currentTheme: Partial<VuetifyThemeVariant>
+  currentTheme: Partial<VuetifyThemeVariant>,
 ) {
   const cssColor = !isCssColor(color)
     ? classToHex(color, colors, currentTheme)
@@ -46,7 +43,7 @@ function setBorderColor(
   el: HTMLElement,
   color: string,
   currentTheme: Partial<VuetifyThemeVariant>,
-  modifiers?: BorderModifiers
+  modifiers?: BorderModifiers,
 ) {
   const cssColor = !isCssColor(color)
     ? classToHex(color, colors, currentTheme)
@@ -57,21 +54,25 @@ function setBorderColor(
     return
   }
 
-  if (modifiers.top) el.style.borderTopColor = cssColor
-  if (modifiers.right) el.style.borderRightColor = cssColor
-  if (modifiers.bottom) el.style.borderBottomColor = cssColor
-  if (modifiers.left) el.style.borderLeftColor = cssColor
+  if (modifiers.top)
+    el.style.borderTopColor = cssColor
+  if (modifiers.right)
+    el.style.borderRightColor = cssColor
+  if (modifiers.bottom)
+    el.style.borderBottomColor = cssColor
+  if (modifiers.left)
+    el.style.borderLeftColor = cssColor
 }
 
 function setGradientColor(
   el: HTMLElement,
   gradient: string,
-  currentTheme: Partial<VuetifyThemeVariant>
+  currentTheme: Partial<VuetifyThemeVariant>,
 ) {
   el.style.backgroundImage = `linear-gradient(${parseGradient(
     gradient,
     colors,
-    currentTheme
+    currentTheme,
   )})`
 }
 
@@ -80,24 +81,28 @@ function updateColor(el: HTMLElement, binding: VNodeDirective, node: VNode) {
 
   if (binding.arg === undefined) {
     setBackgroundColor(el, binding.value, currentTheme)
-  } else if (binding.arg === 'text') {
+  }
+  else if (binding.arg === 'text') {
     setTextColor(el, binding.value, currentTheme)
-  } else if (binding.arg === 'border') {
+  }
+  else if (binding.arg === 'border') {
     setBorderColor(el, binding.value, currentTheme, binding.modifiers)
-  } else if (binding.arg === 'gradient') {
+  }
+  else if (binding.arg === 'gradient') {
     setGradientColor(el, binding.value, currentTheme)
   }
 }
 
 function update(el: HTMLElement, binding: VNodeDirective, node: VNode) {
-  if (binding.value === binding.oldValue) return
+  if (binding.value === binding.oldValue)
+    return
 
   updateColor(el, binding, node)
 }
 
 export const Color = {
   bind: updateColor,
-  update
+  update,
 }
 
 export default Color

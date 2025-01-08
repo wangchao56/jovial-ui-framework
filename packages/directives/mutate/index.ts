@@ -1,12 +1,12 @@
+import type { MutationOptions } from '@jovial/hooks/mutationObserver'
 // Types
 import type { DirectiveBinding } from 'vue'
-import type { MutationOptions } from '@jovial/hooks/mutationObserver'
 
 export interface MutationDirectiveBinding
   extends Omit<DirectiveBinding, 'modifiers' | 'value'> {
   value:
     | MutationCallback
-    | { handler: MutationCallback; options?: MutationObserverInit }
+    | { handler: MutationCallback, options?: MutationObserverInit }
   modifiers: MutationOptions
 }
 
@@ -16,8 +16,8 @@ function mounted(el: HTMLElement, binding: MutationDirectiveBinding) {
   const { once, immediate, ...modifierKeys } = modifiers
   const defaultValue = !Object.keys(modifierKeys).length
 
-  const { handler, options } =
-    typeof value === 'object'
+  const { handler, options }
+    = typeof value === 'object'
       ? value
       : {
           handler: value,
@@ -25,28 +25,31 @@ function mounted(el: HTMLElement, binding: MutationDirectiveBinding) {
             attributes: modifierKeys?.attr ?? defaultValue,
             characterData: modifierKeys?.char ?? defaultValue,
             childList: modifierKeys?.child ?? defaultValue,
-            subtree: modifierKeys?.sub ?? defaultValue
-          }
+            subtree: modifierKeys?.sub ?? defaultValue,
+          },
         }
 
   const observer = new MutationObserver(
     (mutations: MutationRecord[] = [], observer: MutationObserver) => {
       handler?.(mutations, observer)
 
-      if (once) unmounted(el, binding)
-    }
+      if (once)
+        unmounted(el, binding)
+    },
   )
 
-  if (immediate) handler?.([], observer)
+  if (immediate)
+    handler?.([], observer)
 
-  el._mutate = Object(el._mutate)
+  el._mutate = new Object(el._mutate)
   el._mutate![binding.instance!.$.uid] = { observer }
 
   observer.observe(el, options)
 }
 
 function unmounted(el: HTMLElement, binding: MutationDirectiveBinding) {
-  if (!el._mutate?.[binding.instance!.$.uid]) return
+  if (!el._mutate?.[binding.instance!.$.uid])
+    return
 
   el._mutate[binding.instance!.$.uid]!.observer.disconnect()
   delete el._mutate[binding.instance!.$.uid]
@@ -54,7 +57,7 @@ function unmounted(el: HTMLElement, binding: MutationDirectiveBinding) {
 
 export const Mutate = {
   mounted,
-  unmounted
+  unmounted,
 }
 
 export default Mutate

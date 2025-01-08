@@ -1,149 +1,149 @@
 const treePorps = {
   data: {
     type: Array,
-    default: () => []
+    default: () => [],
   },
   keyField: {
     type: String,
-    default: "key"
+    default: 'key',
   },
   labelField: {
     type: String,
-    default: "label"
+    default: 'label',
   },
   childrenField: {
     type: String,
-    default: "children"
+    default: 'children',
   },
   //  默认展开
   defaultExpandedKeys: {
     type: Array,
-    default: () => []
+    default: () => [],
   },
   onLoad: {
-    type: Function
+    type: Function,
   },
-  //选中
+  // 选中
   //    默认选中节点的 key 数组
   defaultSelectedKeys: {
     type: Array,
-    default: () => []
+    default: () => [],
   },
   selectedKeys: {
     type: Array,
-    default: () => []
+    default: () => [],
   },
-  //是否可选 true
+  // 是否可选 true
   selectable: {
     type: Boolean,
-    default: true
+    default: true,
   },
-  //是否可拖拽
+  // 是否可拖拽
   draggable: {
     type: Boolean,
-    default: false
+    default: false,
   },
-  //是否多选
+  // 是否多选
   multiple: {
     type: Boolean,
-    default: false
+    default: false,
   },
   virtualScroll: {
     type: Boolean,
-    default: false
+    default: false,
   },
   /** 是否显示复选框 */
   showCheckbox: {
     type: Boolean,
-    default: false
+    default: false,
   },
-  //当前选中节点的 key 数组
+  // 当前选中节点的 key 数组
   defaultCheckedKeys: {
     type: Array,
-    default: () => []
-  }
-};
+    default: () => [],
+  },
+}
 const treeNodeProps = {
   node: {
     type: Object,
-    required: true
+    required: true,
   },
-  //是否可选 true
+  // 是否可选 true
   selectable: {
     type: Boolean,
-    default: true
+    default: true,
   },
   //  是否展开
   expanded: {
     type: Boolean,
-    default: false
+    default: false,
   },
   loadingKeys: {
     type: Object,
-    default: () => []
+    default: () => [],
   },
   selectedKeys: {
     type: Array,
-    default: () => []
+    default: () => [],
   },
   /** 是否显示复选框 */
   showCheckbox: {
     type: Boolean,
-    default: false
+    default: false,
   },
   //  是否选中
   checked: {
     type: Boolean,
-    default: false
+    default: false,
   },
   //  是否半选中
   indeterminate: {
     type: Boolean,
-    default: false
+    default: false,
   },
   checkedKeys: {
     type: Array,
-    default: () => []
+    default: () => [],
   },
   disabled: {
     type: Boolean,
-    default: false
-  }
-};
+    default: false,
+  },
+}
 const treeNodeEmits = {
-  toggle: (node) => true,
-  select: (node) => true,
-  check: (node, checked) => typeof checked === "boolean",
-  dragStart: (node) => true,
-  dragEnd: (node) => true,
-  dragEnter: (node) => true,
-  dragLeave: (node) => true,
-  dragOver: (node) => true,
-  drop: (node) => true
-};
+  toggle: node => true,
+  select: node => true,
+  check: (node, checked) => typeof checked === 'boolean',
+  dragStart: node => true,
+  dragEnd: node => true,
+  dragEnter: node => true,
+  dragLeave: node => true,
+  dragOver: node => true,
+  drop: node => true,
+}
 const treeEmits = {
-  "update:selectedKeys": (keys) => keys
-};
+  'update:selectedKeys': keys => keys,
+}
 const treeNodeContentProps = {
   node: {
     type: Object,
-    required: true
-  }
-};
+    required: true,
+  },
+}
 function createOptions(key, label, children) {
   return {
     getKey(node) {
-      return node[key];
+      return node[key]
     },
     getLabel(node) {
-      return node[label];
+      return node[label]
     },
     getChildren(node) {
-      return node[children];
-    }
-  };
+      return node[children]
+    },
+  }
 }
-const treeInjectKey = Symbol("tree");
+const treeInjectKey = Symbol('tree')
 
-export { createOptions, treeEmits, treeInjectKey, treeNodeContentProps, treeNodeEmits, treeNodeProps, treePorps };
-//# sourceMappingURL=tree.mjs.map
+export { createOptions, treeEmits, treeInjectKey, treeNodeContentProps, treeNodeEmits, treeNodeProps, treePorps }
+// # sourceMappingURL=tree.mjs.map

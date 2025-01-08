@@ -1,35 +1,35 @@
-import 'vue/jsx'
-
 // Types
 import type {
   ComponentInjectOptions,
   ComponentOptionsMixin,
   EmitsOptions,
-  SlotsType
+  SlotsType,
 } from 'vue'
+
 import type { ComputedOptions, Events, MethodOptions, VNode } from 'vue'
 import type { TouchStoredHandlers } from '../packages/directives/touch'
+import 'vue/jsx'
 
 declare global {
   interface HTMLCollection {
-    [Symbol.iterator](): IterableIterator<Element>
+    [Symbol.iterator]: () => IterableIterator<Element>
   }
 
   interface Element {
     _clickOutside?: Record<
       number,
       | {
-          onClick: EventListener
-          onMousedown: EventListener
-        }
+        onClick: EventListener
+        onMousedown: EventListener
+      }
       | undefined
     > & { lastMousedownWasOutside: boolean }
     _onResize?: Record<
       number,
       | {
-          handler: () => void
-          options: AddEventListenerOptions
-        }
+        handler: () => void
+        options: AddEventListenerOptions
+      }
       | undefined
     >
     _ripple?: {
@@ -45,25 +45,25 @@ declare global {
     _observe?: Record<
       number,
       | {
-          init: boolean
-          observer: IntersectionObserver
-        }
+        init: boolean
+        observer: IntersectionObserver
+      }
       | undefined
     >
     _mutate?: Record<
       number,
       | {
-          observer: MutationObserver
-        }
+        observer: MutationObserver
+      }
       | undefined
     >
     _onScroll?: Record<
       number,
       | {
-          handler: EventListenerOrEventListenerObject
-          options: AddEventListenerOptions
-          target?: EventTarget
-        }
+        handler: EventListenerOrEventListenerObject
+        options: AddEventListenerOptions
+        target?: EventTarget
+      }
       | undefined
     >
     _touchHandlers?: {
@@ -77,7 +77,7 @@ declare global {
       height: string
     }
 
-    getElementsByClassName(classNames: string): NodeListOf<HTMLElement>
+    getElementsByClassName: (classNames: string) => NodeListOf<HTMLElement>
   }
 
   interface WheelEvent {
@@ -151,7 +151,7 @@ declare module 'vue' {
     Defaults = {},
     I extends ComponentInjectOptions = {},
     II extends string = string,
-    S extends SlotsType = {}
+    S extends SlotsType = {},
   > {
     aliasName?: string
   }
@@ -174,12 +174,12 @@ declare module 'vue' {
   type Combine<T extends string> =
     | T
     | {
-        [K in T]: {
-          [L in Exclude<T, K>]:
-            | `${K}${Exclude<T, K>}`
-            | `${K}${L}${Exclude<T, K | L>}`
-        }[Exclude<T, K>]
-      }[T]
+      [K in T]: {
+        [L in Exclude<T, K>]:
+          | `${K}${Exclude<T, K>}`
+          | `${K}${L}${Exclude<T, K | L>}`
+      }[Exclude<T, K>]
+    }[T]
 
   type Modifiers = Combine<'Passive' | 'Capture' | 'Once'>
 

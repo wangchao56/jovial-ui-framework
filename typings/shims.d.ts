@@ -1,7 +1,5 @@
-/* eslint-disable local-rules/sort-imports */
-
+import type { VNodeChild } from 'vue'
 import 'vue/jsx'
-import type { UnwrapNestedRefs, VNodeChild } from 'vue'
 
 // These already exist in scope in the final bundle
 // @skip-build

@@ -1,32 +1,32 @@
 export { useDate } from './date'
-export { useDefaults } from './defaults'
-export { useDisplay } from './display'
-export { useGoTo } from './goto'
-export { useLayout } from './layout'
-export { useLocale, useRtl } from './locale'
-export { useTheme } from './theme'
-
 export type { DateInstance } from './date'
+export { useDefaults } from './defaults'
 export type { DefaultsInstance } from './defaults'
+export { useDisplay } from './display'
 export type {
   DisplayBreakpoint,
   DisplayInstance,
-  DisplayThresholds
+  DisplayThresholds,
 } from './display'
 export type { SubmitEventPromise } from './form'
+
+export { useGoTo } from './goto'
 export type { GoToInstance } from './goto'
 export type {
   IconAliases,
+  IconOptions,
   IconProps,
   IconSet,
-  IconOptions,
-  JSXComponent
+  JSXComponent,
 } from './icons'
+export { useLayout } from './layout'
+export { useLocale, useRtl } from './locale'
 export type {
   LocaleInstance,
   LocaleMessages,
-  RtlInstance,
   LocaleOptions,
-  RtlOptions
+  RtlInstance,
+  RtlOptions,
 } from './locale'
+export { useTheme } from './theme'
 export type { ThemeDefinition, ThemeInstance } from './theme'

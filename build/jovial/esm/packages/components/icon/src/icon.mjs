@@ -1,18 +1,18 @@
 const iconProps = {
   size: {
     type: [String, Number],
-    default: "1em"
+    default: '1em',
   },
   color: {
     type: String,
-    default: "currentColor"
-  }
-};
+    default: 'currentColor',
+  },
+}
 const iconSlots = {
   default: {
-    type: String
-  }
-};
+    type: String,
+  },
+}
 
-export { iconProps, iconSlots };
-//# sourceMappingURL=icon.mjs.map
+export { iconProps, iconSlots }
+// # sourceMappingURL=icon.mjs.map

@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import JvAlert from '@jovial/components/alert'
-import { ref, watchEffect } from 'vue'
 </script>
+
 <template>
   <Story title="alert组件">
     <Variant title="Default">
-      <jv-alert
+      <JvAlert
         type="warning"
         title="警告"
         message="这是一个警告提示，请留意信息准确性。请注意，此消息仅为示例，并非真实情况。感谢您的关注与配合！"
-      ></jv-alert>
+      />
       <JvAlert
         type="info"
         message="这是一个警告提示，请留意信息准确性。请注意，此消息仅为示例，并非真实情况。感谢您的关注与配合！"
-      ></JvAlert>
+      />
       <JvAlert
         type="success"
         title="成功"
@@ -33,4 +33,5 @@ import { ref, watchEffect } from 'vue'
     </Variant>
   </Story>
 </template>
+
 <docs lang="md"></docs>

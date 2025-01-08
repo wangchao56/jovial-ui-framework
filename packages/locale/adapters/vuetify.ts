@@ -1,30 +1,26 @@
+import type { LocaleInstance, LocaleMessages, LocaleOptions } from '@/composables/locale'
+
+// Types
+import type { Ref } from 'vue'
 // Composables
 import { useProxiedModel } from '@/composables/proxiedModel'
-
-// Utilities
-import { ref, shallowRef, watch } from 'vue'
-import { consoleError, consoleWarn, getObjectValueByPath } from '@/util'
 
 // Locales
 import en from '@/locale/en'
 
-// Types
-import type { Ref } from 'vue'
-import type { LocaleInstance, LocaleMessages, LocaleOptions } from '@/composables/locale'
+import { consoleError, consoleWarn, getObjectValueByPath } from '@/util'
+// Utilities
+import { ref, shallowRef, watch } from 'vue'
 
 const LANG_PREFIX = '$vuetify.'
 
-const replace = (str: string, params: unknown[]) => {
+function replace(str: string, params: unknown[]) {
   return str.replace(/\{(\d+)\}/g, (match: string, index: string) => {
     return String(params[+index])
   })
 }
 
-const createTranslateFunction = (
-  current: Ref<string>,
-  fallback: Ref<string>,
-  messages: Ref<LocaleMessages>,
-) => {
+function createTranslateFunction(current: Ref<string>, fallback: Ref<string>, messages: Ref<LocaleMessages>) {
   return (key: string, ...params: unknown[]) => {
     if (!key.startsWith(LANG_PREFIX)) {
       return replace(key, params)
@@ -55,7 +51,7 @@ const createTranslateFunction = (
   }
 }
 
-function createNumberFunction (current: Ref<string>, fallback: Ref<string>) {
+function createNumberFunction(current: Ref<string>, fallback: Ref<string>) {
   return (value: number, options?: Intl.NumberFormatOptions) => {
     const numberFormat = new Intl.NumberFormat([current.value, fallback.value], options)
 
@@ -63,13 +59,13 @@ function createNumberFunction (current: Ref<string>, fallback: Ref<string>) {
   }
 }
 
-function useProvided <T> (props: any, prop: string, provided: Ref<T>) {
+function useProvided<T>(props: any, prop: string, provided: Ref<T>) {
   const internal = useProxiedModel(props, prop, props[prop] ?? provided.value)
 
   // TODO: Remove when defaultValue works
   internal.value = props[prop] ?? provided.value
 
-  watch(provided, v => {
+  watch(provided, () => {
     if (props[prop] == null) {
       internal.value = provided.value
     }
@@ -78,7 +74,7 @@ function useProvided <T> (props: any, prop: string, provided: Ref<T>) {
   return internal as Ref<T>
 }
 
-function createProvideFunction (state: { current: Ref<string>, fallback: Ref<string>, messages: Ref<LocaleMessages> }) {
+function createProvideFunction(state: { current: Ref<string>, fallback: Ref<string>, messages: Ref<LocaleMessages> }) {
   return (props: LocaleOptions): LocaleInstance => {
     const current = useProvided(props, 'locale', state.current)
     const fallback = useProvided(props, 'fallback', state.fallback)
@@ -96,7 +92,7 @@ function createProvideFunction (state: { current: Ref<string>, fallback: Ref<str
   }
 }
 
-export function createVuetifyAdapter (options?: LocaleOptions): LocaleInstance {
+export function createVuetifyAdapter(options?: LocaleOptions): LocaleInstance {
   const current = shallowRef(options?.locale ?? 'en')
   const fallback = shallowRef(options?.fallback ?? 'en')
   const messages = ref({ en, ...options?.messages })

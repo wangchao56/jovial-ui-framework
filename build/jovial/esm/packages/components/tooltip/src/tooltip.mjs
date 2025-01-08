@@ -1,27 +1,27 @@
 const tooltipProps = {
   activator: {
     type: [String, Object],
-    default: "parent"
+    default: 'parent',
   },
   content: {
     type: String,
-    default: ""
+    default: '',
   },
   placement: {
     type: String,
-    default: "top"
+    default: 'top',
   },
   disabled: Boolean,
   offset: Number,
   trigger: {
     type: String,
-    default: "hover"
+    default: 'hover',
   },
   virtualTriggering: Boolean,
-  triggerKeys: Array
-};
-const tooltipEmits = {};
-const tooltipSlots = {};
+  triggerKeys: Array,
+}
+const tooltipEmits = {}
+const tooltipSlots = {}
 
-export { tooltipEmits, tooltipProps, tooltipSlots };
-//# sourceMappingURL=tooltip.mjs.map
+export { tooltipEmits, tooltipProps, tooltipSlots }
+// # sourceMappingURL=tooltip.mjs.map

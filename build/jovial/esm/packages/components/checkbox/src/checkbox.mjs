@@ -1,24 +1,24 @@
 const checkboxProps = {
   modelValue: {
     type: Boolean,
-    default: false
+    default: false,
   },
   disabled: {
     type: Boolean,
-    default: false
+    default: false,
   },
   label: {
-    type: String
+    type: String,
   },
   indeterminate: {
     type: Boolean,
-    default: false
-  }
-};
+    default: false,
+  },
+}
 const checkboxEmits = {
-  "update:modelValue": (value) => typeof value === "boolean",
-  change: (value) => typeof value === "boolean"
-};
+  'update:modelValue': value => typeof value === 'boolean',
+  'change': value => typeof value === 'boolean',
+}
 
-export { checkboxEmits, checkboxProps };
-//# sourceMappingURL=checkbox.mjs.map
+export { checkboxEmits, checkboxProps }
+// # sourceMappingURL=checkbox.mjs.map

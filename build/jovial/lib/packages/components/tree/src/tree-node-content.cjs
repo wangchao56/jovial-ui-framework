@@ -1,21 +1,21 @@
-'use strict';
+'use strict'
 
-Object.defineProperty(exports, '__esModule', { value: true });
+Object.defineProperty(exports, '__esModule', { value: true })
 
-var vue = require('vue');
-var tree = require('./tree.cjs');
+const vue = require('vue')
+const tree = require('./tree.cjs')
 
-var JvTreeNodeContent = vue.defineComponent({
-  name: "JvTreeNodeContent",
+const JvTreeNodeContent = vue.defineComponent({
+  name: 'JvTreeNodeContent',
   props: tree.treeNodeContentProps,
   setup(props) {
-    const treeContext = vue.inject(tree.treeInjectKey);
+    const treeContext = vue.inject(tree.treeInjectKey)
     return () => {
-      const { node } = props;
-      return (treeContext == null ? undefined : treeContext.slots.default) ? treeContext == null ? undefined : treeContext.slots.default({ node }) : node.label;
-    };
-  }
-});
+      const { node } = props
+      return (treeContext == null ? undefined : treeContext.slots.default) ? treeContext == null ? undefined : treeContext.slots.default({ node }) : node.label
+    }
+  },
+})
 
-exports.default = JvTreeNodeContent;
-//# sourceMappingURL=tree-node-content.cjs.map
+exports.default = JvTreeNodeContent
+// # sourceMappingURL=tree-node-content.cjs.map

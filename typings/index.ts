@@ -1,4 +1,4 @@
-import { VNodeChild } from 'vue'
+import type { VNodeChild } from 'vue'
 
 export type Arrayable<T> = T | T[]
 
@@ -56,7 +56,7 @@ export type Placement =
   | 'right-start'
   | 'right-end'
 
-type Slot<T extends any[] = any[]> = (...args: T) => VNodeChild
+export type Slot<T extends any[] = any[]> = ((...args: T) => VNodeChild | VNodeChild[]) | undefined
 
 export type TriggerType = 'hover' | 'click' | 'focus' | 'contextmenu'
 export type Type =
@@ -79,8 +79,8 @@ export enum SizeOptions {
   'SMALL' = 'small',
   'MEDIUM' = 'medium',
   'LARGE' = 'large',
-  'X-LARGE' = 'x-large'
+  'X-LARGE' = 'x-large',
 }
 
-/**按钮的 DOM 的 type 属性 */
+/** 按钮的 DOM 的 type 属性 */
 export type NativeType = 'button' | 'submit' | 'reset'

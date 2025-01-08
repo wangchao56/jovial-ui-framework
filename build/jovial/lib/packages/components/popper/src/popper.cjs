@@ -1,52 +1,52 @@
-'use strict';
+'use strict'
 
 const popperProps = {
   visible: {
     type: Boolean,
-    default: false
+    default: false,
   },
   reference: {
     type: Object,
-    default: null
+    default: null,
   },
-  /**偏移量 */
+  /** 偏移量 */
   offset: {
     type: Number,
-    default: 8
+    default: 8,
   },
-  /**翻转 */
+  /** 翻转 */
   flip: {
     type: Boolean,
-    default: false
+    default: false,
   },
-  /**跟随 */
+  /** 跟随 */
   followCursor: {
     type: Boolean,
-    default: false
+    default: false,
   },
   arrow: {
     type: Boolean,
-    default: false
+    default: false,
   },
   size: {
     type: String,
-    default: "small"
+    default: 'small',
   },
-  /**偏移 */
+  /** 偏移 */
   shift: {
     type: Boolean,
-    default: true
+    default: true,
   },
-  /**对齐方式 */
+  /** 对齐方式 */
   placement: {
     type: String,
-    default: "top-center"
-  }
-};
-const popperEmits = {};
-const popperSlots = {};
+    default: 'top-center',
+  },
+}
+const popperEmits = {}
+const popperSlots = {}
 
-exports.popperEmits = popperEmits;
-exports.popperProps = popperProps;
-exports.popperSlots = popperSlots;
-//# sourceMappingURL=popper.cjs.map
+exports.popperEmits = popperEmits
+exports.popperProps = popperProps
+exports.popperSlots = popperSlots
+// # sourceMappingURL=popper.cjs.map

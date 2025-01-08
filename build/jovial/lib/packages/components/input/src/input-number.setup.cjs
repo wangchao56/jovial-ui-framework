@@ -1,19 +1,19 @@
-'use strict';
+'use strict'
 
-Object.defineProperty(exports, '__esModule', { value: true });
+Object.defineProperty(exports, '__esModule', { value: true })
 
-var vue = require('vue');
+const vue = require('vue')
 
-var inputNumber_setup = vue.defineComponent({
-  name: "JvInputNumber",
+const inputNumber_setup = vue.defineComponent({
+  name: 'JvInputNumber',
   props: {},
   emits: [],
   setup(props, ctx) {
     return () => {
-      return /* @__PURE__ */ React.createElement("div", null, "JvInputNumber");
-    };
-  }
-});
+      return /* @__PURE__ */ React.createElement('div', null, 'JvInputNumber')
+    }
+  },
+})
 
-exports.default = inputNumber_setup;
-//# sourceMappingURL=input-number.setup.cjs.map
+exports.default = inputNumber_setup
+// # sourceMappingURL=input-number.setup.cjs.map

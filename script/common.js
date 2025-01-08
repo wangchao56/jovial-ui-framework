@@ -1,5 +1,5 @@
-const fs = require('fs').promises
-const path = require('path')
+const fs = require('node:fs').promises
+const path = require('node:path')
 // 辅助函数：首字母大写 sew-cs-we  ==> SewCsWe
 // 辅助函数：首字母大写 sewe ==> Sewe
 function capitalizeFirstLetter(str) {
@@ -9,7 +9,7 @@ function capitalizeFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-//tuof峰驼峰命名转换
+// tuof峰驼峰命名转换
 function toHumpFirstUpper(str) {
   if (str.includes('-')) {
     return str.split('-').map(capitalizeFirstLetter).join('')
@@ -17,9 +17,9 @@ function toHumpFirstUpper(str) {
   return str
 }
 
-//驼峰命名转换 首字母小写
+// 驼峰命名转换 首字母小写
 function toHumpFirstLower(str) {
-  let tempStr = toHumpFirstUpper(str)
+  const tempStr = toHumpFirstUpper(str)
   return tempStr.charAt(0).toLowerCase() + tempStr.slice(1)
 }
 
@@ -30,7 +30,8 @@ async function createStructure(basePath, structure) {
     if (typeof structure[name] === 'object') {
       await fs.mkdir(currentPath, { recursive: true })
       await createStructure(currentPath, structure[name])
-    } else {
+    }
+    else {
       await fs.writeFile(currentPath, structure[name], 'utf8')
     }
   }
@@ -39,5 +40,5 @@ module.exports = {
   capitalizeFirstLetter,
   createStructure,
   toHumpFirstLower,
-  toHumpFirstUpper
+  toHumpFirstUpper,
 }

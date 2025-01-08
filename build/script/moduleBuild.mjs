@@ -1,27 +1,31 @@
-import glob from 'fast-glob'
-import { resolve } from 'path'
-import { rollup } from 'rollup'
-import vue from '@vitejs/plugin-vue'
-import esbuild from 'rollup-plugin-esbuild'
-import { nodeResolve } from '@rollup/plugin-node-resolve'
+import { resolve } from 'node:path'
+import { process } from 'node:process'
 import alias from '@rollup/plugin-alias'
-import postcss from 'rollup-plugin-postcss'
 import commonjs from '@rollup/plugin-commonjs'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import vue from '@vitejs/plugin-vue'
+import glob from 'fast-glob'
+import { rollup } from 'rollup'
+import esbuild from 'rollup-plugin-esbuild'
+
+import postcss from 'rollup-plugin-postcss'
+
 import {
-  pkgRoot,
-  rootDir,
-  outputEsm,
   outputCjs,
   outputDir,
-  utilsDir
+  outputEsm,
+  pkgRoot,
+  rootDir,
+  utilsDir,
 } from './common.mjs'
+
 /**
  * compileStyleEntry 函数用于创建一个 Rollup 插件，用于处理主题样式的入口文件。
  * 该插件会将以 `@jovial/theme-chalk` 开头的模块路径替换为输出目录中的实际路径。
  *
- * @returns {Object} Rollup 插件对象
+ * @returns {object} Rollup 插件对象
  */
-const compileStyleEntry = () => {
+function compileStyleEntry() {
   const themeEntryPrefix = `@jovial/theme-chalk`
   return {
     name: 'compile-style-entry',
@@ -32,22 +36,21 @@ const compileStyleEntry = () => {
 
       return {
         id: id.replace(themeEntryPrefix, `${outputDir}/theme-chalk`),
-        external: 'absolute'
+        external: 'absolute',
       }
-    }
+    },
   }
 }
 
-export const moduleBuildEntry = async () => {
+export async function moduleBuildEntry() {
   // 1. 获取
   const files = await glob('**/*.{js,ts,vue,tsx,setup.tsx}', {
     cwd: pkgRoot,
     absolute: true, // 返回绝对路径
-    onlyFiles: true // 只返回文件
+    onlyFiles: true, // 只返回文件
   })
-  let writeBundles
+  let writeBundles = null
   let buildFailed = false
-  console.log(files)
 
   writeBundles = await rollup({
     input: files,
@@ -58,29 +61,29 @@ export const moduleBuildEntry = async () => {
       esbuild({
         include: /\.[jt]sx?$/, // 默认包含 js/ts 文件
         minify: process.env.NODE_ENV === 'production',
-        target: 'es2018' // 使 esbuild 输出兼容 es2018 的代码，可选参数
+        target: 'es2018', // 使 esbuild 输出兼容 es2018 的代码，可选参数
       }),
       postcss({
-        pextract: true // 提取 css 到单独文件
+        pextract: true, // 提取 css 到单独文件
       }),
       alias({
         entries: [
           {
             find: '@jovial/utils',
-            replacement: resolve(utilsDir, 'index.ts')
+            replacement: resolve(utilsDir, 'index.ts'),
           },
           {
             find: '@jovial/typings',
-            replacement: resolve(rootDir, 'typings/index.ts')
-          }
-        ]
+            replacement: resolve(rootDir, 'typings/index.ts'),
+          },
+        ],
       }),
       commonjs({
         include: /node_modules/, // 包含 node_modules 中的模块
-        requireReturnsDefault: 'auto' // 自动处理 default 导出
-      })
+        requireReturnsDefault: 'auto', // 自动处理 default 导出
+      }),
     ],
-    external: ['vue', 'mock', 'async-validator', '@vue/shared']
+    external: ['vue', 'mock', 'async-validator', '@vue/shared'],
   })
 
   try {
@@ -90,7 +93,7 @@ export const moduleBuildEntry = async () => {
       preserveModules: true,
       entryFileNames: '[name].mjs',
       sourcemap: true,
-      exports: 'named' // 添加这一行
+      exports: 'named', // 添加这一行
     })
     await writeBundles.write({
       dir: outputCjs,
@@ -98,9 +101,10 @@ export const moduleBuildEntry = async () => {
       preserveModules: true,
       entryFileNames: '[name].cjs',
       sourcemap: true,
-      exports: 'named' // 添加这一行
+      exports: 'named', // 添加这一行
     })
-  } catch (error) {
+  }
+  catch (error) {
     buildFailed = true
     console.error(error)
   }

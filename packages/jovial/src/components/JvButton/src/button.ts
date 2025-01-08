@@ -1,12 +1,12 @@
 import type { NativeType, Size, Type, Variant } from '@jovial/typings'
-import type { ExtractPropTypes, PropType, VNodeChild } from 'vue'
+import type { VNodeChild } from 'vue'
 
 export type Placement = 'left' | 'center' | 'right'
 
 export const buttonEmits = {
   click: (e: MouseEvent) => e instanceof MouseEvent,
   mousedown: (e: MouseEvent) => e instanceof MouseEvent,
-  keydown: (e: KeyboardEvent) => e instanceof MouseEvent
+  keydown: (e: KeyboardEvent) => e instanceof MouseEvent,
 } as const
 
 export interface ButtonProps {
@@ -40,7 +40,7 @@ export interface ButtonProps {
   autofocus?: boolean
 }
 /** 按钮的事件类型 */
-export type ButtonEmits = {
+export interface ButtonEmits {
   /** 点击事件 */
   (e: 'click', payload: MouseEvent): void
   /** 鼠标按下事件 */
@@ -49,7 +49,7 @@ export type ButtonEmits = {
   (e: 'keydown', payload: KeyboardEvent): void
 }
 /** 按钮的插槽类型 */
-export type ButtonSlots = {
+export interface ButtonSlots {
   /** 默认插槽 */
   default?: () => VNodeChild
   /** 加载状态插槽 */
@@ -60,7 +60,7 @@ export type ButtonSlots = {
   append?: () => VNodeChild
 }
 /** 按钮的暴露类型 */
-export type ButtonExposed = {
+export interface ButtonExposed {
   /** 按钮的根元素 */
   root: HTMLButtonElement | null
   /** 设置按钮的加载状态 */

@@ -1,6 +1,5 @@
-import JvIcon from '@components/JvIcon/src/icon.vue'
-import { fn } from '@storybook/test'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import JvIcon from '@components/JvIcon/src/icon.vue'
 import { ZoomOutTwotone } from '@vicons/material'
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
@@ -12,17 +11,17 @@ const meta = {
     size: {
       control: 'select',
       options: ['tiny', 'small', 'medium', 'large', 'x-large'],
-      description: '图标的大小'
+      description: '图标的大小',
     },
     color: {
       control: 'color',
-      description: '图标的颜色'
-    }
+      description: '图标的颜色',
+    },
   },
   args: {
     size: 'medium',
-    color: '#000000'
-  }
+    color: '#000000',
+  },
 } satisfies Meta<typeof JvIcon>
 
 export default meta
@@ -34,7 +33,7 @@ type Story = StoryObj<typeof meta>
  * to learn how to use render functions.
  */
 export const Default: Story = {
-  render: (args) => ({
+  render: args => ({
     components: { JvIcon, ZoomOutTwotone },
     setup() {
       return { args }
@@ -43,15 +42,15 @@ export const Default: Story = {
       <JvIcon v-bind="args">
         <ZoomOutTwotone />
       </JvIcon>
-    `
-  })
+    `,
+  }),
 }
 
 export const Colored: Story = {
   args: {
-    color: '#1ea7fd'
+    color: '#1ea7fd',
   },
-  render: (args) => ({
+  render: args => ({
     components: { JvIcon, ZoomOutTwotone },
     setup() {
       return { args }
@@ -60,15 +59,15 @@ export const Colored: Story = {
       <JvIcon v-bind="args">
               <ZoomOutTwotone />
       </JvIcon>
-    `
-  })
+    `,
+  }),
 }
 
 export const Large: Story = {
   args: {
-    size: 'large'
+    size: 'large',
   },
-  render: (args) => ({
+  render: args => ({
     components: { JvIcon, ZoomOutTwotone },
     setup() {
       return { args }
@@ -77,16 +76,16 @@ export const Large: Story = {
       <JvIcon v-bind="args">
               <ZoomOutTwotone />
       </JvIcon>
-    `
-  })
+    `,
+  }),
 }
 
 export const Small: Story = {
   args: {
     size: 'small',
-    default: 'Small Icon'
+    default: 'Small Icon',
   },
-  render: (args) => ({
+  render: args => ({
     components: { JvIcon, ZoomOutTwotone },
     setup() {
       return { args }
@@ -95,6 +94,6 @@ export const Small: Story = {
       <JvIcon v-bind="args">
               <ZoomOutTwotone />
       </JvIcon>
-    `
-  })
+    `,
+  }),
 }

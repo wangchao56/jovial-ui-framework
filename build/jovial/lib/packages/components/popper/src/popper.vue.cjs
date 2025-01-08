@@ -1,10 +1,8 @@
-'use strict';
+'use strict'
 
-Object.defineProperty(exports, '__esModule', { value: true });
+Object.defineProperty(exports, '__esModule', { value: true })
 
-var popper_vue_vue_type_script_setup_true_lang = require('./popper.vue2.cjs');
+const popper_vue_vue_type_script_setup_true_lang = require('./popper.vue2.cjs')
 
-
-
-exports.default = popper_vue_vue_type_script_setup_true_lang.default;
-//# sourceMappingURL=popper.vue.cjs.map
+exports.default = popper_vue_vue_type_script_setup_true_lang.default
+// # sourceMappingURL=popper.vue.cjs.map

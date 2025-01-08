@@ -1,20 +1,19 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+import type { Options } from '@better-scroll/core'
 import BScroll from '@better-scroll/core'
 import MouseWheel from '@better-scroll/mouse-wheel'
 import ScrollBar from '@better-scroll/scroll-bar'
-import type { Options } from '@better-scroll/core'
+import { onMounted, onUnmounted, ref } from 'vue'
 // 使用插件
 BScroll.use(MouseWheel)
 BScroll.use(ScrollBar)
 export function useBScroll(
   wrapper: Ref<HTMLElement | null>,
-  options?: Options
+  options?: Options,
 ) {
   const bscroll = ref<BScroll | null>(null)
 
   onMounted(() => {
     if (wrapper.value) {
-      console.log(2)
       // 使用插件
       // 初始化 BScroll 实例，并应用传入的配置
       bscroll.value = new BScroll(wrapper.value, options)
@@ -29,6 +28,6 @@ export function useBScroll(
   })
 
   return {
-    bscroll
+    bscroll,
   }
 }

@@ -1,8 +1,9 @@
-import _sfc_main from './src/calendar.vue2.mjs';
-import { withInstall } from '../../utils/with-install.mjs';
-export { CalendarDateCellType, CalendarPeriod, actionsMap, actionsMapEntries, calendarEmits, calendarProps, calendarSlots, weekMaping } from './src/calendar.mjs';
+import { withInstall } from '../../utils/with-install.mjs'
+import _sfc_main from './src/calendar.vue2.mjs'
 
-const JvCalendar = withInstall(_sfc_main);
+export { actionsMap, actionsMapEntries, CalendarDateCellType, calendarEmits, CalendarPeriod, calendarProps, calendarSlots, weekMaping } from './src/calendar.mjs'
 
-export { JvCalendar as default };
-//# sourceMappingURL=index.mjs.map
+const JvCalendar = withInstall(_sfc_main)
+
+export { JvCalendar as default }
+// # sourceMappingURL=index.mjs.map

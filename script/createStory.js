@@ -1,10 +1,11 @@
-const fs = require('fs').promises
-const path = require('path')
+const path = require('node:path')
 const capitalizeFirstLetter = require('./common').capitalizeFirstLetter
 const createStructure = require('./common').createStructure
+const process = require('node:process')
+
 // 从命令行参数获取基本目录名称
 const args = process.argv.slice(2)
-const baseNameArg = args.find((arg) => arg.startsWith('--name='))
+const baseNameArg = args.find(arg => arg.startsWith('--name='))
 if (!baseNameArg) {
   console.error('Please provide the base name using --name=<baseDirectoryName>')
   process.exit(1)
@@ -31,8 +32,8 @@ const structure = {
     </template>
     <docs lang="md"></docs>
 
-    `
-  }
+    `,
+  },
 }
 
 createStructure(storyOutPath, structure)

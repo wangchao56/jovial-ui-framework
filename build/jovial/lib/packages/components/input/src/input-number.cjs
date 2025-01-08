@@ -1,3 +1,3 @@
-'use strict';
+'use strict'
 
-//# sourceMappingURL=input-number.cjs.map
+// # sourceMappingURL=input-number.cjs.map

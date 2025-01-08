@@ -1,19 +1,4 @@
-// Utilities
-import {
-  capitalize,
-  Comment,
-  computed,
-  Fragment,
-  isVNode,
-  reactive,
-  readonly,
-  shallowRef,
-  toRefs,
-  unref,
-  watchEffect
-} from 'vue'
-import { IN_BROWSER } from './globals'
-
+/* eslint-disable unused-imports/no-unused-vars */
 // Types
 import type {
   ComponentInternalInstance,
@@ -26,17 +11,34 @@ import type {
   VNode,
   VNodeArrayChildren,
   VNodeChild,
-  WatchOptions
+  WatchOptions,
 } from 'vue'
+// Utilities
+import {
+  capitalize,
+  Comment,
+  computed,
+  Fragment,
+  isVNode,
+  reactive,
+  readonly,
+  shallowRef,
+  toRefs,
+  unref,
+  watchEffect,
+} from 'vue'
+
+import { IN_BROWSER } from './globals'
 
 export function getNestedValue(
   obj: any,
   path: (string | number)[],
-  fallback?: any
+  fallback?: any,
 ): any {
   const last = path.length - 1
 
-  if (last < 0) return obj === undefined ? fallback : obj
+  if (last < 0)
+    return obj === undefined ? fallback : obj
 
   for (let i = 0; i < last; i++) {
     if (obj == null) {
@@ -45,13 +47,15 @@ export function getNestedValue(
     obj = obj[path[i]]
   }
 
-  if (obj == null) return fallback
+  if (obj == null)
+    return fallback
 
   return obj[path[last]] === undefined ? fallback : obj[path[last]]
 }
 
 export function deepEqual(a: any, b: any): boolean {
-  if (a === b) return true
+  if (a === b)
+    return true
 
   if (a instanceof Date && b instanceof Date && a.getTime() !== b.getTime()) {
     // If the values are Date, compare them as timestamps
@@ -70,17 +74,19 @@ export function deepEqual(a: any, b: any): boolean {
     return false
   }
 
-  return props.every((p) => deepEqual(a[p], b[p]))
+  return props.every(p => deepEqual(a[p], b[p]))
 }
 
 export function getObjectValueByPath(
   obj: any,
   path?: string | null,
-  fallback?: any
+  fallback?: any,
 ): any {
   // credit: http://stackoverflow.com/questions/6491463/accessing-nested-javascript-objects-with-string-key#comment55278413_6491621
-  if (obj == null || !path || typeof path !== 'string') return fallback
-  if (obj[path] !== undefined) return obj[path]
+  if (obj == null || !path || typeof path !== 'string')
+    return fallback
+  if (obj[path] !== undefined)
+    return obj[path]
   path = path.replace(/\[(\w+)\]/g, '.$1') // convert indexes to properties
   path = path.replace(/^\./, '') // strip a leading dot
   return getNestedValue(obj, path.split('.'), fallback)
@@ -97,14 +103,17 @@ export type SelectItemKey<T = Record<string, any>> =
 export function getPropertyFromItem(
   item: any,
   property: SelectItemKey,
-  fallback?: any
+  fallback?: any,
 ): any {
-  if (property === true) return item === undefined ? fallback : item
+  if (property === true)
+    return item === undefined ? fallback : item
 
-  if (property == null || typeof property === 'boolean') return fallback
+  if (property == null || typeof property === 'boolean')
+    return fallback
 
   if (item !== Object(item)) {
-    if (typeof property !== 'function') return fallback
+    if (typeof property !== 'function')
+      return fallback
 
     const value = property(item, fallback)
 
@@ -114,9 +123,11 @@ export function getPropertyFromItem(
   if (typeof property === 'string')
     return getObjectValueByPath(item, property, fallback)
 
-  if (Array.isArray(property)) return getNestedValue(item, property, fallback)
+  if (Array.isArray(property))
+    return getNestedValue(item, property, fallback)
 
-  if (typeof property !== 'function') return fallback
+  if (typeof property !== 'function')
+    return fallback
 
   const value = property(item, fallback)
 
@@ -128,11 +139,13 @@ export function createRange(length: number, start = 0): number[] {
 }
 
 export function getZIndex(el?: Element | null): number {
-  if (!el || el.nodeType !== Node.ELEMENT_NODE) return 0
+  if (!el || el.nodeType !== Node.ELEMENT_NODE)
+    return 0
 
   const index = +window.getComputedStyle(el).getPropertyValue('z-index')
 
-  if (!index) return getZIndex(el.parentNode as Element)
+  if (!index)
+    return getZIndex(el.parentNode as Element)
   return index
 }
 
@@ -143,15 +156,18 @@ export function convertToUnit(
 ): string | undefined
 export function convertToUnit(
   str: string | number | null | undefined,
-  unit = 'px'
+  unit = 'px',
 ): string | undefined {
   if (str == null || str === '') {
     return undefined
-  } else if (isNaN(+str!)) {
+  }
+  else if (Number.isNaN(+str!)) {
     return String(str)
-  } else if (!isFinite(+str!)) {
+  }
+  else if (!Number.isFinite(+str!)) {
     return undefined
-  } else {
+  }
+  else {
     return `${Number(str)}${unit}`
   }
 }
@@ -159,15 +175,15 @@ export function convertToUnit(
 export function isPlainObject(obj: any): obj is Record<string, any> {
   let proto
   return (
-    obj !== null &&
-    typeof obj === 'object' &&
-    ((proto = Object.getPrototypeOf(obj)) === Object.prototype ||
-      proto === null)
+    obj !== null
+    && typeof obj === 'object'
+    && ((proto = Object.getPrototypeOf(obj)) === Object.prototype
+      || proto === null)
   )
 }
 
 export function refElement(
-  obj?: ComponentPublicInstance<any> | HTMLElement
+  obj?: ComponentPublicInstance<any> | HTMLElement,
 ): HTMLElement | undefined {
   if (obj && '$el' in obj) {
     const el = obj.$el as HTMLElement
@@ -198,7 +214,7 @@ export const keyCodes = Object.freeze({
   insert: 45,
   pageup: 33,
   pagedown: 34,
-  shift: 16
+  shift: 16,
 })
 
 export const keyValues: Record<string, string> = Object.freeze({
@@ -218,7 +234,7 @@ export const keyValues: Record<string, string> = Object.freeze({
   insert: 'Insert',
   pageup: 'PageUp',
   pagedown: 'PageDown',
-  shift: 'Shift'
+  shift: 'Shift',
 })
 
 export function keys<O extends {}>(o: O) {
@@ -227,9 +243,9 @@ export function keys<O extends {}>(o: O) {
 
 export function has<T extends string>(
   obj: object,
-  key: T[]
+  key: T[],
 ): obj is Record<T, unknown> {
-  return key.every((k) => obj.hasOwnProperty(k))
+  return key.every(k => Object.prototype.hasOwnProperty.call(obj, k))
 }
 
 type MaybePick<T extends object, U extends Extract<keyof T, string>> =
@@ -238,7 +254,7 @@ type MaybePick<T extends object, U extends Extract<keyof T, string>> =
 // Array of keys
 export function pick<T extends object, U extends Extract<keyof T, string>>(
   obj: T,
-  paths: U[]
+  paths: U[],
 ): MaybePick<T, U> {
   const found: any = {}
 
@@ -256,7 +272,7 @@ export function pick<T extends object, U extends Extract<keyof T, string>>(
 export function pickWithRest<
   T extends object,
   U extends Extract<keyof T, string>,
-  E extends Extract<keyof T, string>
+  E extends Extract<keyof T, string>,
 >(
   obj: T,
   paths: U[],
@@ -266,7 +282,7 @@ export function pickWithRest<
 export function pickWithRest<
   T extends object,
   U extends Extract<keyof T, string>,
-  E extends Extract<keyof T, string>
+  E extends Extract<keyof T, string>,
 >(
   obj: T,
   paths: (U | RegExp)[],
@@ -275,24 +291,25 @@ export function pickWithRest<
 export function pickWithRest<
   T extends object,
   U extends Extract<keyof T, string>,
-  E extends Extract<keyof T, string>
+  E extends Extract<keyof T, string>,
 >(
   obj: T,
   paths: (U | RegExp)[],
-  exclude?: E[]
+  exclude?: E[],
 ): [yes: Partial<T>, no: Partial<T>] {
   const found = Object.create(null)
   const rest = Object.create(null)
 
   for (const key in obj) {
     if (
-      paths.some((path) =>
-        path instanceof RegExp ? path.test(key) : path === key
-      ) &&
-      !exclude?.some((path) => path === key)
+      paths.some(path =>
+        path instanceof RegExp ? path.test(key) : path === key,
+      )
+      && !exclude?.some(path => path === key)
     ) {
       found[key] = obj[key]
-    } else {
+    }
+    else {
       rest[key] = obj[key]
     }
   }
@@ -302,22 +319,22 @@ export function pickWithRest<
 
 export function omit<T extends object, U extends Extract<keyof T, string>>(
   obj: T,
-  exclude: U[]
+  exclude: U[],
 ): Omit<T, U> {
   const clone = { ...obj }
 
-  exclude.forEach((prop) => delete clone[prop])
+  exclude.forEach(prop => delete clone[prop])
 
   return clone
 }
 
 export function only<T extends object, U extends Extract<keyof T, string>>(
   obj: T,
-  include: U[]
+  include: U[],
 ): Pick<T, U> {
   const clone = {} as T
 
-  include.forEach((prop) => (clone[prop] = obj[prop]))
+  include.forEach(prop => (clone[prop] = obj[prop]))
 
   return clone
 }
@@ -382,7 +399,7 @@ const bubblingEvents = [
   'onTransitionend',
   'onTransitionrun',
   'onTransitionstart',
-  'onWheel'
+  'onWheel',
 ]
 
 const compositionIgnoreKeys = [
@@ -393,7 +410,7 @@ const compositionIgnoreKeys = [
   'Enter',
   'Escape',
   'Tab',
-  ' '
+  ' ',
 ]
 
 export function isComposingIgnoreKey(e: KeyboardEvent): boolean {
@@ -412,7 +429,7 @@ export function filterInputAttrs(attrs: Record<string, unknown>) {
     'class',
     'style',
     'id',
-    /^data-/
+    /^data-/,
   ])
   Object.assign(rootAttrs, events)
   Object.assign(inputAttrs, inputEvents)
@@ -425,25 +442,25 @@ export function filterInputAttrs(attrs: Record<string, unknown>) {
 export function arrayDiff(a: any[], b: any[]): any[] {
   const diff: any[] = []
   for (let i = 0; i < b.length; i++) {
-    if (!a.includes(b[i])) diff.push(b[i])
+    if (!a.includes(b[i]))
+      diff.push(b[i])
   }
   return diff
 }
 
 type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N
 export function wrapInArray<T>(
-  v: T | null | undefined
+  v: T | null | undefined,
 ): T extends readonly any[] ? IfAny<T, T[], T> : NonNullable<T>[] {
   return v == null ? [] : Array.isArray(v) ? (v as any) : [v]
 }
 
-export function defaultFilter(value: any, search: string | null, item: any) {
+export function defaultFilter(value: any, search: string | null, _item: any) {
   return (
-    value != null &&
-    search != null &&
-    typeof value !== 'boolean' &&
-    value.toString().toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) !==
-      -1
+    value != null
+    && search != null
+    && typeof value !== 'boolean'
+    && value.toString().toLocaleLowerCase().includes(search.toLocaleLowerCase())
   )
 }
 
@@ -462,7 +479,7 @@ export function debounce(fn: Function, delay: MaybeRef<number>) {
 
 export function throttle<T extends (...args: any[]) => any>(
   fn: T,
-  limit: number
+  limit: number,
 ) {
   let throttling = false
   return (...args: Parameters<T>): void | ReturnType<T> => {
@@ -505,13 +522,12 @@ export function chunk(str: string, size = 1) {
 
 export function chunkArray(array: any[], size = 1) {
   return Array.from({ length: Math.ceil(array.length / size) }, (v, i) =>
-    array.slice(i * size, i * size + size)
-  )
+    array.slice(i * size, i * size + size))
 }
 
 export function humanReadableFileSize(
   bytes: number,
-  base: 1000 | 1024 = 1000
+  base: 1000 | 1024 = 1000,
 ): string {
   if (bytes < base) {
     return `${bytes} B`
@@ -529,7 +545,7 @@ export function humanReadableFileSize(
 export function mergeDeep(
   source: Record<string, any> = {},
   target: Record<string, any> = {},
-  arrayFn?: (a: unknown[], b: unknown[]) => unknown[]
+  arrayFn?: (a: unknown[], b: unknown[]) => unknown[],
 ) {
   const out: Record<string, any> = {}
 
@@ -550,9 +566,9 @@ export function mergeDeep(
     }
 
     if (
-      arrayFn &&
-      Array.isArray(sourceProperty) &&
-      Array.isArray(targetProperty)
+      arrayFn
+      && Array.isArray(sourceProperty)
+      && Array.isArray(targetProperty)
     ) {
       out[key] = arrayFn(sourceProperty, targetProperty)
 
@@ -570,7 +586,8 @@ export function flattenFragments(nodes: VNode[]): VNode[] {
     .map((node) => {
       if (node.type === Fragment) {
         return flattenFragments(node.children as VNode[])
-      } else {
+      }
+      else {
         return node
       }
     })
@@ -578,7 +595,8 @@ export function flattenFragments(nodes: VNode[]): VNode[] {
 }
 
 export function toKebabCase(str = '') {
-  if (toKebabCase.cache.has(str)) return toKebabCase.cache.get(str)!
+  if (toKebabCase.cache.has(str))
+    return toKebabCase.cache.get(str)!
   const kebab = str
     .replace(/[^a-z]/gi, '-')
     .replace(/\B([A-Z])/g, '-$1')
@@ -592,26 +610,31 @@ export type MaybeRef<T> = T | Ref<T>
 
 export function findChildrenWithProvide(
   key: InjectionKey<any> | symbol,
-  vnode?: VNodeChild
+  vnode?: VNodeChild,
 ): ComponentInternalInstance[] {
-  if (!vnode || typeof vnode !== 'object') return []
+  if (!vnode || typeof vnode !== 'object')
+    return []
 
   if (Array.isArray(vnode)) {
-    return vnode.map((child) => findChildrenWithProvide(key, child)).flat(1)
-  } else if (vnode.suspense) {
+    return vnode.map(child => findChildrenWithProvide(key, child)).flat(1)
+  }
+  else if (vnode.suspense) {
     return findChildrenWithProvide(key, vnode.ssContent!)
-  } else if (Array.isArray(vnode.children)) {
+  }
+  else if (Array.isArray(vnode.children)) {
     return vnode.children
-      .map((child) => findChildrenWithProvide(key, child))
+      .map(child => findChildrenWithProvide(key, child))
       .flat(1)
-  } else if (vnode.component) {
+  }
+  else if (vnode.component) {
     if (
       Object.getOwnPropertySymbols(vnode.component.provides).includes(
-        key as symbol
+        key as symbol,
       )
     ) {
       return [vnode.component]
-    } else if (vnode.component.subTree) {
+    }
+    else if (vnode.component.subTree) {
       return findChildrenWithProvide(key, vnode.component.subTree).flat(1)
     }
   }
@@ -655,8 +678,8 @@ export function getEventCoordinates(e: MouseEvent | TouchEvent) {
 type NotAUnion<T> = [T] extends [infer U] ? _NotAUnion<U, U> : never
 type _NotAUnion<T, U> = U extends any
   ? [T] extends [U]
-    ? unknown
-    : never
+      ? unknown
+      : never
   : never
 
 /**
@@ -675,7 +698,7 @@ export function destructComputed<T extends object>(getter: ComputedGetter<T>) {
         refs[key] = base.value[key]
       }
     },
-    { flush: 'sync' }
+    { flush: 'sync' },
   )
   return toRefs(refs)
 }
@@ -690,17 +713,18 @@ export function eventName(propName: string) {
 }
 
 export type EventProp<T extends any[] = any[], F = (...args: T) => void> = F
-export const EventProp = <T extends any[] = any[]>() =>
-  [Function, Array] as PropType<EventProp<T>>
+export function EventProp<T extends any[] = any[]>() {
+  return [Function, Array] as PropType<EventProp<T>>
+}
 
 export function hasEvent(props: Record<string, any>, name: string) {
-  name = 'on' + capitalize(name)
+  name = `on${capitalize(name)}`
   return !!(
-    props[name] ||
-    props[`${name}Once`] ||
-    props[`${name}Capture`] ||
-    props[`${name}OnceCapture`] ||
-    props[`${name}CaptureOnce`]
+    props[name]
+    || props[`${name}Once`]
+    || props[`${name}Capture`]
+    || props[`${name}OnceCapture`]
+    || props[`${name}CaptureOnce`]
   )
 }
 
@@ -712,7 +736,8 @@ export function callEvent<T extends any[]>(
     for (const h of handler) {
       h(...args)
     }
-  } else if (typeof handler === 'function') {
+  }
+  else if (typeof handler === 'function') {
     handler(...args)
   }
 }
@@ -724,11 +749,11 @@ export function focusableChildren(el: Element, filterByTabIndex = true) {
     'input:not([type="hidden"])',
     'select',
     'textarea',
-    '[tabindex]'
+    '[tabindex]',
   ]
     .map(
-      (s) =>
-        `${s}${filterByTabIndex ? ':not([tabindex="-1"])' : ''}:not([disabled])`
+      s =>
+        `${s}${filterByTabIndex ? ':not([tabindex="-1"])' : ''}:not([disabled])`,
     )
     .join(', ')
   return [...el.querySelectorAll(targets)] as HTMLElement[]
@@ -737,7 +762,7 @@ export function focusableChildren(el: Element, filterByTabIndex = true) {
 export function getNextElement(
   elements: HTMLElement[],
   location?: 'next' | 'prev',
-  condition?: (el: HTMLElement) => boolean
+  condition?: (el: HTMLElement) => boolean,
 ) {
   let _el
   let idx = elements.indexOf(document.activeElement as HTMLElement)
@@ -746,16 +771,16 @@ export function getNextElement(
     idx += inc
     _el = elements[idx]
   } while (
-    (!_el || _el.offsetParent == null || !(condition?.(_el) ?? true)) &&
-    idx < elements.length &&
-    idx >= 0
+    (!_el || _el.offsetParent == null || !(condition?.(_el) ?? true))
+    && idx < elements.length
+    && idx >= 0
   )
   return _el
 }
 
 export function focusChild(
   el: Element,
-  location?: 'next' | 'prev' | 'first' | 'last' | number
+  location?: 'next' | 'prev' | 'first' | 'last' | number,
 ) {
   const focusable = focusableChildren(el)
 
@@ -763,15 +788,20 @@ export function focusChild(
     if (el === document.activeElement || !el.contains(document.activeElement)) {
       focusable[0]?.focus()
     }
-  } else if (location === 'first') {
+  }
+  else if (location === 'first') {
     focusable[0]?.focus()
-  } else if (location === 'last') {
+  }
+  else if (location === 'last') {
     focusable.at(-1)?.focus()
-  } else if (typeof location === 'number') {
+  }
+  else if (typeof location === 'number') {
     focusable[location]?.focus()
-  } else {
+  }
+  else {
     const _el = getNextElement(focusable, location)
-    if (_el) _el.focus()
+    if (_el)
+      _el.focus()
     else focusChild(el, location === 'next' ? 'first' : 'last')
   }
 }
@@ -789,32 +819,36 @@ export function noop() {}
 /** Returns null if the selector is not supported or we can't check */
 export function matchesSelector(
   el: Element | undefined,
-  selector: string
+  selector: string,
 ): boolean | null {
-  const supportsSelector =
-    IN_BROWSER &&
-    typeof CSS !== 'undefined' &&
-    typeof CSS.supports !== 'undefined' &&
-    CSS.supports(`selector(${selector})`)
+  const supportsSelector
+    = IN_BROWSER
+    && typeof CSS !== 'undefined'
+    && typeof CSS.supports !== 'undefined'
+    && CSS.supports(`selector(${selector})`)
 
-  if (!supportsSelector) return null
+  if (!supportsSelector)
+    return null
 
   try {
     return !!el && el.matches(selector)
-  } catch (err) {
+  }
+  catch (_) {
     return null
   }
 }
 
 export function ensureValidVNode(
-  vnodes: VNodeArrayChildren
+  vnodes: VNodeArrayChildren,
 ): VNodeArrayChildren | null {
   return vnodes.some((child) => {
-    if (!isVNode(child)) return true
-    if (child.type === Comment) return false
+    if (!isVNode(child))
+      return true
+    if (child.type === Comment)
+      return false
     return (
-      child.type !== Fragment ||
-      ensureValidVNode(child.children as VNodeArrayChildren)
+      child.type !== Fragment
+      || ensureValidVNode(child.children as VNodeArrayChildren)
     )
   })
     ? vnodes
@@ -835,7 +869,7 @@ export function defer(timeout: number, cb: () => void) {
 
 export function eagerComputed<T>(
   fn: () => T,
-  options?: WatchOptions
+  options?: WatchOptions,
 ): Readonly<Ref<T>> {
   const result = shallowRef()
 
@@ -845,8 +879,8 @@ export function eagerComputed<T>(
     },
     {
       flush: 'sync',
-      ...options
-    }
+      ...options,
+    },
   )
 
   return readonly(result)
@@ -854,7 +888,7 @@ export function eagerComputed<T>(
 
 export function isClickInsideElement(
   event: MouseEvent,
-  targetDiv: HTMLElement
+  targetDiv: HTMLElement,
 ) {
   const mouseX = event.clientX
   const mouseY = event.clientY
@@ -866,14 +900,14 @@ export function isClickInsideElement(
   const divBottom = divRect.bottom
 
   return (
-    mouseX >= divLeft &&
-    mouseX <= divRight &&
-    mouseY >= divTop &&
-    mouseY <= divBottom
+    mouseX >= divLeft
+    && mouseX <= divRight
+    && mouseY >= divTop
+    && mouseY <= divBottom
   )
 }
 
-export type TemplateRef = {
+export interface TemplateRef {
   (target: Element | ComponentPublicInstance | null): void
   value: HTMLElement | ComponentPublicInstance | null | undefined
   readonly el: HTMLElement | undefined
@@ -886,11 +920,11 @@ export function templateRef() {
   Object.defineProperty(fn, 'value', {
     enumerable: true,
     get: () => el.value,
-    set: (val) => (el.value = val)
+    set: val => (el.value = val),
   })
   Object.defineProperty(fn, 'el', {
     enumerable: true,
-    get: () => refElement(el.value)
+    get: () => refElement(el.value),
   })
 
   return fn as TemplateRef

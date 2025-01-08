@@ -1,7 +1,4 @@
-// Utilities
-import { h, mergeProps, render, resolveComponent } from 'vue'
-import { consoleError, isObject } from '@jovial/utils'
-
+import type { ComponentInstance } from '@jovial/utils'
 // Types
 import type {
   Component,
@@ -10,9 +7,12 @@ import type {
   ConcreteComponent,
   DirectiveBinding,
   ObjectDirective,
-  VNode
+  VNode,
 } from 'vue'
-import type { ComponentInstance } from '@jovial/utils'
+
+import { consoleError, isObject } from '@jovial/utils'
+// Utilities
+import { h, mergeProps, render, resolveComponent } from 'vue'
 
 type ExcludeProps =
   | 'v-slots'
@@ -32,7 +32,7 @@ type DirectiveHook<B extends DirectiveBinding> = (
   prevVNode: VNode<any, any>
 ) => void
 export interface CustomDirective<
-  B extends DirectiveBinding = DirectiveBinding
+  B extends DirectiveBinding = DirectiveBinding,
 > {
   created?: DirectiveHook<B>
   beforeMount?: DirectiveHook<B>
@@ -50,7 +50,7 @@ export function useDirectiveComponent<Binding extends DirectiveBinding>(
 ): CustomDirective<Binding>
 export function useDirectiveComponent<
   C extends Component,
-  Props = Omit<ComponentInstance<C>['$props'], ExcludeProps>
+  Props = Omit<ComponentInstance<C>['$props'], ExcludeProps>,
 >(
   component: string | C,
   props?: Record<string, any>
@@ -59,7 +59,7 @@ export function useDirectiveComponent(
   component: string | Component,
   props?:
     | Record<string, any>
-    | ((binding: DirectiveBinding) => Record<string, any>)
+    | ((binding: DirectiveBinding) => Record<string, any>),
 ): ObjectDirective | CustomDirective {
   const concreteComponent = (
     typeof component === 'string' ? resolveComponent(component) : component
@@ -72,7 +72,7 @@ export function useDirectiveComponent(
     updated: hook,
     unmounted(el: HTMLElement) {
       render(null, el)
-    }
+    },
   }
 }
 
@@ -80,7 +80,7 @@ function mountComponent(
   component: ConcreteComponent,
   props?:
     | Record<string, any>
-    | ((binding: DirectiveBinding) => Record<string, any>)
+    | ((binding: DirectiveBinding) => Record<string, any>),
 ) {
   return function (el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
     const _props = typeof props === 'function' ? props(binding) : props
@@ -92,8 +92,8 @@ function mountComponent(
 
     // If vnode.ctx is the same as the instance, then we're bound to a plain element
     // and need to find the nearest parent component instance to inherit provides from
-    const provides =
-      (vnode.ctx === binding.instance!.$
+    const provides
+      = (vnode.ctx === binding.instance!.$
         ? findComponentParent(vnode, binding.instance!.$)?.provides
         : vnode.ctx?.provides) ?? binding.instance!.$.provides
 
@@ -101,7 +101,7 @@ function mountComponent(
     node.appContext = Object.assign(
       Object.create(null),
       (binding.instance as ComponentPublicInstance).$.appContext,
-      { provides }
+      { provides },
     )
 
     render(node, el)
@@ -110,13 +110,14 @@ function mountComponent(
 
 function findComponentParent(
   vnode: VNode,
-  root: ComponentInternalInstance
+  root: ComponentInternalInstance,
 ): ComponentInternalInstance | null {
   // Walk the tree from root until we find the child vnode
   const stack = new Set<VNode>()
   const walk = (children: VNode[]): boolean => {
     for (const child of children) {
-      if (!child) continue
+      if (!child)
+        continue
 
       if (child === vnode || (child.el && vnode.el && child.el === vnode.el)) {
         return true
@@ -126,9 +127,11 @@ function findComponentParent(
       let result
       if (child.suspense) {
         result = walk([child.ssContent!])
-      } else if (Array.isArray(child.children)) {
+      }
+      else if (Array.isArray(child.children)) {
         result = walk(child.children as VNode[])
-      } else if (child.component?.vnode) {
+      }
+      else if (child.component?.vnode) {
         result = walk([child.component?.subTree])
       }
       if (result) {
@@ -141,7 +144,7 @@ function findComponentParent(
   }
   if (!walk([root.subTree])) {
     consoleError(
-      'Could not find original vnode, component will not inherit provides'
+      'Could not find original vnode, component will not inherit provides',
     )
     return root
   }

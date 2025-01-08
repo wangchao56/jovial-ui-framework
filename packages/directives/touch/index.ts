@@ -1,8 +1,8 @@
-// Utilities
-import { keys } from '@jovial/utils'
-
 // Types
 import type { DirectiveBinding } from 'vue'
+
+// Utilities
+import { keys } from '@jovial/utils'
 
 export interface TouchHandlers {
   start?: (wrapperEvent: { originalEvent: TouchEvent } & TouchData) => void
@@ -42,7 +42,7 @@ export interface TouchDirectiveBinding extends Omit<DirectiveBinding, 'value'> {
   value?: TouchValue
 }
 
-const handleGesture = (wrapper: TouchWrapper) => {
+function handleGesture(wrapper: TouchWrapper) {
   const { touchstartX, touchendX, touchstartY, touchendY } = wrapper
   const dirRatio = 0.5
   const minDistance = 16
@@ -50,19 +50,19 @@ const handleGesture = (wrapper: TouchWrapper) => {
   wrapper.offsetY = touchendY - touchstartY
 
   if (Math.abs(wrapper.offsetY) < dirRatio * Math.abs(wrapper.offsetX)) {
-    wrapper.left &&
-      touchendX < touchstartX - minDistance &&
-      wrapper.left(wrapper)
-    wrapper.right &&
-      touchendX > touchstartX + minDistance &&
-      wrapper.right(wrapper)
+    wrapper.left
+    && touchendX < touchstartX - minDistance
+    && wrapper.left(wrapper)
+    wrapper.right
+    && touchendX > touchstartX + minDistance
+    && wrapper.right(wrapper)
   }
 
   if (Math.abs(wrapper.offsetX) < dirRatio * Math.abs(wrapper.offsetY)) {
     wrapper.up && touchendY < touchstartY - minDistance && wrapper.up(wrapper)
-    wrapper.down &&
-      touchendY > touchstartY + minDistance &&
-      wrapper.down(wrapper)
+    wrapper.down
+    && touchendY > touchstartY + minDistance
+    && wrapper.down(wrapper)
   }
 }
 
@@ -108,13 +108,13 @@ function createHandlers(value: TouchHandlers = {}): TouchStoredHandlers {
     down: value.down,
     start: value.start,
     move: value.move,
-    end: value.end
+    end: value.end,
   }
 
   return {
     touchstart: (e: TouchEvent) => touchstart(e, wrapper),
     touchend: (e: TouchEvent) => touchend(e, wrapper),
-    touchmove: (e: TouchEvent) => touchmove(e, wrapper)
+    touchmove: (e: TouchEvent) => touchmove(e, wrapper),
   }
 }
 
@@ -124,7 +124,8 @@ function mounted(el: HTMLElement, binding: TouchDirectiveBinding) {
   const options = value?.options ?? { passive: true }
   const uid = binding.instance?.$.uid // TODO: use custom uid generator
 
-  if (!target || !uid) return
+  if (!target || !uid)
+    return
 
   const handlers = createHandlers(binding.value)
 
@@ -140,7 +141,8 @@ function unmounted(el: HTMLElement, binding: TouchDirectiveBinding) {
   const target = binding.value?.parent ? el.parentElement : el
   const uid = binding.instance?.$.uid
 
-  if (!target?._touchHandlers || !uid) return
+  if (!target?._touchHandlers || !uid)
+    return
 
   const handlers = target._touchHandlers[uid]
 
@@ -153,7 +155,7 @@ function unmounted(el: HTMLElement, binding: TouchDirectiveBinding) {
 
 export const Touch = {
   mounted,
-  unmounted
+  unmounted,
 }
 
 export default Touch

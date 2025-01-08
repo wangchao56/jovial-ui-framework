@@ -1,3 +1,10 @@
+import type { MaybeRef } from '@jovial/utils'
+// Types
+import type { ComputedRef, InjectionKey, Ref, VNode } from 'vue'
+import { getCurrentInstance } from '@jovial/utils/getCurrentInstance'
+import { mergeDeep, toKebabCase } from '@jovial/utils/helpers'
+
+import { injectSelf } from '@jovial/utils/injectSelf'
 // Utilities
 import {
   computed,
@@ -6,30 +13,23 @@ import {
   ref,
   shallowRef,
   unref,
-  watchEffect
+  watchEffect,
 } from 'vue'
-import { getCurrentInstance } from '@jovial/utils/getCurrentInstance'
-import { mergeDeep, toKebabCase } from '@jovial/utils/helpers'
-import { injectSelf } from '@jovial/utils/injectSelf'
-
-// Types
-import type { ComputedRef, InjectionKey, Ref, VNode } from 'vue'
-import type { MaybeRef } from '@jovial/utils'
 
 export type DefaultsInstance =
   | undefined
   | {
-      [key: string]: undefined | Record<string, unknown>
-      global?: Record<string, unknown>
-    }
+    [key: string]: undefined | Record<string, unknown>
+    global?: Record<string, unknown>
+  }
 
 export type DefaultsOptions = Partial<DefaultsInstance>
 
-export const DefaultsSymbol: InjectionKey<Ref<DefaultsInstance>> =
-  Symbol.for('vuetify:defaults')
+export const DefaultsSymbol: InjectionKey<Ref<DefaultsInstance>>
+  = Symbol.for('vuetify:defaults')
 
 export function createDefaults(
-  options?: DefaultsInstance
+  options?: DefaultsInstance,
 ): Ref<DefaultsInstance> {
   return ref(options)
 }
@@ -37,7 +37,8 @@ export function createDefaults(
 export function injectDefaults() {
   const defaults = inject(DefaultsSymbol)
 
-  if (!defaults) throw new Error('[Vuetify] Could not find defaults instance')
+  if (!defaults)
+    throw new Error('[Vuetify] Could not find defaults instance')
 
   return defaults
 }
@@ -49,7 +50,7 @@ export function provideDefaults(
     reset?: MaybeRef<number | string | undefined>
     root?: MaybeRef<boolean | string | undefined>
     scoped?: MaybeRef<boolean | undefined>
-  }
+  },
 ) {
   const injectedDefaults = injectDefaults()
   const providedDefaults = ref(defaults)
@@ -57,7 +58,8 @@ export function provideDefaults(
   const newDefaults = computed(() => {
     const disabled = unref(options?.disabled)
 
-    if (disabled) return injectedDefaults.value
+    if (disabled)
+      return injectedDefaults.value
 
     const scoped = unref(options?.scoped)
     const reset = unref(options?.reset)
@@ -67,10 +69,11 @@ export function provideDefaults(
       return injectedDefaults.value
 
     let properties = mergeDeep(providedDefaults.value, {
-      prev: injectedDefaults.value
+      prev: injectedDefaults.value,
     })
 
-    if (scoped) return properties
+    if (scoped)
+      return properties
 
     if (reset || root) {
       const len = Number(reset || Infinity)
@@ -86,7 +89,7 @@ export function provideDefaults(
       if (properties && typeof root === 'string' && root in properties) {
         properties = mergeDeep(
           mergeDeep(properties, { prev: properties }),
-          properties[root]
+          properties[root],
         )
       }
 
@@ -103,15 +106,15 @@ export function provideDefaults(
 
 function propIsDefined(vnode: VNode, prop: string) {
   return (
-    typeof vnode.props?.[prop] !== 'undefined' ||
-    typeof vnode.props?.[toKebabCase(prop)] !== 'undefined'
+    typeof vnode.props?.[prop] !== 'undefined'
+    || typeof vnode.props?.[toKebabCase(prop)] !== 'undefined'
   )
 }
 
 export function internalUseDefaults(
   props: Record<string, any> = {},
   name?: string,
-  defaults = injectDefaults()
+  defaults = injectDefaults(),
 ) {
   const vm = getCurrentInstance('useDefaults')
 
@@ -126,9 +129,10 @@ export function internalUseDefaults(
       const propValue = Reflect.get(target, prop)
       if (prop === 'class' || prop === 'style') {
         return [componentDefaults.value?.[prop], propValue].filter(
-          (v) => v != null
+          v => v != null,
         )
-      } else if (typeof prop === 'string' && !propIsDefined(vm.vnode, prop)) {
+      }
+      else if (typeof prop === 'string' && !propIsDefined(vm.vnode, prop)) {
         return componentDefaults.value?.[prop] !== undefined
           ? componentDefaults.value?.[prop]
           : defaults.value?.global?.[prop] !== undefined
@@ -136,19 +140,20 @@ export function internalUseDefaults(
             : propValue
       }
       return propValue
-    }
+    },
   })
 
   const _subcomponentDefaults = shallowRef()
   watchEffect(() => {
     if (componentDefaults.value) {
       const subComponents = Object.entries(componentDefaults.value).filter(
-        ([key]) => key.startsWith(key[0].toUpperCase())
+        ([key]) => key.startsWith(key[0].toUpperCase()),
       )
       _subcomponentDefaults.value = subComponents.length
         ? Object.fromEntries(subComponents)
         : undefined
-    } else {
+    }
+    else {
       _subcomponentDefaults.value = undefined
     }
   })
@@ -161,7 +166,7 @@ export function internalUseDefaults(
         return _subcomponentDefaults.value
           ? mergeDeep(injected?.value ?? {}, _subcomponentDefaults.value)
           : injected?.value
-      })
+      }),
     )
   }
 

@@ -1,180 +1,226 @@
 <script setup lang="ts">
 import JvButton from '@jovial/components/button'
 import JvIcon from '@jovial/components/icon'
+import { AcUnitRound } from '@vicons/material'
 import { logEvent } from 'histoire/client'
 import { reactive } from 'vue'
-import { AcUnitRound } from '@vicons/material'
 
 function handleClick() {
-  console.log('click')
 }
 function initState() {
   return {
     loading: true,
     disabled: true,
     block: true,
-    stacked: true
+    stacked: true,
   }
 }
 const state = reactive({
   loading: true,
   disabled: true,
   block: true,
-  stacked: true
+  stacked: true,
 })
 </script>
+
 <template>
   <Story title="基础组件/button 按钮" :layout="{ type: 'grid', width: 300 }">
     <template #controls>
-      stacked: <input v-model="state.stacked" type="checkbox" /> Disabled:
-      <input v-model="state.disabled" type="checkbox" />
+      stacked: <input v-model="state.stacked" type="checkbox"> Disabled:
+      <input v-model="state.disabled" type="checkbox">
     </template>
     <Variant title="type类型">
       <div class="space">
-        <jv-button type="primary" :rounded="true">primary按钮</jv-button>
-        <jv-button type="danger">danger按钮</jv-button>
-        <jv-button type="info">info按钮</jv-button>
-        <jv-button type="warning">warning按钮</jv-button>
-        <jv-button type="success">success按钮</jv-button>
+        <JvButton type="primary" :rounded="true">
+          primary按钮
+        </JvButton>
+        <JvButton type="danger">
+          danger按钮
+        </JvButton>
+        <JvButton type="info">
+          info按钮
+        </JvButton>
+        <JvButton type="warning">
+          warning按钮
+        </JvButton>
+        <JvButton type="success">
+          success按钮
+        </JvButton>
       </div>
     </Variant>
     <Variant title="Variant使用">
       <div class="space">
-        <jv-button variant="text" :rounded="true">text按钮</jv-button>
-        <jv-button variant="plain">plain按钮</jv-button>
-        <jv-button variant="elevated">elevated按钮</jv-button>
-        <jv-button variant="flat">flat 按钮</jv-button>
-        <jv-button variant="tonal">tonal按钮</jv-button>
-        <jv-button variant="outlined">outlined按钮</jv-button>
+        <JvButton variant="text" :rounded="true">
+          text按钮
+        </JvButton>
+        <JvButton variant="plain">
+          plain按钮
+        </JvButton>
+        <JvButton variant="elevated">
+          elevated按钮
+        </JvButton>
+        <JvButton variant="flat">
+          flat 按钮
+        </JvButton>
+        <JvButton variant="tonal">
+          tonal按钮
+        </JvButton>
+        <JvButton variant="outlined">
+          outlined按钮
+        </JvButton>
       </div>
     </Variant>
     <Variant title="size大小">
       <div class="space">
-        <jv-button size="tiny">
+        <JvButton size="tiny">
           <template #prepend>
-            <jv-icon size="tiny">
+            <JvIcon size="tiny">
               <AcUnitRound />
-            </jv-icon>
+            </JvIcon>
           </template>
-          按钮</jv-button
-        >
-        <jv-button size="small">
+          按钮
+        </JvButton>
+        <JvButton size="small">
           <template #prepend>
-            <jv-icon size="small">
+            <JvIcon size="small">
               <AcUnitRound />
-            </jv-icon> </template
-          >按钮</jv-button
-        >
-        <jv-button size="medium">按钮</jv-button>
-        <jv-button size="large">按钮</jv-button>
-        <jv-button size="x-large">
+            </JvIcon>
+          </template>按钮
+        </JvButton>
+        <JvButton size="medium">
+          按钮
+        </JvButton>
+        <JvButton size="large">
+          按钮
+        </JvButton>
+        <JvButton size="x-large">
           <template #prepend>
-            <jv-icon size="x-large">
+            <JvIcon size="x-large">
               <AcUnitRound />
-            </jv-icon>
+            </JvIcon>
           </template>
-          按钮</jv-button
-        >
+          按钮
+        </JvButton>
       </div>
     </Variant>
     <Variant title="禁用">
       <div class="space">
-        <jv-button :disabled="state.disabled" block>按钮</jv-button>
-        <jv-button :disabled="state.disabled" type="primary">按钮</jv-button>
+        <JvButton :disabled="state.disabled" block>
+          按钮
+        </JvButton>
+        <JvButton :disabled="state.disabled" type="primary">
+          按钮
+        </JvButton>
       </div>
     </Variant>
 
     <Variant title="形状">
       <div class="space">
-        <jv-button>按钮</jv-button>
-        <jv-button variant="outlined" rounded block>
+        <JvButton>按钮</JvButton>
+        <JvButton variant="outlined" rounded block>
           <template #prepend>
-            <jv-icon>
+            <JvIcon>
               <AcUnitRound />
-            </jv-icon>
+            </JvIcon>
           </template>
           圆角
-        </jv-button>
-        <jv-button variant="tonal">
+        </JvButton>
+        <JvButton variant="tonal">
           tonal按钮
           <template #append>
-            <jv-icon>
+            <JvIcon>
               <AcUnitRound />
-            </jv-icon>
+            </JvIcon>
           </template>
-        </jv-button>
-        <jv-button variant="text" rounded block>text按钮</jv-button>
-        <jv-button variant="plain" rounded block>plain按钮</jv-button>
-        <jv-button variant="flat" color="red" rounded block>flat按钮</jv-button>
+        </JvButton>
+        <JvButton variant="text" rounded block>
+          text按钮
+        </JvButton>
+        <JvButton variant="plain" rounded block>
+          plain按钮
+        </JvButton>
+        <JvButton variant="flat" color="red" rounded block>
+          flat按钮
+        </JvButton>
       </div>
     </Variant>
 
     <Variant title="加载中" :init-state="initState">
-      <jv-button :loading="true">按钮</jv-button>
-      <jv-button
-        :size="'x-large'"
+      <JvButton :loading="true">
+        按钮
+      </JvButton>
+      <JvButton
+        size="x-large"
         variant="outlined"
         rounded
         block
         :loading="true"
-        >outlined按钮</jv-button
       >
-      <jv-button variant="tonal" rounded :loading="true"> tonal按钮</jv-button>
-      <jv-button variant="text" :loading="true" rounded block
-        >text按钮</jv-button
-      >
-      <jv-button variant="plain" loading>plain按钮</jv-button>
-      <jv-button variant="flat" color="red" loading rounded block
-        >flat按钮</jv-button
-      >
+        outlined按钮
+      </JvButton>
+      <JvButton variant="tonal" rounded :loading="true">
+        tonal按钮
+      </JvButton>
+      <JvButton variant="text" :loading="true" rounded block>
+        text按钮
+      </JvButton>
+      <JvButton variant="plain" loading>
+        plain按钮
+      </JvButton>
+      <JvButton variant="flat" color="red" loading rounded block>
+        flat按钮
+      </JvButton>
     </Variant>
     <Variant title="图标">
       <div class="space">
-        <jv-button>
+        <JvButton>
           <template #prepend>
-            <jv-icon>
+            <JvIcon>
               <AcUnitRound />
-            </jv-icon>
+            </JvIcon>
           </template>
-          按钮</jv-button
-        >
+          按钮
+        </JvButton>
 
-        <jv-button>
+        <JvButton>
           <template #append>
-            <jv-icon>
+            <JvIcon>
               <AcUnitRound />
-            </jv-icon>
+            </JvIcon>
           </template>
-          按钮</jv-button
-        >
-        <jv-button stacked>
+          按钮
+        </JvButton>
+        <JvButton stacked>
           <template #append>
-            <jv-icon>
+            <JvIcon>
               <AcUnitRound />
-            </jv-icon>
+            </JvIcon>
           </template>
-          按钮</jv-button
-        >
-        <jv-button stacked>
+          按钮
+        </JvButton>
+        <JvButton stacked>
           <template #prepend>
-            <jv-icon>
+            <JvIcon>
               <AcUnitRound />
-            </jv-icon>
+            </JvIcon>
           </template>
-          Button</jv-button
-        >
+          Button
+        </JvButton>
       </div>
     </Variant>
     <Variant title="自定义颜色">
-      <jv-button bg-color="#ff69b4" rounded>ff69b4按钮</jv-button>
+      <JvButton bg-color="#ff69b4" rounded>
+        ff69b4按钮
+      </JvButton>
     </Variant>
     <Variant title="事件">
-      <jv-button
+      <JvButton
         bg-color="#ff69b4"
         rounded
         @click="logEvent('click', handleClick())"
-        >Click按钮</jv-button
       >
+        Click按钮
+      </JvButton>
     </Variant>
   </Story>
 </template>

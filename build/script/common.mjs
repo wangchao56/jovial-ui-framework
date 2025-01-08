@@ -1,5 +1,6 @@
-import { fileURLToPath } from 'url'
-import { resolve, dirname } from 'path'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 const outputPkgDir = 'jovial'
 
 export const filePath = fileURLToPath(import.meta.url)
@@ -13,16 +14,16 @@ export const outputUmd = resolve(outputDir, 'dist')
 export const componentsDir = resolve(pkgRoot, 'components')
 export const utilsDir = resolve(pkgRoot, 'utils')
 
-console.log(
-  ` filePath: ${filePath}
-    dirName: ${dirName}
-    rootDir: ${rootDir}
-    pkgRoot  ${pkgRoot}
-    outputDir  ${outputDir}
-    outputEsm  ${outputEsm}
-    outputCjs  ${outputCjs}
-    outputUmd  ${outputUmd}
-    componentsDir  ${componentsDir}
-    utilsDir  ${utilsDir}
-   `
-)
+// console.log(
+//   ` filePath: ${filePath}
+//     dirName: ${dirName}
+//     rootDir: ${rootDir}
+//     pkgRoot  ${pkgRoot}
+//     outputDir  ${outputDir}
+//     outputEsm  ${outputEsm}
+//     outputCjs  ${outputCjs}
+//     outputUmd  ${outputUmd}
+//     componentsDir  ${componentsDir}
+//     utilsDir  ${utilsDir}
+//    `,
+// )

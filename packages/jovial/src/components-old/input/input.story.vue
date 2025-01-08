@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import JvInput from '@jovial/components/input/src/input.vue'
-import { logEvent } from 'histoire/client'
-import { reactive, ref, watchEffect } from 'vue'
 import {
   AlternateEmailOutlined,
   TextsmsTwotone,
-  VerifiedUserTwotone
+  VerifiedUserTwotone,
 } from '@vicons/material'
+import { logEvent } from 'histoire/client'
+import { reactive, ref } from 'vue'
+
 const username = ref('你好232')
 
 const model = reactive({
   username: '你好232',
   password: '',
   email: '',
-  agree: false
+  agree: false,
 })
 </script>
 
@@ -59,7 +60,9 @@ const model = reactive({
           </JvIcon>
         </template>
         <template #append>
-          <JvButton variant="tonal">发送验证码</JvButton>
+          <JvButton variant="tonal">
+            发送验证码
+          </JvButton>
         </template>
       </JvInput>
     </Variant>
@@ -148,6 +151,7 @@ const model = reactive({
     </Variant>
   </Story>
 </template>
+
 <style scoped>
 .space {
   display: flex;
@@ -158,4 +162,5 @@ const model = reactive({
   width: 380px;
 }
 </style>
+
 <docs lang="md"></docs>

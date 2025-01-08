@@ -11,7 +11,7 @@ interface ScrollDirectiveBinding extends Omit<DirectiveBinding, 'modifiers'> {
   }
 }
 
-function mounted (el: HTMLElement, binding: ScrollDirectiveBinding) {
+function mounted(el: HTMLElement, binding: ScrollDirectiveBinding) {
   const { self = false } = binding.modifiers ?? {}
   const value = binding.value
   const options = (typeof value === 'object' && value.options) || { passive: true }
@@ -23,11 +23,12 @@ function mounted (el: HTMLElement, binding: ScrollDirectiveBinding) {
       ? document.querySelector(binding.arg)
       : window
 
-  if (!target) return
+  if (!target)
+    return
 
   target.addEventListener('scroll', handler, options)
 
-  el._onScroll = Object(el._onScroll)
+  el._onScroll = new Object(el._onScroll)
   el._onScroll![binding.instance!.$.uid] = {
     handler,
     options,
@@ -36,8 +37,9 @@ function mounted (el: HTMLElement, binding: ScrollDirectiveBinding) {
   }
 }
 
-function unmounted (el: HTMLElement, binding: ScrollDirectiveBinding) {
-  if (!el._onScroll?.[binding.instance!.$.uid]) return
+function unmounted(el: HTMLElement, binding: ScrollDirectiveBinding) {
+  if (!el._onScroll?.[binding.instance!.$.uid])
+    return
 
   const { handler, options, target = el } = el._onScroll[binding.instance!.$.uid]!
 
@@ -45,8 +47,9 @@ function unmounted (el: HTMLElement, binding: ScrollDirectiveBinding) {
   delete el._onScroll[binding.instance!.$.uid]
 }
 
-function updated (el: HTMLElement, binding: ScrollDirectiveBinding) {
-  if (binding.value === binding.oldValue) return
+function updated(el: HTMLElement, binding: ScrollDirectiveBinding) {
+  if (binding.value === binding.oldValue)
+    return
 
   unmounted(el, binding)
   mounted(el, binding)

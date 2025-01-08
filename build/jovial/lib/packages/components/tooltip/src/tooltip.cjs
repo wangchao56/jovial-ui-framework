@@ -1,31 +1,31 @@
-'use strict';
+'use strict'
 
 const tooltipProps = {
   activator: {
     type: [String, Object],
-    default: "parent"
+    default: 'parent',
   },
   content: {
     type: String,
-    default: ""
+    default: '',
   },
   placement: {
     type: String,
-    default: "top"
+    default: 'top',
   },
   disabled: Boolean,
   offset: Number,
   trigger: {
     type: String,
-    default: "hover"
+    default: 'hover',
   },
   virtualTriggering: Boolean,
-  triggerKeys: Array
-};
-const tooltipEmits = {};
-const tooltipSlots = {};
+  triggerKeys: Array,
+}
+const tooltipEmits = {}
+const tooltipSlots = {}
 
-exports.tooltipEmits = tooltipEmits;
-exports.tooltipProps = tooltipProps;
-exports.tooltipSlots = tooltipSlots;
-//# sourceMappingURL=tooltip.cjs.map
+exports.tooltipEmits = tooltipEmits
+exports.tooltipProps = tooltipProps
+exports.tooltipSlots = tooltipSlots
+// # sourceMappingURL=tooltip.cjs.map

@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-var lodash = {exports: {}};
+const lodash = { exports: {} }
 
-exports.__module = lodash;
-//# sourceMappingURL=lodash2.cjs.map
+exports.__module = lodash
+// # sourceMappingURL=lodash2.cjs.map

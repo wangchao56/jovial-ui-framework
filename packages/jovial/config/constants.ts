@@ -3,25 +3,25 @@ import Mock from 'mockjs'
 const virtualDataTemplate = {
   'list|1000': [
     {
-      id: '@increment',
-      name: '@cname',
+      'id': '@increment',
+      'name': '@cname',
       'children|1-3': [
         {
           id: '@increment',
-          name: '@cname'
-        }
-      ]
-    }
-  ]
+          name: '@cname',
+        },
+      ],
+    },
+  ],
 }
 
 const virtualListTemplate = {
   'list|1000': [
     {
       id: '@increment',
-      name: `@cparagraph(3)`
-    }
-  ]
+      name: `@cparagraph(3)`,
+    },
+  ],
 }
 
 export const virtualDataTemp = Mock.mock(virtualDataTemplate)

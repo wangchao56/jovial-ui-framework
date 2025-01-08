@@ -1,7 +1,7 @@
-import _upload from './src/upload.vue.mjs';
-import { withInstall } from '../../utils/with-install.mjs';
+import { withInstall } from '../../utils/with-install.mjs'
+import _upload from './src/upload.vue.mjs'
 
-const upload = withInstall(_upload);
+const upload = withInstall(_upload)
 
-export { upload as default };
-//# sourceMappingURL=index.mjs.map
+export { upload as default }
+// # sourceMappingURL=index.mjs.map

@@ -1,7 +1,7 @@
-import button from './components/button/index.mjs';
-import Icon from './components/icon/index.mjs';
+import button from './components/button/index.mjs'
+import Icon from './components/icon/index.mjs'
 
-var components = [button, Icon];
+const components = [button, Icon]
 
-export { components as default };
-//# sourceMappingURL=components.mjs.map
+export { components as default }
+// # sourceMappingURL=components.mjs.map
