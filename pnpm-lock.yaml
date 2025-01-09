@@ -20,12 +20,12 @@ importers:
       '@floating-ui/vue':
         specifier: ^1.1.6
         version: 1.1.6(vue@3.5.13(typescript@5.7.2))
+      '@jovial/composables':
+        specifier: workspace:*
+        version: link:packages/composables
       '@jovial/directives':
         specifier: workspace:*
         version: link:packages/directives
-      '@jovial/hooks':
-        specifier: workspace:*
-        version: link:packages/hooks
       '@jovial/theme-chalk':
         specifier: workspace:*
         version: link:packages/theme-chalk
@@ -168,9 +168,9 @@ importers:
 
   build: {}
 
-  packages/directives: {}
+  packages/composables: {}
 
-  packages/hooks: {}
+  packages/directives: {}
 
   packages/jovial:
     dependencies:
@@ -5729,9 +5729,9 @@ snapshots:
       find-package-json: 1.2.0
       magic-string: 0.30.17
       storybook: 8.4.7(prettier@3.4.2)
-      typescript: 5.6.3
+      typescript: 5.7.2
       vite: 6.0.7(@types/node@22.10.5)(jiti@2.4.2)(sass@1.83.1)(sugarss@4.0.1(postcss@8.4.49))(yaml@2.7.0)
-      vue-component-meta: 2.2.0(typescript@5.6.3)
+      vue-component-meta: 2.2.0(typescript@5.7.2)
       vue-docgen-api: 4.79.2(vue@3.5.13(typescript@5.6.3))
     transitivePeerDependencies:
       - vue
@@ -6103,6 +6103,19 @@ snapshots:
       path-browserify: 1.0.1
     optionalDependencies:
       typescript: 5.6.3
+
+  '@vue/language-core@2.2.0(typescript@5.7.2)':
+    dependencies:
+      '@volar/language-core': 2.4.11
+      '@vue/compiler-dom': 3.5.13
+      '@vue/compiler-vue2': 2.7.16
+      '@vue/shared': 3.5.13
+      alien-signals: 0.4.12
+      minimatch: 9.0.5
+      muggle-string: 0.4.1
+      path-browserify: 1.0.1
+    optionalDependencies:
+      typescript: 5.7.2
 
   '@vue/reactivity@3.5.13':
     dependencies:
@@ -9220,14 +9233,14 @@ snapshots:
 
   vscode-uri@3.0.8: {}
 
-  vue-component-meta@2.2.0(typescript@5.6.3):
+  vue-component-meta@2.2.0(typescript@5.7.2):
     dependencies:
       '@volar/typescript': 2.4.11
-      '@vue/language-core': 2.2.0(typescript@5.6.3)
+      '@vue/language-core': 2.2.0(typescript@5.7.2)
       path-browserify: 1.0.1
       vue-component-type-helpers: 2.2.0
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
 
   vue-component-type-helpers@2.2.0: {}
 

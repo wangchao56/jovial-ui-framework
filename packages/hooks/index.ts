@@ -1,5 +1,0 @@
-export * from './defaults'
-export * from './directiveComponent'
-export * from './mutationObserver'
-export * from './resizeObserver'
-export * from './useBScroll'

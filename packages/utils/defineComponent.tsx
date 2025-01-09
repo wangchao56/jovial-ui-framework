@@ -26,7 +26,7 @@ import type {
 } from 'vue'
 
 // Composables
-import { injectDefaults, internalUseDefaults } from '@jovial/hooks'
+import { injectDefaults, internalUseDefaults } from '@jovial/composables'
 // Utilities
 import {
   defineComponent as _defineComponent,

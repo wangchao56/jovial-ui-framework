@@ -1,10 +1,10 @@
 {
-  "name": "@jovial/hooks",
+  "name": "@jovial/composables",
   "version": "1.0.0",
   "description": "",
   "author": "",
   "license": "ISC",
-  "keywords": [],
+  "keywords": ["jovial", "composables", "组合式API"],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

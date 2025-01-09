@@ -1,4 +1,4 @@
-import type { MutationOptions } from '@jovial/hooks/mutationObserver'
+import type { MutationOptions } from '@jovial/composables/mutationObserver'
 // Types
 import type { DirectiveBinding } from 'vue'
 

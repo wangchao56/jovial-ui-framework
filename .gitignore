@@ -1,6 +1,17 @@
 node_modules
 .vscode/*
-.husky/*
 old
-build
-packages/jovial/omponents-old
+build/*
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*storybook.log
