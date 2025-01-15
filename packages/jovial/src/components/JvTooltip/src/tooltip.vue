@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { ReferenceType } from '../../popper'
+import type { ReferenceType } from '@components/JvPopper'
 import type { TooltipProps, TooltipSlots } from './tooltip'
+import JvRenderVNodeContent from '@components/internal/render-vnode-content.setup'
+import JvPopperVue from '@components/JvPopper'
 import { createNamespace } from '@jovial/utils'
 // 使用 UUID 生成唯一标识符
 import { ref } from 'vue'
-import JvRenderVNodeContent from '../../internal/render-vnode-content.setup'
-import JvPopperVue from '../../popper/src/popper.vue'
 import { tooltipEmits } from './tooltip'
 
 defineOptions({ name: 'JvTooltip' })
 const props = withDefaults(defineProps<TooltipProps>(), {
   trigger: 'hover',
   content: '',
-  placement: 'bottom-end',
+  placement: 'top',
 })
 defineEmits(tooltipEmits)
 defineSlots<TooltipSlots>()
@@ -25,7 +25,7 @@ const visibleRef = ref(false)
 // TODO: 完善逻辑
 // 1. 触发方式
 
-function handleClickShow() {
+function togglePopper() {
   if (props.trigger === 'click') {
     visibleRef.value = !visibleRef.value
   }
@@ -52,16 +52,13 @@ function handleHide() {
     <div
       ref="referenceRef"
       :class="bem.e('reference')"
-      @click="handleClickShow"
+      @click="togglePopper"
       @mouseenter.prevent="handleHoverShow"
       @mouseleave="handleHide"
     >
       <div v-if="$slots.content">
         <slot name="content" />
       </div>
-      <!-- <div v-else-if="$slots.activator">
-        <slot name="activator"></slot>
-      </div> -->
       <div v-else>
         <slot />
       </div>
@@ -71,7 +68,7 @@ function handleHide() {
       :offset="12"
       :visible="visibleRef"
       :reference="referenceRef"
-      :placement="placement || 'bottom-end'"
+      :placement="placement"
     >
       <template #content>
         <div v-if="content">

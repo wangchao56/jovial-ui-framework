@@ -1,13 +1,14 @@
 import { withInstall } from '@jovial/utils'
-import _Tooltip from './src/tooltip.vue'
+import _Tooltip from './src/JvTooltip.vue'
+import './style'
 
-const tooltip = withInstall(_Tooltip)
+const JvTooltip = withInstall(_Tooltip)
 
 export * from './src/tooltip'
-export default tooltip
+export default JvTooltip
 
 declare module 'vue' {
   export interface GlobalComponents {
-    JvTooltip: typeof tooltip
+    JvTooltip: typeof JvTooltip
   }
 }

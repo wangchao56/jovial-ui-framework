@@ -1,5 +1,5 @@
-import type { Placement } from '@floating-ui/vue'
-import type { JvPopperInstance } from '@jovial/components/popper'
+import type { JvPopperInstance } from '@components/JvPopper'
+import type { Options, Placement } from '@popperjs/core'
 import type { ComponentPublicInstance, PropType, Ref, VNodeChild } from 'vue'
 
 export const tooltipProps = {
@@ -43,15 +43,34 @@ export interface TooltipProps {
   virtualTriggering?: boolean
   /** 当鼠标点击或者聚焦在触发元素上时， 可以定义一组键盘按键并且通过它们来控制 Tooltip 的显示 */
   triggerKeys?: Array<string>
+  /** 是否支持手动触发 */
+  manual?: boolean
+  /** popper参数 */
+  popperOptions?: Partial<Options>
+  /** 过渡动画名称 */
+  transition?: string
+  /** 延迟显示 */
+  openDelay?: number
+  /** 延迟隐藏 */
+  closeDelay?: number
+
 }
 export const tooltipEmits = {} as const
-export interface TooltipEmits {}
+export interface TooltipEmits {
+  (e: 'visibleChange', value: boolean): void
+}
 export const tooltipSlots = {} as const
 export interface TooltipSlots {
+  /** 自定义内容 */
   content: (() => VNodeChild | VNodeChild[]) | undefined
+  /** 自定义触发器 */
   default: (...args: any[]) => VNodeChild
   // activator: (() => VNodeChild | VNodeChild[]) | undefined
 }
 export interface TooltipExpose {
-  popperRef: Ref<JvPopperInstance | undefined>
+  popperRef?: Ref<JvPopperInstance | undefined>
+  /** @description 显示  */
+  show: () => void
+  /**  关闭  */
+  hide: () => void
 }
