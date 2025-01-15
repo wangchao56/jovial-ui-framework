@@ -1,4 +1,4 @@
-const fs = require('node:fs').promises
+// const fs = require('node:fs').promises
 const path = require('node:path')
 // 从命令行参数获取基本目录名称
 const process = require('node:process')
@@ -19,15 +19,15 @@ if (!baseNameArg) {
 const baseName = baseNameArg.split('=')[1]
 
 // 定义组件目录和样式目录路径
-const outputPath = path.join(__dirname, '..', 'packages', 'components')
-const styleDirName = path.join(
-  __dirname,
-  '..',
-  'packages',
-  'theme-chalk',
-  'src',
-)
-const styleIndexFilePath = path.join(styleDirName, 'index.scss')
+const outputPath = path.join(__dirname, '..', 'packages', 'jovial/src/components')
+// const styleDirName = path.join(
+//   __dirname,
+//   '..',
+//   'packages',
+//   'theme-chalk',
+//   'src',
+// )
+// const styleIndexFilePath = path.join(styleDirName, 'index.scss')
 
 // 定义组件文件和样式文件内容
 const fileContents = {
@@ -56,19 +56,24 @@ const fileContents = {
   `,
 }
 
-const styleFileContents = {
-  [`${baseName}.scss`]: `
-    @use 'mixins/mixins.scss' as *;
-    @include b('${baseName}') {
-      display: block;
-    }
-  `,
-}
+// const styleFileContents = {
+//   [`${baseName}.scss`]: `
+//     @use 'mixins/mixins.scss' as *;
+//     @include b('${baseName}') {
+//       display: block;
+//     }
+//   `,
+// }
 
 // 定义目录结构
 const structure = {
   [baseName]: {
     'src': fileContents,
+    'style': {
+      'style.css': ``,
+      'theme-vars.css': ``,
+      'index.ts': ``,
+    },
     'index.ts': `
       import _${toHumpFirstUpper(baseName)} from './src/${baseName}.vue';
       import { withInstall } from '@jovial/utils';
@@ -84,7 +89,7 @@ const structure = {
       } from './src/${baseName}'
       declare module 'vue' {
         export interface GlobalComponents {
-          Jv${toHumpFirstUpper(baseName)}: typeof ${toHumpFirstUpper(baseName)};
+          ${toHumpFirstUpper(baseName)}: typeof ${toHumpFirstUpper(baseName)};
         }
       }
     `,
@@ -92,48 +97,48 @@ const structure = {
 }
 
 // 修改样式索引文件并生成样式文件
-async function createStyleStructure() {
-  let data
-  try {
-    data = await fs.readFile(styleIndexFilePath, 'utf8')
-  }
-  catch (err) {
-    console.error(`Error reading style index file: ${err.message}`)
-    return
-  }
+// async function createStyleStructure() {
+//   let data
+//   try {
+//     data = await fs.readFile(styleIndexFilePath, 'utf8')
+//   }
+//   catch (err) {
+//     console.error(`Error reading style index file: ${err.message}`)
+//     return
+//   }
 
-  const temp = `@use './${baseName}.scss';`
-  if (data.includes(temp)) {
-    // console.log(`Style file already exists: ${baseName}.scss`)
-    return
-  }
-  const modifiedData = data + temp
+//   const temp = `@use './${baseName}.scss';`
+//   if (data.includes(temp)) {
+//     // console.log(`Style file already exists: ${baseName}.scss`)
+//     return
+//   }
+//   const modifiedData = data + temp
 
-  try {
-    await fs.writeFile(styleIndexFilePath, modifiedData, 'utf8')
-    // console.log(`Style index file modified successfully.`)
-  }
-  catch (err) {
-    console.error(`Error writing to style index file: ${err.message}`)
-    return
-  }
+//   try {
+//     await fs.writeFile(styleIndexFilePath, modifiedData, 'utf8')
+//     // console.log(`Style index file modified successfully.`)
+//   }
+//   catch (err) {
+//     console.error(`Error writing to style index file: ${err.message}`)
+//     return
+//   }
 
-  for (const name in styleFileContents) {
-    const currentPath = path.join(styleDirName, name)
-    try {
-      await fs.writeFile(currentPath, styleFileContents[name], 'utf8')
-    }
-    catch (err) {
-      console.error(`Error writing style file ${name}: ${err.message}`)
-    }
-  }
-}
+//   for (const name in styleFileContents) {
+//     const currentPath = path.join(styleDirName, name)
+//     try {
+//       await fs.writeFile(currentPath, styleFileContents[name], 'utf8')
+//     }
+//     catch (err) {
+//       console.error(`Error writing style file ${name}: ${err.message}`)
+//     }
+//   }
+// }
 
 // 执行目录和文件创建操作
 ;(async () => {
   try {
     await createStructure(outputPath, structure)
-    await createStyleStructure()
+    // await createStyleStructure()
     // console.log('Directory and file creation successful!')
   }
   catch (err) {

@@ -1,0 +1,19 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@define-mixin e $element {
+  .jv-collapse-item__$(element) {
+    @mixin-content;
+  }
+}
+@mixin b popper {
+  display: inline-block;
+  position: relative;
+  background-origin: content-box;
+  color: white;
+  z-index: 1000;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #4d4d4d, #323232);
+  box-shadow:
+    6px 6px 11px #bebebe,
+    -6px -6px 11px #ffffff;
+}

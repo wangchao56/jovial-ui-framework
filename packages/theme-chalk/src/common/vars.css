@@ -45,9 +45,14 @@
   --jv-font-size-small: 12px;
   --jv-font-size-medium: 14px;
   --jv-font-size-large: 16px;
+  --jv-font-size-xlarge: 20px;
   --jv-font-weight-regular: 400;
   --jv-font-weight-medium: 500;
-  --jv-font-weight-bold: 700;
+  --jv-font-weight-bold: 600;
+  --jv-line-height-small: 20px;
+  --jv-line-height-medium: 22px;
+  --jv-line-height-large: 24px;
+  --jv-line-height-xlarge: 28px;
 
   /* text */
   --jv-text-color: hsl(0, 0%, 0%);
@@ -64,6 +69,7 @@
   --jv-disabled-border-color:  ;
 
   /* spacing */
+  --jv-spacing-tiny: 4px;
   --jv-spacing-small: 8px;
   --jv-spacing-medium: 16px;
   --jv-spacing-large: 24px;

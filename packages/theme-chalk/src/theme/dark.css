@@ -1,5 +1,4 @@
-:root {
-  color-scheme: dark;
+[data-theme='dark'] {
   --jv-theme-primary-100: #0085ff;
   --jv-theme-primary-200: #69b4ff;
   --jv-theme-primary-300: #e0ffff;

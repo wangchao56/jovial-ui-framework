@@ -1,14 +1,29 @@
 /* Roboto Font */
 /* 引入其他 CSS 文件 */
-@import './dark.css';
+@import './jieni-theme.css';
 @import './font.css';
+@import './dark.css';
 @import './light.css';
-
 html {
   font-family: 'Roboto', sans-serif !important;
   font-size: 16px;
   line-height: 1.5;
+  /* color-scheme: dark; */
+  /* background-color: var(--theme-color-background) !important; */
 }
 [data-theme='dark'] {
   color-scheme: dark;
+  --jv-theme-primary-100: #1d9c25;
+}
+
+[data-theme='jieni'] {
+  color-scheme: jieni;
+  --jv-theme-primary-100: #119a83;
+}
+
+/* 根据系统切换 */
+@media (prefers-color-scheme: dark) {
+  [data-theme='dark'] {
+    color-scheme: dark;
+  }
 }

@@ -1,9 +1,21 @@
 // Types
 import type { InjectionKey, Ref } from 'vue'
-import { createVuetifyAdapter } from '@/locale/adapters/vuetify'
 
 // Utilities
 import { computed, inject, provide, ref } from 'vue'
+// import { createVuetifyAdapter } from '@/locale/adapters/vuetify'
+
+function createVuetifyAdapter(options: LocaleOptions) {
+  return {
+    name: 'vuetify',
+    messages: ref(options.messages ?? {}),
+    current: ref(options.locale ?? 'en'),
+    fallback: ref(options.fallback ?? 'en'),
+    t: (key: string, ..._params: unknown[]) => key,
+    n: (value: number) => String(value),
+    provide: (props: LocaleOptions) => createVuetifyAdapter(props),
+  }
+}
 
 export interface LocaleMessages {
   [key: string]: LocaleMessages | string
@@ -32,9 +44,9 @@ function isLocaleInstance(obj: any): obj is LocaleInstance {
   return obj.name != null
 }
 
-export function createLocale(options?: LocaleOptions & RtlOptions) {
-  const i18n = options?.adapter && isLocaleInstance(options?.adapter) ? options?.adapter : createVuetifyAdapter(options)
-  const rtl = createRtl(i18n, options)
+export function createLocale(_options?: LocaleOptions & RtlOptions) {
+  const i18n = _options?.adapter && isLocaleInstance(_options?.adapter) ? _options?.adapter : createVuetifyAdapter(_options)
+  const rtl = createRtl(i18n, _options)
 
   return { ...i18n, ...rtl }
 }

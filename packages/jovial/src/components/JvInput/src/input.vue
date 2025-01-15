@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { InputEmits, InputExposes, InputProps, InputSlots } from './input'
+import { formItemProviderKey } from '@components/JvFormItem'
 import { createNamespace, isEmpty } from '@jovial/utils'
 import {
   computed,
@@ -12,7 +13,6 @@ import {
 import IconCloseThick from '../../internal-icon/close-thick'
 import IconEyeOff from '../../internal-icon/IconEyeOff'
 import IconEyeOn from '../../internal-icon/IconEyeOn'
-import { formItemProviderKey } from '../../JvForm'
 import JvIcon from '../../JvIcon'
 import './input.css'
 

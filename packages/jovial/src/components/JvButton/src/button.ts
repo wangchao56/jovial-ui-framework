@@ -3,12 +3,6 @@ import type { VNodeChild } from 'vue'
 
 export type Placement = 'left' | 'center' | 'right'
 
-export const buttonEmits = {
-  click: (e: MouseEvent) => e instanceof MouseEvent,
-  mousedown: (e: MouseEvent) => e instanceof MouseEvent,
-  keydown: (e: KeyboardEvent) => e instanceof MouseEvent,
-} as const
-
 export interface ButtonProps {
   /** 按钮类型 */
   type?: Type

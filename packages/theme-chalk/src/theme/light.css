@@ -1,5 +1,4 @@
-:root {
-  color-scheme: normal;
+[data-theme='ligth'] {
   --jv-theme-primary-100: #0077c2;
   --jv-theme-primary-200: #59a5f5;
   --jv-theme-primary-300: #c8ffff;

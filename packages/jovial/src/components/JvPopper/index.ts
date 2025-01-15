@@ -1,5 +1,6 @@
 import { withInstall } from '@jovial/utils'
-import _Popper from './src/popper.setup'
+import _Popper from './src/popper.vue'
+import './style'
 
 const JvPopper = withInstall(_Popper)
 

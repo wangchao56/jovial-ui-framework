@@ -40,6 +40,11 @@
   --jv-text-color-disabled: hsl(210, 6%, 21%);
   --jv-btn-color: 0, 0%, 0%;
   --jv-btn-bgcolor: 0, 0%, 100%;
+  --jv-button-bg-color: var(--jv-theme-color-background);
+  --jv-btn-borderRadius: var(--jv-button-borderRadius);
+  --jv-button-width: auto;
+  --jv-theme-on-surface: 0, 0%, 100%;
+
   font-family: 'Roboto', sans-serif;
   align-items: center;
   display: inline-grid;
@@ -65,6 +70,7 @@
   text-decoration: none;
   cursor: pointer;
   box-sizing: border-box;
+  width: var(--jv-button-width);
 
   @mixin e content {
     grid-area: content;
@@ -109,7 +115,8 @@
   }
 
   &--primary {
-    @mixin button-variant hsl(0, 0%, 100%), var(--jv-color-primary), var(--jv-color-primary);
+    /* @mixin button-variant hsl(0, 0%, 100%), var(--jv-color-primary), var(--jv-color-primary); */
+    @mixin button-variant hsl(0, 0%, 100%), var(--jv-button-bg-color), var(--jv-button-bg-color);
   }
 
   &--success {

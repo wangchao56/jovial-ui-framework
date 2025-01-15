@@ -25,16 +25,16 @@ import type {
   VNodeProps,
 } from 'vue'
 
-// Composables
-import { injectDefaults, internalUseDefaults } from '@jovial/composables'
+import { consoleWarn } from '@jovial/utils/console'
+import { pick } from '@jovial/utils/helpers'
+import { propsFactory } from '@jovial/utils/propsFactory'
 // Utilities
 import {
   defineComponent as _defineComponent,
 } from 'vue'
-import { consoleWarn } from './console'
-import { pick } from './helpers'
 
-import { propsFactory } from './propsFactory'
+// Composables
+import { injectDefaults, internalUseDefaults } from '../composables/defaults'
 
 // No props
 export function defineComponent<

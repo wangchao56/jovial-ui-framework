@@ -10,23 +10,23 @@ const bem = createNamespace('space')
 const spaceStyle = computed(() => {
   if (isNumber(props.size)) {
     return {
-      '--space-size': `${props.size}px`,
+      '--jv-space-size': `${props.size}px`,
     }
   }
   else if (isArray(props.size)) {
     return {
-      '--space-size': props.size[0] ? `${props.size[0]}px` : 0,
-      '--space-vertical-size': props.size[1] ? `${props.size[1]}px` : 0,
+      '--jv-space-size': props.size[0] ? `${props.size[0]}px` : 0,
+      '--jv-space-vertical-size': props.size[1] ? `${props.size[1]}px` : 0,
     }
   }
   switch (props.size) {
     case 'small':
-      return { '--space-size': '8px' }
+      return { '--jv-space-size': '8px' }
     case 'large':
-      return { '--space-size': '24px' }
+      return { '--jv-space-size': '24px' }
     case 'medium':
     default:
-      return { '--space-size': '16px' }
+      return { '--jv-space-size': '16px' }
   }
 })
 </script>

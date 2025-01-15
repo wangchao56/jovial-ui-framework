@@ -9,6 +9,7 @@ export default antfu({
     '*.css',
     '**/*.css/**',
     '*.jpg',
+    '*.spec.tsx',
     '**/*.jpg/**',
     'build',
     '**/build/**',
@@ -32,6 +33,9 @@ export default antfu({
       'ts/no-redeclare': ['off'],
       'style/indent-binary-ops': ['off'],
       '@stylistic/indent-binary-ops': ['off'],
+      'no-console': ['warn', {
+        allow: ['warn', 'error'],
+      }],
     },
   },
 })

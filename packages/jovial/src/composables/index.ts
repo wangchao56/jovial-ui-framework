@@ -1,15 +1,14 @@
-export { useDate } from './date'
-export type { DateInstance } from './date'
+export { useClickOutside } from './clickOutside'
 export { useDefaults } from './defaults'
 export type { DefaultsInstance } from './defaults'
-export { useDisplay } from './display'
-export type {
-  DisplayBreakpoint,
-  DisplayInstance,
-  DisplayThresholds,
-} from './display'
+// export { useDisplay } from './display'
 // export type { SubmitEventPromise } from './form'
 
+// export type {
+//   DisplayBreakpoint,
+//   DisplayInstance,
+//   DisplayThresholds,
+// } from './display'
 export { useGoTo } from './goto'
 export type { GoToInstance } from './goto'
 export type {
@@ -20,18 +19,19 @@ export type {
   JSXComponent,
 } from './icons'
 // export { useLayout } from './layout'
-export { useLocale, useRtl } from './locale'
-export type {
-  LocaleInstance,
-  LocaleMessages,
-  LocaleOptions,
-  RtlInstance,
-  RtlOptions,
-} from './locale'
+// export { useLocale, useRtl } from './locale'
+// export type {
+//   LocaleInstance,
+//   LocaleMessages,
+//   LocaleOptions,
+//   RtlInstance,
+//   RtlOptions,
+// } from './locale'
 export { useMutationObserver } from './mutationObserver'
-export { useProxiedModel } from './proxiedModel'
+// export { useProxiedModel } from './proxiedModel'
 export { useResizeObserver } from './resizeObserver'
-export { useVariant } from './variant'
 
 // export { useTheme } from './theme'
 // export type { ThemeDefinition, ThemeInstance } from './theme'
+
+// export { useVariant } from './variant'

@@ -11,6 +11,7 @@ export type SFCWithInstall<T> = T & Plugin
 export function withInstall<T>(comp: T) {
   (comp as SFCWithInstall<T>).install = function (app: App) {
     const componentName = (comp as unknown as Component).name
+
     if (typeof componentName === 'string') {
       // 注册组件
       app.component(componentName, comp as Component)

@@ -1,8 +1,15 @@
+import * as stories from '@/stories/JvButton.stories'
+import { composeStories } from '@storybook/vue3'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import JvButton from '../src/button.vue'
 
-describe('jvButton', () => {
+const { TestButton } = composeStories(stories)
+
+describe('jvButton', async () => {
+  it('renders  default props', async () => {
+    await TestButton.run()
+  })
   it('renders correctly with default props', () => {
     const wrapper = mount(JvButton)
     expect(wrapper.classes()).toContain('jv-button')
