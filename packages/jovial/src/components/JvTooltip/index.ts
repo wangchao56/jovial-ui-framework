@@ -1,6 +1,6 @@
 import { withInstall } from '@jovial/utils'
 import _Tooltip from './src/JvTooltip.vue'
-import './style'
+import './style/jv-tooltip.css'
 
 const JvTooltip = withInstall(_Tooltip)
 

@@ -1,132 +1,105 @@
 <script setup lang="ts">
-import type {
-  Middleware,
-} from '@floating-ui/vue'
-import type { PopperSlots, ReferenceType } from './popper'
-import {
-  arrow,
-  flip,
-  offset,
-  shift,
-  useFloating,
-} from '@floating-ui/vue'
+import type { PopperProps, PopperSlots } from './popper'
+import JvRenderVNodeContent from '@components/internal/render-vnode-content.setup'
 import { createNamespace } from '@jovial/utils'
+import { createPopper, type Instance, type PositioningStrategy } from '@popperjs/core'
+// import flip from '@popperjs/core/lib/modifiers/flip'
+// import preventOverflow from '@popperjs/core/lib/modifiers/preventOverflow'
 import {
   computed,
-  nextTick,
   ref,
-  watchEffect,
 } from 'vue'
-import { popperProps } from './popper'
 // 1. 定义组件名称
-defineOptions({ name: 'JvPoppervue' })
-
+defineOptions({ name: 'JvPopper' })
 // 2. 完善 props
-const props = defineProps(popperProps)
-
+const props = withDefaults(defineProps<PopperProps>(), {
+  arrow: false,
+})
 // 3. 定义 emitted 事件
-const emit = defineEmits(['update:visible', 'someEvent'])
-
 const slots = defineSlots<PopperSlots>()
-
 const bem = createNamespace('popper')
-
-// 4. 创建 BEM 命名空间
-
 // 5. 定义引用和插槽
-const reference = ref<ReferenceType | null>(null)
-const floatingRef = ref(null)
-const floatingArrow = ref(null)
-const prop = 'activator'
+const popperNode = ref<HTMLElement>()
+// const isOpen = ref<boolean>(false)
+let popperInstance: Instance | null = null
+// 显示
 
-// 6. 处理插槽和属性的监听
+const visible = defineModel({
+  type: Boolean,
+  default: false,
+})
 
-watchEffect(() => {
-  if (slots.activator) {
-    nextTick(() => {
-      reference.value = document.querySelector(`[prop=${prop}]`)
-    })
+const options = computed(() => ({
+  strategy: 'fixed' as PositioningStrategy,
+  modifiers: [
+    {
+      name: 'offset',
+      options: { offset: [0, 8] },
+    },
+  ],
+  ...props.options,
+}))
+watch(() => visible.value, (newVal) => {
+  if (newVal) {
+    if (props.reference && popperNode.value) {
+      popperInstance = createPopper(props.reference, popperNode.value, options.value)
+    }
   }
   else {
-    reference.value = props.reference
+    popperInstance?.destroy()
   }
+}, { flush: 'post' })
+onUnmounted(() => {
+  popperInstance?.destroy()
 })
-
-const showPopper = computed(() => {
-  return props.visible
-})
-
-const middlewareRef = computed(() => {
-  const temp: Middleware[] = []
-  if (props.offset) {
-    temp.push(offset(props.offset))
-  }
-  if (props.arrow) {
-    temp.push(arrow({ element: floatingArrow }))
-  }
-  if (props.flip) {
-    temp.push(flip())
-  }
-  if (props.shift) {
-    temp.push(shift())
-  }
-  return temp
-})
-
-// 7. 使用 useFloating
-const { floatingStyles, middlewareData, ...args } = useFloating(
-  reference,
-  floatingRef,
-  {
-    placement: props.placement,
-    middleware: middlewareRef,
-    open: showPopper,
-    // whileElementsMounted(referenceEl, floatingEl, update) {
-    //   const cleanup = autoUpdate(referenceEl, floatingEl, update, {
-    //     layoutShift: false
-    //   })
-    //   return cleanup
-    // }
-  },
-)
-
-// 8. 暴露需要的实例方法
 defineExpose({
-  close: () => {
-    emit('update:visible', false)
+  update: () => {
+    popperInstance?.forceUpdate()
   },
-  floatingStyles,
-  middlewareData,
-  ...args,
-  // 其他实例方法...
+  destroy: () => {
+    popperInstance?.destroy()
+  },
+  popperInstance,
 })
+
+const id = useId()
+
+const content = computed(() => props.content || slots.default)
 </script>
 
 <template>
-  <transition name="fade">
-    <div
-      v-if="showPopper"
-      ref="floatingRef"
-      :class="[bem.b()]"
-      :style="floatingStyles"
-    >
-      <div
-        v-if="props.arrow"
-        ref="floatingArrow"
-        :class="[bem.e('arrow')]"
-        :style="{
-          position: 'absolute',
-          left:
-            middlewareData.arrow?.x != null
-              ? `${middlewareData.arrow.x}px`
-              : '',
-          top:
-            middlewareData.arrow?.y != null ? `${middlewareData.arrow.y}px` : '',
-        }"
-      />
-      <div :class="bem.e('content')">
-        <slot name="content" />
-      </div>
-    </div>
-  </transition>
+  <div v-if="visible" :id="id" ref="popperNode" :class="bem.b()">
+    <JvRenderVNodeContent :render="content" />
+    <div v-if="arrow" id="jv-popper-arrow" data-popper-arrow />
+  </div>
 </template>
+
+<style scoped>
+/* 进入阶段的过渡效果 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+/* 进入开始时的样式 */
+.fade-enter-from {
+  opacity: 0;
+  position: fixed;
+}
+
+/* 进入结束时的样式（通常是目标样式，但在这种情况下与 .fade-enter-active 相同） */
+.fade-enter-to {
+  opacity: 1;
+}
+
+/* 离开开始时的样式 */
+.fade-leave-from {
+  opacity: 1;
+}
+
+/* 离开结束时的样式 */
+.fade-leave-to {
+  opacity: 0;
+  position: fixed;
+}
+</style>

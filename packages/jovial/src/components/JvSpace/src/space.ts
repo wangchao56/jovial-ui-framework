@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { PropType } from 'vue'
 
 export type Align = 'start' | 'end' | 'center' | 'baseline' | 'stretch'
 export type Direction = 'horizontal' | 'vertical'
@@ -34,4 +34,11 @@ export const spaceProps = {
     default: 'start',
   },
 } as const
-export type SpaceProps = ExtractPropTypes<typeof spaceProps>
+export interface SpaceProps {
+  inline?: boolean
+  wrap?: boolean
+  size?: Size
+  direction?: Direction
+  justify?: Justify
+  align?: Align
+}

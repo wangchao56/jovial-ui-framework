@@ -1,63 +1,30 @@
-import type {
-  MaybeElement,
-  Placement,
-  ReferenceElement,
-  UseFloatingReturn,
-} from '@floating-ui/vue'
 import type { Slot } from '@jovial/typings'
-import type { PropType, Ref } from 'vue'
+import type { Options, VirtualElement } from '@popperjs/core'
+import type { VNodeChild } from 'vue'
 
-export type ReferenceType = Readonly<Ref<MaybeElement<ReferenceElement>>>
+export type ReferenceType = HTMLElement | Element | VirtualElement | undefined
 export const popperProps = {
-  visible: {
-    type: Boolean,
-    default: false,
-  },
-  reference: {
-    type: Object as PropType<Readonly<Ref<MaybeElement<ReferenceElement>>>>,
-    default: null,
-  },
-  /** 偏移量 */
-  offset: {
-    type: Number,
-    default: 8,
-  },
-  /** 翻转 */
-  flip: {
-    type: Boolean,
-    default: false,
-  },
-  /** 跟随 */
-  followCursor: {
-    type: Boolean,
-    default: false,
-  },
-  arrow: {
-    type: Boolean,
-    default: false,
-  },
-  size: {
-    type: String,
-    default: 'small',
-  },
-  /** 偏移 */
-  shift: {
-    type: Boolean,
-    default: true,
-  },
-  /** 对齐方式 */
-  placement: {
-    type: String as PropType<Placement>,
-    default: 'top-center',
-  },
+
 } as const
-export interface PopperProps {}
+export interface PopperProps {
+  /** 放置位置 */
+  reference: ReferenceType
+  /** 配置 */
+  options: Partial<Options>
+  modelValue: boolean
+  /** 是否显示箭头 */
+  arrow?: boolean
+  /** 内容 */
+  content?: VNodeChild | (() => VNodeChild)
+}
 export const popperEmits = {} as const
-export interface PopperEmits {}
+export interface PopperEmits {
+  (e: 'update:modelValue', value: boolean): void
+}
 export const popperSlots = {} as const
 export interface PopperSlots {
-  activator: Slot<any>
   default: Slot<any>
   content: Slot<any>
 }
-export type PopperExpose = UseFloatingReturn & {}
+
+export interface PopperExpose {}

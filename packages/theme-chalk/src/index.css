@@ -2,3 +2,4 @@
 @import './theme/index.css';
 @import './common/vars.css';
 @import './common/animation.css';
+@import '../../jovial/src/components/JvTooltip/style/jv-tooltip.css';

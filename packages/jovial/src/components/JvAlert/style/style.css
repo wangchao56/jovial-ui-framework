@@ -1,0 +1,82 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@define-mixin e $element {
+  .jv-alert__$(element) {
+    @mixin-content;
+  }
+}
+@define-mixin m $modifier {
+  .jv-alert--$(modifier) {
+    @mixin-content;
+  }
+}
+
+@mixin b alert {
+  padding: 16px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: var(--jv-alert-bg-color, #f0f0f0);
+  color: var(--jv-alert-text-color, #333);
+  border: 1px solid var(--jv-alert-border-color, #dcdcdc);
+}
+
+@mixin m success {
+  --jv-alert-bg-color: #e6ffed;
+  --jv-alert-text-color: #2c662d;
+  --jv-alert-border-color: #b7eb8f;
+}
+
+@mixin m info {
+  --jv-alert-bg-color: #e6f7ff;
+  --jv-alert-text-color: #0050b3;
+  --jv-alert-border-color: #91d5ff;
+}
+
+@mixin m warning {
+  --jv-alert-bg-color: #fffbe6;
+  --jv-alert-text-color: #ad4e00;
+  --jv-alert-border-color: #ffe58f;
+}
+
+@mixin m error {
+  --jv-alert-bg-color: #fff1f0;
+  --jv-alert-text-color: #a8071a;
+  --jv-alert-border-color: #ffa39e;
+}
+
+@mixin e icon {
+  margin-right: 8px;
+  align-self: flex-start;
+}
+
+@mixin e content {
+  flex: 1;
+  &--title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  &--description {
+    margin: 8px 0 0;
+    font-size: 14px;
+    color: var(--jv-alert-text-color, #333);
+  }
+}
+
+@mixin e close {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding-right: 0;
+  .jv-button__content {
+    color: var(--jv-alert-text-color, #333);
+  }
+  .jv-icon {
+    color: var(--jv-alert-text-color, #333);
+    font-size: 16px;
+    font-weight: var(--jv-font-weight-regular);
+  }
+}

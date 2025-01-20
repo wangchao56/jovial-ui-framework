@@ -6,7 +6,7 @@
   }
 }
 @define-mixin m $modifier {
-  .jv-space--$(modifier) {
+  &.jv-space--$(modifier) {
     @mixin-content;
   }
 }
@@ -14,12 +14,19 @@
 @mixin b space {
   --jv-space-vertical-size: 16px;
   --jv-space-size: 16px;
+  --jv-space-justify: flex-start;
+  --jv-space-align: flex-start;
+  --jv-space-flex-direction: row;
   min-width: 100%;
   min-height: max-content;
   display: flex;
   flex-wrap: nowrap;
-  row-gap: var(--space-vertical-size);
-  column-gap: var(--space-size);
+  justify-content: var(--jv-space-justify);
+  align-items: var(--jv-space-align);
+  flex-direction: var(--jv-space-flex-direction);
+
+  row-gap: var(--jv-space-vertical-size);
+  column-gap: var(--jv-space-size);
   overflow: hidden;
   padding: 16px;
   box-sizing: border-box;
@@ -65,10 +72,10 @@
   @mixin m align-baseline {
     align-items: baseline;
   }
-}
-@mixin m horizontal {
-  flex-direction: row;
-}
-@mixin m vertical {
-  flex-direction: column;
+  @mixin m horizontal {
+    flex-direction: row;
+  }
+  @mixin m vertical {
+    flex-direction: column;
+  }
 }

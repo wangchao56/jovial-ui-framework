@@ -1,0 +1,100 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+$directions: rtl, ltr, ttb, btt;
+@define-mixin e $element {
+  .jv-drawer__$(element) {
+    @mixin-content;
+  }
+}
+
+@define-mixin m $modifier {
+  .jv-drawer--$(modifier) {
+    @mixin-content;
+  }
+}
+
+@define-mixin when $state {
+  .is-$(state) {
+    @mixin-content;
+  }
+}
+
+:root {
+  --jv-drawer-duration: 0.3s;
+  --jv-drawer-delay: -0.23361453601557428ms;
+}
+
+@mixin b drawer-overlay {
+}
+
+@mixin b drawer {
+  --jv-drawer-height: inherit;
+  --jv-drawer-width: inherit;
+  position: absolute;
+  top: 0;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  box-sizing: border-box;
+  padding: 16px;
+  width: var(--jv-drawer-width);
+  height: var(--jv-drawer-height);
+  max-height: 100vh;
+  max-height: 100%;
+  background-color: var(--jv-color-white);
+  box-shadow: var(--jv-shadow);
+  z-index: 4000;
+  overflow: hidden;
+
+  display: inline-grid;
+  grid-template-areas: 'header  close' ' body close' 'footer close';
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  @mixin when closable {
+  }
+
+  @mixin e header {
+    grid-area: header;
+  }
+  @mixin e body {
+    grid-area: body;
+    overflow: auto;
+  }
+  @mixin e footer {
+    grid-area: footer;
+  }
+  @mixin e close {
+    grid-area: close;
+    justify-self: end;
+    align-self: start;
+  }
+}
+
+@mixin m left {
+  left: 0;
+}
+
+@mixin m right {
+  right: 0;
+}
+
+@mixin m top {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: auto;
+  height: var(--jv-drawer-width, 30%) !important;
+  width: 100vw;
+}
+@mixin m bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: auto;
+  height: var(--jv-drawer-width, 30%) !important;
+  width: 100vw;
+}
+
+@mixin when visible {
+}

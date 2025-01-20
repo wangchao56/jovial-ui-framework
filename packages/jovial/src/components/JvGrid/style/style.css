@@ -1,0 +1,9 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@define-mixin e $element {
+  .jv-grid__$(element) {
+    @mixin-content;
+  }
+}
+@mixin b grid {
+}

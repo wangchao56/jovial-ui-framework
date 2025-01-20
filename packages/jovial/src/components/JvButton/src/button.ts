@@ -32,6 +32,14 @@ export interface ButtonProps {
   nativeType?: NativeType
   /** 原生 autofocus 属性 */
   autofocus?: boolean
+
+  /** 按钮的图标 */
+  icon?: string
+  /** 按钮的前置图标 */
+  prependIcon?: string
+  /** 按钮的后置图标 */
+  appendIcon?: string
+
 }
 /** 按钮的事件类型 */
 export interface ButtonEmits {

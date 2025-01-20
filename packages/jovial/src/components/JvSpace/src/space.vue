@@ -1,33 +1,48 @@
 <script setup lang="ts">
-import { createNamespace, isArray, isNumber } from '@jovial/utils'
-import { computed } from 'vue'
-import { spaceProps } from './space'
+import type { SpaceProps } from './space'
+import { createNamespace, isArray, isNumber, isString } from '@jovial/utils'
 
 defineOptions({ name: 'JvSpace' })
-const props = defineProps(spaceProps)
+defineProps<SpaceProps>()
 const bem = createNamespace('space')
 
-const spaceStyle = computed(() => {
-  if (isNumber(props.size)) {
-    return {
-      '--jv-space-size': `${props.size}px`,
+const cssVars: Record<string, string> = {
+  'jv-space-size': '16px',
+  'jv-space-vertical-size': '16px',
+}
+function craeteCssVars(x: number, y: number) {
+  if (x) {
+    cssVars['jv-space-size'] = `${x}px`
+  }
+  if (y) {
+    cssVars['jv-space-vertical-size'] = `${y}px`
+  }
+  return cssVars
+}
+
+useCssVars((_ctx) => {
+  const sizes = props.size
+  if (!sizes) {
+    return cssVars
+  }
+  if (isNumber(sizes)) {
+    return craeteCssVars(sizes as number, sizes as number)
+  }
+  else if (sizes && isArray(sizes) && Array.isArray(sizes) && sizes.length === 2) {
+    return craeteCssVars(sizes[0], sizes[1])
+  }
+  else if (isString(sizes)) {
+    switch (sizes as string) {
+      case 'small':
+        return craeteCssVars(8, 8)
+      case 'large':
+        return craeteCssVars(24, 24)
+      case 'medium':
+      default:
+        return craeteCssVars(16, 16)
     }
   }
-  else if (isArray(props.size)) {
-    return {
-      '--jv-space-size': props.size[0] ? `${props.size[0]}px` : 0,
-      '--jv-space-vertical-size': props.size[1] ? `${props.size[1]}px` : 0,
-    }
-  }
-  switch (props.size) {
-    case 'small':
-      return { '--jv-space-size': '8px' }
-    case 'large':
-      return { '--jv-space-size': '24px' }
-    case 'medium':
-    default:
-      return { '--jv-space-size': '16px' }
-  }
+  return cssVars
 })
 </script>
 
@@ -42,7 +57,6 @@ const spaceStyle = computed(() => {
       bem.is('inline', inline),
       // 自定义类
     ]"
-    :style="spaceStyle"
   >
     <slot />
   </div>

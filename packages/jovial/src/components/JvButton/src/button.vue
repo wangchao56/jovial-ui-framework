@@ -100,22 +100,28 @@ defineExpose<ButtonExposed>(exposed)
     @click="emitClick"
     @mousedown="emitMouseDown"
   >
-    <span v-if="$slots.prepend" :class="bem.e('prepend')">
-      <slot name="prepend" />
+    <span v-if="$slots.prepend || prependIcon" :class="bem.e('prepend')">
+      <!-- 自定义前置图标 -->
+      <JvIcon v-if="prependIcon" :color="color" :size="size" :name="prependIcon" />
+      <!-- 自定义前置内容 -->
+      <slot v-else name="prepend" />
     </span>
 
     <span v-if="loading" :class="bem.e('loader')">
-      <JvIcon :size="size">
+      <JvIcon :size="size" :color="color">
         <Loading />
       </JvIcon>
     </span>
 
-    <span :class="bem.e('content')">
+    <span v-if="$slots.default || icon" :class="bem.e('content')">
+      <!-- 图标插槽 -->
+      <JvIcon v-if="icon" :size="size" :color="color" :name="icon" />
       <!-- 默认插槽 -->
-      <slot />
+      <slot v-else-if="$slots.default" />
     </span>
-    <span v-if="$slots.append" :class="bem.e('append')">
-      <slot name="append" />
+    <span v-if="$slots.append || appendIcon" :class="bem.e('append')">
+      <JvIcon v-if="appendIcon" :size="size" :color="color" :name="appendIcon" />
+      <slot v-else name="append" />
     </span>
   </button>
 </template>

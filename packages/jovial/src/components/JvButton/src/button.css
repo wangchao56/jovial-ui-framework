@@ -38,7 +38,7 @@
 
 @mixin b button {
   --jv-text-color-disabled: hsl(210, 6%, 21%);
-  --jv-btn-color: 0, 0%, 0%;
+  --jv-btn-color: var(--jv-color-text-primary);
   --jv-btn-bgcolor: 0, 0%, 100%;
   --jv-button-bg-color: var(--jv-theme-color-background);
   --jv-btn-borderRadius: var(--jv-button-borderRadius);
@@ -71,13 +71,14 @@
   cursor: pointer;
   box-sizing: border-box;
   width: var(--jv-button-width);
+  column-gap: 4px;
 
   @mixin e content {
     grid-area: content;
     flex-direction: column;
     line-height: 1.25;
     font-size: 1rem;
-    color: hsl(var(--jv-btn-color));
+    color: var(--jv-btn-color);
     background-color: hsla(var(--jv-btn-bgcolor), 0.04);
     border-radius: inherit;
     overflow: hidden;
@@ -115,24 +116,23 @@
   }
 
   &--primary {
-    /* @mixin button-variant hsl(0, 0%, 100%), var(--jv-color-primary), var(--jv-color-primary); */
-    @mixin button-variant hsl(0, 0%, 100%), var(--jv-button-bg-color), var(--jv-button-bg-color);
+    @mixin button-variant var(--jv-btn-color), var(--jv-color-primary-light), var(--jv-color-primary-light);
   }
 
   &--success {
-    @mixin button-variant hsl(0, 0%, 100%), var(--jv-color-success), var(--jv-color-success);
+    @mixin button-variant var(--jv-btn-color), var(--jv-color-success), var(--jv-color-success);
   }
 
   &--warning {
-    @mixin button-variant hsl(0, 0%, 100%), var(--jv-color-warning), var(--jv-color-warning);
+    @mixin button-variant var(--jv-btn-color), var(--jv-color-warning), var(--jv-color-warning);
   }
 
   &--danger {
-    @mixin button-variant hsl(0, 0%, 100%), var(--jv-color-danger), var(--jv-color-danger);
+    @mixin button-variant var(--jv-btn-color), var(--jv-color-danger), var(--jv-color-danger);
   }
 
   &--info {
-    @mixin button-variant hsl(0, 0%, 100%), var(--jv-color-info), var(--jv-color-info);
+    @mixin button-variant var(--jv-btn-color), var(--jv-color-info), var(--jv-color-info);
   }
   /*按钮变体样式 */
   &--text {
@@ -142,7 +142,7 @@
 
   &--plain {
     background-color: transparent;
-    color: hsl(var(--jv-btn-color));
+    color: var(--jv-btn-color);
   }
 
   &--flat {
@@ -212,5 +212,9 @@
       grid-area: content;
       justify-self: center;
     }
+  }
+
+  & > .jv-icon {
+    color: black;
   }
 }

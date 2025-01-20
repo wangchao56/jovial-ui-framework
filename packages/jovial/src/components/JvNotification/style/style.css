@@ -1,0 +1,26 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@define-mixin e $element {
+  .jv-notification__$(element) {
+    @mixin-content;
+  }
+}
+@mixin b notification {
+  position: fixed;
+  top: 16px;
+  left: auto;
+  right: 16px;
+  width: 360px;
+  z-index: 9999;
+  box-shadow: var(--jv-shadow-dark);
+  padding: 16px;
+  border-radius: 4px;
+  background-color: var(--jv-color-white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @mixin e icon {
+    margin-right: 16px;
+    font-size: 20px;
+  }
+}

@@ -7,95 +7,14 @@
 }
 
 @mixin b tooltip {
-  /* --jv-tooltip-popper-bg-color: linear-gradient(45deg, #4d4d4d, #323232); */
-  --jv-tooltip-popper-bg-color: #323232;
-  --jv-tooltip-popper-border-color: #4d4d4d;
   display: inline-block;
   cursor: pointer;
   position: relative;
-
-  @mixin e reference {
-    display: inline-block;
-  }
+  width: max-content;
+  overflow: hidden;
   @mixin e trigger {
     display: inline-block;
-  }
-
-  @mixin e popper {
-    position: absolute;
-    line-height: 1.5;
-    font-size: 12px;
-    padding: 8px 12px;
-    display: inline-block;
-    background-origin: content-box;
-    color: white;
-    z-index: 1000;
-    border-radius: 4px;
-    background: var(--jv-tooltip-popper-bg-color);
-    box-shadow:
-      2px 2px 5px #bebebe,
-      6px 6px 11px #bebebe,
-      -6px -6px 11px #ffffff;
-    border: 1px solid var(--jv-tooltip-popper-border-color);
-  }
-
-  & > [data-popper-placement^='top'] {
-    & > #jv-arrow {
-      bottom: -4px;
-    }
-    & > #jv-arrow::before {
-      border-left: 1px solid transparent;
-      border-top: 1px solid transparent;
-    }
-  }
-
-  & > [data-popper-placement^='bottom'] {
-    & > #jv-arrow {
-      top: -4px;
-    }
-    & > #jv-arrow::before {
-      border-right: 1px solid transparent;
-      border-bottom: 1px solid transparent;
-    }
-  }
-
-  & > [data-popper-placement^='left'] {
-    & > #jv-arrow {
-      right: -4px;
-    }
-    & > #jv-arrow::before {
-      border-left: 1px solid transparent;
-      border-bottom: 1px solid transparent;
-    }
-  }
-
-  & > [data-popper-placement^='right'] {
-    & > #jv-arrow {
-      left: -4px;
-    }
-    & > #jv-arrow::before {
-      border-right: 1px solid transparent;
-      border-top: 1px solid transparent;
-    }
-  }
-
-  #jv-arrow,
-  #jv-arrow::before {
-    width: 8px;
-    height: 8px;
-    background: var(--jv-tooltip-popper-bg-color);
-    position: absolute;
-    box-sizing: border-box;
-  }
-
-  #jv-arrow {
-    visibility: hidden;
-  }
-
-  #jv-arrow::before {
-    visibility: visible;
-    content: '';
-    transform: rotate(45deg);
-    border: 1px solid var(--jv-tooltip-popper-border-color);
+    overflow: hidden;
+    width: inherit;
   }
 }

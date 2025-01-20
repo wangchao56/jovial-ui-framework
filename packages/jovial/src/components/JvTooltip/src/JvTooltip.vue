@@ -1,13 +1,12 @@
 <script setup lang='ts'>
+import type { JvPopperInstance, ReferenceType } from '@components/JvPopper'
 import type { ObjectEmitsOptions } from 'vue'
 import type { TooltipEmits, TooltipExpose, TooltipProps, TooltipSlots } from './tooltip'
 import { useClickOutside } from '@/composables'
-import JvRenderVNodeContent from '@components/internal/render-vnode-content.setup'
+import JvPopper from '@components/JvPopper'
 import { createNamespace } from '@jovial/utils'
-import { createPopper, type Instance } from '@popperjs/core'
-import flip from '@popperjs/core/lib/modifiers/flip'
-import preventOverflow from '@popperjs/core/lib/modifiers/preventOverflow'
-import { debounce } from 'lodash-es'
+import { debounce, throttle } from 'lodash-es'
+import '../style/jv-tooltip.css'
 
 defineOptions({ name: 'JvTooltip' })
 const props = withDefaults(defineProps<TooltipProps>(), {
@@ -17,29 +16,23 @@ const props = withDefaults(defineProps<TooltipProps>(), {
   placement: 'top',
   openDelay: 0,
   closeDelay: 0,
-  transition: 'fade',
+  arrow: true,
+  // disabled: false,
+  // transition: 'fade',
   popperOptions: () => ({}),
 })
 const emit = defineEmits<TooltipEmits>()
-defineSlots<TooltipSlots>()
+const slots = defineSlots<TooltipSlots>()
 const bem = createNamespace('tooltip')
-const triggerNode = ref<HTMLElement>()
-const popperNode = ref<HTMLElement>()
+const triggerNode = ref<ReferenceType>()
 const tooltipNode = ref<HTMLElement>()
 const isOpen = ref<boolean>(false)
-let popperInstance: Instance | null = null
+const JvpopperRef = ref<JvPopperInstance>()
+
 let events: ObjectEmitsOptions = reactive({})
 let outerEvents: ObjectEmitsOptions = reactive({})
 const popperOptions = computed(() => ({
   placement: props.placement,
-  modifiers: [
-    flip,
-    preventOverflow,
-    {
-      name: 'offset',
-      options: { offset: [0, 8] },
-    },
-  ],
   ...props.popperOptions,
 }))
 function open() {
@@ -52,7 +45,7 @@ function close() {
 }
 
 const openDebounce = debounce(open, props.openDelay)
-const closeDebounce = debounce(close, props.closeDelay)
+const closeDebounce = throttle(close, props.closeDelay)
 
 function openFinal() {
   closeDebounce.cancel()
@@ -95,9 +88,9 @@ function attachEvents() {
     switch (props.trigger) {
       case 'hover':
         events.mouseenter = openFinal
-        Object.assign(outerEvents, {
+        outerEvents = Object.assign(outerEvents, {
           mouseleave: (e: Event) => {
-            e.preventDefault() // 阻止默认行为
+            e.stopPropagation() // 阻止冒泡
             closeFinal()
           },
         })
@@ -124,21 +117,6 @@ watchEffect(() => {
   attachEvents()
 })
 
-watch(isOpen, (newVal) => {
-  if (newVal) {
-    if (triggerNode.value && popperNode.value) {
-      popperInstance = createPopper(triggerNode.value, popperNode.value, popperOptions.value)
-    }
-  }
-  else {
-    popperInstance?.destroy()
-  }
-}, { flush: 'post' })
-
-onUnmounted(() => {
-  popperInstance?.destroy()
-})
-
 function show() {
   props.manual && openFinal()
 }
@@ -146,7 +124,10 @@ function hide() {
   props.manual && closeFinal()
 }
 
+const renderContent = computed(() => props.content || slots.content || slots.default || '')
+
 defineExpose<TooltipExpose>({
+  /** @description 显示  */
   show,
   hide,
 })
@@ -157,16 +138,7 @@ defineExpose<TooltipExpose>({
     <div ref="triggerNode" :class="bem.e('trigger')" v-on="events">
       <slot />
     </div>
-    <Transition :name="transition">
-      <div v-if="isOpen" id="popper" ref="popperNode" :class="bem.e('popper')">
-        <slot v-if="$slots.content" name="content" />
-        <template v-else-if="content">
-          {{ content }}
-        </template>
-        <JvRenderVNodeContent v-else :render="$slots.default" />
-        <div id="jv-arrow" data-popper-arrow />
-      </div>
-    </Transition>
+    <JvPopper ref="JvpopperRef" v-model="isOpen" :reference="triggerNode" :options="popperOptions" :content="renderContent" :arrow="arrow" />
   </div>
 </template>
 

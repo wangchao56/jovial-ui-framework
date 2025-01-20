@@ -1,0 +1,93 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@define-mixin e $element {
+  .jv-switch__$(element) {
+    @mixin-content;
+  }
+}
+
+@define-mixin m $modifier {
+  .jv-switch--$(modifier) {
+    @mixin-content;
+  }
+}
+
+@define-mixin when $state {
+  &.is-$(state) {
+    @mixin-content;
+  }
+}
+
+@mixin b switch {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  @mixin e core {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+  }
+
+  @mixin e button {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+  }
+
+  @mixin when checked {
+    .jv-switch__core {
+      background-color: var(--jv-color-primary-light);
+    }
+
+    .jv-switch__button {
+      transform: translateX(20px);
+    }
+  }
+
+  @mixin when disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  @mixin m small {
+    .jv-switch__core {
+      width: 30px;
+      height: 16px;
+    }
+
+    .jv-switch__button {
+      width: 12px;
+      height: 12px;
+    }
+
+    &.is-checked .jv-switch__button {
+      transform: translateX(14px);
+    }
+  }
+
+  @mixin m large {
+    .jv-switch__core {
+      width: 50px;
+      height: 24px;
+    }
+
+    .jv-switch__button {
+      width: 20px;
+      height: 20px;
+    }
+
+    &.is-checked .jv-switch__button {
+      transform: translateX(26px);
+    }
+  }
+}

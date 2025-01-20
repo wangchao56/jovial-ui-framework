@@ -32,6 +32,12 @@
   font-size: 1.5rem;
   line-height: 1.5rem;
 
+  svg {
+    fill: currentColor;
+    height: 1em;
+    width: 1em;
+  }
+
   svg.loading {
     animation: spin 1s linear infinite;
   }

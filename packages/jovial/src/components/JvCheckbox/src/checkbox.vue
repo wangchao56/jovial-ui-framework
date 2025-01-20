@@ -4,7 +4,7 @@ import { ref, useModel, watch } from 'vue'
 import { checkboxEmits, checkboxProps } from './checkbox'
 
 defineOptions({ name: 'JvCheckbox' })
-const props = defineProps(checkboxProps)
+defineProps(checkboxProps)
 const emit = defineEmits(checkboxEmits)
 const bem = createNamespace('checkbox')
 const model = useModel(props, 'modelValue')

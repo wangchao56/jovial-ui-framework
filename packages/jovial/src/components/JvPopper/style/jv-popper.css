@@ -1,19 +1,89 @@
 @import '@jovial/theme-chalk/src/common/mixins.css';
 
 @define-mixin e $element {
-  .jv-collapse-item__$(element) {
+  .jv-popper__$(element) {
     @mixin-content;
   }
 }
 @mixin b popper {
+  --jv-popper-bg-color: #323232;
+  --jv-popper-border-color: #4d4d4d;
+  --jv-popper-font-size: 12px;
+  --jv-popper-padding: 8px 12px;
+  font-weight: normal;
+  white-space: nowrap;
+  text-align: left;
+  line-height: 1.5;
+  font-size: 12px;
+  padding: var(--jv-popper-padding);
   display: inline-block;
-  position: relative;
   background-origin: content-box;
   color: white;
-  z-index: 1000;
-  border-radius: 5px;
-  background: linear-gradient(145deg, #4d4d4d, #323232);
+  z-index: 1;
+  border-radius: 4px;
+  background: var(--jv-popper-bg-color);
   box-shadow:
+    2px 2px 5px #bebebe,
     6px 6px 11px #bebebe,
     -6px -6px 11px #ffffff;
+  border: 1px solid var(--jv-popper-border-color);
+
+  #jv-popper-arrow,
+  #jv-popper-arrow::before {
+    width: 8px;
+    height: 8px;
+    background: var(--jv-popper-bg-color);
+    position: absolute;
+    box-sizing: border-box;
+  }
+
+  #jv-popper-arrow {
+    visibility: hidden;
+  }
+
+  #jv-popper-arrow::before {
+    visibility: visible;
+    content: '';
+    transform: rotate(45deg);
+    border: 1px solid var(--jv-popper-border-color);
+  }
+}
+[data-popper-placement^='top'] {
+  & > #jv-popper-arrow {
+    bottom: -4px;
+  }
+  & > #jv-popper-arrow::before {
+    border-left: 1px solid transparent;
+    border-top: 1px solid transparent;
+  }
+}
+
+[data-popper-placement^='bottom'] {
+  & > #jv-popper-arrow {
+    top: -4px;
+  }
+  & > #jv-popper-arrow::before {
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+  }
+}
+
+[data-popper-placement^='left'] {
+  & > #jv-popper-arrow {
+    right: -4px;
+  }
+  & > #jv-popper-arrow::before {
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+  }
+}
+
+[data-popper-placement^='right'] {
+  & > #jv-popper-arrow {
+    left: -4px;
+  }
+  & > #jv-popper-arrow::before {
+    border-right: 1px solid transparent;
+    border-top: 1px solid transparent;
+  }
 }

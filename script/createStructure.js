@@ -48,11 +48,12 @@ const fileContents = {
     import { ref } from 'vue';
     import { createNamespace } from '@jovial/utils';
     import { ${toHumpFirstLower(baseName)}Emits, ${toHumpFirstLower(baseName)}Props } from './${baseName}';
-    defineOptions({ name: 'Jv${toHumpFirstUpper(baseName)}' });
-    const props = defineProps(${toHumpFirstLower(baseName)}Props);
+    defineOptions({ name: '${toHumpFirstUpper(baseName)}' });
+    defineProps(${toHumpFirstLower(baseName)}Props);
     const emit = defineEmits(${toHumpFirstLower(baseName)}Emits);
-    const bem = createNamespace('${baseName}');
+    const bem = createNamespace('${toHumpFirstLower(baseName.replace('Jv', ''))}');
     </script>
+    <style src="../style/style.css" scoped></style>
   `,
 }
 
@@ -68,16 +69,31 @@ const fileContents = {
 // 定义目录结构
 const structure = {
   [baseName]: {
+    '__test__': {
+      [`${baseName}.spec.ts`]: ``,
+    },
     'src': fileContents,
     'style': {
-      'style.css': ``,
+      'style.css': `@import '@jovial/theme-chalk/src/common/mixins.css';
+
+      @define-mixin e $element {
+        .jv-${toHumpFirstLower(baseName.replace('Jv', ''))}__$(element) {
+          @mixin-content;
+        }
+      }
+      @mixin b ${toHumpFirstLower(baseName.replace('Jv', ''))} {}  
+      `,
       'theme-vars.css': ``,
-      'index.ts': ``,
+      'index.ts': `import './theme-vars.css' 
+      import './style.css'`,
     },
     'index.ts': `
       import _${toHumpFirstUpper(baseName)} from './src/${baseName}.vue';
       import { withInstall } from '@jovial/utils';
+      import './style'
+
       const ${toHumpFirstUpper(baseName)} = withInstall(_${toHumpFirstUpper(baseName)});
+      
       export * from './src/${baseName}';
       export default ${toHumpFirstUpper(baseName)}; 
       export type Jv${toHumpFirstUpper(baseName)}Instance = InstanceType<typeof ${toHumpFirstUpper(baseName)}>

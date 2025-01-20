@@ -7,7 +7,7 @@ import { createOptions, treeEmits, treeInjectKey, treePorps } from './tree'
 import JvTreeNode from './treeNode.vue'
 
 defineOptions({ name: 'JvTree' })
-const props = defineProps(treePorps)
+defineProps(treePorps)
 const emit = defineEmits(treeEmits)
 const bem = createNamespace('tree')
 

@@ -1,0 +1,94 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@define-mixin e $element {
+  .jv-message__$(element) {
+    @mixin-content;
+  }
+}
+
+@define-mixin m $modifier {
+  .jv-message--$(modifier) {
+    @mixin-content;
+  }
+}
+
+@mixin b message {
+  --jv-message-padding: 8px;
+  --jv-message-icon-size: 16px;
+  --jv-message-close-size: 16px;
+  --jv-message-border-color: var(--jv-color-text-primary);
+  --jv-message-bg-color: var(--jv-color-text-primary);
+  --jv-message-text-color: var(--jv-color-text-primary);
+  --jv-transition-duration: 0.3s;
+
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  /* inset: 0 auto auto auto; */
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  color: var(--jv-message-text-color);
+  background-color: var(--jv-message-bg-color);
+  border-radius: 4px;
+  border: 1px solid var(--jv-message-border-color);
+  transition:
+    top var(--jv-transition-duration),
+    opacity var(--jv-transition-duration),
+    transform var(--jv-transition-duration);
+
+  @mixin e prepend {
+    padding: 8px 16px;
+  }
+
+  @mixin e append {
+  }
+
+  @mixin e append--icon {
+    color: var(--jv-message-text-color) !important;
+  }
+  @mixin e content {
+    padding: 8px 16px;
+    padding-left: 0;
+    flex: 1;
+    font-size: 14px;
+    line-height: 20px;
+    /* 文本超出隐藏 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@each $type in info, success, warning, danger {
+  @mixin m $(type) {
+    --jv-message-border-color: var(--jv-color-$(type));
+    --jv-message-bg-color: var(--jv-color-$(type)-light-7);
+    --jv-message-text-color: var(--jv-color-$(type));
+  }
+}
+/*
+@mixin m info {
+  --jv-message-border-color: var(--jv-color-info);
+  --jv-message-bg-color: var(--jv-color-info-light-7);
+  --jv-message-text-color: var(--jv-color-info);
+}
+
+@mixin m success {
+  --jv-message-border-color: var(--jv-color-success);
+  --jv-message-bg-color: var(--jv-color-success-light-7);
+  --jv-message-text-color: var(--jv-color-success);
+}
+
+@mixin m warning {
+  --jv-message-border-color: var(--jv-color-warning);
+  --jv-message-bg-color: var(--jv-color-warning-light-7);
+  --jv-message-text-color: var(--jv-color-warning);
+}
+
+@mixin m danger {
+  --jv-message-border-color: var(--jv-color-danger);
+  --jv-message-bg-color: var(--jv-color-danger-light-7);
+  --jv-message-text-color: var(--jv-color-danger);
+} */

@@ -5,7 +5,7 @@ import { onMounted, ref, watch } from 'vue'
 defineOptions({
   name: 'JvPieChart',
 })
-const props = defineProps({
+defineProps({
   data: {
     type: Array as PropType<number[]>,
     required: true,

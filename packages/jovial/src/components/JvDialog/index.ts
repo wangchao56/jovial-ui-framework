@@ -1,13 +1,13 @@
 import { withInstall } from '@jovial/utils'
-import _Dialog from './src/dialog.vue'
+import _Dialog from './src/JvDialog.vue'
 
-const dialog = withInstall(_Dialog)
+const JvDialog = withInstall(_Dialog)
 
-export * from './src/dialog'
-export default dialog
+export * from './src/JvDialog'
+export default JvDialog
 
 declare module 'vue' {
   export interface GlobalComponents {
-    JvDialog: typeof dialog
+    JvDialog: typeof JvDialog
   }
 }
