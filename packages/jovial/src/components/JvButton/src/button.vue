@@ -8,7 +8,7 @@ import type {
 import { Loading } from '@components/internal-icon/index'
 import JvIcon from '@components/JvIcon/src/icon.vue'
 import { createNamespace } from '@jovial/utils'
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 import './button.css'
 
 defineOptions({
@@ -76,6 +76,17 @@ const exposed: ButtonExposed = {
 }
 
 defineExpose<ButtonExposed>(exposed)
+
+// 注入按钮组上下文
+const buttonGroupContext = inject('buttonGroupContext', null)
+
+// 合并 props
+const finalProps = computed(() => ({
+  ...props,
+  // 如果在按钮组中，使用按钮组的 size 和 rounded
+  size: buttonGroupContext?.size || props.size,
+  rounded: buttonGroupContext?.rounded || props.rounded,
+}))
 </script>
 
 <template>
@@ -83,11 +94,11 @@ defineExpose<ButtonExposed>(exposed)
     ref="rootRef"
     :class="[
       bem.b(),
-      bem.m(type),
-      bem.m(size),
+      bem.m(finalProps.type),
+      bem.m(finalProps.size),
       bem.m(variant),
       bem.is('dashed', dashed),
-      bem.is('rounded', rounded),
+      bem.is('rounded', finalProps.rounded),
       bem.is('loading', _loading),
       bem.is('disabled', _disabled),
       bem.is('block', block),

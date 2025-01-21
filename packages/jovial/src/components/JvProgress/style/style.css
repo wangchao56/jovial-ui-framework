@@ -1,0 +1,53 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@define-mixin e $element {
+  .jv-progress__$(element) {
+    @mixin-content;
+  }
+}
+
+@mixin b progress {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+@mixin e bar {
+  flex: 1;
+}
+
+@mixin e outer {
+  position: relative;
+  background-color: #ebeef5;
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+@mixin e inner {
+  position: relative;
+  transition: width 0.6s ease;
+  height: 100%;
+  border-radius: 100px;
+}
+
+@mixin e text {
+  margin-left: 5px;
+  min-width: 50px;
+  color: #606266;
+  font-size: 14px;
+}
+
+@mixin e text-inside {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 12px;
+}
+
+@mixin e circle {
+  position: relative;
+  display: inline-block;
+}

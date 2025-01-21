@@ -1,13 +1,13 @@
 import { withInstall } from '@jovial/utils'
-import _Editor from './src/editor.vue'
+import _Editor from './src/JvEditor.vue'
 
-const editor = withInstall(_Editor)
+const JvEditor = withInstall(_Editor)
 
-export * from './src/editor'
-export default editor
+export * from './src/JvEditor'
+export default JvEditor
 
 declare module 'vue' {
   export interface GlobalComponents {
-    JvEditor: typeof editor
+    JvEditor: typeof JvEditor
   }
 }

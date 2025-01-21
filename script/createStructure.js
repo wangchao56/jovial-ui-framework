@@ -20,25 +20,24 @@ const baseName = baseNameArg.split('=')[1]
 
 // 定义组件目录和样式目录路径
 const outputPath = path.join(__dirname, '..', 'packages', 'jovial/src/components')
-// const styleDirName = path.join(
-//   __dirname,
-//   '..',
-//   'packages',
-//   'theme-chalk',
-//   'src',
-// )
-// const styleIndexFilePath = path.join(styleDirName, 'index.scss')
 
 // 定义组件文件和样式文件内容
 const fileContents = {
   [`${baseName}.ts`]: `
     export const ${toHumpFirstLower(baseName)}Props = {} as const;
-    export interface ${toHumpFirstUpper(baseName)}Props {};
-    export const ${toHumpFirstLower(baseName)}Emits = {} as const;
-    export type ${toHumpFirstUpper(baseName)}Emits = {};
-    export const ${toHumpFirstLower(baseName)}Slots = {} as const;
-    export type ${toHumpFirstUpper(baseName)}Slots = {};
-    export type ${toHumpFirstUpper(baseName)}Expose = {};
+    export interface ${toHumpFirstUpper(baseName)}Props {
+      // 组件属性定义
+    };
+    export type ${toHumpFirstUpper(baseName)}Emits = {
+      // 事件定义
+    };
+    export type ${toHumpFirstUpper(baseName)}Slots = {
+      // 插槽定义
+      default?: () => any;
+    };
+    export type ${toHumpFirstUpper(baseName)}Expose = {
+      // 暴露的方法和属性
+    };
   `,
   [`${baseName}.vue`]: `
     <template>
@@ -50,7 +49,7 @@ const fileContents = {
     import { ${toHumpFirstLower(baseName)}Emits, ${toHumpFirstLower(baseName)}Props } from './${baseName}';
     defineOptions({ name: '${toHumpFirstUpper(baseName)}' });
     defineProps(${toHumpFirstLower(baseName)}Props);
-    const emit = defineEmits(${toHumpFirstLower(baseName)}Emits);
+    defineEmits(${toHumpFirstLower(baseName)}Emits);
     const bem = createNamespace('${toHumpFirstLower(baseName.replace('Jv', ''))}');
     </script>
     <style src="../style/style.css" scoped></style>
@@ -70,7 +69,20 @@ const fileContents = {
 const structure = {
   [baseName]: {
     '__test__': {
-      [`${baseName}.spec.ts`]: ``,
+      [`${baseName}.spec.ts`]: `
+        import { mount } from '@vue/test-utils'
+        import { describe, expect, it } from 'vitest'
+        import ${toHumpFirstUpper(baseName)} from '../src/${baseName}.vue'
+        
+        describe('${toHumpFirstUpper(baseName)}', () => {
+          it('renders correctly', () => {
+            const wrapper = mount(${toHumpFirstUpper(baseName)})
+            expect(wrapper.exists()).toBe(true)
+          })
+          
+          // 添加更多测试用例
+        })
+      `,
     },
     'src': fileContents,
     'style': {
@@ -112,52 +124,17 @@ const structure = {
   },
 }
 
-// 修改样式索引文件并生成样式文件
-// async function createStyleStructure() {
-//   let data
-//   try {
-//     data = await fs.readFile(styleIndexFilePath, 'utf8')
-//   }
-//   catch (err) {
-//     console.error(`Error reading style index file: ${err.message}`)
-//     return
-//   }
-
-//   const temp = `@use './${baseName}.scss';`
-//   if (data.includes(temp)) {
-//     // console.log(`Style file already exists: ${baseName}.scss`)
-//     return
-//   }
-//   const modifiedData = data + temp
-
-//   try {
-//     await fs.writeFile(styleIndexFilePath, modifiedData, 'utf8')
-//     // console.log(`Style index file modified successfully.`)
-//   }
-//   catch (err) {
-//     console.error(`Error writing to style index file: ${err.message}`)
-//     return
-//   }
-
-//   for (const name in styleFileContents) {
-//     const currentPath = path.join(styleDirName, name)
-//     try {
-//       await fs.writeFile(currentPath, styleFileContents[name], 'utf8')
-//     }
-//     catch (err) {
-//       console.error(`Error writing style file ${name}: ${err.message}`)
-//     }
-//   }
-// }
-
 // 执行目录和文件创建操作
 ;(async () => {
   try {
+    // eslint-disable-next-line no-console
+    console.log(`开始创建组件 ${baseName} 的目录结构...`)
     await createStructure(outputPath, structure)
-    // await createStyleStructure()
-    // console.log('Directory and file creation successful!')
+    // eslint-disable-next-line no-console
+    console.log(`组件 ${baseName} 创建成功！`)
   }
   catch (err) {
-    console.error(`An error occurred: ${err.message}`)
+    console.error(`创建组件失败：${err.message}`)
+    process.exit(1)
   }
 })()

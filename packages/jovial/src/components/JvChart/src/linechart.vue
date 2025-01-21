@@ -5,7 +5,7 @@ import { onMounted, ref, watch } from 'vue'
 defineOptions({
   name: 'JvLineChart',
 })
-defineProps({
+const props = defineProps({
   data: {
     type: Array as PropType<number[]>,
     required: true,

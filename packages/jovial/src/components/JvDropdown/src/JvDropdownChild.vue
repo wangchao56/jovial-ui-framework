@@ -10,7 +10,7 @@ import { computed } from 'vue'
 defineOptions({
   name: 'JvDropdownChild',
 })
-defineProps<{
+const props = defineProps<{
   child: ListItem
 }>()
 

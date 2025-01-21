@@ -12,7 +12,7 @@ defineOptions({
   name: 'JvTreeNode',
   inheritAttrs: false,
 })
-defineProps(treeNodeProps)
+const props = defineProps(treeNodeProps)
 const emit = defineEmits(treeNodeEmits)
 
 const bem = createNamespace('tree-node')

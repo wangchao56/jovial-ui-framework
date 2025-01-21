@@ -5,5 +5,69 @@
     @mixin-content;
   }
 }
+
 @mixin b rate {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0;
+  vertical-align: middle;
+
+  /* 图标列表 */
+  @mixin e icons {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* 图标项 */
+  @mixin e icon {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.15s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  /* 半选图标 */
+  @mixin e half {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    overflow: hidden;
+  }
+
+  /* 提示文字 */
+  @mixin e text {
+    margin-left: 8px;
+    font-size: 14px;
+    color: var(--jv-text-color-secondary);
+  }
+
+  /* 只读状态 */
+  @mixin when readonly {
+    .jv-rate__icon {
+      cursor: default;
+
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+
+  /* 禁用状态 */
+  @mixin when disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    .jv-rate__icon {
+      cursor: not-allowed;
+
+      &:hover {
+        transform: none;
+      }
+    }
+  }
 }

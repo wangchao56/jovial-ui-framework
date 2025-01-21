@@ -1,35 +1,72 @@
-import type { PropType, VNodeChild } from 'vue'
-import { defineComponent, isVNode } from 'vue'
+/**
+ * 主要改进：
+添加了更详细的类型定义：
+RenderFunction 类型定义渲染函数
+RenderContent 类型定义所有可能的渲染内容
+添加了新的 props：
+params 属性用于传递渲染函数的参数
+增强了错误处理：
+使用 try-catch 包裹渲染逻辑
+在出错时输出错误信息并返回 null
+改进了类型检查：
+使用更精确的类型定义
+添加了 PropType 类型注解
+添加了注释：
+为组件和属性添加了 JSDoc 注释
+为主要逻辑添加了说明性注释
+ */
+
+import type { PropType } from 'vue'
+import type { RenderContent } from './types'
+import { createTextVNode, defineComponent, isVNode } from 'vue'
 
 export default defineComponent({
   name: 'JvRenderVNodeContent',
   props: {
+    /** 要渲染的内容 */
     render: {
-      type: [String, Object, Function] as PropType<((...args: any[]) => VNodeChild) | string | VNodeChild>,
+      type: [String, Object, Function] as PropType<RenderContent>,
       default: undefined,
-      required: false,
+    },
+    /** 渲染函数的参数 */
+    params: {
+      type: Array as PropType<any[]>,
+      default: () => [],
     },
   },
   setup(props, { slots }) {
     return () => {
-      // 如果提供了默认插槽，则使用它
-      if (slots.default) {
-        return slots.default()
+      try {
+        // 优先使用默认插槽
+        if (slots.default) {
+          return slots.default()
+        }
+
+        const { render, params } = props
+
+        // 处理不同类型的渲染内容
+        if (render) {
+          // 如果是函数，使用提供的参数调用
+          if (typeof render === 'function') {
+            return render(...params)
+          }
+          // 如果是 VNode，直接返回
+          else if (isVNode(render)) {
+            return render
+          }
+          // 如果是字符串，返回文本节点
+          else if (typeof render === 'string') {
+            return createTextVNode(render)
+          }
+        }
+
+        // 如果没有有效的渲染内容，返回 null
+        return null
       }
-      // 如果 render 是一个函数，则调用它
-      else if (typeof props.render === 'function') {
-        return props.render()
+      catch (error) {
+        console.error('Error in JvRenderVNodeContent:', error)
+        return null
       }
-      // 如果 render 是一个 VNodeChild，则直接返回它
-      else if (isVNode(props.render)) {
-        return props.render
-      }
-      // 如果 render 是一个字符串，则尝试将其作为内容返回（可能需要进一步处理）
-      else if (typeof props.render === 'string') {
-        return props.render
-      }
-      // 如果没有提供有效的 render 值，则返回 null
-      return null
     }
   },
 })

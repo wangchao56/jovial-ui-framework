@@ -5,15 +5,15 @@ import { jvNotificationEmits, jvNotificationProps } from './JvNotification'
 
 defineOptions({ name: 'JvNotification' })
 defineProps(jvNotificationProps)
-defineEmits(jvNotificationEmits)
+const emit = defineEmits(jvNotificationEmits)
 const bem = createNamespace('notification')
 
 const visible = ref(true)
 
-// function close() {
-//   visible.value = false
-//   emit('close')
-// }
+function close() {
+  visible.value = false
+  emit('close')
+}
 </script>
 
 <template>
@@ -21,6 +21,8 @@ const visible = ref(true)
     <Transition name="slide-in-out">
       <div v-if="visible" :class="bem.b()">
         <slot />
+
+        <JvButton :class="bem.e('close')" icon="$close" variant="tonal" @click="close" />
       </div>
     </Transition>
   </Teleport>

@@ -6,7 +6,7 @@ import ScrollBar from '@better-scroll/scroll-bar'
 defineOptions({
   name: 'JvScrollBox',
 })
-defineProps({
+const props = defineProps({
   scrollMode: {
     type: Object as PropType<{
       vertical: boolean

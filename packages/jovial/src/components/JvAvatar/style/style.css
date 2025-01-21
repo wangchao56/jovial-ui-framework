@@ -1,0 +1,71 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@define-mixin e $element {
+  .jv-avatar__$(element) {
+    @mixin-content;
+  }
+}
+
+@mixin b avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--jv-avatar-size);
+  height: var(--jv-avatar-size);
+  font-size: var(--jv-avatar-font-size);
+  color: var(--jv-color-white);
+  background: var(--jv-color-info);
+  overflow: hidden;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+  }
+
+  @mixin e text {
+    transform: scale(1);
+    white-space: nowrap;
+  }
+
+  /* 尺寸 */
+  &--tiny {
+    --jv-avatar-size: 24px;
+    --jv-avatar-font-size: 12px;
+  }
+
+  &--small {
+    --jv-avatar-size: 32px;
+    --jv-avatar-font-size: 14px;
+  }
+
+  &--medium {
+    --jv-avatar-size: 40px;
+    --jv-avatar-font-size: 16px;
+  }
+
+  &--large {
+    --jv-avatar-size: 48px;
+    --jv-avatar-font-size: 18px;
+  }
+
+  &--x-large {
+    --jv-avatar-size: 56px;
+    --jv-avatar-font-size: 20px;
+  }
+
+  /* 形状 */
+  &--circle {
+    border-radius: 50%;
+  }
+
+  &--square {
+    border-radius: 4px;
+  }
+
+  /* 边框 */
+  @mixin when bordered {
+    border: 2px solid var(--jv-color-white);
+    box-shadow: 0 0 0 1px var(--jv-border-color);
+  }
+}

@@ -1,0 +1,75 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+.jv-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  height: 32px;
+  white-space: nowrap;
+
+  &--primary {
+    background-color: var(--jv-primary-light-9);
+    color: var(--jv-primary);
+    border: 1px solid var(--jv-primary-light-8);
+  }
+
+  &--success {
+    background-color: var(--jv-success-light-9);
+    color: var(--jv-success);
+    border: 1px solid var(--jv-success-light-8);
+  }
+
+  &--warning {
+    background-color: var(--jv-warning-light-9);
+    color: var(--jv-warning);
+    border: 1px solid var(--jv-warning-light-8);
+  }
+
+  &--danger {
+    background-color: var(--jv-danger-light-9);
+    color: var(--jv-danger);
+    border: 1px solid var(--jv-danger-light-8);
+  }
+
+  &--info {
+    background-color: var(--jv-info-light-9);
+    color: var(--jv-info);
+    border: 1px solid var(--jv-info-light-8);
+  }
+
+  &--small {
+    height: 24px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+  &--large {
+    height: 40px;
+    padding: 0 12px;
+    font-size: 16px;
+  }
+
+  &--round {
+    border-radius: 999px;
+  }
+
+  &__close {
+    margin-left: 8px;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+@define-mixin e $element {
+  .jv-tag__$(element) {
+    @mixin-content;
+  }
+}
+@mixin b tag {
+}

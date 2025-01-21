@@ -1,0 +1,222 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@define-mixin e $element {
+  .jv-steps__$(element) {
+    @mixin-content;
+  }
+}
+
+@mixin b steps {
+  display: flex;
+  width: 100%;
+
+  /* 水平布局 */
+  &--horizontal {
+    flex-direction: row;
+
+    .jv-steps__item {
+      flex: 1;
+      padding-bottom: 20px;
+
+      &:last-child {
+        flex: none;
+      }
+    }
+
+    .jv-steps__line {
+      top: 16px;
+      left: 50%;
+      right: -50%;
+      height: 1px;
+    }
+  }
+
+  /* 垂直布局 */
+  &--vertical {
+    flex-direction: column;
+
+    .jv-steps__item {
+      display: flex;
+      padding: 0 0 20px 20px;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+
+    .jv-steps__line {
+      top: 28px;
+      bottom: 0;
+      left: 16px;
+      width: 1px;
+    }
+
+    .jv-steps__content {
+      flex: 1;
+      padding-left: 12px;
+    }
+  }
+
+  /* 步骤项 */
+  @mixin e item {
+    position: relative;
+    white-space: nowrap;
+
+    /* 等待状态 */
+    &--wait {
+      .jv-steps__icon {
+        color: var(--jv-text-color-secondary);
+        border-color: var(--jv-border-color);
+        background: var(--jv-color-white);
+      }
+
+      .jv-steps__title {
+        color: var(--jv-text-color-secondary);
+      }
+
+      .jv-steps__description {
+        color: var(--jv-text-color-secondary);
+      }
+
+      .jv-steps__line {
+        background: var(--jv-border-color);
+      }
+    }
+
+    /* 进行中状态 */
+    &--process {
+      .jv-steps__icon {
+        color: var(--jv-color-white);
+        border-color: var(--jv-color-primary);
+        background: var(--jv-color-primary);
+      }
+
+      .jv-steps__title {
+        color: var(--jv-text-color);
+        font-weight: 500;
+      }
+
+      .jv-steps__description {
+        color: var(--jv-text-color);
+      }
+
+      .jv-steps__line {
+        background: var(--jv-border-color);
+      }
+    }
+
+    /* 完成状态 */
+    &--finish {
+      .jv-steps__icon {
+        color: var(--jv-color-primary);
+        border-color: var(--jv-color-primary);
+        background: var(--jv-color-white);
+      }
+
+      .jv-steps__title {
+        color: var(--jv-text-color);
+      }
+
+      .jv-steps__description {
+        color: var(--jv-text-color-secondary);
+      }
+
+      .jv-steps__line {
+        background: var(--jv-color-primary);
+      }
+    }
+
+    /* 错误状态 */
+    &--error {
+      .jv-steps__icon {
+        color: var(--jv-color-white);
+        border-color: var(--jv-color-danger);
+        background: var(--jv-color-danger);
+      }
+
+      .jv-steps__title {
+        color: var(--jv-color-danger);
+      }
+
+      .jv-steps__description {
+        color: var(--jv-color-danger);
+      }
+
+      .jv-steps__line {
+        background: var(--jv-border-color);
+      }
+    }
+
+    @mixin when clickable {
+      cursor: pointer;
+
+      &:hover {
+        .jv-steps__title {
+          color: var(--jv-color-primary);
+        }
+      }
+    }
+
+    @mixin when disabled {
+      cursor: not-allowed;
+
+      .jv-steps__icon {
+        color: var(--jv-text-color-disabled);
+        border-color: var(--jv-border-color);
+        background: var(--jv-disabled-bg-color);
+      }
+
+      .jv-steps__title,
+      .jv-steps__description {
+        color: var(--jv-text-color-disabled);
+      }
+    }
+  }
+
+  /* 图标 */
+  @mixin e icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+    border: 1px solid var(--jv-border-color);
+    border-radius: 50%;
+    font-size: 16px;
+    transition: all 0.3s;
+  }
+
+  /* 连接线 */
+  @mixin e line {
+    position: absolute;
+    background: var(--jv-border-color);
+    transition: all 0.3s;
+  }
+
+  /* 内容区域 */
+  @mixin e content {
+    padding-top: 8px;
+    text-align: center;
+  }
+
+  /* 标题 */
+  @mixin e title {
+    font-size: 14px;
+    line-height: 1.5;
+    transition: color 0.3s;
+  }
+
+  /* 描述 */
+  @mixin e description {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--jv-text-color-secondary);
+  }
+
+  /* 禁用状态 */
+  @mixin when disabled {
+    cursor: not-allowed;
+  }
+}

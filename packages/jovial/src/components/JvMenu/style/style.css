@@ -1,0 +1,121 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@define-mixin e $element {
+  .jv-menu__$(element) {
+    @mixin-content;
+  }
+}
+
+@mixin b menu {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  background: var(--jv-bg-color-overlay);
+  transition: width 0.3s;
+
+  /* 水平模式 */
+  &--horizontal {
+    flex-direction: row;
+    width: 100%;
+    height: 60px;
+  }
+
+  /* 菜单项 */
+  @mixin e item {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background: var(--jv-hover-color);
+    }
+
+    @mixin when selected {
+      color: var(--jv-color-primary);
+      background: var(--jv-hover-color);
+    }
+
+    @mixin when disabled {
+      color: var(--jv-text-color-disabled);
+      cursor: not-allowed;
+
+      &:hover {
+        background: none;
+      }
+    }
+  }
+
+  /* 图标 */
+  @mixin e icon {
+    margin-right: 10px;
+    font-size: 16px;
+  }
+
+  /* 标签文本 */
+  @mixin e label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 子菜单 */
+  @mixin e sub-menu {
+    @mixin e sub-title {
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      height: 40px;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        background: var(--jv-hover-color);
+      }
+    }
+
+    @mixin e arrow {
+      margin-left: 10px;
+      transition: transform 0.3s;
+    }
+
+    @mixin e sub-items {
+      height: 0;
+      overflow: hidden;
+      transition: height 0.3s;
+    }
+
+    @mixin when open {
+      & > .jv-menu__sub-items {
+        height: auto;
+      }
+
+      & > .jv-menu__sub-title .jv-menu__arrow {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  /* 折叠状态 */
+  @mixin when collapsed {
+    width: 80px;
+
+    & .jv-menu__label,
+    & .jv-menu__arrow {
+      display: none;
+    }
+
+    & .jv-menu__icon {
+      margin: 0;
+    }
+
+    & .jv-menu__item,
+    & .jv-menu__sub-title {
+      padding: 0;
+      justify-content: center;
+    }
+  }
+}

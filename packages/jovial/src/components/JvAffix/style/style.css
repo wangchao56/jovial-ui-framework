@@ -1,0 +1,25 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@define-mixin e $element {
+  .jv-affix__$(element) {
+    @mixin-content;
+  }
+}
+
+@define-mixin when $element {
+  .is-$(element) {
+    @mixin-content;
+  }
+}
+
+@mixin b affix {
+  width: fit-content;
+}
+
+@mixin e wrapper {
+  width: inherit;
+}
+
+@mixin when fixed {
+  position: fixed;
+}

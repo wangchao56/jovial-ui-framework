@@ -7,7 +7,7 @@ import { provide } from 'vue'
 import { formEmits, formProps, formProviderKey } from './form'
 
 defineOptions({ name: 'JvForm' })
-defineProps(formProps)
+const props = defineProps(formProps)
 defineEmits(formEmits)
 const bem = createNamespace('form')
 

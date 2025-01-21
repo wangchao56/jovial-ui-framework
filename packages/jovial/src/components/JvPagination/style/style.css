@@ -1,0 +1,106 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@define-mixin e $element {
+  .jv-pagination__$(element) {
+    @mixin-content;
+  }
+}
+
+@mixin b pagination {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+
+  /* 总数显示 */
+  @mixin e total {
+    margin-right: 16px;
+    color: var(--jv-text-color-secondary);
+  }
+
+  /* 每页条数选择器 */
+  @mixin e size-changer {
+    margin-right: 16px;
+    width: 110px;
+  }
+
+  /* 页码按钮基础样式 */
+  @mixin e prev, @mixin e next, @mixin e page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    margin: 0 4px;
+    padding: 0 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      color: var(--jv-color-primary);
+      background: var(--jv-hover-color);
+    }
+
+    @mixin when active {
+      color: var(--jv-color-white);
+      background: var(--jv-color-primary);
+
+      &:hover {
+        color: var(--jv-color-white);
+        background: var(--jv-color-primary);
+      }
+    }
+
+    @mixin when disabled {
+      color: var(--jv-text-color-disabled);
+      cursor: not-allowed;
+
+      &:hover {
+        color: var(--jv-text-color-disabled);
+        background: none;
+      }
+    }
+  }
+
+  /* 快速跳转 */
+  @mixin e jumper {
+    margin-left: 16px;
+
+    input {
+      width: 50px;
+      height: 32px;
+      margin: 0 8px;
+      padding: 0 8px;
+      text-align: center;
+      border: 1px solid var(--jv-border-color);
+      border-radius: 4px;
+
+      &:focus {
+        outline: none;
+        border-color: var(--jv-color-primary);
+      }
+
+      &:disabled {
+        background: var(--jv-disabled-bg-color);
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  /* 禁用状态 */
+  @mixin when disabled {
+    cursor: not-allowed;
+
+    .jv-pagination__total,
+    .jv-pagination__jumper {
+      color: var(--jv-text-color-disabled);
+    }
+  }
+
+  /* 简单模式 */
+  @mixin when simple {
+    .jv-pagination__page {
+      margin: 0 8px;
+    }
+  }
+}

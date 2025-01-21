@@ -9,7 +9,7 @@ import { computed, h } from 'vue'
 import './icon.css'
 
 defineOptions({ name: 'JvIcon' })
-defineProps<IconProps>()
+const props = defineProps<IconProps>()
 const bem = createNamespace('icon')
 
 const iconClass = computed(() => {

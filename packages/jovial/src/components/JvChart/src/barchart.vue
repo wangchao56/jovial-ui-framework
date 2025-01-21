@@ -6,7 +6,7 @@ defineOptions({
   name: 'JvBarChart',
 })
 
-defineProps(chartProps)
+const props = defineProps(chartProps)
 
 const canvas = ref<HTMLCanvasElement | null>(null)
 

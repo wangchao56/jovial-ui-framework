@@ -4,43 +4,56 @@ import { jvCardEmits, jvCardProps } from './JvCard'
 
 defineOptions({ name: 'JvCard' })
 defineProps(jvCardProps)
-defineEmits(jvCardEmits)
+const emit = defineEmits(jvCardEmits)
 const bem = createNamespace('card')
+
+function handleClick(evt: MouseEvent) {
+  emit('click', evt)
+}
 </script>
 
 <template>
-  <figure :class="bem.b()">
-    <figcaption>
-      An elephant at sunset
-      <p>232</p>
-    </figcaption>
-    <header />
+  <div
+    :class="[
+      bem.b(),
+      bem.is('border', border),
+      bem.is('round', round),
+      bem.m(`shadow-${shadow}`),
+    ]"
+    @click="handleClick"
+  >
+    <div v-if="$slots.header || title || subtitle" :class="bem.e('header')">
+      <slot name="header">
+        <div v-if="title || subtitle" :class="bem.e('title-group')">
+          <slot name="title">
+            <h3 v-if="title" :class="bem.e('title')">
+              {{ title }}
+            </h3>
+          </slot>
+          <p v-if="subtitle" :class="bem.e('subtitle')">
+            {{ subtitle }}
+          </p>
+        </div>
+      </slot>
+    </div>
 
-    <main><img src="https://picsum.photos/200/300" alt="Photo of an elephant at sunset"></main>
-    <footer />
-  </figure>
+    <div v-if="$slots.cover" :class="bem.e('cover')">
+      <slot name="cover" />
+    </div>
+
+    <div :class="bem.e('body')">
+      <slot />
+    </div>
+
+    <div v-if="$slots.footer" :class="bem.e('footer')">
+      <slot name="footer" />
+    </div>
+
+    <div v-if="$slots.actions" :class="bem.e('actions')">
+      <slot name="actions" />
+    </div>
+  </div>
 </template>
 
-<style scoped>
-figure {
-  border: thin #c0c0c0 solid;
-  display: flex;
-  flex-flow: column;
-  padding: 5px;
-  max-width: 220px;
-  margin: auto;
-}
-
-img {
-  max-width: 220px;
-  max-height: 150px;
-}
-
-figcaption {
-  background-color: #222;
-  color: #fff;
-  font: italic smaller sans-serif;
-  padding: 3px;
-  text-align: center;
-}
+<style  scoped>
 </style>

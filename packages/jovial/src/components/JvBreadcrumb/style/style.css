@@ -1,0 +1,52 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@define-mixin e $element {
+  .jv-breadcrumb__$(element) {
+    @mixin-content;
+  }
+}
+
+@mixin b breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  line-height: 1;
+
+  /* 面包屑项 */
+  @mixin e item {
+    display: flex;
+    align-items: center;
+    color: var(--jv-text-color);
+    transition: color 0.3s;
+
+    @mixin when link {
+      cursor: pointer;
+
+      &:hover {
+        color: var(--jv-color-primary);
+      }
+    }
+
+    @mixin when disabled {
+      color: var(--jv-text-color-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  /* 图标 */
+  @mixin e icon {
+    margin-right: 4px;
+    font-size: 16px;
+  }
+
+  /* 文本 */
+  @mixin e label {
+    font-size: inherit;
+  }
+
+  /* 分隔符 */
+  @mixin e separator {
+    margin: 0 8px;
+    color: var(--jv-text-color-secondary);
+  }
+}

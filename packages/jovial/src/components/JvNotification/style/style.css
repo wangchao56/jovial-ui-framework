@@ -24,3 +24,6 @@
     font-size: 20px;
   }
 }
+@mixin e close {
+  padding-right: 0;
+}

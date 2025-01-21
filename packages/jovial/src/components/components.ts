@@ -1,3 +1,4 @@
+import JvAffix from './JvAffix'
 import JvAlert from './JvAlert'
 import JvBadge from './JvBadge'
 import JvButton from './JvButton'
@@ -21,4 +22,4 @@ import JvSpace from './JvSpace'
 import JvSwitch from './JvSwitch'
 import JvTooltip from './JvTooltip'
 
-export default [JvButton, JvIcon, JvInput, JvCalendar, JvForm, JvFormItem, JvCollapse, JvCollapseItem, JvTooltip, JvSpace, JvDropdown, JvList, JvMessage, JvSwitch, JvBadge, JvEditor, JvDialog, JvDrawer, JvAlert, JvCard, JvOverlay, JvNotification]
+export default [JvButton, JvIcon, JvInput, JvCalendar, JvForm, JvFormItem, JvCollapse, JvCollapseItem, JvTooltip, JvSpace, JvDropdown, JvList, JvMessage, JvSwitch, JvBadge, JvEditor, JvDialog, JvDrawer, JvAlert, JvCard, JvOverlay, JvNotification, JvAffix]

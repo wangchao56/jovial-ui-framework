@@ -3,7 +3,7 @@ import type { SpaceProps } from './space'
 import { createNamespace, isArray, isNumber, isString } from '@jovial/utils'
 
 defineOptions({ name: 'JvSpace' })
-defineProps<SpaceProps>()
+const props = defineProps<SpaceProps>()
 const bem = createNamespace('space')
 
 const cssVars: Record<string, string> = {

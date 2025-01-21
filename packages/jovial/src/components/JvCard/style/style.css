@@ -6,4 +6,78 @@
   }
 }
 @mixin b card {
+  position: relative;
+  border-radius: 4px;
+  background-color: var(--jv-card-bg, #ffffff);
+  overflow: hidden;
+  color: var(--jv-text-color-primary, #303133);
+  transition: all 0.3s;
+
+  &.is-border {
+    border: 1px solid var(--jv-border-color, #dcdfe6);
+  }
+
+  &.is-round {
+    border-radius: 8px;
+  }
+
+  &--shadow-always {
+    box-shadow: var(--jv-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+  }
+
+  &--shadow-hover {
+    &:hover {
+      box-shadow: var(--jv-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+    }
+  }
+
+  &__header {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--jv-border-color, #dcdfe6);
+    box-sizing: border-box;
+  }
+
+  &__title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--jv-text-color-primary, #303133);
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: 14px;
+    color: var(--jv-text-color-secondary, #909399);
+    margin: 0;
+  }
+
+  &__body {
+    padding: 20px;
+  }
+
+  &__footer {
+    padding: 20px;
+    border-top: 1px solid var(--jv-border-color, #dcdfe6);
+  }
+
+  &__actions {
+    padding: 12px 20px;
+    border-top: 1px solid var(--jv-border-color, #dcdfe6);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__cover {
+    img {
+      width: 100%;
+      display: block;
+    }
+  }
 }

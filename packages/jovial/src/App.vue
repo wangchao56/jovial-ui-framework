@@ -166,6 +166,12 @@ const overlay = ref(false)
 function handleOverlay() {
   overlay.value = !overlay.value
 }
+document.body.style = {
+  overflow: 'scorll',
+  height: '200vh',
+  width: '100vw',
+
+}
 </script>
 
 <template>
@@ -300,7 +306,7 @@ function handleOverlay() {
       </template>
     </JvDrawer>
 
-    <div class="JvOverlay-box">
+    <!-- <div class="JvOverlay-box">
       <JvOverlay
         v-model="overlay"
         contained
@@ -309,7 +315,7 @@ function handleOverlay() {
           2323
         </div>
       </JvOverlay>
-    </div>
+    </div> -->
 
     <JvNotification v-if="showNotif">
       通知
@@ -320,6 +326,31 @@ function handleOverlay() {
     <JvNotification>
       通知
     </JvNotification>
+
+    <JvCard
+      title="卡片标题"
+      :bordered="false"
+      subtitle="卡片副标题"
+      shadow="hover"
+    >
+      <div style="width: 350px;">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga ducimus assumenda libero reprehenderit ex repellat possimus esse. Voluptatibus atque rem a culpa quae libero
+        libero, iusto dolorem quibusdam obcaecati odit excepturi!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga ducimus assumenda libero reprehenderit ex repellat possimus esse. Voluptatibus atque rem a culpa quae libero
+      </div>
+      <template #header />
+
+      <template #actions>
+        <JvButton type="primary">
+          确定
+          <JvIcon name="mdi:check" />
+        </JvButton>
+      </template>
+    </JvCard>
+
+    <JvAffix :offset="100">
+      <JvCard title="固定" />
+    </JvAffix>
   </div>
 </template>
 

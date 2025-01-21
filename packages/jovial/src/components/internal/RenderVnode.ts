@@ -1,14 +1,21 @@
+import type { VNodeArrayChildren } from 'vue'
+
+type RawChildren = string | number | boolean | VNode | VNodeArrayChildren | (() => any)
 export default defineComponent({
   name: 'RenderVNode',
   props: {
     vnode: {
-      type: [String, Object] as PropType<string | VNode>,
+      type: [String, Object, Function] as PropType<RawChildren>,
       required: true,
     },
   },
-  setup(props) {
-    const attrs = useAttrs()
+  setup(props, { attrs }) {
+    return () => {
+      const content = typeof props.vnode === 'function'
+        ? props.vnode()
+        : props.vnode
 
-    return () => h('div', Object.assign({}, attrs), props.vnode)
+      return h('div', Object.assign({}, attrs), content)
+    }
   },
 })
