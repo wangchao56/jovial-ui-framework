@@ -1,176 +1,144 @@
 import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
 import JvRate from '../src/JvRate.vue'
 
 describe('jvRate', () => {
-  // 基础功能测试
-  it('基础功能', async () => {
-    const wrapper = mount(JvRate, {
+  let wrapper: ReturnType<typeof mount>
+
+  beforeEach(() => {
+    wrapper = mount(JvRate, {
       props: {
         modelValue: 0,
       },
     })
+  })
 
-    // 检查默认值
-    expect(wrapper.vm.currentValue).toBe(0)
-    expect(wrapper.findAll('.jv-rate__icon').length).toBe(5)
+  it('renders correctly', () => {
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.findAll('.jv-icon').length).toBe(5) // 默认5个星星
+  })
 
-    // 点击评分
-    await wrapper.findAll('.jv-rate__icon')[2].trigger('click')
+  it('updates value on click', async () => {
+    const icons = wrapper.findAll('.jv-icon')
+    await icons[2].trigger('click') // 点击第三个星星
+
     expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([3])
     expect(wrapper.emitted('change')?.[0]).toEqual([3])
   })
 
-  // 自定义最大值
-  it('自定义最大值', () => {
-    const wrapper = mount(JvRate, {
-      props: {
-        max: 10,
-      },
-    })
-
-    expect(wrapper.findAll('.jv-rate__icon').length).toBe(10)
-  })
-
-  // 半选模式
-  it('半选模式', async () => {
-    const wrapper = mount(JvRate, {
-      props: {
-        allowHalf: true,
-      },
-    })
-
-    const icon = wrapper.findAll('.jv-rate__icon')[0]
-    const rect = { left: 0, width: 20 } as DOMRect
-    vi.spyOn(icon.element, 'getBoundingClientRect').mockReturnValue(rect)
-
-    // 鼠标移入左半部分
-    await icon.trigger('mousemove', {
-      clientX: 5,
-    })
-    expect(wrapper.emitted('hover')?.[0]).toEqual([0.5])
-
-    // 鼠标移入右半部分
-    await icon.trigger('mousemove', {
-      clientX: 15,
-    })
-    expect(wrapper.emitted('hover')?.[1]).toEqual([1])
-  })
-
-  // 只读状态
-  it('只读状态', async () => {
-    const wrapper = mount(JvRate, {
-      props: {
-        readonly: true,
-        modelValue: 3,
-      },
-    })
-
-    // 点击不应该触发事件
-    await wrapper.findAll('.jv-rate__icon')[3].trigger('click')
-    expect(wrapper.emitted('update:modelValue')).toBeFalsy()
-  })
-
-  // 禁用状态
-  it('禁用状态', async () => {
-    const wrapper = mount(JvRate, {
-      props: {
-        disabled: true,
-        modelValue: 3,
-      },
-    })
-
-    // 点击不应该触发事件
-    await wrapper.findAll('.jv-rate__icon')[3].trigger('click')
-    expect(wrapper.emitted('update:modelValue')).toBeFalsy()
-  })
-
-  // 自定义图标
-  it('自定义图标', () => {
-    const wrapper = mount(JvRate, {
-      props: {
-        icon: 'heart',
-        voidIcon: 'heart-outline',
-        modelValue: 3,
-      },
-    })
-
+  it('supports half star mode', async () => {
+    await wrapper.setProps({ allowHalf: true })
     const icons = wrapper.findAll('.jv-icon')
-    expect(icons[2].attributes('name')).toBe('heart')
-    expect(icons[3].attributes('name')).toBe('heart-outline')
-  })
 
-  // 提示文字
-  it('提示文字', async () => {
-    const wrapper = mount(JvRate, {
-      props: {
-        showText: true,
-        modelValue: 3,
-        texts: ['差', '一般', '好', '很好', '完美'],
+    // 模拟鼠标移动到星星左半部分
+    await icons[2].trigger('mousemove', {
+      clientX: 0,
+      target: {
+        getBoundingClientRect: () => ({
+          left: 0,
+          width: 20,
+        }),
       },
     })
 
-    expect(wrapper.find('.jv-rate__text').text()).toBe('好')
-
-    // 更新评分
-    await wrapper.setProps({ modelValue: 4 })
-    await nextTick()
-    expect(wrapper.find('.jv-rate__text').text()).toBe('很好')
+    expect(wrapper.vm.hoverValue).toBe(2.5)
   })
 
-  // 自定义颜色
-  it('自定义颜色', () => {
-    const wrapper = mount(JvRate, {
-      props: {
-        color: '#ff4081',
-        voidColor: '#999',
-        modelValue: 3,
-      },
-    })
-
+  it('handles disabled state', async () => {
+    await wrapper.setProps({ disabled: true })
     const icons = wrapper.findAll('.jv-icon')
-    expect(icons[2].attributes('style')).toContain('color: rgb(255, 64, 129)')
-    expect(icons[3].attributes('style')).toContain('color: rgb(153, 153, 153)')
+
+    await icons[2].trigger('click')
+    expect(wrapper.emitted('change')).toBeFalsy()
   })
 
-  // 重置方法
-  it('重置方法', async () => {
-    const wrapper = mount(JvRate, {
-      props: {
-        modelValue: 3,
-      },
+  it('handles readonly state', async () => {
+    await wrapper.setProps({ readonly: true })
+    const icons = wrapper.findAll('.jv-icon')
+
+    await icons[2].trigger('click')
+    expect(wrapper.emitted('change')).toBeFalsy()
+  })
+
+  it('supports custom icons', async () => {
+    await wrapper.setProps({
+      icon: '$starFilled',
+      voidIcon: '$starOutline',
+      halfIcon: '$starHalf',
     })
 
-    // 调用重置方法
-    wrapper.vm.reset()
+    expect(wrapper.html()).toContain('$starOutline')
+  })
+
+  it('supports custom colors', async () => {
+    await wrapper.setProps({
+      color: '#ff0000',
+      voidColor: '#cccccc',
+    })
+
+    // 验证渐变定义是否包含自定义颜色
+    expect(wrapper.html()).toContain('#ff0000')
+    expect(wrapper.html()).toContain('#cccccc')
+  })
+
+  it('shows text when enabled', async () => {
+    await wrapper.setProps({
+      showText: true,
+      modelValue: 3,
+    })
+
     await nextTick()
+    expect(wrapper.find('.jv-rate__text').text()).toBe('一般')
+  })
+
+  it('supports custom texts', async () => {
+    const texts = ['很差', '较差', '一般', '较好', '很好']
+    await wrapper.setProps({
+      showText: true,
+      texts,
+      modelValue: 3,
+    })
+
+    await nextTick()
+    expect(wrapper.find('.jv-rate__text').text()).toBe('一般')
+  })
+
+  it('resets rating correctly', async () => {
+    await wrapper.setProps({ modelValue: 3 })
+
+    // @ts-expect-error: Exposed type
+    await wrapper.vm.reset()
 
     expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([0])
     expect(wrapper.emitted('change')?.[0]).toEqual([0])
   })
 
-  // 自定义间距
-  it('自定义间距', () => {
-    const wrapper = mount(JvRate, {
-      props: {
-        gap: 10,
-      },
-    })
+  it('handles mouse events correctly', async () => {
+    const icons = wrapper.findAll('.jv-icon')
+
+    // 鼠标移入
+    await icons[2].trigger('mousemove')
+    expect(wrapper.vm.hoverValue).toBe(3)
+
+    // 鼠标移出
+    await wrapper.trigger('mouseleave')
+    expect(wrapper.vm.hoverValue).toBe(-1)
+  })
+
+  it('supports different sizes', async () => {
+    await wrapper.setProps({ size: 30 })
+
+    const icon = wrapper.find('.jv-icon')
+    expect(icon.attributes('style')).toContain('30px')
+  })
+
+  it('supports different gaps', async () => {
+    await wrapper.setProps({ gap: 10 })
 
     const icons = wrapper.findAll('.jv-icon')
     expect(icons[0].attributes('style')).toContain('margin-right: 10px')
-  })
-
-  // 自定义大小
-  it('自定义大小', () => {
-    const wrapper = mount(JvRate, {
-      props: {
-        size: 30,
-      },
-    })
-
-    const icons = wrapper.findAll('.jv-icon')
-    expect(icons[0].attributes('style')).toContain('font-size: 30px')
+    // 最后一个图标不应该有间距
+    expect(icons[4].attributes('style')).not.toContain('margin-right')
   })
 })

@@ -6,7 +6,9 @@
   }
 }
 @mixin b card {
+  --jv-card-padding: 16px;
   position: relative;
+  box-sizing: border-box;
   border-radius: 4px;
   background-color: var(--jv-card-bg, #ffffff);
   overflow: hidden;
@@ -14,21 +16,11 @@
   transition: all 0.3s;
 
   &.is-border {
-    border: 1px solid var(--jv-border-color, #dcdfe6);
+    border: var(--jv-border-solid);
   }
 
   &.is-round {
     border-radius: 8px;
-  }
-
-  &--shadow-always {
-    box-shadow: var(--jv-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
-  }
-
-  &--shadow-hover {
-    &:hover {
-      box-shadow: var(--jv-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
-    }
   }
 
   &__header {
@@ -58,6 +50,9 @@
 
   &__body {
     padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    max-width: 100%;
   }
 
   &__footer {
@@ -72,6 +67,7 @@
     justify-content: flex-end;
     align-items: center;
     gap: 12px;
+    box-sizing: border-box;
   }
 
   &__cover {
@@ -80,4 +76,51 @@
       display: block;
     }
   }
+
+  &--shadow-always {
+    box-shadow: var(--jv-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+  }
+
+  &--shadow-hover {
+    &:hover {
+      box-shadow: var(--jv-shadow-drak, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+    }
+  }
 }
+
+/* .jv-card {
+  --jv-card-border-radius: 4px;
+  --jv-card-wrapper-padding: 8px;
+  position: relative;
+  z-index: 2;
+  background-origin: content-box !important;
+  background-clip: content-box !important;
+  background-color: transparent;
+} */
+/* .jv-card::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  inset: calc(-1 * var(--jv-card-wrapper-padding));
+  width: calc(100% + var(--jv-card-wrapper-padding) * 2);
+  height: calc(100% + var(--jv-card-wrapper-padding) * 2);
+
+  border-radius: var(--jv-card-border-radius);
+  pointer-events: none;
+}
+.jv-card::after {
+  content: '';
+  position: absolute;
+  box-sizing: border-box;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+
+  border: var(--jv-border-solid) !important;
+  border-radius: var(--jv-card-border-radius);
+  box-shadow: var(--jv-shadow-drak, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+} */

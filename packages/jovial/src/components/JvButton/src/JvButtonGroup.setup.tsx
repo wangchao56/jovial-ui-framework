@@ -1,7 +1,7 @@
-import type { ButtonGroupProps } from './buttonGroup'
+import type { JvButtonGroupProps } from './buttonGroup'
 import { createNamespace } from '@jovial/utils'
 import { defineComponent, provide, ref } from 'vue'
-import './buttonGroup.css'
+import '../style/buttonGroup.css'
 
 export default defineComponent({
   name: 'JvButtonGroup',
@@ -27,7 +27,7 @@ export default defineComponent({
       default: 'start',
     },
   },
-  setup(props: ButtonGroupProps, { slots }) {
+  setup(props: JvButtonGroupProps, { slots }) {
     const bem = createNamespace('button-group')
     const rootRef = ref<HTMLElement | null>(null)
 

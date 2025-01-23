@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { DialogEmits, DialogProps, DialogSlots } from './JvDialog'
-import JvRenderVNodeContent from '@/components/internal/render-vnode-content.setup'
-import JvButton from '@/components/JvButton'
-import JvSpace from '@/components/JvSpace'
+import JvRenderVNodeContent from '@components/internal/render-vnode-content.setup'
+import JvButton from '@components/JvButton/src/button.vue'
+import JvSpace from '@components/JvSpace'
 import { createNamespace } from '@jovial/utils'
 import { useEventListener } from '@vueuse/core'
+import './JvDialog.css'
 
 defineOptions({ name: 'JvDialog' })
 const props = withDefaults(defineProps<DialogProps>(), {
@@ -104,5 +105,3 @@ useCssVars(_ctx => ({
     </div>
   </dialog>
 </template>
-
-<style src="./JvDialog.css"> </style>

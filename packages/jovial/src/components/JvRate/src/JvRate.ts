@@ -1,3 +1,4 @@
+import type { IconProps } from '@components/JvIcon'
 import type { VNodeChild } from 'vue'
 
 export const jvRateProps = {
@@ -83,8 +84,10 @@ export interface JvRateProps {
   icon?: string
   /** 未选中图标名称 */
   voidIcon?: string
+  /** 半选图标名称 */
+  halfIcon?: string
   /** 图标大小 */
-  size?: string | number
+  size?: IconProps['size']
   /** 图标间距 */
   gap?: string | number
   /** 选中颜色 */

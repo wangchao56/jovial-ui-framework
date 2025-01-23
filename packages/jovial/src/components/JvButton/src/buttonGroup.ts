@@ -2,13 +2,13 @@ import type { Size } from '@jovial/typings'
 import type { VNodeChild } from 'vue'
 
 /** 按钮组上下文接口 */
-export interface ButtonGroupContext {
+export interface JvButtonGroupContext {
   size?: Size
   rounded?: boolean
 }
 
 /** 按钮组属性接口 */
-export interface ButtonGroupProps {
+export interface JvButtonGroupProps {
   /** 按钮组内所有按钮的尺寸 */
   size?: Size
   /** 是否垂直排列按钮 */
@@ -29,13 +29,15 @@ export interface ButtonGroupProps {
 }
 
 /** 按钮组插槽接口 */
-export interface ButtonGroupSlots {
+export interface JvButtonGroupSlots {
   /** 默认插槽，用于放置按钮 */
   default?: () => VNodeChild
 }
 
 /** 按钮组暴露的方法和属性 */
-export interface ButtonGroupExpose {
+export interface JvButtonGroupExpose {
   /** 按钮组根元素 */
   root: HTMLElement | null
 }
+
+export const JvButtonGroupContextKey: InjectionKey<JvButtonGroupContext> = Symbol('JvButtonGroupContextKey')

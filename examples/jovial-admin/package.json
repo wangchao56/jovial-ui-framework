@@ -1,0 +1,15 @@
+{
+  "name": "jovial-admin",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "jovial-ui": "0.0.1-beta.1"
+  }
+}

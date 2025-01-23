@@ -43,9 +43,9 @@ export function useDynamicHeightVirtualList(props) {
     state.end = Math.min(state.start + props.remain, props.items.length)
     offset.value
       = state.start * height
-      - props.items
-        .slice(0, state.start)
-        .reduce((total, item) => total + item.height, 0)
+        - props.items
+          .slice(0, state.start)
+          .reduce((total, item) => total + item.height, 0)
   }
 
   // 初始化 wrapper 的样式

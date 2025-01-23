@@ -1,10 +1,10 @@
 <script setup lang='ts'>
-import type { ListItem } from '@/components/JvListItem'
+import type { ListItem } from '@components/JvListItem'
 import type { Options, Placement } from '@popperjs/core'
-import JvTooltip from '@/components/JvTooltip'
 import JvDivider from '@components/JvDivider'
 import JvList from '@components/JvList'
 import JvListItem from '@components/JvListItem'
+import JvTooltip from '@components/JvTooltip'
 import { computed } from 'vue'
 
 defineOptions({

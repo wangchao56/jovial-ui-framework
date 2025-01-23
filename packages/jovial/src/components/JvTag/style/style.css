@@ -1,54 +1,72 @@
 @import '@jovial/theme-chalk/src/common/mixins.css';
 
-.jv-tag {
+@define-mixin e $element {
+  .jv-tag__$(element) {
+    @mixin-content;
+  }
+}
+@mixin b tag {
+  --jv-tag-height: 32px;
+  --jv-tag-font-size: 14px;
+  --jv-tag-border-radius: 4px;
+  --jv-tag-padding: 0 10px;
+  --jv-tag-white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  padding: 0 10px;
-  font-size: 14px;
-  border-radius: 4px;
-  height: 32px;
-  white-space: nowrap;
+  margin: 0;
+  padding: var(--jv-tag-padding);
+  font-size: var(--jv-tag-font-size);
+  font-weight: var(--jv-font-weight-medium);
+  border-radius: var(--jv-tag-border-radius);
+  height: var(--jv-tag-height);
+  white-space: var(--jv-tag-white-space);
 
   &--primary {
-    background-color: var(--jv-primary-light-9);
-    color: var(--jv-primary);
-    border: 1px solid var(--jv-primary-light-8);
+    background-color: var(--jv-color-primary-light);
+    color: var(--jv-color-primary-dark-2);
+    border: 1px solid var(--jv-color-primary-light);
   }
 
   &--success {
-    background-color: var(--jv-success-light-9);
-    color: var(--jv-success);
-    border: 1px solid var(--jv-success-light-8);
+    background-color: var(--jv-color-success-light);
+    color: var(--jv-color-success-dark-2);
+    border: 1px solid var(--jv-color-success-light);
   }
 
   &--warning {
-    background-color: var(--jv-warning-light-9);
-    color: var(--jv-warning);
-    border: 1px solid var(--jv-warning-light-8);
+    background-color: var(--jv-color-warning-light);
+    color: var(--jv-color-warning-dark-2);
+    border: 1px solid var(--jv-color-warning-light);
   }
 
   &--danger {
-    background-color: var(--jv-danger-light-9);
-    color: var(--jv-danger);
-    border: 1px solid var(--jv-danger-light-8);
+    background-color: var(--jv-color-danger-light);
+    color: var(--jv-color-danger-dark-2);
+    border: 1px solid var(--jv-color-danger-light);
   }
 
   &--info {
-    background-color: var(--jv-info-light-9);
-    color: var(--jv-info);
-    border: 1px solid var(--jv-info-light-8);
+    background-color: var(--jv-color-info-light);
+    color: var(--jv-color-info-dark-2);
+    border: 1px solid var(--jv-color-info-light);
   }
 
   &--small {
     height: 24px;
     padding: 0 8px;
     font-size: 12px;
+    --jv-tag-height: 24px;
+    --jv-tag-font-size: 12px;
+    --jv-tag-padding: 0 8px;
   }
 
   &--large {
     height: 40px;
     padding: 0 12px;
     font-size: 16px;
+    --jv-tag-height: 40px;
+    --jv-tag-font-size: 16px;
+    --jv-tag-padding: 0 12px;
   }
 
   &--round {
@@ -64,12 +82,4 @@
       opacity: 0.8;
     }
   }
-}
-
-@define-mixin e $element {
-  .jv-tag__$(element) {
-    @mixin-content;
-  }
-}
-@mixin b tag {
 }

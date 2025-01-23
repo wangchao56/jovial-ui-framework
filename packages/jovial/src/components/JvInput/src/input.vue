@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { InputEmits, InputExposes, InputProps, InputSlots } from './input'
-import { formItemProviderKey } from '@components/JvFormItem'
+import IconCloseThick from '@components/internal-icon/close-thick'
+import IconEyeOff from '@components/internal-icon/IconEyeOff'
+import IconEyeOn from '@components/internal-icon/IconEyeOn'
+import { formItemProviderKey } from '@components/JvForm/src/form-item'
+import JvIcon from '@components/JvIcon'
 import { createNamespace, isEmpty } from '@jovial/utils'
 import {
   computed,
@@ -10,11 +14,7 @@ import {
   useModel,
   watchEffect,
 } from 'vue'
-import IconCloseThick from '../../internal-icon/close-thick'
-import IconEyeOff from '../../internal-icon/IconEyeOff'
-import IconEyeOn from '../../internal-icon/IconEyeOn'
-import JvIcon from '../../JvIcon'
-import './input.css'
+import '../style/input.css'
 
 defineOptions({ name: 'JvInput' })
 const props = withDefaults(defineProps<InputProps>(), {

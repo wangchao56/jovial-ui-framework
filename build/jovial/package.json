@@ -1,16 +1,43 @@
 {
-  "name": "jovial",
-  "version": "1.0.0",
-  "description": "",
-  "author": "",
-  "license": "ISC",
-  "keywords": [],
-  "main": "./lib/index.cjs",
-  "module": "./esm/index.esm.js",
-  "directories": {
-    "lib": "lib"
+  "name": "jovial-ui",
+  "version": "0.0.1-beta.1",
+  "description": "A Vue 3 UI Component Library",
+  "main": "lib/index.cjs",
+  "module": "es/index.mjs",
+  "types": "es/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./es/index.d.ts",
+      "import": "./es/index.mjs",
+      "require": "./lib/index.cjs"
+    },
+    "./es": "./es/index.mjs",
+    "./lib": "./lib/index.cjs",
+    "./es/*": "./es/*",
+    "./lib/*": "./lib/*",
+    "./package.json": "./package.json",
+    "./style.css": "./theme-chalk/index.css"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "keywords": [
+    "vue",
+    "vue3",
+    "components",
+    "ui",
+    "jovial"
+  ],
+  "author": "your name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/jovial-ui.git"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "tag": "beta",
+    "git-checks": false
   }
 }

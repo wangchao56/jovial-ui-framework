@@ -31,6 +31,8 @@ export { useMutationObserver } from './mutationObserver'
 // export { useProxiedModel } from './proxiedModel'
 export { useResizeObserver } from './resizeObserver'
 
+export { useZIndex } from './useZindex'
+
 // export { useTheme } from './theme'
 // export type { ThemeDefinition, ThemeInstance } from './theme'
 

@@ -205,8 +205,7 @@ export const Clickable: Story = {
         },
       ]
 
-      const handleClick = (index: number) => {
-        console.log('clicked:', index)
+      const handleClick = (_index: number) => {
       }
 
       return { current, items, handleClick }

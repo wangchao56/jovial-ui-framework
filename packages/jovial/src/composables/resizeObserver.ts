@@ -1,9 +1,8 @@
 import type { TemplateRef } from '@jovial/utils'
 // Types
 import type { DeepReadonly, Ref } from 'vue'
-import { templateRef } from '@jovial/utils'
+import { IN_BROWSER, templateRef } from '@jovial/utils'
 
-import { IN_BROWSER } from '@jovial/utils/globals'
 // Utilities
 import { onBeforeUnmount, readonly, ref, watch } from 'vue'
 

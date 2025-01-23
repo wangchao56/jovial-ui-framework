@@ -6,8 +6,14 @@ defineOptions({ name: 'JvGrid' })
 defineProps(jvGridProps)
 defineEmits(jvGridEmits)
 const bem = createNamespace('grid')
+
+// const gridRef = ref<HTMLDivElement>()
 </script>
 
 <template>
   <div :class="bem.b()" />
 </template>
+
+<style scoped>
+
+</style>

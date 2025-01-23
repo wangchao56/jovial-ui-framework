@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { createNamespace } from '@jovial/utils'
 import { jvCardEmits, jvCardProps } from './JvCard'
+import '../style'
 
 defineOptions({ name: 'JvCard' })
 defineProps(jvCardProps)
@@ -18,10 +19,12 @@ function handleClick(evt: MouseEvent) {
       bem.b(),
       bem.is('border', border),
       bem.is('round', round),
+      bem.e('wrapper'),
       bem.m(`shadow-${shadow}`),
     ]"
     @click="handleClick"
   >
+    <!-- <main :class="[bem.e('wrapper-inner'), bem.em('wrapper-inner', `shadow-${shadow}`)]" /> -->
     <div v-if="$slots.header || title || subtitle" :class="bem.e('header')">
       <slot name="header">
         <div v-if="title || subtitle" :class="bem.e('title-group')">

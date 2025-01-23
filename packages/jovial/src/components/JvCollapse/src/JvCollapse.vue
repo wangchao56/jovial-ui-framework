@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { NameType } from '@/components/JvCollapseItem'
+import type { NameType } from './JvCollapseItem'
 import { createNamespace } from '@jovial/utils'
 import { provide, ref } from 'vue'
 import { collapseContextKey, type JvCollapseEmits, type JvCollapseProps } from './JvCollapse'

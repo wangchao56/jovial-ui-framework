@@ -1,3 +1,8 @@
+import type { Slot, SVGAttributes } from 'vue'
+
+type Position = 'top' | 'center' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top-center' | 'bottom-center'
+// 新增一个不包含 center 的类型
+export type PositionExcludeCenter = Exclude<Position, 'center'>
 export const jvProgressProps = {
   // 进度值 0-100
   percentage: {
@@ -33,36 +38,112 @@ export const jvProgressProps = {
   },
 } as const
 
-export interface JvProgressProps {
+export interface ProgressBaseProps {
+  /* 进度条宽度 */
+  width?: number
   /* 进度值 0-100 */
   percentage?: number
-  /* 进度条类型 */
-  type?: 'line' | 'circle'
-  /* 进度条颜色 */
-  color?: string
+  /* 进度条背景颜色 */
+  bgColor?: string
+  /* 进度条值颜色 */
+  valueColor?: string
   /* 进度条宽度 */
   strokeWidth?: number
+  /* 进度条圆角 */
+  strokeRadius?: number
+  /* 字体渲染格式 */
+  format?: (percentage: number) => string
+}
+
+export interface LineProgressProps extends ProgressBaseProps {
+  type: 'line'
   /* 是否显示文字 */
   showText?: boolean
   /* 文字内部显示 */
   textInside?: boolean
+  /* 文字显示的位置 */
+  textPosition?: Position
+  /* 大小 */
+  size?: 'small' | 'medium' | 'large'
+
 }
 
+export interface CircleProgressProps extends ProgressBaseProps {
+  /* 进度条类型 */
+  type: 'circle'
+  /* 进度条宽度 */
+  width?: number
+  /* 进度值 0-100 */
+  percentage?: number
+  /* 是否显示文字 */
+  showText?: boolean
+  /* 进度条圆角 */
+  strokeLinecap?: SVGAttributes['stroke-linecap']
+}
+
+export interface JvProgressProps {
+  /* 进度条类型 */
+  type?: 'line' | 'circle'
+  /* 进度值 0-100 */
+  percentage?: number
+  /** 动画开启 */
+  animation?: boolean
+  /* 进度条宽度 */
+  width?: number
+  /* 是否显示文字 */
+  showText?: boolean
+  /* 文字内部显示 */
+  textInside?: boolean
+  /* 文字显示的位置 */
+  textPosition?: Position
+  /* 大小 */
+  size?: 'small' | 'medium' | 'large'
+  /* 进度条背景颜色 */
+  bgColor?: string
+  /* 进度条值颜色 */
+  valueColor?: string
+  /* 进度条宽度 */
+  strokeWidth?: number
+  /* 进度条圆角 */
+  strokeRadius?: number
+}
 export interface JvProgressEmits {
   /* 进度值变化 */
-  'update:percentage': (percentage: number) => void
-  /* 进度条颜色变化 */
-  'update:color': (color: string) => void
-  /* 进度条宽度变化 */
-  'update:strokeWidth': (strokeWidth: number) => void
-  /* 是否显示文字变化 */
-  'update:showText': (showText: boolean) => void
-  /* 文字内部显示变化 */
-  'update:textInside': (textInside: boolean) => void
+  (e: 'update:percentage', percentage: number): void
+  /* 进度条开始 */
+  (e: 'start'): void
+  /* 进度条结束 */
+  (e: 'end'): void
+  /* 进度条取消 */
+  (e: 'cancel'): void
+  /* 进度条暂停 */
+  (e: 'pause'): void
+  /* 进度条恢复 */
+  (e: 'resume'): void
 }
 
 export interface JvProgressSlots {
-  default?: () => any
+  default?: Slot<any>
+  text?: Slot<{
+    percentage: number
+  }>
 }
 
-export interface JvProgressExpose {}
+export interface JvProgressExpose {
+  percentage: number
+}
+
+interface JvProgressContext {
+  /* 进度条开始 */
+  start: () => void
+  /* 进度条结束 */
+  end: () => void
+  /* 进度条取消 */
+  cancel: () => void
+  /* 进度条暂停 */
+  pause: () => void
+  /* 进度条恢复 */
+  resume: () => void
+}
+
+export const jvProgressContextKey: InjectionKey<JvProgressContext> = Symbol('jvProgressContextKey')

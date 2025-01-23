@@ -823,9 +823,9 @@ export function matchesSelector(
 ): boolean | null {
   const supportsSelector
     = IN_BROWSER
-    && typeof CSS !== 'undefined'
-    && typeof CSS.supports !== 'undefined'
-    && CSS.supports(`selector(${selector})`)
+      && typeof CSS !== 'undefined'
+      && typeof CSS.supports !== 'undefined'
+      && CSS.supports(`selector(${selector})`)
 
   if (!supportsSelector)
     return null

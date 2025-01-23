@@ -23,42 +23,73 @@
   align-items: center;
   cursor: pointer;
   transition: all 0.3s;
+  overflow: visible;
 
   @mixin e core {
     position: relative;
     width: 40px;
     height: 20px;
-    background-color: #ccc;
     border-radius: 10px;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
+    /* box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2); */
+  }
+
+  @mixin e svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  @mixin e track {
+    fill: #e0e0e0;
+    transition: all 0.3s;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
   }
 
   @mixin e button {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 16px;
-    height: 16px;
-    background-color: white;
-    border-radius: 50%;
-    transition: transform 0.3s;
+    fill: white;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    stroke: rgba(0, 0, 0, 0.05);
+    stroke-width: 1;
   }
 
   @mixin when checked {
-    .jv-switch__core {
-      background-color: var(--jv-color-primary-light);
+    .jv-switch__track {
+      fill: var(--jv-color-primary);
     }
 
     .jv-switch__button {
-      transform: translateX(20px);
+      transform: translateX(26px);
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
   }
 
   @mixin when disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: 0.6;
+
+    .jv-switch__track {
+      fill: #f0f0f0;
+    }
+
+    .jv-switch__button {
+      filter: none;
+    }
+  }
+
+  &:active:not(.is-disabled) {
+    .jv-switch__button {
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+      transform: scale(0.95);
+    }
+
+    &.is-checked .jv-switch__button {
+      transform: translateX(26px) scale(0.95);
+    }
   }
 }
+
 @mixin m small {
   .jv-switch__core {
     width: 30px;
@@ -66,26 +97,33 @@
   }
 
   .jv-switch__button {
-    width: 12px;
-    height: 12px;
+    r: 6;
   }
 
   &.is-checked .jv-switch__button {
-    transform: translateX(14px);
+    transform: translateX(18px);
+  }
+
+  &:active:not(.is-disabled).is-checked .jv-switch__button {
+    transform: translateX(18px) scale(0.95);
   }
 }
+
 @mixin m large {
   .jv-switch__core {
-    width: 50px !important;
-    height: 24px !important;
+    width: 50px;
+    height: 24px;
   }
 
   .jv-switch__button {
-    width: 20px !important;
-    height: 20px !important;
+    r: 10;
   }
 
   &.is-checked .jv-switch__button {
-    transform: translateX(26px) !important;
+    transform: translateX(26px);
+  }
+
+  &:active:not(.is-disabled).is-checked .jv-switch__button {
+    transform: translateX(26px) scale(0.95);
   }
 }

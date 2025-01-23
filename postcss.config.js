@@ -8,7 +8,6 @@ module.exports = {
         '> 1%',
         'last 2 versions',
         'not dead',
-        'not ie <= 11',
 
         // 移动端
         'iOS >= 10',
@@ -16,6 +15,9 @@ module.exports = {
 
         // 国内市场
         '> 5% in CN',
+
+        // IE 10-11
+        'IE 10-11',
       ],
     }),
     require('postcss-each-variables'),

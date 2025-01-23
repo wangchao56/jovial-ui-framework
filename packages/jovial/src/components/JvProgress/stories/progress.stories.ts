@@ -1,11 +1,28 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { JvCol, JvColSpace, JvRow } from '@/components/JvLayout'
+import JvTag from '@/components/JvTag/src/JvTag.vue'
 import { ref } from 'vue'
 import JvProgress from '../src/JvProgress.vue'
 
 const meta: Meta<typeof JvProgress> = {
-  title: 'Components/Progress 进度条',
+  title: 'Components/Progress进度条',
   component: JvProgress,
   tags: ['autodocs'],
+  args: {
+    percentage: 50,
+    type: 'line',
+    strokeWidth: 10,
+    showText: true,
+    textInside: false,
+    textPosition: 'right',
+    width: 350,
+    strokeRadius: 15,
+    bgColor: '#f5f5f5',
+    valueColor: '#409eff',
+    size: 'medium',
+  },
+  argTypes: {
+  },
   render: args => ({
     components: { JvProgress },
     setup() {
@@ -31,10 +48,10 @@ export const Colors: Story = {
     components: { JvProgress },
     template: `
       <div style="display: flex; flex-direction: column; gap: 20px;">
-        <jv-progress :percentage="20" color="#67c23a" />
-        <jv-progress :percentage="40" color="#e6a23c" />
-        <jv-progress :percentage="60" color="#f56c6c" />
-        <jv-progress :percentage="80" color="#909399" />
+        <jv-progress :percentage="20" value-color="#67c23a" />
+        <jv-progress :percentage="40" value-color="#e6a23c" bg-color="#f5f5f5" />
+        <jv-progress :percentage="60" value-color="#f56c6c" bg-color="#f5f5f5" />
+        <jv-progress :percentage="80" value-color="#909399" bg-color="#f5f5f5" />
       </div>
     `,
   }),
@@ -46,7 +63,7 @@ export const StrokeWidth: Story = {
     components: { JvProgress },
     template: `
       <div style="display: flex; flex-direction: column; gap: 20px;">
-        <jv-progress :percentage="50" :stroke-width="6" />
+        <jv-progress :percentage="50" :stroke-width="6"  />
         <jv-progress :percentage="50" :stroke-width="12" />
         <jv-progress :percentage="50" :stroke-width="18" />
       </div>
@@ -56,13 +73,27 @@ export const StrokeWidth: Story = {
 
 // 文字内显
 export const TextInside: Story = {
-  render: () => ({
-    components: { JvProgress },
+  args: {
+    percentage: 50,
+    textInside: true,
+    strokeWidth: 18,
+  },
+  render: args => ({
+    components: { JvProgress, JvCol, JvRow, JvColSpace, JvTag },
+    setup() {
+      return { args }
+    },
     template: `
-      <div style="display: flex; flex-direction: column; gap: 20px;">
-        <jv-progress :percentage="70" :text-inside="true" :stroke-width="18" />
-        <jv-progress :percentage="80" :text-inside="true" :stroke-width="18" color="#67c23a" />
-      </div>
+      <jv-row :gutter="[20,20]" no-wrap>
+        <jv-col-space :span="12" space-align="start" space-justify="start" space-direction="vertical">
+          <jv-tag type="info">left</jv-tag>
+          <jv-progress :percentage="30" v-bind="args"  :text-inside="args.textInside" :stroke-width="args.strokeWidth" text-position="left" />
+          <jv-tag type="info">center</jv-tag>
+          <jv-progress :percentage="60" v-bind="args"  :text-inside="args.textInside" :stroke-width="args.strokeWidth" color="#67c23a" text-position="center"  />
+          <jv-tag type="info">right</jv-tag>
+          <jv-progress :percentage="80" v-bind="args"  :text-inside="args.textInside" :stroke-width="args.strokeWidth" color="#67c23a" text-position="right"  />
+        </jv-col-space>
+      </jv-row>
     `,
   }),
 }
@@ -108,4 +139,89 @@ export const HideText: Story = {
     percentage: 50,
     showText: false,
   },
+}
+
+// 文字位置
+export const TextPosition: Story = {
+  args: {
+    showText: true,
+    textInside: false,
+    percentage: 50,
+    textPosition: 'bottom',
+  },
+  render: args => ({
+    setup() {
+      return { args }
+    },
+    components: { JvProgress, JvTag, JvRow, JvCol, JvColSpace },
+    template: `
+    <jv-row :gutter="[20,20]" no-wrap>
+      <jv-col-space :span="12"  space-align="start" space-justify="start" space-direction="vertical">
+      <jv-tag type="info">top</jv-tag>
+      <jv-progress :percentage="20" color="#67c23a" text-position="top" />  
+      <jv-tag type="info">bottom</jv-tag>
+      <jv-progress :percentage="40" color="#e6a23c" text-position="bottom" />
+      <jv-tag type="info">left</jv-tag>
+      <jv-progress :percentage="60" color="#f56c6c" text-position="left" />
+      <jv-tag type="info">right</jv-tag>
+      <jv-progress :percentage="80" color="#909399" text-position="right" />
+      </jv-col-space>
+      <jv-col :span="12">
+      <jv-tag type="info">top-left</jv-tag>
+      <jv-progress :percentage="20" color="#67c23a" text-position="top-left" />
+      <jv-tag type="info">bottom-left</jv-tag>
+      <jv-progress :percentage="40" color="#e6a23c" text-position="bottom-left" />
+      <jv-tag type="info">top-right</jv-tag>
+      <jv-progress :percentage="20" color="#67c23a" text-position="top-right" />
+      <jv-tag type="info">bottom-right</jv-tag>
+      <jv-progress :percentage="40" color="#e6a23c" text-position="bottom-right" />
+      </jv-col>
+    </jv-row>
+    `,
+  }),
+}
+
+// 圆形进度条
+export const Circle: Story = {
+  args: {
+    percentage: 50,
+    type: 'circle',
+    strokeWidth: 10,
+    width: 120,
+  },
+}
+
+// 自定义文字
+export const CustomText: Story = {
+  args: {
+    percentage: 50,
+    type: 'line',
+    showText: true,
+  },
+  render: args => ({
+    components: { JvProgress },
+    setup() {
+      return { args }
+    },
+    template: `
+      <jv-progress v-bind="args">
+        <template #text="{ percentage }">
+          {{ percentage + '自定' }}
+        </template>
+      </jv-progress>
+    `,
+  }),
+}
+// 尺寸
+export const Size: Story = {
+  render: () => ({
+    components: { JvProgress },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <jv-progress :percentage="50" :size="small" />  
+        <jv-progress :percentage="50" :size="medium" />  
+        <jv-progress :percentage="50" :size="large" />  
+      </div>
+    `,
+  }),
 }

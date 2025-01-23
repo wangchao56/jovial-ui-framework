@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { JvMessageExpose, JvMessageProps } from './JvMessage'
-import RenderVnode from '@/components/internal/RenderVnode'
-import JvButton from '@components/JvButton'
+import { useZIndex } from '@/composables'
+import RenderVnode from '@components/internal/RenderVnode'
+import JvButton from '@components/JvButton/src/button.vue'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jovial/utils'
 import { useEventListener, useResizeObserver } from '@vueuse/core'
 import { v4 as uuid4 } from 'uuid'
-import { useZIndex } from './JvMessage'
 import { getPrevBottomOffset, messageInstances } from './method'
 import '../style/style.css'
 
@@ -41,11 +41,11 @@ const bottomOffset = computed<number>(() => {
   return height.value + topOffset.value
 })
 
-const { nextZIndex, currentZindex } = useZIndex()
+const { next: nextZIndex } = useZIndex()
 
 const cssStyle = computed(() => ({
   transform: `translate(-50%,${topOffset.value}px)`,
-  zIndex: currentZindex.value,
+  zIndex: nextZIndex(),
 }))
 
 // 监听键盘事件，按下Esc键时关闭消息框
@@ -135,7 +135,7 @@ const icons = {
     >
       <JvIcon :class="bem.e('prepend')" :name="icons[type]" />
       <slot>
-        <RenderVnode :class="bem.e('content')" :vnode="message" />
+        <RenderVnode tag="div" :class="bem.e('content')" :vnode="message" />
       </slot>
       <JvButton v-if="closable" size="tiny" :class="bem.e('append')" variant="text" @click="handleClose">
         <JvIcon :class="bem.em('append', 'icon')" name="ic:outline-close" />

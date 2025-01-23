@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import Loading from '@components/internal-icon/Loading'
+import Switcher from '@components/internal-icon/Switcher'
+import JvCheckbox from '@components/JvCheckbox'
+import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jovial/utils'
 import { computed } from 'vue'
-import JvCheckbox from '../../checkbox'
-import JvIcon from '../../icon'
-import Loading from '../../internal-icon/Loading'
-import Switcher from '../../internal-icon/Switcher'
 import { treeNodeEmits, treeNodeProps } from './tree'
 import JvTreeNodeContent from './tree-node-content'
 

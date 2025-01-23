@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { ref } from 'vue'
-import JvMenu from '../src/menu.vue'
+import JvMenu from '../src/JvMenu.vue'
 
 const meta = {
   title: 'Navigation/Menu',

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvIcon from '@components/JvIcon/src/icon.vue'
+import JvIcon from '@/components/JvIcon/src/JvIcon.vue'
 import { ZoomOutTwotone } from '@vicons/material'
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {

@@ -1,7 +1,6 @@
 // Types
 import type { InjectionKey, PropType, Ref } from 'vue'
-import { getCurrentInstanceName, mergeDeep, propsFactory } from '@jovial/utils'
-import { IN_BROWSER, SUPPORTS_TOUCH } from '@jovial/utils/globals'
+import { getCurrentInstanceName, IN_BROWSER, mergeDeep, propsFactory, SUPPORTS_TOUCH } from '@jovial/utils'
 
 // Utilities
 import {

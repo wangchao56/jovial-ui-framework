@@ -1,7 +1,14 @@
 @import '@jovial/theme-chalk/src/common/mixins.css';
 
 /* 定义 CSS 变量 */
-:root {
+
+@define-mixin e $element {
+  .jv-calendar-table__$(element) {
+    @mixin-content;
+  }
+}
+
+@mixin b calendar {
   --jv-calendar-background-color: #fff;
   --jv-calendar-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.5);
   --jv-calendar-title-padding: 20px;
@@ -27,15 +34,7 @@
   --jv-calendar-table-thead-font-size: 16px;
   --jv-calendar-table-thead-font-weight: bold;
   --jv-calendar-table-thead-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.5);
-}
 
-@define-mixin e $element {
-  .jv-calendar-table__$(element) {
-    @mixin-content;
-  }
-}
-
-@mixin b calendar {
   min-width: max-content;
   width: 500px;
   background-color: var(--jv-calendar-background-color);
@@ -49,6 +48,7 @@
     box-shadow: var(--jv-calendar-title-box-shadow);
   }
 }
+
 @mixin b calendar-table {
   width: inherit;
   box-sizing: border-box;
@@ -78,31 +78,21 @@
   }
 
   @mixin e actions {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
-  }
-
-  @mixin e button-group {
-    /* 样式定义 */
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    column-gap: 8px;
-    border-radius: 4px;
-    overflow: hidden;
-    background-color: #fff;
-    box-shadow:
-      4px 4px 8px rgba(0, 0, 0, 0.1),
-      -4px -4px 8px rgba(255, 255, 255, 0.5);
-
-    .jv-button {
-      border-radius: 0px;
-      box-shadow: none; /* 移除按钮的默认阴影以保持一致性 */
-      &:not(:last-child) {
-        border-right: 1px solid #e0e0e0;
-      }
+    padding: 8px;
+    box-sizing: border-box;
+    &--text {
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: var(--jv-font-weight-light);
+      background-color: var(--jv-calendar-table-header-background-color);
+      box-shadow:
+        inset 4px 4px 8px rgba(0, 0, 0, 0.05),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.5);
     }
   }
 

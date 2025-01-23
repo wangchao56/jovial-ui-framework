@@ -2,7 +2,7 @@
 import { createNamespace } from '@jovial/utils'
 import { computed, onMounted, ref } from 'vue'
 import { jvImageEmits, type JvImageProps } from './JvImage'
-import './style.css'
+import '../style/style.css'
 
 defineOptions({ name: 'JvImage' })
 

@@ -2,6 +2,7 @@
 import { createNamespace } from '@jovial/utils'
 import { computed, ref } from 'vue'
 import { jvSwitchEmits, type JvSwitchProps } from './JvSwitch'
+import './JvSwitch.css'
 
 defineOptions({ name: 'JvSwitch' })
 const props = withDefaults(defineProps<JvSwitchProps>(), {
@@ -44,10 +45,27 @@ const switchClasses = computed(() => [
     @click="handleClick"
   >
     <div :class="bem.e('core')">
-      <div :class="bem.e('button')" />
+      <svg
+        :class="bem.e('svg')"
+        viewBox="0 0 50 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          :class="bem.e('track')"
+          x="0"
+          y="0"
+          rx="12"
+          ry="12"
+          width="50"
+          height="24"
+        />
+        <circle
+          :class="bem.e('button')"
+          cx="12"
+          cy="12"
+          r="10"
+        />
+      </svg>
     </div>
   </div>
 </template>
-
-<style src="./JvSwitch.css">
-</style>

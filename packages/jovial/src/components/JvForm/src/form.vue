@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ValidateFieldsError, Values } from 'async-validator'
 import type { FormContext, FormExpose } from './form'
-import type { FormItemContext } from './JvFormItem'
+import type { FormItemContext } from './form-item'
 import { createNamespace, isEmpty } from '@jovial/utils'
 import { provide } from 'vue'
 import { formEmits, formProps, formProviderKey } from './form'
@@ -11,7 +11,7 @@ const props = defineProps(formProps)
 defineEmits(formEmits)
 const bem = createNamespace('form')
 
-const fieldsContext: Set<FormItemContext> = new Set() // 使用 WeakSet 收集表单项上下文
+const fieldsContext: Set<FormItemContext> = new Set() // 使用 收集表单项上下文
 
 /**
  * addField 函数是 FormContext 类型中 addField 方法的具体实现。
@@ -48,6 +48,8 @@ function handleValidationResults(results: PromiseSettledResult<Awaited<any>>[], 
     }
     else {
       // 如果有任何验证通过，可以在此处执行额外操作或记录日志
+      // 例如，可以记录验证通过的字段或执行其他逻辑
+      console.log('Validation passed for:', result.value)
     }
   })
 
@@ -88,9 +90,14 @@ const context: FormContext = {
 // 使用 provide 函数提供 FormContext 给后代组件
 provide(formProviderKey, context)
 
+function resetFields() {
+  fieldsContext.forEach(context => context.resetField())
+}
+
 // 暴露 validate 方法给模板或父组件使用
 defineExpose<FormExpose>({
   validate,
+  resetFields,
 })
 </script>
 

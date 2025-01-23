@@ -17,6 +17,9 @@ export const iconProps = {
   name: {
     type: String,
   },
+  fill: {
+    type: String,
+  },
 } as const
 
 export const iconSlots = {
@@ -32,4 +35,6 @@ export interface IconProps {
   color?: string
   /** 图标名称 */
   name?: string | keyof IconifyIcon
+  /** 图标填充 */
+  fill?: string
 }

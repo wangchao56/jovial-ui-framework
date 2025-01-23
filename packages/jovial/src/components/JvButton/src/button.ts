@@ -44,7 +44,7 @@ export interface ButtonProps {
 /** 按钮的事件类型 */
 export interface ButtonEmits {
   /** 点击事件 */
-  (e: 'click', payload: MouseEvent): void
+  (e: 'click', payload: Event): void
   /** 鼠标按下事件 */
   (e: 'mousedown', payload: MouseEvent): void
   /** 键盘按下事件 */

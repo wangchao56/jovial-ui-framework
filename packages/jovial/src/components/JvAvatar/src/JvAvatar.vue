@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { createNamespace } from '@jovial/utils'
 import { jvAvatarEmits, jvAvatarProps } from './JvAvatar'
+import '../style/style.css'
 
 defineOptions({ name: 'JvAvatar' })
 defineProps(jvAvatarProps)
@@ -11,5 +12,3 @@ const bem = createNamespace('avatar')
 <template>
   <div :class="bem.b()" />
 </template>
-
-<style src="../style/style.css" scoped></style>

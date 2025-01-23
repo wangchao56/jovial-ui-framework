@@ -7,12 +7,13 @@ import type {
   CalendarProps,
   CalendarSlots,
 } from './calendar'
+import JvButtonGroupSetup from '@/components/JvButton/src/JvButtonGroup.setup.vue'
 import JvButton from '@components/JvButton/src/button.vue'
-
 import { createNamespace } from '@jovial/utils'
 
 import dayjs from 'dayjs'
-import { computed, ref, unref } from 'vue'
+
+import { computed, normalizeClass, ref, unref } from 'vue'
 import {
   actionsMapEntries,
   CalendarDateCellType,
@@ -188,11 +189,10 @@ function handlePick({ day, type }: CalendarDateCell) {
           </slot>
         </div>
         <div :class="nsTable.e('actions')">
-          <span>
-            <JvButton size="small" variant="text">{{ yearMonth }}</JvButton>
-          </span>
-
-          <div :class="nsTable.e('button-group')">
+          <button :class="normalizeClass(['jv-button', 'jv-button--text', nsTable.em('actions', 'text')])">
+            {{ yearMonth }}
+          </button>
+          <JvButtonGroupSetup rounded>
             <JvButton
               v-for="btn in actionsMapEntries"
               :key="btn.key"
@@ -202,7 +202,7 @@ function handlePick({ day, type }: CalendarDateCell) {
             >
               {{ btn.value }}
             </JvButton>
-          </div>
+          </JvButtonGroupSetup>
         </div>
       </caption>
       <thead :class="nsTable.e('thead')">

@@ -6,10 +6,11 @@ import type {
   ButtonSlots,
 } from './button'
 import { Loading } from '@components/internal-icon/index'
-import JvIcon from '@components/JvIcon/src/icon.vue'
+import JvIcon from '@components/JvIcon/src/JvIcon.vue'
 import { createNamespace } from '@jovial/utils'
 import { computed, inject } from 'vue'
-import './button.css'
+import { JvButtonGroupContextKey } from './buttonGroup'
+import '../style/button.css'
 
 defineOptions({
   name: 'JvButton',
@@ -78,7 +79,7 @@ const exposed: ButtonExposed = {
 defineExpose<ButtonExposed>(exposed)
 
 // 注入按钮组上下文
-const buttonGroupContext = inject('buttonGroupContext', null)
+const buttonGroupContext = inject(JvButtonGroupContextKey, null)
 
 // 合并 props
 const finalProps = computed(() => ({
@@ -108,8 +109,8 @@ const finalProps = computed(() => ({
     :style="buttonStyle"
     :type="nativeType"
     :autofocus="autofocus"
-    @click="emitClick"
-    @mousedown="emitMouseDown"
+    @click.stop="emitClick($event)"
+    @mousedown="emitMouseDown($event)"
   >
     <span v-if="$slots.prepend || prependIcon" :class="bem.e('prepend')">
       <!-- 自定义前置图标 -->

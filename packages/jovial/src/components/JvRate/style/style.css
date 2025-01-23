@@ -15,6 +15,10 @@
   /* 图标列表 */
   @mixin e icons {
     display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--jv-rate-gap, 4px);
     margin: 0;
     padding: 0;
   }
@@ -24,6 +28,8 @@
     position: relative;
     cursor: pointer;
     transition: transform 0.15s ease-in-out;
+    width: max-content;
+    height: max-content;
 
     &:hover {
       transform: scale(1.1);

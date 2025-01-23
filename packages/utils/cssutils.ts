@@ -90,3 +90,13 @@ styleInjector.inject(`
     padding: 10px;   
   }  
 `)
+
+/** 将number或者string 转换为css可识别的值 */
+export function toCSSValue(value: number | string | undefined): string {
+  return typeof value === 'number' ? `${value}px` : value ?? '0'
+}
+
+/** 将string类型的css值转换为number */
+export function csstoNumber(value: string | number): number {
+  return typeof value === 'number' ? value : Number.parseInt(value)
+}

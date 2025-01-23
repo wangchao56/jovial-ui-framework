@@ -2,7 +2,7 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "target": "ES2022",
-    "lib": ["ES2023"],
+    "lib": ["ES2023", "ES2022"],
     "moduleDetection": "force",
     "module": "ESNext",
 
@@ -20,5 +20,5 @@
     "skipLibCheck": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.mts", "**/*.ts", "**/*.d.ts", "**/*.tsx", "**/*.mts"]
+  "include": ["vite.config.mts", "**/*.ts", "**/*.d.ts", "**/*.tsx", "**/*.mts", "src/components/JvProgress/src/CircleProgress.vue"]
 }

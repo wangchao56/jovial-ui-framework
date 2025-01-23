@@ -25,9 +25,7 @@ import type {
   VNodeProps,
 } from 'vue'
 
-import { consoleWarn } from '@jovial/utils/console'
-import { pick } from '@jovial/utils/helpers'
-import { propsFactory } from '@jovial/utils/propsFactory'
+import { consoleWarn, pick, propsFactory } from '@jovial/utils'
 // Utilities
 import {
   defineComponent as _defineComponent,

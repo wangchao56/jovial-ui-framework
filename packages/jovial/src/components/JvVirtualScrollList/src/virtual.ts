@@ -172,7 +172,7 @@ export function initVirtual(param: VirtualOptions, update: UpDataFuncType) {
           // 计算平均值
           firstRangeAvg
             = [...childSizes.values()].reduce((acc, cur) => acc + cur, 0)
-            / childSizes.size
+              / childSizes.size
         }
         break
     }

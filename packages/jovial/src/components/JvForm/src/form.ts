@@ -5,7 +5,7 @@ import type {
   FormItemContext,
   FormItemRule,
   FormValidateCallback,
-} from './JvFormItem'
+} from './form-item'
 
 export type FormRules<
   T extends MaybeRef<Record<string, any> | string> = string,
@@ -41,10 +41,7 @@ export interface FormExpose {
   validate: (
     callback?: FormValidateCallback
   ) => Promise<void | boolean | Values>
-  // validateField: (
-  //   props?: Arrayable<FormItemProps> | undefined,
-  //   callback?: FormValidateCallback | undefined
-  // ) => FormValidationResult
+  resetFields: () => void
 }
 
 export interface FormContext extends FormProps {

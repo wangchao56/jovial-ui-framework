@@ -11,9 +11,8 @@ const props = withDefaults(defineProps<JvDividerProps>(), {
   strokeWidth: 1,
   length: 'full',
   dashed: false,
-  // dashed: false,
-  // margin: '16px',
-  // orientation: 'horizontal'
+  margin: 16,
+  titleBackground: '#ffffff',
 })
 const bem = createNamespace('divider')
 const leftGap = computed(() => {
@@ -46,47 +45,60 @@ const lengthComputed = computed(() => {
   }
   return `${props.length}px`
 })
+
+const dividerStyle = computed(() => ({
+  '--jv-divider-bg-color': props.color || '#c8c8c8',
+  '--jv-divider-margin': `${props.margin}px`,
+  '--jv-divider-stroke-width': `${props.strokeWidth}px`,
+  '--jv-divider-title-bg': props.titleBackground,
+}))
 </script>
 
 <template>
-  <hr :class="[bem.b(), bem.is('dashed', dashed), bem.is('title', !!title)]" :data-title="title">
+  <hr
+    :class="[bem.b(), bem.is('dashed', dashed), bem.is('title', !!title)]"
+    :data-title="title"
+    :style="dividerStyle"
+  >
 </template>
 
 <style scoped>
-  hr {
+hr {
   --jv-divider-bg-color: #c8c8c8;
+  --jv-divider-margin: 16px;
+  --jv-divider-stroke-width: 1px;
+  --jv-divider-title-bg: #ffffff;
+
   width: v-bind(lengthComputed);
   border: none;
-  /* background-color: var(--jv-color-info-light); */
   overflow: visible;
   text-align: v-bind(titlePosition);
   height: 0px;
-  margin: 4px 0;
-  /* 高度使用border */
-  border-top: 0.5px solid;
+  margin: var(--jv-divider-margin) 0;
+  border-top: var(--jv-divider-stroke-width) solid;
   border-color: var(--jv-divider-bg-color);
   position: relative;
-  --jv-divider-title-color: #333;
-  --jv-divider-gap: 16px;
   transform-origin: center;
   transform: v-bind(directionTransform);
 }
+
 .is-dashed {
   border-style: dashed;
 }
+
 .is-title {
-  margin: 9px 0;
   &::after {
     content: attr(data-title);
-    background: #dddddd;
+    background: var(--jv-divider-title-bg);
     position: absolute;
-    color: var(--jv-color-info-light);
+    color: var(--jv-divider-bg-color);
     top: 50%;
     left: v-bind(leftGap);
+    padding: 0 10px;
     width: max-content;
     transform: translate(-50%, -50%);
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 20px;
   }
 }
 </style>

@@ -1,10 +1,8 @@
 import type { MaybeRef } from '@jovial/utils'
 // Types
 import type { ComputedRef, InjectionKey, Ref, VNode } from 'vue'
-import { getCurrentInstance } from '@jovial/utils/getCurrentInstance'
-import { mergeDeep, toKebabCase } from '@jovial/utils/helpers'
+import { getCurrentInstance, injectSelf, mergeDeep, toKebabCase } from '@jovial/utils'
 
-import { injectSelf } from '@jovial/utils/injectSelf'
 // Utilities
 import {
   computed,

@@ -2,6 +2,7 @@
 import { createNamespace } from '@jovial/utils'
 import { computed } from 'vue'
 import { jvBadgeEmits, type JvBadgeProps } from './JvBadge'
+import '../style/style.css'
 
 defineOptions({ name: 'JvBadge' })
 const props = withDefaults(defineProps<JvBadgeProps>(), {
@@ -19,7 +20,7 @@ const showContent = computed(() => props.dot && props.count > 0)
 const content = computed(() => (props.count > props.max ? `${props.max}+` : props.count))
 
 useCssVars(_ctx => ({
-  'badge-color': props.color,
+  'jv-badge-color': props.color,
 }))
 </script>
 
@@ -30,12 +31,11 @@ useCssVars(_ctx => ({
              bem.m(position),
              bem.is('rounded', rounded),
              bem.m(size),
-    ]" :data-count="content"
+    ]"
+    :data-count="content"
     :data-color="color"
     @click="emit('click', $event)"
   >
     <slot />
   </div>
 </template>
-
-<style src="./JvBadge.css"></style>

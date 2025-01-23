@@ -19,6 +19,14 @@ const props = defineProps({
       }
     },
   },
+  width: {
+    type: String,
+    default: '280px',
+  },
+  height: {
+    type: String,
+    default: '280px',
+  },
 })
 BScroll.use(ScrollBar)
 BScroll.use(MouseWheel)
@@ -31,6 +39,9 @@ const scrollmode = computed(() => ({
   vertical: props.scrollMode?.vertical ?? true,
   horizontal: props.scrollMode?.horizontal ?? false,
 }))
+
+const width = computed(() => props.width)
+const height = computed(() => props.height)
 
 onMounted(() => {
   if (wrapperRef.value) {
@@ -103,9 +114,13 @@ onUnmounted(() => {
 .custom-scrollbar-container {
   .custom-scrollbar-wrapper {
     position: relative;
-    width: 280px;
-    height: 280px;
+    width: v-bind(width);
+    height: v-bind(height);
     overflow: hidden;
+  }
+
+  .custom-scrollbar-wrapper {
+    background-color: rgba(29, 28, 28, 0.652);
   }
 
   .custom-scrollbar-content {

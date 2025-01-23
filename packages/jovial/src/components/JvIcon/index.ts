@@ -2,7 +2,7 @@ import { withInstall } from '@jovial/utils'
 /**
  * icon 组件的设计规范
  */
-import _icon from './src/icon.vue'
+import _icon from './src/JvIcon.vue'
 
 const Icon = withInstall(_icon)
 

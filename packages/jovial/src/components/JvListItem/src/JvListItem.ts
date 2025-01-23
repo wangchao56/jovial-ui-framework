@@ -23,6 +23,11 @@ export interface ListItem {
   children?: ListItem[]
 }
 
+export interface SubListItem {
+  children?: ListItem[]
+
+}
+
 export const jvListItemProps = {
 
   item: {
@@ -38,20 +43,6 @@ export const jvListItemProps = {
   activeColor: String,
   /** 非激活状态下的背景色 */
   inactiveColor: String,
-  // /** 拖拽 */
-  // draggable: Boolean,
-  // dragging: Boolean,
-  // dragged: Boolean,
-  // dragover: Boolean,
-  // dragenter: Boolean,
-  // dragleave: Boolean,
-  // dragstart: Function,
-  // dragend: Function,
-  // dragoverFn: Function,
-  // dragenterFn: Function,
-  // dragleaveFn: Function,
-  // dragstartFn: Function,
-  // dragendFn: Function,
 } as const
 export type JvListItemProps = ExtractPropTypes<typeof jvListItemProps>
 export const jvListItemEmits = {

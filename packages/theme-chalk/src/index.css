@@ -1,5 +1,19 @@
-@import './common/normalize.css';
+@import './common/index.css';
 @import './theme/index.css';
-@import './common/vars.css';
-@import './common/animation.css';
 @import '../../jovial/src/components/JvTooltip/style/jv-tooltip.css';
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+html {
+  font-size: 16px;
+}

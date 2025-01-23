@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { JvAlertEmits, JvAlertExpose, JvAlertProps } from './JvAlert'
-import JvButton from '@components/JvButton'
+import JvButton from '@components/JvButton/src/button.vue'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jovial/utils'
 import '../style/style.css'

@@ -1,0 +1,19 @@
+:root {
+  --jv-container-width: 100%;
+  --jv-container-height: 100%;
+  --jv-container-max-width: 100vw;
+  --jv-container-max-height: 100vh;
+  --jv-container-bg-color: #fff;
+  --jv-header-height-mobile: 65px;
+  --jv-header-height-desktop: 65px;
+  --jv-header-bg-color: #fff;
+  --jv-footer-height-mobile: 65px;
+  --jv-footer-height-desktop: 65px;
+  --jv-footer-bg-color: #716f6f;
+  --jv-aside-width: 240px;
+  --jv-aside-bg-color: #fff;
+  --jv-main-padding: 16px;
+  --jv-main-bg-color: #f0f2f5;
+  --jv-main-border-color: #e4e7ed;
+  --jv-main-border-radius: 4px;
+}

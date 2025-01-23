@@ -1,5 +1,5 @@
-import type { NameType } from '@/components/JvCollapseItem'
 import type { InjectionKey } from 'vue'
+import type { NameType } from './JvCollapseItem'
 
 export const jvCollapseProps = {} as const
 export interface JvCollapseProps {

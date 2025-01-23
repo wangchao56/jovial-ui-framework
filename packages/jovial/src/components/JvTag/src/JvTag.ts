@@ -18,18 +18,26 @@ export const jvTagProps = {
 } as const
 
 export interface JvTagProps {
+  /**
+   * @description 类型
+   */
   type?: 'primary' | 'success' | 'warning' | 'danger' | 'info'
+  /**
+   * @description 尺寸
+   */
   size?: 'small' | 'medium' | 'large'
+  /**
+   * @description 是否可关闭
+   */
   closable?: boolean
+  /**
+   * @description 是否圆角
+   */
   round?: boolean
 }
 
-export const jvTagEmits = {
-  close: (evt: MouseEvent) => evt instanceof MouseEvent,
-} as const
-
 export interface JvTagEmits {
-  close: (evt: MouseEvent) => void
+  (event: 'close', evt: MouseEvent): void
 }
 
 export const jvTagSlots = {} as const

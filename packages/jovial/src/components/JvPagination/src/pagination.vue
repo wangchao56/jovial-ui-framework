@@ -43,6 +43,7 @@ const currentPage = ref(props.modelValue)
 // 跳转页码输入框
 const jumpPage = ref('')
 
+const pageSize = ref(props.pageSize)
 // 总页数
 const totalPages = computed(() => Math.ceil(props.total / props.pageSize))
 

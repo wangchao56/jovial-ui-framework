@@ -6,6 +6,10 @@ const meta = {
   title: 'Form/Rate',
   component: JvRate,
   tags: ['autodocs'],
+  args: {
+    modelValue: 3,
+    size: 'medium',
+  },
   parameters: {
     docs: {
       description: {
@@ -55,7 +59,8 @@ const meta = {
       },
     },
     size: {
-      control: 'number',
+      control: 'select',
+      options: [10, 20, 30, 40, 50, 'small', 'medium', 'large'],
       description: '图标大小',
       table: {
         type: { summary: 'number | string' },
@@ -102,14 +107,16 @@ type Story = StoryObj<typeof meta>
 
 // 基础用法
 export const Basic: Story = {
-  render: () => ({
+  args: {
+    modelValue: 3,
+  },
+  render: args => ({
     components: { JvRate },
     setup() {
-      const value = ref(3)
-      return { value }
+      return { args }
     },
     template: `
-      <jv-rate v-model="value" />
+      <jv-rate v-bind="args" />
     `,
   }),
   parameters: {
@@ -147,18 +154,21 @@ export const AllowHalf: Story = {
 
 // 自定义图标
 export const CustomIcon: Story = {
-  render: () => ({
+  args: {
+    modelValue: 3,
+    icon: 'mdi:cards-heart',
+    voidIcon: 'mdi:cards-heart-outline',
+    halfIcon: 'mdi:heart-half-full',
+    color: '#ff4081',
+  },
+  render: args => ({
     components: { JvRate },
     setup() {
-      const value = ref(3)
-      return { value }
+      return { args }
     },
     template: `
       <jv-rate
-        v-model="value"
-        icon="heart"
-        void-icon="heart-outline"
-        color="#ff4081"
+        v-bind="args"
       />
     `,
   }),
@@ -170,20 +180,21 @@ export const CustomIcon: Story = {
     },
   },
 }
-
 // 提示文字
 export const ShowText: Story = {
-  render: () => ({
+  args: {
+    modelValue: 3,
+    showText: true,
+    texts: ['极差', '失望', '一般', '满意', '惊喜'],
+  },
+  render: args => ({
     components: { JvRate },
     setup() {
-      const value = ref(3)
-      return { value }
+      return { args }
     },
     template: `
       <jv-rate
-        v-model="value"
-        :show-text="true"
-        :texts="['极差', '失望', '一般', '满意', '惊喜']"
+        v-bind="args"
       />
     `,
   }),
@@ -198,16 +209,18 @@ export const ShowText: Story = {
 
 // 只读状态
 export const Readonly: Story = {
-  render: () => ({
+  args: {
+    modelValue: 3.5,
+    readonly: true,
+  },
+  render: args => ({
     components: { JvRate },
     setup() {
-      const value = ref(3)
-      return { value }
+      return { args }
     },
     template: `
       <jv-rate
-        v-model="value"
-        :readonly="true"
+        v-bind="args"
       />
     `,
   }),
@@ -222,18 +235,20 @@ export const Readonly: Story = {
 
 // 自定义样式
 export const CustomStyle: Story = {
-  render: () => ({
+  args: {
+    modelValue: 2,
+    size: 30,
+    gap: 8,
+    color: '#1976D2',
+  },
+  render: args => ({
     components: { JvRate },
     setup() {
-      const value = ref(3)
-      return { value }
+      return { args }
     },
     template: `
       <jv-rate
-        v-model="value"
-        :size="30"
-        :gap="8"
-        color="#1976D2"
+        v-bind="args"
       />
     `,
   }),

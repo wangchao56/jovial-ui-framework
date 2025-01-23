@@ -1,21 +1,37 @@
-import { defineComponent, type SlotsType } from 'vue'
+import { createNamespace } from '@jovial/utils'
+import { defineComponent, type Slot, type SlotsType } from 'vue'
 
 const JvListGroup = defineComponent({
   name: 'JvListGroup',
-  props: {},
-  emits: [],
+  props: {
+    title: String,
+    expanded: Boolean,
+  },
+  emits: ['update:expanded'],
   slots: Object as SlotsType<{
-    default: { foo: string, bar: number }
-    item: { data: number }
+    default: Slot
+    header: Slot
   }>,
-  setup(props, { slots }) {
+  setup(props, { slots, emit }) {
+    const bem = createNamespace('list-group')
     return () => (
-      <div>
-        {
-          slots.item?.({ data: 1 })
-        }
+      <div class={bem.b()}>
+        <div
+          class={bem.e('header')}
+          onClick={() => emit('update:expanded', !props.expanded)}
+        >
+          {slots.header?.() || props.title}
+        </div>
+        <div class={[
+          bem.e('content'),
+          bem.is('expanded', props.expanded),
+        ]}
+        >
+          {slots.default?.()}
+        </div>
       </div>
     )
   },
 })
+
 export default JvListGroup

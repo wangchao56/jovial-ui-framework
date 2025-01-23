@@ -1,6 +1,7 @@
-import type { ListItem } from '@/components/JvListItem'
-import JvDivider from '@/components/JvDivider'
+import type { ListItem } from '@components/JvListItem'
+import JvDivider from '@components/JvDivider'
 import { createNamespace } from '@jovial/utils'
+import { useVirtualList } from '@vueuse/core'
 import { createVNode, defineComponent, Fragment } from 'vue'
 import { JvListContextKey, jvListEmits, jvListProps } from './JvList'
 import JvListChildren from './JvListChildren.setup'
@@ -13,7 +14,14 @@ export function useRender(render: () => VNode): void {
 export default defineComponent(
   {
     name: 'JvList',
-    props: jvListProps,
+    props: {
+      ...jvListProps,
+      virtual: Boolean,
+      itemHeight: {
+        type: Number,
+        default: 40,
+      },
+    },
     emits: jvListEmits,
     inheritAttrs: false,
     setup(props, { emit, slots }) {
@@ -27,6 +35,15 @@ export default defineComponent(
       provide(JvListContextKey, {
         handleClickListItem,
       })
+
+      const containerRef = ref<HTMLElement>()
+      const { list } = useVirtualList(
+        computed(() => props.items),
+        {
+          itemHeight: props.itemHeight,
+          overscan: 10,
+        },
+      )
 
       return () => {
         const { bordered, items, showDivider } = props
@@ -53,8 +70,13 @@ export default defineComponent(
         )
 
         return createVNode(props.tag, {
+          ref: containerRef,
           class: [bem.b(), bem.is('bordered', bordered)],
-        }, children)
+        }, props.virtual
+          ? list.value.map(item => (
+              <JvListChildren items={[item.data]} />
+            ))
+          : children)
       }
     },
   },

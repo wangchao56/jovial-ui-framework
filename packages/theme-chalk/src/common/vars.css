@@ -36,8 +36,20 @@
   --jv-color-border-darker: #b4bccc;
 
   /* border */
+  --jv-border-width: 1px;
   --jv-border-color: hsl(0, 0%, 100%);
   --jv-border-opacity: 0.12;
+  --jv-border-solid: 1px solid var(--jv-color-border-base);
+  --jv-border-dashed: 1px dashed var(--jv-color-border-base);
+  --jv-border-dotted: 1px dotted var(--jv-color-border-base);
+  --jv-border-double: 5px double var(--jv-color-border-base);
+  --jv-border-groove: 2px groove var(--jv-color-border-base);
+  --jv-border-ridge: 2px ridge var(--jv-color-border-base);
+  --jv-border-inset: 2px inset var(--jv-color-border-base);
+  --jv-border-outset: 2px outset var(--jv-color-border-base);
+  --jv-border-radius-small: 4px;
+  --jv-border-radius-medium: 8px;
+  --jv-border-radius-large: 12px;
   /* opacity */
 
   /* font */

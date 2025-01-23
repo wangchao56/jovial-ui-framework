@@ -31,13 +31,19 @@
   height: 1.5rem;
   font-size: 1.5rem;
   line-height: 1.5rem;
-
   svg {
+    background-clip: text;
     fill: currentColor;
     height: 1em;
     width: 1em;
   }
-
+  svg path,
+  svg circle,
+  svg rect,
+  svg polygon,
+  svg ellipse {
+    transition: fill 0.3s ease;
+  }
   svg.loading {
     animation: spin 1s linear infinite;
   }

@@ -1,3 +1,4 @@
+<script setup lang="ts">
 /**
  * Rate 组件实现了以下功能：
  * 1. 基础评分功能
@@ -8,12 +9,10 @@
  * 6. 自定义间距和大小
  * 7. 完整的类型定义
  */
-
-<script setup lang="ts">
 import type { JvRateEmits, JvRateProps, JvRateSlots } from './JvRate'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jovial/utils'
-import { computed, ref } from 'vue'
+import { computed, nextTick, onMounted, ref, useCssVars, watch } from 'vue'
 import '../style/style.css'
 
 defineOptions({ name: 'JvRate' })
@@ -24,8 +23,9 @@ const props = withDefaults(defineProps<JvRateProps>(), {
   allowHalf: false,
   readonly: false,
   disabled: false,
-  icon: 'star',
-  voidIcon: 'star-outline',
+  icon: '$star',
+  voidIcon: '$starOutline',
+  halfIcon: '$starHalfFull',
   size: 20,
   gap: 4,
   color: '#fadb14',
@@ -39,7 +39,9 @@ defineSlots<JvRateSlots>()
 const bem = createNamespace('rate')
 
 // 当前值
-const currentValue = ref(props.modelValue)
+const currentValue = useModel(props, 'modelValue')
+// SVG容器引用
+const svgDefsRef = ref<HTMLElement | null>(null)
 // 鼠标悬停值
 const hoverValue = ref(-1)
 
@@ -54,26 +56,69 @@ const text = computed(() => {
   return props.texts[value] || ''
 })
 
-// 计算图标样式
-function getIconStyle(value: number) {
-  const style: Record<string, string> = {}
+// 创建SVG渐变定义
+function createSvgDefs() {
+  if (!svgDefsRef.value)
+    return
+  // 清除现有的渐变定义
+  svgDefsRef.value.innerHTML = ''
 
-  if (props.size) {
-    style.fontSize = `${props.size}px`
-  }
+  // 为每个星级创建渐变定义
+  for (let n = 1; n <= props.max; n++) {
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs')
+    const linearGradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient')
 
-  if (props.gap && value !== props.max) {
-    style.marginRight = `${props.gap}px`
-  }
+    linearGradient.setAttribute('id', `grad-${n}`)
+    linearGradient.setAttribute('x1', '0%')
+    linearGradient.setAttribute('y1', '0%')
+    linearGradient.setAttribute('x2', '100%')
+    linearGradient.setAttribute('y2', '0%')
 
-  if (value <= displayValue.value) {
-    style.color = props.color
-  }
-  else {
-    style.color = props.voidColor
-  }
+    const stops = [
+      { offset: '0%', color: props.color, opacity: 1 },
+      { offset: getCurPercentage(n - 1), color: props.color, opacity: 1 },
+      { offset: getCurPercentage(n - 1), color: props.voidColor, opacity: 1 },
+      { offset: '100%', color: props.voidColor, opacity: 1 },
+    ]
 
-  return style
+    stops.forEach(({ offset, color }) => {
+      const stop = document.createElementNS('http://www.w3.org/2000/svg', 'stop')
+      stop.setAttribute('offset', offset)
+      stop.setAttribute('stop-color', color)
+      stop.setAttribute('stop-opacity', '1')
+      linearGradient.appendChild(stop)
+    })
+
+    defs.appendChild(linearGradient)
+    svgDefsRef.value.appendChild(defs)
+  }
+}
+// 初始化时创建SVG渐变定义
+onMounted(() => {
+  nextTick(() => {
+    createSvgDefs()
+  })
+})
+
+// 监听显示值变化时创建SVG渐变定义
+watch(() => displayValue.value, () => {
+  createSvgDefs()
+}, { flush: 'post' })
+
+function getIconFill(value: number) {
+  return `url(#grad-${value})`
+}
+
+function getCurPercentage(value: number) {
+  if (value >= displayValue.value) {
+    return '0%'
+  }
+  if (value + 1 <= displayValue.value) {
+    return '100%'
+  }
+  // 计算部分填充的百分比
+  const decimal = displayValue.value - Math.floor(displayValue.value)
+  return `${decimal * 100}%`
 }
 
 // 处理鼠标移入
@@ -86,6 +131,7 @@ function handleMousemove(event: MouseEvent, value: number) {
   const half = props.allowHalf && event.clientX - rect.left < rect.width / 2
 
   hoverValue.value = half ? value - 0.5 : value
+
   emit('hover', hoverValue.value)
 }
 
@@ -93,7 +139,6 @@ function handleMousemove(event: MouseEvent, value: number) {
 function handleMouseleave() {
   if (props.disabled || props.readonly)
     return
-
   hoverValue.value = -1
 }
 
@@ -101,9 +146,7 @@ function handleMouseleave() {
 function handleClick(value: number) {
   if (props.disabled || props.readonly)
     return
-
   currentValue.value = value
-  emit('update:modelValue', value)
   emit('change', value)
 }
 
@@ -111,9 +154,48 @@ function handleClick(value: number) {
 function reset() {
   currentValue.value = 0
   hoverValue.value = -1
-  emit('update:modelValue', 0)
   emit('change', 0)
 }
+
+// 获取当前应该显示的图标
+function getIcon(value: number, displayValue: number) {
+  if (props.disabled || props.readonly) {
+    // 禁用或只读状态下，根据当前值显示对应图标
+    if (value <= displayValue || displayValue < value + 1) {
+      return props.icon
+    }
+    return props.voidIcon
+  }
+  if (props.allowHalf) {
+    // 半星模式
+    if (value <= displayValue) {
+      // 完整星星
+      return props.icon
+    }
+    else if (value - 0.5 <= displayValue) {
+      // 半星
+      return props.halfIcon
+    }
+  }
+  else {
+    // 整星模式
+    if (value <= displayValue || displayValue < value + 1) {
+      return props.icon
+    }
+  }
+  // // 未选中状态
+  return props.voidIcon
+}
+
+useCssVars((_ctx) => {
+  return {
+    'jv-rate-gap': `${props.gap}px`,
+  }
+})
+
+const iconSize = computed(() => {
+  return props.size
+})
 
 // 暴露方法
 defineExpose({
@@ -127,59 +209,70 @@ defineExpose({
       bem.b(),
       bem.is('disabled', disabled),
       bem.is('readonly', readonly),
-    ]"
-    @mouseleave="handleMouseleave"
+    ]" @mouseleave="handleMouseleave"
   >
+    <!-- SVG渐变定义容器 -->
+    <svg ref="svgDefsRef" width="0" height="0" style="position: absolute; visibility: hidden;" />
+
     <!-- 图标列表 -->
-    <div :class="bem.e('icons')">
+    <TransitionGroup
+      :class="bem.e('icons')"
+      name="jv-rate-icon"
+      tag="div"
+    >
       <div
-        v-for="n in max"
-        :key="n"
-        :class="bem.e('icon')"
-        @mousemove="handleMousemove($event, n)"
-        @click="handleClick(n)"
+        v-for="n in max" :key="n" :class="bem.e('icon')" @mousemove="handleMousemove($event, n)" @mouseleave="handleMouseleave"
+        @click="handleClick(displayValue)"
       >
-        <!-- 自定义图标 -->
-        <template v-if="$slots.icon">
-          <slot
-            name="icon"
-            :value="n"
-            :active="n <= displayValue"
-          />
-        </template>
-
-        <!-- 默认图标 -->
-        <template v-else>
-          <JvIcon
-            :name="n <= displayValue ? icon : voidIcon"
-            :style="getIconStyle(n)"
-          />
-
-          <!-- 半选图标 -->
-          <JvIcon
-            v-if="allowHalf && n - 0.5 === displayValue"
-            :name="icon"
-            :class="bem.e('half')"
-            :style="getIconStyle(n)"
-          />
-        </template>
+        <JvIcon
+          :name="getIcon(n, displayValue)"
+          :size="iconSize"
+          :fill="getIconFill(n)"
+        />
       </div>
-    </div>
+    </TransitionGroup>
 
     <!-- 提示文字 -->
-    <div
-      v-if="showText && displayValue > 0"
-      :class="bem.e('text')"
-    >
-      <template v-if="$slots.text">
-        <slot
-          name="text"
-          :value="displayValue"
-        />
-      </template>
-      <template v-else>
-        {{ text }}
-      </template>
-    </div>
+    <Transition name="jv-rate-text">
+      <div v-if="showText && displayValue > 0" :class="bem.e('text')">
+        <slot name="text" :value="displayValue">
+          <span>{{ text }}</span>
+        </slot>
+      </div>
+    </Transition>
   </div>
 </template>
+
+<style scoped>
+/* 图标进入和离开动画 */
+.jv-rate-icon-move {
+  transition: transform 0.3s ease-out;
+}
+
+.jv-rate-icon-enter-active,
+.jv-rate-icon-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.jv-rate-icon-enter-from,
+.jv-rate-icon-leave-to {
+  opacity: 0;
+  transform: scale(1.5);
+}
+
+.jv-rate-icon-leave-active {
+  position: absolute;
+}
+
+/* 文字过渡动画 */
+.jv-rate-text-enter-active,
+.jv-rate-text-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.jv-rate-text-enter-from,
+.jv-rate-text-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+</style>

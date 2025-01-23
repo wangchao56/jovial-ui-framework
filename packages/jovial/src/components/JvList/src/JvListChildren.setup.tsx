@@ -1,5 +1,5 @@
-import JvDivider from '@/components/JvDivider'
-import JvListItem, { type ListItem } from '@/components/JvListItem'
+import JvDivider from '@components/JvDivider'
+import JvListItem, { type ListItem } from '@components/JvListItem'
 import { defineComponent } from 'vue'
 
 const JvListChildren = defineComponent({

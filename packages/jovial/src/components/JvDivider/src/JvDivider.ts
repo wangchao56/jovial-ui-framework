@@ -8,16 +8,17 @@ export interface JvDividerProps {
   color?: string
   /** 虚线 */
   dashed?: boolean
-  /** 线条宽度 */
+  /** 线条宽度(px) */
   strokeWidth?: number
-  /** 线条样式 */
-  strokeStyle?: 'solid' | 'dashed'
   /** 线条方向 */
   direction?: 'horizontal' | 'vertical'
   /** 线条长度 */
   length?: number | 'full'
-
-};
+  /** 上下间距(px) */
+  margin?: number
+  /** 标题背景色 */
+  titleBackground?: string
+}
 export const jvDividerEmits = {} as const
 export interface JvDividerEmits {}
 export const jvDividerSlots = {} as const

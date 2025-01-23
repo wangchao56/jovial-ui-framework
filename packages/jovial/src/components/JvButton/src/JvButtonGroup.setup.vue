@@ -1,11 +1,12 @@
 <script setup lang="tsx">
-import type { ButtonGroupProps } from './buttonGroup'
+import type { JvButtonGroupProps } from './buttonGroup'
 import { createNamespace } from '@jovial/utils'
 import { provide, ref } from 'vue'
+import '../style/buttonGroup.css'
 
 defineOptions({ name: 'JvButtonGroup' })
 
-const props = withDefaults(defineProps<ButtonGroupProps>(), {
+const props = withDefaults(defineProps<JvButtonGroupProps>(), {
   size: 'medium',
   vertical: false,
   rounded: false,
@@ -36,5 +37,3 @@ const groupStyle = {
     <slot />
   </div>
 </template>
-
-<style src="./buttonGroup.css" scoped />

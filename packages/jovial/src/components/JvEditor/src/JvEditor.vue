@@ -29,8 +29,8 @@ const text = ref('# Hello Editor')
 // }
 
 onMounted(() => {
-  // eslint-disable no-console
-  editorRef.value?.on('catalog', console.log)
+  // eslint-disable-next-line no-console
+  console.log()
 })
 </script>
 

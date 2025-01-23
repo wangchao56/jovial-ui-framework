@@ -1,18 +1,28 @@
 import { createNamespace } from '@jovial/utils'
-import { createVNode, defineComponent } from 'vue'
+import { createTextVNode, createVNode, defineComponent, normalizeClass } from 'vue'
 
 export default defineComponent({
   name: 'JvListSubheader',
   props: {
-    tag: String,
+    tag: {
+      type: String,
+      default: 'div',
+    },
     title: String,
+    sticky: Boolean,
+    inset: Boolean,
   },
-  emits: [],
-  setup(props, ctx) {
+  setup(props, { slots }) {
     const bem = createNamespace('list-subheader')
-    return () => createVNode('div', {
-      class: bem.b(),
-      ...ctx.attrs,
-    }, props.title)
+
+    return () => createVNode(props.tag, {
+      class: normalizeClass([
+        bem.b(),
+        bem.is('sticky', props.sticky),
+        bem.is('inset', props.inset),
+      ]),
+    }, {
+      default: slots.default?.() || createTextVNode(props.title),
+    })
   },
 })

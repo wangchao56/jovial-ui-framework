@@ -1,0 +1,132 @@
+:root {
+  --jv-calendar-background-color: rgba(255, 255, 255, 0.3);
+  --jv-calendar-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --jv-calendar-border-color: rgba(255, 255, 255, 0.2);
+  --jv-calendar-text-color: #fff;
+  --jv-calendar-text-color-secondary: rgba(255, 255, 255, 0.7);
+  --jv-calendar-cell-hover-bg: rgba(255, 255, 255, 0.1);
+  --jv-calendar-cell-selected-bg: rgba(255, 255, 255, 0.2);
+  --jv-calendar-cell-selected-border: rgba(255, 255, 255, 0.3);
+  --jv-calendar-button-bg: rgba(255, 255, 255, 0.1);
+  --jv-calendar-button-hover-bg: rgba(255, 255, 255, 0.2);
+  --jv-calendar-backdrop-blur: 16px;
+}
+
+@define-mixin e $element {
+  &__$(element) {
+    @mixin-content;
+  }
+}
+
+@define-mixin m $modifier {
+  &--$(modifier) {
+    @mixin-content;
+  }
+}
+
+.jv-calendar {
+  min-width: max-content;
+  width: 500px;
+  background-color: var(--jv-calendar-background-color);
+  box-shadow: var(--jv-calendar-box-shadow);
+  border: 1px solid var(--jv-calendar-border-color);
+  border-radius: 16px;
+  backdrop-filter: blur(var(--jv-calendar-backdrop-blur));
+  padding: 24px;
+
+  @mixin e header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  @mixin e title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--jv-calendar-text-color);
+  }
+
+  @mixin e actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  @mixin e button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: var(--jv-calendar-button-bg);
+    color: var(--jv-calendar-text-color);
+    border: 1px solid var(--jv-calendar-border-color);
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: var(--jv-calendar-button-hover-bg);
+    }
+  }
+
+  @mixin e weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  @mixin e weekday {
+    text-align: center;
+    padding: 8px;
+    color: var(--jv-calendar-text-color-secondary);
+    font-weight: 500;
+  }
+
+  @mixin e grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  @mixin e cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--jv-calendar-text-color);
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    backdrop-filter: blur(8px);
+
+    &:hover {
+      background-color: var(--jv-calendar-cell-hover-bg);
+    }
+
+    @mixin m selected {
+      background-color: var(--jv-calendar-cell-selected-bg);
+      border-color: var(--jv-calendar-cell-selected-border);
+    }
+
+    @mixin m inactive {
+      color: var(--jv-calendar-text-color-secondary);
+    }
+  }
+}
+
+.jv-app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  padding: 32px;
+
+  @mixin e container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  @mixin e selected-date {
+    margin-top: 16px;
+    text-align: center;
+    color: var(--jv-calendar-text-color);
+    font-weight: 500;
+  }
+}

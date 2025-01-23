@@ -10,7 +10,7 @@ export interface JvMessageProps {
   icon?: string
   /** 可关闭的 */
   closable?: boolean
-
+  /** 通知的可见性 */
   modelValue?: boolean
   /* 销毁回调 */
   onDestory?: () => void
@@ -20,24 +20,12 @@ export interface JvMessageProps {
 
 export type CreateMessageProps = Omit<JvMessageProps, 'onDestory'>
 
-export const jvMessageEmits = {} as const
 export interface JvMessageEmits {
   (e: 'close', uid: number): void
   (e: 'update:modelValue', visible: boolean): void
 }
-export const jvMessageSlots = {} as const
 export interface JvMessageSlots {}
 export interface JvMessageExpose {
   bottomOffset: ComputedRef<number>
   visible: Ref<boolean>
-}
-
-const initZindex = 2000
-const zIndex = ref(0)
-export function useZIndex() {
-  const currentZindex = computed(() => initZindex + zIndex.value)
-
-  return { currentZindex, nextZIndex() {
-    zIndex.value += 1
-  } }
 }

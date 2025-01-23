@@ -1,29 +1,134 @@
 @import '@jovial/theme-chalk/src/common/mixins.css';
+@import './theme-vars.css';
 
 @define-mixin e $element {
   .jv-notification__$(element) {
     @mixin-content;
   }
 }
+
 @mixin b notification {
   position: fixed;
-  top: 16px;
-  left: auto;
-  right: 16px;
-  width: 360px;
-  z-index: 9999;
-  box-shadow: var(--jv-shadow-dark);
-  padding: 16px;
-  border-radius: 4px;
-  background-color: var(--jv-color-white);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  @mixin e icon {
-    margin-right: 16px;
-    font-size: 20px;
+  align-items: flex-start;
+  width: 330px;
+  padding: 14px 26px 14px 13px;
+  border-radius: var(--jv-border-radius-lg);
+  border: 1px solid var(--jv-border-color);
+  background: var(--jv-bg-color);
+  box-shadow: var(--jv-shadow-lg);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* 位置样式 */
+  &--top-right {
+    top: 16px;
+    right: 16px;
   }
-}
-@mixin e close {
-  padding-right: 0;
+
+  &--top-left {
+    top: 16px;
+    left: 16px;
+  }
+
+  &--bottom-right {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  &--bottom-left {
+    bottom: 16px;
+    left: 16px;
+  }
+
+  /* 类型样式 */
+  &--info {
+    background-color: var(--jv-info-100);
+    border-color: var(--jv-info-200);
+
+    .jv-notification__icon {
+      color: var(--jv-info-500);
+    }
+  }
+
+  &--success {
+    background-color: var(--jv-success-100);
+    border-color: var(--jv-success-200);
+
+    .jv-notification__icon {
+      color: var(--jv-success-500);
+    }
+  }
+
+  &--warning {
+    background-color: var(--jv-warning-100);
+    border-color: var(--jv-warning-200);
+
+    .jv-notification__icon {
+      color: var(--jv-warning-500);
+    }
+  }
+
+  &--error {
+    background-color: var(--jv-danger-100);
+    border-color: var(--jv-danger-200);
+
+    .jv-notification__icon {
+      color: var(--jv-danger-500);
+    }
+  }
+
+  /* 图标 */
+  &__icon {
+    flex-shrink: 0;
+    margin-right: 12px;
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  /* 内容区域 */
+  &__wrapper {
+    flex: 1;
+    min-width: 0; /* 防止内容溢出 */
+  }
+
+  /* 标题 */
+  &__title {
+    margin: 0;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--jv-text-color);
+    margin-bottom: 8px;
+  }
+
+  /* 消息体 */
+  &__body {
+    font-size: 14px;
+    line-height: 21px;
+
+    &--message {
+      color: var(--jv-text-color-secondary);
+      word-wrap: break-word;
+    }
+  }
+
+  /* 关闭按钮 */
+  &__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    padding: 0;
+    color: var(--jv-text-color-placeholder);
+    transition: color 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--jv-text-color-secondary);
+    }
+  }
+  /* 悬停效果 */
+  &:hover {
+    box-shadow: var(--jv-shadow-xl);
+  }
 }

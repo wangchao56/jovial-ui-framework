@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import type { JvAffixEmits, JvAffixProps } from './JvAffix'
 import { createNamespace } from '@jovial/utils'
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { jvAffixEmits, jvAffixProps } from './JvAffix'
+import '../style/style.css'
 
 defineOptions({ name: 'JvAffix' })
-const props = defineProps(jvAffixProps)
-const emit = defineEmits(jvAffixEmits)
+const props = defineProps<JvAffixProps>()
+const emit = defineEmits<JvAffixEmits>()
 const bem = createNamespace('affix')
 
 const affixRef = ref<HTMLElement>()
@@ -151,5 +152,3 @@ defineExpose({
     </div>
   </div>
 </template>
-
-<style src="../style/style.css" scoped></style>

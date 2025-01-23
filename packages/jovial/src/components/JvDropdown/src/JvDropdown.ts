@@ -1,4 +1,4 @@
-import type { TooltipProps } from '@/components/JvTooltip/src/tooltip'
+import type { TooltipProps } from '@components/JvTooltip/src/tooltip'
 
 export interface MenuOption {
   type: 'menu' | 'divider' | 'submenu' | 'item'

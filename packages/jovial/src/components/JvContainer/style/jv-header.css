@@ -1,0 +1,21 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+@import './theme-vars.css';
+
+@mixin b header {
+  z-index: 1 !important;
+  --jv-header-padding: 8px;
+  grid-area: header;
+  box-sizing: border-box;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: var(--jv-header-height);
+  max-width: 100vw;
+  background-color: var(--jv-header-bg-color);
+  /* padding: var(--jv-header-padding); */
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
+  border: var(--jv-border-solid);
+}

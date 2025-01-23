@@ -313,6 +313,48 @@ export const shades = {
   black: '#000000',
   white: '#ffffff',
   transparent: '#ffffff00',
+  // 遮罩层
+  mask: 'rgba(0, 0, 0, 0.5)',
+  // 阴影
+  shadow: 'rgba(0, 0, 0, 0.15)',
+  // 高亮
+  highlight: 'rgba(255, 255, 255, 0.8)',
+}
+
+export const success = {
+  base: '#4caf50',
+  lighten5: '#e8f5e9',
+  lighten4: '#c8e6c9',
+  lighten3: '#a5d6a7',
+  lighten2: '#81c784',
+  lighten1: '#66bb6a',
+}
+
+export const info = {
+  base: '#2196f3',
+  lighten5: '#e3f2fd',
+  lighten4: '#bbdefb',
+  lighten3: '#90caf9',
+  lighten2: '#64b5f6',
+  lighten1: '#42a5f5',
+}
+
+export const warning = {
+  base: '#ff9800',
+  lighten5: '#fff3e0',
+  lighten4: '#ffe0b2',
+  lighten3: '#ffcc80',
+  lighten2: '#ffb74d',
+  lighten1: '#ffa726',
+}
+
+export const error = {
+  base: '#f44336',
+  lighten5: '#ffebee',
+  lighten4: '#ffcdd2',
+  lighten3: '#ef9a9a',
+  lighten2: '#e57373',
+  lighten1: '#ef5350',
 }
 
 export default {
@@ -336,4 +378,8 @@ export default {
   blueGrey,
   grey,
   shades,
+  success,
+  info,
+  warning,
+  error,
 }

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Key, TreeNode, TreeOptions } from './tree'
+import JvVirtualScroll from '@components/JvVirtualScroll'
 import { createNamespace } from '@jovial/utils'
 import { computed, onMounted, provide, ref, unref, useSlots, watch } from 'vue'
-import JvVirtualScroll from '../../virtual-scroll/index'
 import { createOptions, treeEmits, treeInjectKey, treePorps } from './tree'
 import JvTreeNode from './treeNode.vue'
 
