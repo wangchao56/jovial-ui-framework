@@ -1,0 +1,235 @@
+/* 使用CSS变量以便于主题定制
+这个文件包含以下特性：
+  变量系统：
+  字体大小
+  字体粗细
+  行高
+  文本颜色
+实用类：
+  字体大小类（.text-xs 到 .text-3xl）
+  字体粗细类（.font-light 到 .font-bold）
+  行高类（.leading-none 到 .leading-loose）
+  文本颜色类
+  文本对齐类
+  文本装饰类
+  文本转换类
+  文本换行和溢出类
+Mixins：
+  文本颜色 mixins
+  基础字体 mixin
+  文本截断 mixin
+*/
+:root {
+  /* 字体大小 */
+  --jv-font-size-xs: 12px;
+  --jv-font-size-sm: 14px;
+  --jv-font-size-base: 16px;
+  --jv-font-size-lg: 18px;
+  --jv-font-size-xl: 20px;
+  --jv-font-size-2xl: 24px;
+  --jv-font-size-3xl: 30px;
+
+  /* 字体粗细 */
+  --jv-font-weight-light: 300;
+  --jv-font-weight-regular: 400;
+  --jv-font-weight-medium: 500;
+  --jv-font-weight-semibold: 600;
+  --jv-font-weight-bold: 700;
+
+  /* 行高 */
+  --jv-line-height-none: 1;
+  --jv-line-height-tight: 1.25;
+  --jv-line-height-normal: 1.5;
+  --jv-line-height-relaxed: 1.75;
+  --jv-line-height-loose: 2;
+
+  /* 字体颜色 */
+  --jv-text-color-primary: #303133;
+  --jv-text-color-regular: #606266;
+  --jv-text-color-secondary: #909399;
+  --jv-text-color-placeholder: #a8abb2;
+  --jv-text-color-disabled: #c0c4cc;
+}
+
+/* 字体大小 */
+.text-xs {
+  font-size: var(--jv-font-size-xs);
+}
+
+.text-sm {
+  font-size: var(--jv-font-size-sm);
+}
+
+.text-base {
+  font-size: var(--jv-font-size-base);
+}
+
+.text-lg {
+  font-size: var(--jv-font-size-lg);
+}
+
+.text-xl {
+  font-size: var(--jv-font-size-xl);
+}
+
+.text-2xl {
+  font-size: var(--jv-font-size-2xl);
+}
+
+.text-3xl {
+  font-size: var(--jv-font-size-3xl);
+}
+
+/* 字体粗细 */
+.font-light {
+  font-weight: var(--jv-font-weight-light);
+}
+
+.font-regular {
+  font-weight: var(--jv-font-weight-regular);
+}
+
+.font-medium {
+  font-weight: var(--jv-font-weight-medium);
+}
+
+.font-semibold {
+  font-weight: var(--jv-font-weight-semibold);
+}
+
+.font-bold {
+  font-weight: var(--jv-font-weight-bold);
+}
+
+/* 行高 */
+.leading-none {
+  line-height: var(--jv-line-height-none);
+}
+
+.leading-tight {
+  line-height: var(--jv-line-height-tight);
+}
+
+.leading-normal {
+  line-height: var(--jv-line-height-normal);
+}
+
+.leading-relaxed {
+  line-height: var(--jv-line-height-relaxed);
+}
+
+.leading-loose {
+  line-height: var(--jv-line-height-loose);
+}
+
+/* 文本颜色 */
+.text-primary {
+  color: var(--jv-text-color-primary);
+}
+
+.text-regular {
+  color: var(--jv-text-color-regular);
+}
+
+.text-secondary {
+  color: var(--jv-text-color-secondary);
+}
+
+.text-placeholder {
+  color: var(--jv-text-color-placeholder);
+}
+
+.text-disabled {
+  color: var(--jv-text-color-disabled);
+}
+
+/* 文本对齐 */
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+/* 文本装饰 */
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-line-through {
+  text-decoration: line-through;
+}
+
+.text-no-decoration {
+  text-decoration: none;
+}
+
+/* 文本转换 */
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+/* 文本换行 */
+.text-wrap {
+  white-space: normal;
+}
+
+.text-nowrap {
+  white-space: nowrap;
+}
+
+.text-break {
+  word-break: break-word;
+}
+
+/* 文本溢出 */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+}
+
+/* Mixins */
+@define-mixin text-primary {
+  color: var(--jv-text-color-primary);
+}
+
+@define-mixin text-regular {
+  color: var(--jv-text-color-regular);
+}
+
+@define-mixin text-secondary {
+  color: var(--jv-text-color-secondary);
+}
+
+@define-mixin font-base {
+  font-size: var(--jv-font-size-base);
+  line-height: var(--jv-line-height-normal);
+}
+
+@define-mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

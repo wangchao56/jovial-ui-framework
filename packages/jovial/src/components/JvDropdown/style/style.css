@@ -1,22 +1,20 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-dropdown__$(element) {
     @mixin-content;
   }
 }
 
-@mixin b dropdown {
+@b dropdown {
   border: 1px solid gray;
   display: inline-block;
   --jv-color-bg-base: white;
   --jv-color-border-light: #ebeef5;
 
-  @mixin e content {
+  @e content {
     background-color: var(--jv-color-bg-base);
   }
 
-  @mixin b popper {
+  @b popper {
     --jv-popper-bg-color: var(--jv-color-bg-base);
     --jv-popper-border-color: var(--jv-color-border-light);
     --jv-popper-padding: 8px 4px;

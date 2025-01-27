@@ -1,12 +1,10 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-avatar__$(element) {
     @mixin-content;
   }
 }
 
-@mixin b avatar {
+@b avatar {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -23,7 +21,7 @@
     height: 100%;
   }
 
-  @mixin e text {
+  @e text {
     transform: scale(1);
     white-space: nowrap;
   }
@@ -64,7 +62,7 @@
   }
 
   /* 边框 */
-  @mixin when bordered {
+  @when bordered {
     border: 2px solid var(--jv-color-white);
     box-shadow: 0 0 0 1px var(--jv-border-color);
   }

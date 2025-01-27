@@ -1,4 +1,3 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
 @import './theme-vars.css';
 
 @define-mixin e $element {
@@ -7,7 +6,7 @@
   }
 }
 
-@mixin b notification {
+@b notification {
   position: fixed;
   display: flex;
   align-items: flex-start;

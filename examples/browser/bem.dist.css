@@ -1,0 +1,29 @@
+.jv-Button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* 元素 */
+
+  /* 修饰符 */
+
+  /* 状态 */
+}
+.jv-Button.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.jv-Button__icon {
+  margin-right: 8px;
+}
+.jv-Button__label {
+  flex: 1;
+}
+.jv-Button--primary {
+  background: var(--jv-color-primary);
+  color: #fff;
+}
+.jv-Button--small {
+  font-size: 12px;
+  padding: 4px 8px;
+}

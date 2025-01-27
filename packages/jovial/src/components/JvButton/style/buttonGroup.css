@@ -1,16 +1,8 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
-@define-mixin e $element {
-  .jv-button-group__$(element) {
-    @mixin-content;
-  }
-}
-
-@mixin b button-group {
+@b button-group {
   display: inline-flex;
   vertical-align: middle;
 
-  & > .jv-button {
+  & > .button {
     position: relative;
     border: var(--jv-border-solid);
     padding: 4px;
@@ -41,10 +33,10 @@
     }
   }
 
-  @mixin when vertical {
+  @m vertical {
     flex-direction: column;
 
-    & > .jv-button {
+    & > .button {
       &:not(:first-child) {
         margin-left: 0;
         margin-top: -1px;
@@ -66,8 +58,8 @@
     }
   }
 
-  @mixin when rounded {
-    & > .jv-button {
+  @m rounded {
+    & > .button {
       &:first-child {
         border-top-left-radius: 20px;
         border-bottom-left-radius: 20px;
@@ -79,7 +71,7 @@
       }
     }
 
-    &.is-vertical > .jv-button {
+    &.is-vertical > .button {
       &:first-child {
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;

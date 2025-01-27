@@ -22,6 +22,20 @@ module.exports = {
     }),
     require('postcss-each-variables'),
     require('postcss-import'),
+    require('postcss-bem-fix')({
+      defaultNamespace: 'jv', // 默认命名空间
+      style: 'suit', // 使用 suit 风格
+      separators: {
+        namespace: '-', // 命名空间分隔符
+        modifier: '--', // 修饰符分隔符
+        descendent: '__', // 后代分隔符
+      },
+      shortcuts: {
+        component: 'b', // 组件简写
+        modifier: 'm', // 修饰符简写
+        descendent: 'e', // 后代简写
+      },
+    }),
     require('postcss-nested'),
     require('postcss-mixins'),
     require('postcss-each')({

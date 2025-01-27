@@ -1,0 +1,145 @@
+module.exports = {
+  extends: [
+    'stylelint-config-standard',
+    'stylelint-config-recommended-vue',
+  ],
+  plugins: [
+    'stylelint-order', // 用于 CSS 属性排序
+  ],
+  rules: {
+    // 允许 BEM 命名规则
+    'selector-class-pattern': [
+      '^jv-[a-z]+(__[a-z]+)?(--[a-z]+)?$',
+      {
+        message: 'Class names should follow BEM naming convention',
+      },
+    ],
+
+    // 允许使用自定义属性
+    'property-no-unknown': [
+      true,
+      {
+        ignoreProperties: [
+          'composes',
+          '/^--jv-/',
+        ],
+      },
+    ],
+
+    // 允许空源
+    'no-empty-source': null,
+
+    // 允许特定的 at 规则
+    'at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: [
+          'extend',
+          'define-mixin',
+          'mixin',
+          'include',
+          'content',
+          'rules',
+          'each',
+          'b',
+          'e',
+          'm',
+          'when',
+        ],
+      },
+    ],
+
+    // CSS 属性顺序
+    'order/properties-order': [
+      // 布局属性
+      {
+        groupName: 'Layout',
+        properties: [
+          'display',
+          'position',
+          'top',
+          'right',
+          'bottom',
+          'left',
+          'float',
+          'clear',
+        ],
+      },
+      // 盒模型
+      {
+        groupName: 'Box Model',
+        properties: [
+          'width',
+          'height',
+          'margin',
+          'margin-top',
+          'margin-right',
+          'margin-bottom',
+          'margin-left',
+          'padding',
+          'padding-top',
+          'padding-right',
+          'padding-bottom',
+          'padding-left',
+        ],
+      },
+      // 视觉效果
+      {
+        groupName: 'Visual',
+        properties: [
+          'background',
+          'border',
+          'border-radius',
+          'box-shadow',
+          'opacity',
+        ],
+      },
+      // 文字样式
+      {
+        groupName: 'Typography',
+        properties: [
+          'color',
+          'font-size',
+          'font-weight',
+          'line-height',
+          'text-align',
+          'text-decoration',
+        ],
+      },
+      // 其他
+      {
+        groupName: 'Misc',
+        properties: [
+          'cursor',
+          'z-index',
+          'transition',
+          'transform',
+        ],
+      },
+    ],
+
+    // 颜色格式
+    'color-function-notation': 'modern',
+    'color-hex-length': 'short',
+    'color-no-invalid-hex': true,
+
+    // 字体
+    'font-family-name-quotes': 'always-where-required',
+    'font-family-no-duplicate-names': true,
+
+    // 数值
+    'number-leading-zero': 'always',
+    'unit-allowed-list': ['px', 'em', 'rem', '%', 'deg', 'ms', 's', 'vh', 'vw', 'fr'],
+
+    // 简写属性
+    'shorthand-property-no-redundant-values': true,
+
+    // 注释
+    'comment-empty-line-before': 'always',
+
+    // 其他
+    'no-duplicate-selectors': true,
+    'no-invalid-double-slash-comments': true,
+    'declaration-no-important': true,
+  },
+}

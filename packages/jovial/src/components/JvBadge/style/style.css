@@ -1,24 +1,4 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
-@define-mixin e $element {
-  .jv-badge__$(element) {
-    @mixin-content;
-  }
-}
-
-@define-mixin m $modifier {
-  .jv-badge--$(modifier) {
-    @mixin-content;
-  }
-}
-
-@define-mixin when $state {
-  &.is-$(state) {
-    @mixin-content;
-  }
-}
-
-@mixin b badge {
+@b badge {
   position: relative;
   &::after {
     display: inline-block;
@@ -36,18 +16,18 @@
     border-radius: 8px;
   }
 
-  @mixin when visible {
+  @when visible {
     &::after {
       opacity: 1;
     }
   }
 }
-@mixin m rounded {
+@m rounded {
   &::after {
     border-radius: 50%;
   }
 }
-@mixin m top-right {
+@m top-right {
   &::after {
     top: 0;
     right: 0;
@@ -55,7 +35,7 @@
   }
 }
 
-@mixin m top-left {
+@m top-left {
   &::after {
     top: 0;
     left: 0;
@@ -63,7 +43,7 @@
   }
 }
 
-@mixin m bottom-right {
+@m bottom-right {
   &::after {
     top: auto;
     bottom: 0;
@@ -72,7 +52,7 @@
   }
 }
 
-@mixin m bottom-left {
+@m bottom-left {
   &::after {
     top: auto;
     bottom: 0;
@@ -81,14 +61,14 @@
   }
 }
 
-@mixin m small {
+@m small {
   &::after {
     padding: 2px;
     font-size: 12px;
     font-weight: var(--jv-font-weight-regular);
   }
 }
-@mixin m medium {
+@m medium {
   &::after {
     padding: 4px;
     font-size: 14px;
@@ -96,7 +76,7 @@
   }
 }
 
-@mixin m large {
+@m large {
   &::after {
     padding: 6px;
     font-size: 16px;

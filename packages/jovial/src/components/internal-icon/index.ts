@@ -7,6 +7,8 @@ import IconEyeOff from './IconEyeOff'
 import IconEyeOn from './IconEyeOn'
 import InfoOutline from './InfoOutline'
 import Loading from './Loading'
+import Radio from './Radio'
+import RadioOutline from './RadioOutline'
 import Star from './Star.vue'
 import StarHalfFull from './StarHalfFull.vue'
 import StarOutline from './StarOutline.vue'
@@ -26,10 +28,12 @@ export const internalIcons = {
   $star: Star,
   $starOutline: StarOutline,
   $starHalfFull: StarHalfFull,
+  $radio: Radio,
+  $radioOutline: RadioOutline,
 }
 export default {
   install(app: App) {
-    const components = [AlertOutline, AlienOutline, CheckOutline, IconCloseThick, IconEyeOff, IconEyeOn, InfoOutline, Loading, Star, StarOutline, Switcher]
+    const components = [AlertOutline, AlienOutline, CheckOutline, IconCloseThick, IconEyeOff, IconEyeOn, InfoOutline, Loading, Star, StarOutline, Switcher, Radio, RadioOutline]
     components.forEach(component => app.component(component.name, component))
   },
 }

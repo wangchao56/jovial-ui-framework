@@ -1,49 +1,15 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
-@define-mixin e $element {
-  .jv-button__$(element) {
-    @mixin-content;
-  }
-}
-
-@define-mixin m $modifier {
-  .jv-button--$(modifier) {
-    @mixin-content;
-  }
-}
-
-@define-mixin when $state {
-  &.is-$(state) {
-    @mixin-content;
-  }
-}
-
-@define-mixin button-size $size, $height, $padding {
-  --jv-btn-size: $size;
-  --jv-btn-height: $height;
-  height: var(--jv-btn-height);
-  padding: 0 $padding;
-  & > .jv-button__content {
-    font-size: var(--jv-btn-size) !important;
-    line-height: calc(var(--jv-btn-size) + 3px);
-  }
-}
-
-/* 定义按钮变体样式的 mixin */
-@define-mixin button-variant $color, $background-color, $border-color {
-  color: $color !important;
-  background-color: $background-color !important;
-  border-color: $border-color !important;
-}
-
-@mixin b button {
+:root {
   --jv-text-color-disabled: hsl(210, 6%, 21%);
-  --jv-btn-color: var(--jv-color-text-primary);
-  --jv-btn-bgcolor: 0, 0%, 100%;
+  --jv-btn-color: rgb(var(--jv-theme-on-surface));
+  --jv-btn-bgcolor: rgb(var(--jv-theme-surface));
+  --jv-btn-disabled-color: rgba(var(--jv-theme-on-surface), 0.38);
+  --jv-btn-disabled-bg: rgba(var(--jv-theme-on-surface), 0.12);
+  --jv-btn-border-radius: 4px;
   --jv-button-bg-color: var(--jv-theme-color-background);
-  --jv-btn-borderRadius: var(--jv-button-borderRadius);
   --jv-button-width: auto;
-  --jv-theme-on-surface: 0, 0%, 100%;
+}
+
+@b button {
   display: inline-grid;
   grid-template-areas: 'prepend content append';
   grid-template-columns: max-content 1fr max-content;
@@ -70,7 +36,7 @@
   width: var(--jv-button-width);
   column-gap: 4px;
 
-  @mixin e content {
+  @e content {
     grid-area: content;
     flex-direction: column;
     line-height: 1.25;
@@ -83,92 +49,140 @@
     white-space: nowrap;
   }
 
-  @mixin e prepend {
+  @e prepend {
     grid-area: prepend;
     justify-self: start;
   }
-  @mixin e append {
+
+  @e append {
     grid-area: append;
     justify-self: end;
   }
 
-  &--tiny {
-    @mixin button-size 0.625rem, 20px, 15px;
+  @m tiny {
+    --jv-btn-size: 0.625rem;
+    --jv-btn-height: 20px;
+    height: var(--jv-btn-height);
+    padding: 0 15px;
+    & > .button__content {
+      font-size: var(--jv-btn-size) !important;
+      line-height: calc(var(--jv-btn-size) + 3px);
+    }
   }
 
-  &--small {
-    @mixin button-size 0.75rem, 28px, 18px;
+  @m small {
+    --jv-btn-size: 0.75rem;
+    --jv-btn-height: 28px;
+    height: var(--jv-btn-height);
+    padding: 0 18px;
+    & > .button__content {
+      font-size: var(--jv-btn-size) !important;
+      line-height: calc(var(--jv-btn-size) + 3px);
+    }
   }
 
-  &--medium {
-    @mixin button-size 0.875rem, 36px, 20px;
+  @m medium {
+    --jv-btn-size: 0.875rem;
+    --jv-btn-height: 36px;
+    height: var(--jv-btn-height);
+    padding: 0 20px;
+    & > .button__content {
+      font-size: var(--jv-btn-size) !important;
+      line-height: calc(var(--jv-btn-size) + 3px);
+    }
   }
 
-  &--large {
-    @mixin button-size 1rem, 44px, 22px;
+  @m large {
+    --jv-btn-size: 1rem;
+    --jv-btn-height: 44px;
+    height: var(--jv-btn-height);
+    padding: 0 22px;
+    & > .button__content {
+      font-size: var(--jv-btn-size) !important;
+      line-height: calc(var(--jv-btn-size) + 3px);
+    }
   }
 
-  &--x-large {
-    @mixin button-size 1.125rem, 52px, 25px;
+  @m x-large {
+    --jv-btn-size: 1.125rem;
+    --jv-btn-height: 52px;
+    height: var(--jv-btn-height);
+    padding: 0 25px;
+    & > .button__content {
+      font-size: var(--jv-btn-size) !important;
+      line-height: calc(var(--jv-btn-size) + 3px);
+    }
   }
 
-  &--primary {
-    @mixin button-variant var(--jv-btn-color), var(--jv-color-primary-light), var(--jv-color-primary-light);
+  @m primary {
+    color: rgb(var(--jv-theme-on-primary)) !important;
+    background-color: rgb(var(--jv-theme-primary)) !important;
   }
 
-  &--success {
-    @mixin button-variant var(--jv-btn-color), var(--jv-color-success), var(--jv-color-success);
+  @m success {
+    color: rgb(var(--jv-theme-on-success)) !important;
+    background-color: rgb(var(--jv-theme-success)) !important;
   }
 
-  &--warning {
-    @mixin button-variant var(--jv-btn-color), var(--jv-color-warning), var(--jv-color-warning);
+  @m warning {
+    color: rgb(var(--jv-theme-on-warning)) !important;
+    background-color: rgb(var(--jv-theme-warning)) !important;
   }
 
-  &--danger {
-    @mixin button-variant var(--jv-btn-color), var(--jv-color-danger), var(--jv-color-danger);
+  @m danger {
+    color: rgb(var(--jv-theme-on-error)) !important;
+    background-color: rgb(var(--jv-theme-error)) !important;
   }
 
-  &--info {
-    @mixin button-variant var(--jv-btn-color), var(--jv-color-info), var(--jv-color-info);
+  @m info {
+    color: rgb(var(--jv-theme-on-info)) !important;
+    background-color: rgb(var(--jv-theme-info)) !important;
   }
-  /*按钮变体样式 */
-  &--text {
+
+  @m text {
     background-color: transparent;
-    box-shadow: none;
+    color: rgb(var(--jv-theme-primary));
+    &:hover {
+      background-color: rgba(var(--jv-theme-primary), 0.04);
+    }
   }
 
-  &--plain {
+  @m plain {
     background-color: transparent;
     color: var(--jv-btn-color);
   }
 
-  &--flat {
+  @m flat {
     box-shadow: none;
   }
 
-  &--tonal {
-    background-color: hsla(var(--jv-btn-color), 0.1) !important;
+  @m tonal {
+    background-color: rgba(var(--jv-theme-primary), 0.08) !important;
+    color: rgb(var(--jv-theme-primary)) !important;
   }
 
-  &--outlined {
-    border: 1px solid;
+  @m outlined {
+    border: thin solid currentColor;
     background-color: transparent;
-    padding: 0 19px;
+    color: rgb(var(--jv-theme-primary));
   }
 
-  &--elevated {
+  @m elevated {
+    background: var(--jv-btn-bgcolor);
+    color: var(--jv-btn-color);
     box-shadow:
-      0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-      0px 2px 2px rgba(0, 0, 0, 0.14),
-      0px 1px 5px rgba(0, 0, 0, 0.12);
-    color: rgba(var(--jv-theme-on-surface), var(--jv-high-emphasis-opacity));
-    background: rgb(var(--jv-theme-surface));
+      0 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0 2px 2px 0 rgba(0, 0, 0, 0.14),
+      0 1px 5px 0 rgba(0, 0, 0, 0.12);
   }
 
-  @mixin when disabled {
+  @m disabled {
+    color: var(--jv-btn-disabled-color);
+    background-color: var(--jv-btn-disabled-bg);
+    border-color: transparent;
+    pointer-events: none;
     opacity: 0.6;
-    border: 1px solid var(--jv-text-color-disabled);
-    & > .jv-button__content {
+    & > .button__content {
       color: var(--jv-text-color-disabled);
       cursor: not-allowed;
     }
@@ -181,52 +195,37 @@
     }
   }
 
-  @mixin when rounded {
+  @m rounded {
     border-radius: 20px;
   }
 
-  @mixin when block {
+  @m block {
     display: block inline-grid;
     width: 100%;
   }
 
-  @mixin when dashed {
+  @m dashed {
     border: 2px dashed;
     background-color: transparent !important;
-    /*  filter: opacity(0.5); 50% 透明度 */
     box-shadow: none;
   }
-  @mixin when loading {
+
+  @m loading {
     pointer-events: none;
     cursor: not-allowed;
     opacity: 0.5;
 
-    & > .jv-button__content {
+    & > .button__content {
       visibility: hidden;
       opacity: 0;
     }
-    & > .jv-button__loader {
+    & > .button__loader {
       grid-area: content;
       justify-self: center;
     }
   }
 
-  & > .jv-icon {
+  & > .icon {
     color: black;
   }
 }
-
-/*
-@mixin b button {
-  &:hover {
-    color: var(--jv-btn-color);
-    transform: translate(-0.25rem, -0.25rem);
-    background: var(--jv-color-primary-light);
-    box-shadow: 0.25rem 0.25rem 0.25rem var(--jv-color-black);
-  }
-
-  &:active {
-    transform: translate(0);
-    box-shadow: none;
-  }
-} */

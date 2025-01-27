@@ -79,6 +79,8 @@ export interface CircleProgressProps extends ProgressBaseProps {
   showText?: boolean
   /* 进度条圆角 */
   strokeLinecap?: SVGAttributes['stroke-linecap']
+  animation?: boolean
+  duration?: number
 }
 
 export interface JvProgressProps {

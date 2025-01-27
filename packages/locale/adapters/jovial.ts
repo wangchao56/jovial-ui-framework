@@ -1,0 +1,153 @@
+import type { Ref } from 'vue'
+import type { LocaleInstance, LocaleMessages, LocaleOptions } from '../types'
+import { consoleError, consoleWarn, getObjectValueByPath, useProxiedModel } from '@jovial/utils'
+import { ref, shallowRef, watch } from 'vue'
+import en from '../language/en'
+
+/** Jovial国际化前缀 */
+const LANG_PREFIX = '$jv.'
+
+/**
+ * 替换字符串中的参数
+ * @param str 原始字符串,如:'Hello {0}'
+ * @param params 要替换的参数数组,如:['World']
+ * @returns 替换后的字符串,如:'Hello World'
+ */
+function replace(str: string, params: unknown[]) {
+  return str.replace(/\{(\d+)\}/g, (match: string, index: string) => {
+    return String(params[+index])
+  })
+}
+
+/**
+ * 创建翻译函数
+ * @param current 当前语言
+ * @param fallback 回退语言
+ * @param messages 语言包
+ * @returns 翻译函数
+ */
+function createTranslateFunction(current: Ref<string>, fallback: Ref<string>, messages: Ref<LocaleMessages>) {
+  return (key: string, ...params: unknown[]) => {
+    // 如果key不以$jv.开头,直接替换参数返回
+    if (!key.startsWith(LANG_PREFIX)) {
+      return replace(key, params)
+    }
+
+    // 移除前缀获取实际的key
+    const shortKey = key.replace(LANG_PREFIX, '')
+    // 获取当前语言的翻译
+    const currentLocale = current.value && messages.value[current.value]
+    // 获取回退语言的翻译
+    const fallbackLocale = fallback.value && messages.value[fallback.value]
+
+    // 从当前语言中获取翻译
+    let str: string = getObjectValueByPath(currentLocale, shortKey, null)
+
+    // 如果当前语言没有该翻译,使用回退语言
+    if (!str) {
+      consoleWarn(`Translation key "${key}" not found in "${current.value}", trying fallback locale`)
+      str = getObjectValueByPath(fallbackLocale, shortKey, null)
+    }
+
+    // 如果回退语言也没有该翻译,返回key本身
+    if (!str) {
+      consoleError(`Translation key "${key}" not found in fallback`)
+      str = key
+    }
+
+    // 确保翻译值是字符串
+    if (typeof str !== 'string') {
+      consoleError(`Translation key "${key}" has a non-string value`)
+      str = key
+    }
+
+    // 替换参数并返回
+    return replace(str, params)
+  }
+}
+
+/**
+ * 创建数字格式化函数
+ * @param current 当前语言
+ * @param fallback 回退语言
+ * @returns 数字格式化函数
+ */
+function createNumberFunction(current: Ref<string>, fallback: Ref<string>) {
+  return (value: number, options?: Intl.NumberFormatOptions) => {
+    const numberFormat = new Intl.NumberFormat([current.value, fallback.value], options)
+    return numberFormat.format(value)
+  }
+}
+
+/**
+ * 处理属性和提供的值之间的关系
+ * @param props 组件属性
+ * @param prop 属性名
+ * @param provided 提供的值
+ * @returns 响应式引用
+ */
+function useProvided<T>(props: any, prop: string, provided: Ref<T>) {
+  const internal = useProxiedModel(props, prop)
+  internal.value = props[prop] ?? provided.value
+
+  watch(provided, () => {
+    if (props[prop] == null) {
+      internal.value = provided.value
+    }
+  })
+
+  return internal as Ref<T>
+}
+
+/**
+ * 创建提供函数
+ * @param state 状态对象,包含当前语言、回退语言和语言包
+ * @returns 提供函数
+ */
+function createProvideFunction(state: { current: Ref<string>, fallback: Ref<string>, messages: Ref<LocaleMessages> }) {
+  return (props: LocaleOptions): LocaleInstance => {
+    const current = useProvided(props, 'locale', state.current)
+    const fallback = useProvided(props, 'fallback', state.fallback)
+    const messages = useProvided(props, 'messages', state.messages)
+
+    return {
+      name: 'jovial',
+      current,
+      fallback,
+      messages,
+      t: createTranslateFunction(current, fallback, messages),
+      n: createNumberFunction(current, fallback),
+      provide: createProvideFunction({ current, fallback, messages }),
+    }
+  }
+}
+
+/**
+ * 创建Jovial国际化适配器
+ * @param options 国际化选项
+ * @returns 国际化实例
+ *
+ * 功能:
+ * 1. 提供默认的英文翻译
+ * 2. 支持自定义当前语言和回退语言
+ * 3. 支持自定义语言包
+ * 4. 提供翻译函数(t)和数字格式化函数(n)
+ * 5. 支持嵌套的语言键值
+ * 6. 支持参数替换
+ * 7. 支持在运行时切换语言
+ */
+export function createJovialAdapter(options?: LocaleOptions): LocaleInstance {
+  const current = shallowRef(options?.locale ?? 'en')
+  const fallback = shallowRef(options?.fallback ?? 'en')
+  const messages = ref({ en, ...options?.messages })
+
+  return {
+    name: 'jovial',
+    current,
+    fallback,
+    messages,
+    t: createTranslateFunction(current, fallback, messages),
+    n: createNumberFunction(current, fallback),
+    provide: createProvideFunction({ current, fallback, messages }),
+  }
+}

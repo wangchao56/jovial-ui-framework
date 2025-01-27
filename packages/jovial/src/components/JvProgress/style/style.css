@@ -1,4 +1,3 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
 @import './theme-vars.css';
 
 @define-mixin e $element {
@@ -24,7 +23,7 @@
   }
 }
 
-@mixin b progress {
+@b progress {
   --jv-progress-stroke-width: 10px;
   --jv-progress-radius: 10px;
   --jv-progress-width: 100%;
@@ -46,7 +45,7 @@
   align-items: center;
 }
 
-@mixin e line {
+@e line {
   &--right {
     justify-content: space-between;
     @mixin em line-text, right {
@@ -115,7 +114,7 @@
   }
 }
 
-@mixin e line-text {
+@e line-text {
   text-align: center;
   font-size: var(--jv-progress-font-size);
   font-weight: var(--jv-progress-font-weight);

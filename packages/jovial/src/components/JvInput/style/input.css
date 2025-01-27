@@ -1,5 +1,3 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-input__$(element) {
     @mixin-content;
@@ -23,7 +21,7 @@
   height: var(--jv-input-height);
 }
 
-@mixin b input {
+@b input {
   --jv-input-height: 36px;
   --jv-input-toggle-width: 24px;
 
@@ -33,7 +31,7 @@
   width: 100%;
   box-sizing: border-box;
 
-  @mixin e wrapper {
+  @e wrapper {
     box-sizing: border-box;
     display: inline-flex;
     border: 1px solid #ccc;
@@ -59,7 +57,7 @@
     }
   }
 
-  @mixin e inner {
+  @e inner {
     flex: 1;
     border: 0;
     padding: 0;
@@ -76,17 +74,17 @@
     }
   }
 
-  @mixin e suffix {
+  @e suffix {
     display: inline-flex;
     margin-right: 5px;
   }
 
-  @mixin e prefix {
+  @e prefix {
     display: inline-flex;
     margin-left: 5px;
   }
 
-  @mixin e toggle {
+  @e toggle {
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -104,10 +102,10 @@
     }
   }
 
-  @mixin e icon {
+  @e icon {
   }
 
-  @mixin e clear {
+  @e clear {
     position: absolute;
     right: 0;
     top: 0;
@@ -129,7 +127,7 @@
     }
   }
 
-  @mixin m disabled {
+  @m disabled {
     cursor: not-allowed;
     & > .jv-input__wrapper {
       background-color: #f5f7fa;
@@ -138,24 +136,24 @@
       cursor: not-allowed;
     }
   }
-  @mixin m x-large {
+  @m x-large {
     @mixin input-size 52px;
   }
-  @mixin m large {
+  @m large {
     @mixin input-size 40px;
   }
-  @mixin m small {
+  @m small {
     @mixin input-size 28px;
   }
-  @mixin m tiny {
+  @m tiny {
     @mixin input-size 24px;
   }
-  @mixin m medium {
+  @m medium {
     @mixin input-size 36px;
   }
 
-  @mixin b input-group {
-    @mixin e append {
+  @b input-group {
+    @e append {
       display: inline-flex;
       padding: 0 10px;
       line-height: var(--jv-input-height);
@@ -165,7 +163,7 @@
         0 1px 0 0 #ccc inset,
         0 -1px 0 0 #ccc inset;
     }
-    @mixin e prepend {
+    @e prepend {
       display: inline-flex;
       padding: 0 10px;
       line-height: var(--jv-input-height);

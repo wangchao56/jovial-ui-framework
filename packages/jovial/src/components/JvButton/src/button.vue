@@ -5,6 +5,7 @@ import type {
   ButtonProps,
   ButtonSlots,
 } from './button'
+import { useTheme } from '@/components/theme'
 import { Loading } from '@components/internal-icon/index'
 import JvIcon from '@components/JvIcon/src/JvIcon.vue'
 import { createNamespace } from '@jovial/utils'
@@ -36,6 +37,9 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 const emit = defineEmits<ButtonEmits>()
 defineSlots<ButtonSlots>()
 const bem = createNamespace('button')
+const theme = useTheme()
+
+console.log(theme)
 
 const rootRef = ref<HTMLButtonElement | null>(null)
 

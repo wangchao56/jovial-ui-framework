@@ -1,6 +1,5 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
 @import './theme-vars.css';
-@mixin b footer {
+@b footer {
   --jv-footer-padding: 8px;
   --jv-footer-height: var(--jv-footer-height-desktop);
   z-index: 1 !important;

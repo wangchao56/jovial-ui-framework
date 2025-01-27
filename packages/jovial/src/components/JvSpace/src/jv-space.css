@@ -1,5 +1,3 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-space__$(element) {
     @mixin-content;
@@ -11,7 +9,7 @@
   }
 }
 
-@mixin b space {
+@b space {
   --jv-space-vertical-size: 16px;
   --jv-space-size: 16px;
   --jv-space-justify: flex-start;
@@ -31,51 +29,51 @@
   padding: 16px;
   box-sizing: border-box;
 
-  @mixin m wrap {
+  @m wrap {
     flex-wrap: wrap;
   }
-  @mixin m inline {
+  @m inline {
     display: inline-flex;
   }
 
-  @mixin m justify-start {
+  @m justify-start {
     justify-content: flex-start !important;
   }
-  @mixin m justify-center {
+  @m justify-center {
     justify-content: center;
   }
-  @mixin m justify-end {
+  @m justify-end {
     justify-content: flex-end;
   }
-  @mixin m justify-between {
+  @m justify-between {
     justify-content: space-between;
   }
-  @mixin m justify-around {
+  @m justify-around {
     justify-content: space-around;
   }
-  @mixin m justify-evenly {
+  @m justify-evenly {
     justify-content: space-evenly;
   }
 
-  @mixin m align-start {
+  @m align-start {
     align-items: flex-start;
   }
-  @mixin m align-center {
+  @m align-center {
     align-items: center;
   }
-  @mixin m align-end {
+  @m align-end {
     align-items: flex-end;
   }
-  @mixin m align-stretch {
+  @m align-stretch {
     align-items: stretch;
   }
-  @mixin m align-baseline {
+  @m align-baseline {
     align-items: baseline;
   }
-  @mixin m horizontal {
+  @m horizontal {
     flex-direction: row;
   }
-  @mixin m vertical {
+  @m vertical {
     flex-direction: column;
   }
 }

@@ -1,0 +1,103 @@
+@define-mixin e $element {
+  .jv-list-item__$(element) {
+    @mixin-content;
+  }
+}
+@b list-item {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: var(--jv-spacing-small) var(--jv-spacing-medium) !important;
+  font-size: var(--jv-font-size-base);
+  transition: all 0.3s;
+
+  &.is-clickable {
+    cursor: pointer;
+  }
+
+  &.is-hoverable:hover {
+    background-color: var(--jv-color-bg-hover);
+  }
+
+  &.is-selected {
+    background-color: var(--jv-color-primary-light-9);
+  }
+
+  &.is-active {
+    color: var(--jv-color-primary);
+    background-color: var(--jv-color-primary-light-9);
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    color: var(--jv-color-text-disabled);
+    background-color: var(--jv-color-bg-disabled);
+  }
+
+  @e prepend {
+    display: flex;
+    align-items: center;
+    margin-right: var(--jv-spacing-small);
+  }
+
+  @e append {
+    display: flex;
+    align-items: center;
+    margin-left: var(--jv-spacing-small);
+  }
+
+  @e content {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  @e title {
+    font-size: var(--jv-font-size-base);
+    font-weight: var(--jv-font-weight-medium);
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @e subtitle {
+    font-size: var(--jv-font-size-sm);
+    color: var(--jv-color-text-secondary);
+    line-height: 1.5;
+    margin-top: var(--jv-spacing-xs);
+  }
+
+  @e description {
+    font-size: var(--jv-font-size-sm);
+    color: var(--jv-color-text-secondary);
+    line-height: 1.5;
+    margin-top: var(--jv-spacing-xs);
+  }
+
+  @e avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: var(--jv-spacing-small);
+  }
+
+  @e icon {
+    font-size: var(--jv-font-size-lg);
+    color: var(--jv-color-text-secondary);
+  }
+
+  @e expand-icon {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+    font-size: 12px;
+    color: var(--jv-color-text-secondary);
+    transition: transform 0.3s;
+
+    &.is-expanded {
+      transform: rotate(90deg);
+    }
+  }
+}

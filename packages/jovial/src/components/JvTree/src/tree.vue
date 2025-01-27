@@ -68,7 +68,6 @@ const flattenTree = computed(() => {
   const stack: TreeNode[] = []
   // 深度优先遍历
   // console.time('dfs')
-
   for (let i = nodes.length - 1; i >= 0; --i) {
     stack.push(nodes[i])
   }

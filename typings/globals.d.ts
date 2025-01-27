@@ -203,3 +203,5 @@ declare module 'vue' {
 
   export interface CSSProperties extends CustomProperties {}
 }
+
+declare type PropertyKey = string | number | symbol

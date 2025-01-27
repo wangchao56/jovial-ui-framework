@@ -1,4 +1,3 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
 @import './theme-vars.css';
 
 @define-mixin e $element {
@@ -7,7 +6,7 @@
   }
 }
 
-@mixin b main {
+@b main {
   z-index: 1 !important;
   --jv-main-height: 100%;
   grid-area: main;
@@ -22,7 +21,7 @@
   border: var(--jv-border-solid);
 }
 
-@mixin e wrapper {
+@e wrapper {
   --jv-main-wrapper-padding: 16px;
   --jv-main-wrapper-width: 100%;
   --jv-main-wrapper-height: calc(100% - var(--jv-main-wrapper-padding) * 2);

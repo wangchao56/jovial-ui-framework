@@ -22,7 +22,7 @@ export interface ButtonProps {
   block?: boolean
   /** 是否为堆叠按钮 */
   stacked?: boolean
-  /** 按钮颜色 */
+  /** 按钮文本颜色 */
   color?: string
   /** 按钮背景颜色 */
   bgColor?: string

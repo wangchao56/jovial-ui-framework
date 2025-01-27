@@ -9,7 +9,7 @@ interface ResizeDirectiveBinding extends Omit<DirectiveBinding, 'modifiers'> {
   }
 }
 
-function mounted(el: HTMLElement, binding: ResizeDirectiveBinding) {
+function mounted(el: HTMLElement & { _onResize?: Record<string, { handler: () => void, options: AddEventListenerOptions }> }, binding: ResizeDirectiveBinding) {
   const handler = binding.value
   const options: AddEventListenerOptions = {
     passive: !binding.modifiers?.active,
@@ -17,7 +17,7 @@ function mounted(el: HTMLElement, binding: ResizeDirectiveBinding) {
 
   window.addEventListener('resize', handler, options)
 
-  el._onResize = new Object(el._onResize)
+  el._onResize = new Object(el._onResize) as Record<string, { handler: () => void, options: AddEventListenerOptions }>
   el._onResize![binding.instance!.$.uid] = {
     handler,
     options,
@@ -28,7 +28,7 @@ function mounted(el: HTMLElement, binding: ResizeDirectiveBinding) {
   }
 }
 
-function unmounted(el: HTMLElement, binding: ResizeDirectiveBinding) {
+function unmounted(el: HTMLElement & { _onResize?: Record<string, { handler: () => void, options: AddEventListenerOptions }> }, binding: ResizeDirectiveBinding) {
   if (!el._onResize?.[binding.instance!.$.uid])
     return
 

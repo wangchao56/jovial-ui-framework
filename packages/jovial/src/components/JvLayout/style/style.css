@@ -1,9 +1,7 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-layout__$(element) {
     @mixin-content;
   }
 }
-@mixin b layout {
+@b layout {
 }

@@ -36,6 +36,7 @@ const strokeLinecap = computed(() => {
 const circleStyle = computed(() => ({
   transform: 'rotate(-90deg)',
   transformOrigin: 'center',
+  animation: props.animation ? `circle-progress-rotate ${props.duration || 0.6}s ease-in-out` : 'none',
 })) // 计算circle的样式
 </script>
 
@@ -82,3 +83,14 @@ const circleStyle = computed(() => ({
     </text>
   </svg>
 </template>
+
+<style>
+@keyframes circle-progress-rotate {
+  from {
+    transform: rotate(-90deg);
+  }
+  to {
+    transform: rotate(270deg);
+  }
+}
+</style>

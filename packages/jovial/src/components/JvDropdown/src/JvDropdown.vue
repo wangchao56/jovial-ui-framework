@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { ListItem } from '@components/JvListItem'
+import type { ListItem } from '@/components/JvList'
+// import type { ListItem } from '@components/JvList'
 import type { JvPopperInstance } from '@components/JvPopper'
 import type { JvDropdownEmits, JvDropdownProps } from './JvDropdown'
-import JvList from '@components/JvList'
 import JvPopper from '@components/JvPopper'
-import { createNamespace } from '@jovial/utils'
-import JvDropdownChild from './JvDropdownChild.vue'
 
+import { createNamespace } from '@jovial/utils'
 import '../style/style.css'
 
 defineOptions({ name: 'JvDropdown' })
@@ -29,7 +28,7 @@ function toggleHandle() {
   visible.value = !visible.value
   emit('visibleChange', visible.value)
 }
-const listItems = computed<ListItem[]>(() => {
+const _listItems = computed<ListItem[]>(() => {
   const transformItem = (item: any): ListItem => {
     return {
       key: item.key,
@@ -42,12 +41,11 @@ const listItems = computed<ListItem[]>(() => {
   return props.menuOptions ? props.menuOptions.map(transformItem) : []
 })
 
-function handleClickItem(item: ListItem) {
-  if (item.type === 'divider')
-    return
-  emit('clickMenu', item)
-  visible.value = false
-}
+// function handleClickItem(item: ListItem) {
+//   if (item.type === 'divider')
+//     return
+//   visible.value = false
+// }
 </script>
 
 <template>
@@ -57,9 +55,9 @@ function handleClickItem(item: ListItem) {
     </div>
     <div :class="bem.e('content')">
       <JvPopper ref="JvpopperRef" v-model="visible" :reference="triggerNode" :options="popperOptions" arrow>
-        <JvList :bordered="false" clickable hoverable tag="menu" @click-item="handleClickItem">
+        <!-- <JvList :bordered="false" clickable hoverable tag="menu" @click-item="handleClickItem">
           <JvDropdownChild v-for="item in listItems" :key="item.key" :child="item" />
-        </JvList>
+        </JvList> -->
       </JvPopper>
     </div>
   </div>

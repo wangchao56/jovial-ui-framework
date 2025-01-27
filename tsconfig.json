@@ -3,7 +3,7 @@
     "target": "ES2020",
     "jsx": "preserve", // 启用 CommonJS 与 ES 模块之间的互操作支持
     "jsxImportSource": "vue", // 为调试生成源映射
-    "lib": ["ESNext", "DOM", "DOM.Iterable", "ES2020"], // 保持 JSX 原样（用于 React）
+    "lib": ["ESNext", "DOM", "DOM.Iterable"], // 保持 JSX 原样（用于 React）
     "noLib": false, // 允许从没有默认导出的模块中导入默认值
     "experimentalDecorators": true,
     "module": "ESNext", // 在输出中移除注释

@@ -1,23 +1,6 @@
-import type { VNodeChild } from 'vue'
-
-export type MenuMode = 'horizontal' | 'vertical'
-export type MenuTrigger = 'hover' | 'click'
-
-/** 菜单项配置 */
-export interface MenuItem {
-  /** 菜单项标识 */
-  key: string
-  /** 菜单项标题 */
-  label: string
-  /** 菜单项图标 */
-  icon?: string
-  /** 是否禁用 */
-  disabled?: boolean
-  /** 子菜单项 */
-  children?: MenuItem[]
-}
-
-/** SubmenuType 子菜单 */
+import type { Variant } from '@jovial/typings'
+import type { DeepReadonly, VNodeChild } from 'vue'
+import type { MenuItem, MenuMode, MenuTheme, MenuTrigger, SubMenuType } from './types'
 
 export const jvMenuProps = {
   /** 菜单模式 */
@@ -40,31 +23,47 @@ export const jvMenuProps = {
     type: String as () => MenuTrigger,
     default: 'hover',
   },
+  selectedKeys: {
+    type: Array as () => PropertyKey[],
+    default: [],
+  },
   /** 菜单项数据 */
   items: {
     type: Array as () => MenuItem[],
     default: () => [],
   },
-  /** 是否收起状态（仅垂直模式有效） */
-  collapsed: {
-    type: Boolean,
-    default: false,
-  },
+  theme: String,
 } as const
 
 export interface JvMenuProps {
+  /** 菜单模式 */
   mode?: MenuMode
-  modelValue?: string
-  defaultOpenKeys?: string[]
+  /** 默认展开的子菜单 keys */
+  defaultOpenKeys?: PropertyKey[]
+  /** 默认选中的菜单项 keys */
+  defaultSelectedKeys?: PropertyKey[]
+  /** 子菜单打开的触发方式 */
   trigger?: MenuTrigger
-  items?: MenuItem[]
-  collapsed?: boolean
+  /** 当前选中的菜单项 keys */
+  selectedKeys?: PropertyKey[]
+  /** 菜单项数据 */
+  items: MenuItem[]
+  /** 菜单主题 */
+  theme?: MenuTheme
+  /** 是否多选 */
+  multiple?: boolean
+  /** 变体 */
+  variant?: Variant
 }
 
+export const jvMenuEmits = {
+  click: (item: MenuItem, key: PropertyKey, keyPath: PropertyKey[]) => item && key && keyPath,
+} as const
 export interface JvMenuEmits {
-  (e: 'update:modelValue', key: string): void
-  (e: 'select', key: string, item: MenuItem): void
-  (e: 'openChange', keys: string[]): void
+  (e: 'update:selectedKeys', keys: PropertyKey[]): void
+  (e: 'update:openKeys', keys: PropertyKey[]): void
+  (e: 'select', key: PropertyKey, item: MenuItem): void
+  (e: 'openChange', keys: PropertyKey[]): void
 }
 
 export const jvMenuSlots = {
@@ -78,3 +77,14 @@ export interface JvMenuSlots {
   'item'?: (props: { item: MenuItem }) => VNodeChild
   'sub-title'?: (props: { item: MenuItem }) => VNodeChild
 }
+
+export interface JvMenuContext {
+  mode: Readonly<string>
+  trigger: Readonly<MenuTrigger>
+  openKeys: DeepReadonly<Ref<Set<PropertyKey>>>
+  selectedKeys: DeepReadonly<Ref<Set<PropertyKey>>>
+  items: DeepReadonly<MenuItem[]>
+  onSelect: (key: PropertyKey, item: MenuItem) => void
+  onOpenChange: (key: PropertyKey, expanded: boolean, item: SubMenuType) => void
+}
+export const JvMenuContextKey: InjectionKey<JvMenuContext> = Symbol.for('Jovial:Menu')

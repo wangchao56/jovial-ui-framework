@@ -1,7 +1,6 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
 @import './theme-vars.css';
 
-@mixin b header {
+@b header {
   z-index: 1 !important;
   --jv-header-padding: 8px;
   grid-area: header;

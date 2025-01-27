@@ -1,11 +1,9 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-loading__$(element) {
     @mixin-content;
   }
 }
-@mixin b loading {
+@b loading {
 }
 
 .jv-loading {

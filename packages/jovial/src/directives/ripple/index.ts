@@ -1,38 +1,62 @@
-// Types
+// 类型导入
 import type { DirectiveBinding } from 'vue'
 
-// Utilities
+// 工具函数导入
 import { isObject, keyCodes } from '@jovial/utils'
 
-// Styles
-import './VRipple.sass'
+// 样式导入
+import './VRipple.css'
 
+// 扩展Element类型
+type CustomElement = HTMLElement & {
+  _ripple?: {
+    enabled?: boolean
+    centered?: boolean
+    class?: string
+    circle?: boolean
+    touched?: boolean
+    isTouch?: boolean
+    showTimer?: number
+    showTimerCommit?: (() => void) | null
+  }
+}
+
+// 用于标记ripple停止的symbol
 const stopSymbol = Symbol('rippleStop')
 
+// 扩展事件类型定义
 type VuetifyRippleEvent = (MouseEvent | TouchEvent | KeyboardEvent) & {
   [stopSymbol]?: boolean
 }
 
+// 涟漪动画延迟时间(ms)
 const DELAY_RIPPLE = 80
 
-function transform(el: HTMLElement, value: string) {
+/**
+ * 设置元素的transform样式
+ * @param el 目标HTML元素
+ * @param value transform值
+ */
+function transform(el: CustomElement, value: string) {
   el.style.transform = value
   el.style.webkitTransform = value
 }
 
+// Ripple配置选项接口
 interface RippleOptions {
-  class?: string
-  center?: boolean
-  circle?: boolean
+  class?: string // 自定义类名
+  center?: boolean // 是否居中显示
+  circle?: boolean // 是否显示为圆形
 }
 
+// Ripple指令绑定接口
 export interface RippleDirectiveBinding
   extends Omit<DirectiveBinding, 'modifiers' | 'value'> {
   value?: boolean | { class: string }
   modifiers: {
-    center?: boolean
-    circle?: boolean
-    stop?: boolean
+    center?: boolean // 居中显示修饰符
+    circle?: boolean // 圆形显示修饰符
+    stop?: boolean // 停止传播修饰符
   }
 }
 
@@ -44,7 +68,7 @@ function isKeyboardEvent(e: VuetifyRippleEvent): e is KeyboardEvent {
   return e.constructor.name === 'KeyboardEvent'
 }
 
-function calculate(e: VuetifyRippleEvent, el: HTMLElement, value: RippleOptions = {}) {
+function calculate(e: VuetifyRippleEvent, el: CustomElement, value: RippleOptions = {}) {
   let localX = 0
   let localY = 0
 
@@ -80,7 +104,7 @@ function calculate(e: VuetifyRippleEvent, el: HTMLElement, value: RippleOptions 
 
 const ripples = {
 
-  show(e: VuetifyRippleEvent, el: HTMLElement, value: RippleOptions = {}) {
+  show(e: VuetifyRippleEvent, el: CustomElement, value: RippleOptions = {}) {
     if (!el?._ripple?.enabled) {
       return
     }
@@ -125,7 +149,7 @@ const ripples = {
     }, 0)
   },
 
-  hide(el: HTMLElement | null) {
+  hide(el: CustomElement | null) {
     if (!el?._ripple?.enabled)
       return
 
@@ -133,7 +157,7 @@ const ripples = {
 
     if (ripples.length === 0)
       return
-    const animation = ripples[ripples.length - 1]
+    const animation = ripples[ripples.length - 1] as HTMLElement
 
     if (animation.dataset.isHiding)
       return
@@ -166,7 +190,7 @@ function isRippleEnabled(value: any): value is true {
 
 function rippleShow(e: VuetifyRippleEvent) {
   const value: RippleOptions = {}
-  const element = e.currentTarget as HTMLElement | undefined
+  const element = e.currentTarget as CustomElement | undefined
 
   if (!element?._ripple || element._ripple.touched || e[stopSymbol])
     return
@@ -217,7 +241,7 @@ function rippleStop(e: VuetifyRippleEvent) {
 }
 
 function rippleHide(e: Event) {
-  const element = e.currentTarget as HTMLElement | null
+  const element = e.currentTarget as CustomElement | null
   if (!element?._ripple)
     return
 
@@ -245,7 +269,7 @@ function rippleHide(e: Event) {
 }
 
 function rippleCancelShow(e: MouseEvent | TouchEvent) {
-  const element = e.currentTarget as HTMLElement | undefined
+  const element = e.currentTarget as CustomElement | undefined
 
   if (!element?._ripple)
     return
@@ -282,7 +306,7 @@ function focusRippleHide(e: FocusEvent) {
 }
 
 function updateRipple(
-  el: HTMLElement,
+  el: CustomElement,
   binding: RippleDirectiveBinding,
   wasEnabled: boolean,
 ) {
@@ -292,12 +316,12 @@ function updateRipple(
     ripples.hide(el)
   }
 
-  el._ripple = el._ripple ?? {}
-  el._ripple.enabled = enabled
-  el._ripple.centered = modifiers.center
-  el._ripple.circle = modifiers.circle
-  if (isObject(value) && value.class) {
-    el._ripple.class = value.class
+  el._ripple = el._ripple ?? {} as CustomElement['_ripple']
+  el._ripple!.enabled = enabled || false
+  el._ripple!.centered = modifiers.center || false
+  el._ripple!.circle = modifiers.circle || false
+  if (isObject(value) && (value as { class: string }).class) {
+    el._ripple!.class = (value as { class: string }).class
   }
 
   if (enabled && !wasEnabled) {
@@ -347,7 +371,7 @@ function mounted(el: HTMLElement, binding: RippleDirectiveBinding) {
   updateRipple(el, binding, false)
 }
 
-function unmounted(el: HTMLElement) {
+function unmounted(el: CustomElement) {
   delete el._ripple
   removeListeners(el)
 }

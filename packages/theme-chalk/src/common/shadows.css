@@ -1,0 +1,153 @@
+/* 使用CSS变量以便于主题定制 */
+:root {
+  /* 基础阴影 */
+  --jv-shadow-none: none;
+  --jv-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --jv-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --jv-shadow-base: 0 1px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --jv-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --jv-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --jv-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --jv-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* 方向阴影 */
+  --jv-shadow-top: 0 -1px 3px 0 rgba(0, 0, 0, 0.1), 0 -1px 2px -1px rgba(0, 0, 0, 0.1);
+  --jv-shadow-right: 1px 0 3px 0 rgba(0, 0, 0, 0.1), 1px 0 2px -1px rgba(0, 0, 0, 0.1);
+  --jv-shadow-bottom: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --jv-shadow-left: -1px 0 3px 0 rgba(0, 0, 0, 0.1), -1px 0 2px -1px rgba(0, 0, 0, 0.1);
+
+  /* 内阴影 */
+  --jv-shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+
+  /* 彩色阴影 */
+  --jv-shadow-primary: 0 4px 6px -1px rgba(24, 144, 255, 0.2), 0 2px 4px -2px rgba(24, 144, 255, 0.1);
+  --jv-shadow-success: 0 4px 6px -1px rgba(82, 196, 26, 0.2), 0 2px 4px -2px rgba(82, 196, 26, 0.1);
+  --jv-shadow-warning: 0 4px 6px -1px rgba(250, 173, 20, 0.2), 0 2px 4px -2px rgba(250, 173, 20, 0.1);
+  --jv-shadow-danger: 0 4px 6px -1px rgba(245, 34, 45, 0.2), 0 2px 4px -2px rgba(245, 34, 45, 0.1);
+}
+
+/* 基础阴影类 */
+.shadow-none {
+  box-shadow: var(--jv-shadow-none);
+}
+
+.shadow-xs {
+  box-shadow: var(--jv-shadow-xs);
+}
+
+.shadow-sm {
+  box-shadow: var(--jv-shadow-sm);
+}
+
+.shadow {
+  box-shadow: var(--jv-shadow-base);
+}
+
+.shadow-md {
+  box-shadow: var(--jv-shadow-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--jv-shadow-lg);
+}
+
+.shadow-xl {
+  box-shadow: var(--jv-shadow-xl);
+}
+
+.shadow-2xl {
+  box-shadow: var(--jv-shadow-2xl);
+}
+
+/* 方向阴影类 */
+.shadow-t {
+  box-shadow: var(--jv-shadow-top);
+}
+
+.shadow-r {
+  box-shadow: var(--jv-shadow-right);
+}
+
+.shadow-b {
+  box-shadow: var(--jv-shadow-bottom);
+}
+
+.shadow-l {
+  box-shadow: var(--jv-shadow-left);
+}
+
+/* 内阴影类 */
+.shadow-inner {
+  box-shadow: var(--jv-shadow-inner);
+}
+
+/* 彩色阴影类 */
+.shadow-primary {
+  box-shadow: var(--jv-shadow-primary);
+}
+
+.shadow-success {
+  box-shadow: var(--jv-shadow-success);
+}
+
+.shadow-warning {
+  box-shadow: var(--jv-shadow-warning);
+}
+
+.shadow-danger {
+  box-shadow: var(--jv-shadow-danger);
+}
+
+/* 悬浮效果 */
+.hover\:shadow-none:hover {
+  box-shadow: var(--jv-shadow-none);
+}
+
+.hover\:shadow:hover {
+  box-shadow: var(--jv-shadow-base);
+}
+
+.hover\:shadow-md:hover {
+  box-shadow: var(--jv-shadow-md);
+}
+
+.hover\:shadow-lg:hover {
+  box-shadow: var(--jv-shadow-lg);
+}
+
+.hover\:shadow-xl:hover {
+  box-shadow: var(--jv-shadow-xl);
+}
+
+/* 过渡效果 */
+.shadow-transition {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Mixins */
+@define-mixin shadow-base {
+  box-shadow: var(--jv-shadow-base);
+}
+
+@define-mixin shadow-md {
+  box-shadow: var(--jv-shadow-md);
+}
+
+@define-mixin shadow-lg {
+  box-shadow: var(--jv-shadow-lg);
+}
+
+@define-mixin shadow-hover {
+  transition: box-shadow 0.3s ease-in-out;
+  &:hover {
+    box-shadow: var(--jv-shadow-lg);
+  }
+}
+
+@define-mixin shadow-primary {
+  box-shadow: var(--jv-shadow-primary);
+}
+
+@define-mixin shadow-inner {
+  box-shadow: var(--jv-shadow-inner);
+}

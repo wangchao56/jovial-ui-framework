@@ -2,6 +2,7 @@
 @import './animation.css';
 @import './mixins.css';
 @import './vars.css';
+@import './rounded.css';
 
 .is-glass {
   /* Blur effect */

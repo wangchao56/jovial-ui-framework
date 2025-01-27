@@ -594,16 +594,26 @@ export function flattenFragments(nodes: VNode[]): VNode[] {
     .flat()
 }
 
+/**
+ * 将字符串转换为 kebab-case 格式
+ * @param str - 要转换的字符串，默认为空字符串
+ * @returns 转换后的 kebab-case 字符串
+ */
 export function toKebabCase(str = '') {
+  // 如果缓存中已经存在该字符串的转换结果，则直接返回缓存中的结果
   if (toKebabCase.cache.has(str))
     return toKebabCase.cache.get(str)!
+  // 使用正则表达式将字符串中的非字母字符替换为连字符，并将大写字母转换为小写字母
   const kebab = str
     .replace(/[^a-z]/gi, '-')
     .replace(/\B([A-Z])/g, '-$1')
     .toLowerCase()
+  // 将转换结果存储到缓存中
   toKebabCase.cache.set(str, kebab)
+  // 返回转换后的 kebab-case 字符串
   return kebab
 }
+// 创建一个 Map 对象，用于缓存转换结果
 toKebabCase.cache = new Map<string, string>()
 
 export type MaybeRef<T> = T | Ref<T>

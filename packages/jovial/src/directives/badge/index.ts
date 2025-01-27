@@ -35,5 +35,6 @@ const badgeDirective: Directive<HTMLElement, BadgeOptions> = {
     }
   },
 }
+const Badge = badgeDirective
 
-export { badgeDirective }
+export { Badge }

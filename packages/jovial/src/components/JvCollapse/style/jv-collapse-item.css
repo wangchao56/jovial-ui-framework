@@ -1,18 +1,16 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-collapse-item__$(element) {
     @mixin-content;
   }
 }
 
-@mixin b collapse-item {
+@b collapse-item {
   background-color: var(--jv-color-white);
   box-sizing: border-box;
   border-bottom: 1px solid var(--jv-color-border-light);
   /* border-color: var(--jv-color-border-light); */
   /* border-style: solid; */
-  @mixin e header {
+  @e header {
     padding: var(--jv-spacing-small);
     cursor: pointer;
     font-size: var(--jv-font-size-medium);
@@ -20,11 +18,11 @@
     vertical-align: middle;
   }
 
-  @mixin e wrapper {
+  @e wrapper {
     box-sizing: inherit;
   }
 
-  @mixin e content {
+  @e content {
     box-sizing: inherit;
     padding: var(--jv-spacing-small);
     font-size: var(--jv-font-size-small);

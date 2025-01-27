@@ -1,6 +1,6 @@
 [data-theme='ligth'] {
-  --jv-theme-primary-100: #0077c2;
-  --jv-theme-primary-200: #59a5f5;
+  --jv-theme-primary-100: rgb(0, 120, 194);
+  --jv-theme-primary-200: rgb(89, 165, 245);
   --jv-theme-primary-300: #c8ffff;
   --jv-theme-accent-100: #00bfff;
   --jv-theme-accent-200: #00619a;

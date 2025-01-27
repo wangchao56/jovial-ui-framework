@@ -1,5 +1,3 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-alert__$(element) {
     @mixin-content;
@@ -11,72 +9,98 @@
   }
 }
 
-@mixin b alert {
+@b alert {
   padding: 16px;
   border-radius: 4px;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
-  background-color: var(--jv-alert-bg-color, #f0f0f0);
-  color: var(--jv-alert-text-color, #333);
-  border: 1px solid var(--jv-alert-border-color, #dcdcdc);
+  align-items: flex-start;
+  background-color: rgb(var(--jv-theme-surface));
+  color: rgb(var(--jv-theme-on-surface));
+  border: 1px solid rgba(var(--jv-theme-on-surface), 0.12);
+  transition: all 0.3s ease-in-out;
 }
 
-@mixin m success {
-  --jv-alert-bg-color: #e6ffed;
-  --jv-alert-text-color: #2c662d;
-  --jv-alert-border-color: #b7eb8f;
+@m success {
+  background-color: rgba(var(--jv-theme-success), 0.1);
+  color: rgb(var(--jv-theme-success));
+  border-color: rgba(var(--jv-theme-success), 0.2);
+
+  .jv-icon {
+    color: rgb(var(--jv-theme-success));
+  }
 }
 
-@mixin m info {
-  --jv-alert-bg-color: #e6f7ff;
-  --jv-alert-text-color: #0050b3;
-  --jv-alert-border-color: #91d5ff;
+@m info {
+  background-color: rgba(var(--jv-theme-info), 0.1);
+  color: rgb(var(--jv-theme-info));
+  border-color: rgba(var(--jv-theme-info), 0.2);
+
+  .jv-icon {
+    color: rgb(var(--jv-theme-info));
+  }
 }
 
-@mixin m warning {
-  --jv-alert-bg-color: #fffbe6;
-  --jv-alert-text-color: #ad4e00;
-  --jv-alert-border-color: #ffe58f;
+@m warning {
+  background-color: rgba(var(--jv-theme-warning), 0.1);
+  color: rgb(var(--jv-theme-warning));
+  border-color: rgba(var(--jv-theme-warning), 0.2);
+
+  .jv-icon {
+    color: rgb(var(--jv-theme-warning));
+  }
 }
 
-@mixin m error {
-  --jv-alert-bg-color: #fff1f0;
-  --jv-alert-text-color: #a8071a;
-  --jv-alert-border-color: #ffa39e;
+@m error {
+  background-color: rgba(var(--jv-theme-error), 0.1);
+  color: rgb(var(--jv-theme-error));
+  border-color: rgba(var(--jv-theme-error), 0.2);
+
+  .jv-icon {
+    color: rgb(var(--jv-theme-error));
+  }
 }
 
-@mixin e icon {
+@e icon {
   margin-right: 8px;
   align-self: flex-start;
+  font-size: 16px;
 }
 
-@mixin e content {
+@e content {
   flex: 1;
   &--title {
     margin: 0;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 500;
+    line-height: 1.4;
   }
 
   &--description {
     margin: 8px 0 0;
     font-size: 14px;
-    color: var(--jv-alert-text-color, #333);
+    line-height: 1.6;
+    opacity: 0.9;
   }
 }
 
-@mixin e close {
+@e close {
   align-self: flex-start;
   background: none;
   border: none;
-  padding-right: 0;
-  .jv-button__content {
-    color: var(--jv-alert-text-color, #333);
+  padding: 4px;
+  margin: -4px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  color: currentColor;
+
+  &:hover {
+    opacity: 1;
   }
+
   .jv-icon {
-    color: var(--jv-alert-text-color, #333);
     font-size: 16px;
-    font-weight: var(--jv-font-weight-regular);
+    color: currentColor;
   }
 }

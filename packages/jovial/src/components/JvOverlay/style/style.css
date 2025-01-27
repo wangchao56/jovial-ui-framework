@@ -1,14 +1,4 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
-@define-mixin e $element {
-  .jv-overlay__$(element) {
-    @mixin-content;
-  }
-}
-@mixin b overlay {
-}
-
-.jv-overlay {
+@b overlay {
   z-index: 2000;
   position: fixed;
   top: 0;

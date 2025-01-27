@@ -1,7 +1,6 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
 @import './theme-vars.css';
 
-@mixin b line-progress {
+@b line-progress {
   position: relative;
   display: inline-flex;
   width: var(--jv-progress-width);

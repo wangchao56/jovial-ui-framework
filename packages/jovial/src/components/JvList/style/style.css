@@ -1,29 +1,4 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
-@define-mixin e $element {
-  .jv-list__$(element) {
-    @mixin-content;
-  }
-}
-@mixin b list {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  /* gap: 10px; */
-  list-style: none;
-  background-color: var(--jv-color-bg-base);
-  color: var(--jv-color-text-primary);
-
-  &.is-bordered {
-    border: 1px solid var(--jv-color-border-light);
-  }
-}
-
-@mixin b list-subheader {
-  padding: 10px;
-  font-size: var(--jv-font-size-base);
-  color: var(--jv-color-text-secondary);
-  background-color: var(--jv-color-bg-lighter);
-  border-bottom: 1px solid var(--jv-color-border-light);
-}
+@import './base.css';
+@import './list.css';
+@import './list-item.css';
+@import './list-group.css';

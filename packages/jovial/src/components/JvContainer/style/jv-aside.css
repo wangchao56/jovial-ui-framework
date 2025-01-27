@@ -1,7 +1,6 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
 @import './theme-vars.css';
 
-@mixin b aside {
+@b aside {
   --jv-aside-margin-right: 16px;
   grid-area: aside !important;
   box-sizing: border-box !important;

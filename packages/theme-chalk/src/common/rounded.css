@@ -1,0 +1,171 @@
+/* 使用CSS变量以便于主题定制 */
+:root {
+  --jv-rounded-none: 0;
+  --jv-rounded-sm: 2px;
+  --jv-rounded: 4px;
+  --jv-rounded-lg: 8px;
+  --jv-rounded-xl: 24px;
+  --jv-rounded-pill: 9999px;
+  --jv-rounded-circle: 50%;
+  /* 圆角预设值 */
+  /* --jv-rounded-sm: 0.125rem;
+  --jv-rounded: 0.25rem;
+  --jv-rounded-lg: 0.5rem;
+  --jv-rounded-xl: 1rem;
+  --jv-rounded-pill: 9999px;
+  --jv-rounded-circle: 50%; */
+}
+
+/* 基础圆角 */
+.rounded {
+  border-radius: var(--jv-rounded);
+}
+
+.rounded-0 {
+  border-radius: var(--jv-rounded-none);
+}
+
+.rounded-sm {
+  border-radius: var(--jv-rounded-sm);
+}
+
+.rounded-lg {
+  border-radius: var(--jv-rounded-lg);
+}
+
+.rounded-xl {
+  border-radius: var(--jv-rounded-xl);
+}
+
+.rounded-pill {
+  border-radius: var(--jv-rounded-pill);
+}
+
+.rounded-circle {
+  border-radius: var(--jv-rounded-circle);
+}
+
+.rounded-shaped {
+  border-radius: var(--jv-rounded-xl) var(--jv-rounded-none);
+}
+
+/* 顶部圆角 */
+.rounded-t {
+  border-top-left-radius: var(--jv-rounded);
+  border-top-right-radius: var(--jv-rounded);
+}
+
+.rounded-t-0 {
+  border-top-left-radius: var(--jv-rounded-none);
+  border-top-right-radius: var(--jv-rounded-none);
+}
+
+.rounded-t-sm {
+  border-top-left-radius: var(--jv-rounded-sm);
+  border-top-right-radius: var(--jv-rounded-sm);
+}
+
+.rounded-t-lg {
+  border-top-left-radius: var(--jv-rounded-lg);
+  border-top-right-radius: var(--jv-rounded-lg);
+}
+
+.rounded-t-xl {
+  border-top-left-radius: var(--jv-rounded-xl);
+  border-top-right-radius: var(--jv-rounded-xl);
+}
+
+/* 底部圆角 */
+.rounded-b {
+  border-bottom-left-radius: var(--jv-rounded);
+  border-bottom-right-radius: var(--jv-rounded);
+}
+
+.rounded-b-0 {
+  border-bottom-left-radius: var(--jv-rounded-none);
+  border-bottom-right-radius: var(--jv-rounded-none);
+}
+
+.rounded-b-sm {
+  border-bottom-left-radius: var(--jv-rounded-sm);
+  border-bottom-right-radius: var(--jv-rounded-sm);
+}
+
+.rounded-b-lg {
+  border-bottom-left-radius: var(--jv-rounded-lg);
+  border-bottom-right-radius: var(--jv-rounded-lg);
+}
+
+.rounded-b-xl {
+  border-bottom-left-radius: var(--jv-rounded-xl);
+  border-bottom-right-radius: var(--jv-rounded-xl);
+}
+
+/* 左侧圆角 */
+.rounded-s {
+  border-top-left-radius: var(--jv-rounded);
+  border-bottom-left-radius: var(--jv-rounded);
+}
+
+.rounded-s-0 {
+  border-top-left-radius: var(--jv-rounded-none);
+  border-bottom-left-radius: var(--jv-rounded-none);
+}
+
+.rounded-s-sm {
+  border-top-left-radius: var(--jv-rounded-sm);
+  border-bottom-left-radius: var(--jv-rounded-sm);
+}
+
+.rounded-s-lg {
+  border-top-left-radius: var(--jv-rounded-lg);
+  border-bottom-left-radius: var(--jv-rounded-lg);
+}
+
+.rounded-s-xl {
+  border-top-left-radius: var(--jv-rounded-xl);
+  border-bottom-left-radius: var(--jv-rounded-xl);
+}
+
+/* 右侧圆角 */
+.rounded-e {
+  border-top-right-radius: var(--jv-rounded);
+  border-bottom-right-radius: var(--jv-rounded);
+}
+
+.rounded-e-0 {
+  border-top-right-radius: var(--jv-rounded-none);
+  border-bottom-right-radius: var(--jv-rounded-none);
+}
+
+.rounded-e-sm {
+  border-top-right-radius: var(--jv-rounded-sm);
+  border-bottom-right-radius: var(--jv-rounded-sm);
+}
+
+.rounded-e-lg {
+  border-top-right-radius: var(--jv-rounded-lg);
+  border-bottom-right-radius: var(--jv-rounded-lg);
+}
+
+.rounded-e-xl {
+  border-top-right-radius: var(--jv-rounded-xl);
+  border-bottom-right-radius: var(--jv-rounded-xl);
+}
+
+/* 单个角的圆角 */
+.rounded-ts {
+  border-top-left-radius: var(--jv-rounded);
+}
+
+.rounded-te {
+  border-top-right-radius: var(--jv-rounded);
+}
+
+.rounded-bs {
+  border-bottom-left-radius: var(--jv-rounded);
+}
+
+.rounded-be {
+  border-bottom-right-radius: var(--jv-rounded);
+}

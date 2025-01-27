@@ -1,0 +1,7 @@
+@define-mixin e $element {
+  .jv-datePicker__$(element) {
+    @mixin-content;
+  }
+}
+@b datePicker {
+}

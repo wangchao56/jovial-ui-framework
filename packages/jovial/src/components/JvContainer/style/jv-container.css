@@ -1,6 +1,5 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
 @import './theme-vars.css';
-@mixin b container {
+@b container {
   z-index: 1 !important;
   width: var(--jv-container-width);
   height: var(--jv-container-height);

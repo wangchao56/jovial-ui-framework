@@ -1,5 +1,3 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-message__$(element) {
     @mixin-content;
@@ -12,7 +10,7 @@
   }
 }
 
-@mixin b message {
+@b message {
   --jv-message-padding: 8px;
   --jv-message-icon-size: 16px;
   --jv-message-close-size: 16px;
@@ -38,17 +36,17 @@
     opacity var(--jv-transition-duration),
     transform var(--jv-transition-duration);
 
-  @mixin e prepend {
+  @e prepend {
     padding: 8px 16px;
   }
 
-  @mixin e append {
+  @e append {
   }
 
-  @mixin e append--icon {
+  @e append--icon {
     color: var(--jv-message-text-color) !important;
   }
-  @mixin e content {
+  @e content {
     padding: 8px 16px;
     padding-left: 0;
     flex: 1;
@@ -62,32 +60,32 @@
 }
 
 @each $type in info, success, warning, danger {
-  @mixin m $(type) {
+  @m $(type) {
     --jv-message-border-color: var(--jv-color-$(type));
     --jv-message-bg-color: var(--jv-color-$(type)-light-7);
     --jv-message-text-color: var(--jv-color-$(type));
   }
 }
 /*
-@mixin m info {
+@m info {
   --jv-message-border-color: var(--jv-color-info);
   --jv-message-bg-color: var(--jv-color-info-light-7);
   --jv-message-text-color: var(--jv-color-info);
 }
 
-@mixin m success {
+@m success {
   --jv-message-border-color: var(--jv-color-success);
   --jv-message-bg-color: var(--jv-color-success-light-7);
   --jv-message-text-color: var(--jv-color-success);
 }
 
-@mixin m warning {
+@m warning {
   --jv-message-border-color: var(--jv-color-warning);
   --jv-message-bg-color: var(--jv-color-warning-light-7);
   --jv-message-text-color: var(--jv-color-warning);
 }
 
-@mixin m danger {
+@m danger {
   --jv-message-border-color: var(--jv-color-danger);
   --jv-message-bg-color: var(--jv-color-danger-light-7);
   --jv-message-text-color: var(--jv-color-danger);

@@ -1,0 +1,31 @@
+@b button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* 元素 */
+  @e icon {
+    margin-right: 8px;
+  }
+
+  @e label {
+    flex: 1;
+  }
+
+  /* 修饰符 */
+  @m primary {
+    background: var(--jv-color-primary);
+    color: #fff;
+  }
+
+  @m small {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  /* 状态 */
+  @when disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

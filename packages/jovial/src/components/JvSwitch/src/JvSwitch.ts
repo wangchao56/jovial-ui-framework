@@ -11,19 +11,28 @@ export const jvSwitchProps = {
     type: String as PropType<'small' | 'default' | 'large'>,
     default: 'default',
   },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
 } as const
 export interface JvSwitchProps {
 
   modelValue: boolean
   disabled?: boolean
   size?: 'small' | 'default' | 'large'
+  loading?: boolean
+  /**
+   * 是否手动控制loading
+   * @default false
+   */
+  manual?: boolean
 
 };
-export const jvSwitchEmits = {
-  'update:modelValue': (value: boolean) => value,
-  'change': (value: boolean) => value,
-} as const
-export interface JvSwitchEmits {}
-export const jvSwitchSlots = {} as const
+export interface JvSwitchEmits {
+  (e: 'update:modelValue', value: boolean): boolean
+  (e: 'change', value: boolean): boolean
+  (e: 'click', event: MouseEvent): void
+}
 export interface JvSwitchSlots {}
 export interface JvSwitchExpose {}

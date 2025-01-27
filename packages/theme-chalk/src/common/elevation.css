@@ -1,0 +1,111 @@
+:root {
+  /* 基础阴影变量 */
+  --jv-elevation-0: none;
+  --jv-elevation-1: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  --jv-elevation-2: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  --jv-elevation-3: 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12);
+  --jv-elevation-4: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  --jv-elevation-6: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+    0 1px 18px 0 rgba(0, 0, 0, 0.12);
+  --jv-elevation-8: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  --jv-elevation-12: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 12px 17px 2px rgba(0, 0, 0, 0.14),
+    0 5px 22px 4px rgba(0, 0, 0, 0.12);
+  --jv-elevation-16: 0 8px 10px -5px rgba(0, 0, 0, 0.2), 0 16px 24px 2px rgba(0, 0, 0, 0.14),
+    0 6px 30px 5px rgba(0, 0, 0, 0.12);
+  --jv-elevation-24: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14),
+    0 9px 46px 8px rgba(0, 0, 0, 0.12);
+
+  /* 过渡时间 */
+  --jv-elevation-transition-duration: 280ms;
+}
+
+/* 基础阴影类 */
+.elevation-0 {
+  box-shadow: var(--jv-elevation-0);
+}
+
+.elevation-1 {
+  box-shadow: var(--jv-elevation-1);
+}
+
+.elevation-2 {
+  box-shadow: var(--jv-elevation-2);
+}
+
+.elevation-3 {
+  box-shadow: var(--jv-elevation-3);
+}
+
+.elevation-4 {
+  box-shadow: var(--jv-elevation-4);
+}
+
+.elevation-6 {
+  box-shadow: var(--jv-elevation-6);
+}
+
+.elevation-8 {
+  box-shadow: var(--jv-elevation-8);
+}
+
+.elevation-12 {
+  box-shadow: var(--jv-elevation-12);
+}
+
+.elevation-16 {
+  box-shadow: var(--jv-elevation-16);
+}
+
+.elevation-24 {
+  box-shadow: var(--jv-elevation-24);
+}
+
+/* 悬浮效果 */
+.hover\:elevation-0:hover {
+  box-shadow: var(--jv-elevation-0);
+}
+
+.hover\:elevation-1:hover {
+  box-shadow: var(--jv-elevation-1);
+}
+
+.hover\:elevation-2:hover {
+  box-shadow: var(--jv-elevation-2);
+}
+
+.hover\:elevation-4:hover {
+  box-shadow: var(--jv-elevation-4);
+}
+
+.hover\:elevation-8:hover {
+  box-shadow: var(--jv-elevation-8);
+}
+
+.hover\:elevation-16:hover {
+  box-shadow: var(--jv-elevation-16);
+}
+
+.hover\:elevation-24:hover {
+  box-shadow: var(--jv-elevation-24);
+}
+
+/* 过渡效果 */
+.elevation-transition {
+  transition: box-shadow var(--jv-elevation-transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mixins */
+@define-mixin elevation $level {
+  box-shadow: var(--jv-elevation-$(level));
+}
+
+@define-mixin elevation-transition {
+  transition: box-shadow var(--jv-elevation-transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@define-mixin elevation-hover $level {
+  &:hover {
+    box-shadow: var(--jv-elevation-$(level));
+  }
+}

@@ -1,33 +1,14 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 $directions: rtl, ltr, ttb, btt;
-@define-mixin e $element {
-  .jv-drawer__$(element) {
-    @mixin-content;
-  }
-}
-
-@define-mixin m $modifier {
-  .jv-drawer--$(modifier) {
-    @mixin-content;
-  }
-}
-
-@define-mixin when $state {
-  .is-$(state) {
-    @mixin-content;
-  }
-}
 
 :root {
   --jv-drawer-duration: 0.3s;
   --jv-drawer-delay: -0.23361453601557428ms;
 }
 
-@mixin b drawer-overlay {
+@b drawer-overlay {
 }
 
-@mixin b drawer {
+@b drawer {
   --jv-drawer-height: inherit;
   --jv-drawer-width: inherit;
   position: absolute;
@@ -51,50 +32,49 @@ $directions: rtl, ltr, ttb, btt;
   grid-template-rows: auto 1fr auto;
   grid-template-columns: 1fr;
   gap: 16px;
-  @mixin when closable {
+  @when closable {
   }
 
-  @mixin e header {
+  @e header {
     grid-area: header;
   }
-  @mixin e body {
+  @e body {
     grid-area: body;
     overflow: auto;
   }
-  @mixin e footer {
+  @e footer {
     grid-area: footer;
   }
-  @mixin e close {
+  @e close {
     grid-area: close;
     justify-self: end;
     align-self: start;
   }
-}
 
-@mixin m left {
-  left: 0;
-}
+  @m left {
+    left: 0;
+  }
 
-@mixin m right {
-  right: 0;
-}
+  @m right {
+    right: 0;
+  }
 
-@mixin m top {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: auto;
-  height: var(--jv-drawer-width, 30%) !important;
-  width: 100vw;
-}
-@mixin m bottom {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: auto;
-  height: var(--jv-drawer-width, 30%) !important;
-  width: 100vw;
-}
-
-@mixin when visible {
+  @m top {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    height: var(--jv-drawer-width, 30%) !important;
+    width: 100vw;
+  }
+  @m bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    height: var(--jv-drawer-width, 30%) !important;
+    width: 100vw;
+  }
+  @when visible {
+  }
 }

@@ -2,6 +2,7 @@ import { keyCodes } from '@jovial/utils'
 
 // Utilities
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { defineComponent } from 'vue'
 // Directives
 import Ripple from '../'

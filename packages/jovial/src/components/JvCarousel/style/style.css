@@ -1,12 +1,10 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-carousel__$(element) {
     @mixin-content;
   }
 }
 
-@mixin b carousel {
+@b carousel {
   position: relative;
   width: 100%;
   height: 100%;
@@ -63,7 +61,7 @@
   }
 
   /* 轮播容器 */
-  @mixin e container {
+  @e container {
     position: relative;
     width: 100%;
     height: 100%;
@@ -76,7 +74,7 @@
   }
 
   /* 指示器容器 */
-  @mixin e indicators {
+  @e indicators {
     position: absolute;
     z-index: 2;
     display: flex;
@@ -84,7 +82,7 @@
   }
 
   /* 指示器项 */
-  @mixin e indicator {
+  @e indicator {
     width: 30px;
     height: 2px;
     background: rgba(255, 255, 255, 0.5);
@@ -95,13 +93,13 @@
       background: rgba(255, 255, 255, 0.75);
     }
 
-    @mixin when active {
+    @when active {
       background: var(--jv-color-white);
     }
   }
 
   /* 箭头 */
-  @mixin e arrow {
+  @e arrow {
     position: absolute;
     top: 50%;
     z-index: 2;

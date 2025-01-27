@@ -1,11 +1,9 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-popper__$(element) {
     @mixin-content;
   }
 }
-@mixin b popper {
+@b popper {
   --jv-popper-bg-color: #323232;
   --jv-popper-border-color: #4d4d4d;
   --jv-popper-font-size: 12px;

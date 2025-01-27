@@ -1,11 +1,9 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-tag__$(element) {
     @mixin-content;
   }
 }
-@mixin b tag {
+@b tag {
   --jv-tag-height: 32px;
   --jv-tag-font-size: 14px;
   --jv-tag-border-radius: 4px;

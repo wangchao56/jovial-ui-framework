@@ -1,0 +1,44 @@
+@define-mixin e $element {
+  .jv-list__$(element) {
+    @mixin-content;
+  }
+}
+
+@b list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--jv-list-bg, transparent);
+  color: var(--jv-list-color, inherit);
+
+  .jv-divider {
+    margin: 0;
+  }
+  &.is-bordered {
+    border: 1px solid var(--jv-border-color);
+    border-radius: var(--jv-border-radius-base);
+  }
+
+  @e children {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &-subheader {
+    padding: var(--jv-spacing-small) var(--jv-spacing-medium) !important;
+    font-size: var(--jv-font-size-sm);
+    color: var(--jv-color-text-secondary);
+  }
+}
+
+ul,
+li {
+  /* list-style: none; */
+  margin: 0;
+  padding: 0;
+  ::marker {
+    display: none;
+    content: none;
+  }
+}

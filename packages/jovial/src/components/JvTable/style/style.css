@@ -1,0 +1,7 @@
+@define-mixin e $element {
+  .jv-table__$(element) {
+    @mixin-content;
+  }
+}
+@b table {
+}

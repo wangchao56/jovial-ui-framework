@@ -1,12 +1,13 @@
 import { createNamespace } from '@jovial/utils'
-import { createTextVNode, createVNode, defineComponent, normalizeClass } from 'vue'
+import { createTextVNode, createVNode, defineComponent, Fragment, inject } from 'vue'
+import { JvListContextKey } from './JvList'
 
 export default defineComponent({
   name: 'JvListSubheader',
   props: {
     tag: {
       type: String,
-      default: 'div',
+      default: 'li',
     },
     title: String,
     sticky: Boolean,
@@ -14,15 +15,20 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     const bem = createNamespace('list-subheader')
+    const listContext = inject(JvListContextKey)
+
+    const style = computed(() => {
+      return props.inset
+        ? {
+            paddingLeft: `${listContext?.indent || 24}px`,
+          }
+        : undefined
+    })
+    const children = [slots.default && createVNode(Fragment, null, slots.default()), createTextVNode(props.title)]
 
     return () => createVNode(props.tag, {
-      class: normalizeClass([
-        bem.b(),
-        bem.is('sticky', props.sticky),
-        bem.is('inset', props.inset),
-      ]),
-    }, {
-      default: slots.default?.() || createTextVNode(props.title),
-    })
+      class: bem.b(),
+      style,
+    }, children)
   },
 })

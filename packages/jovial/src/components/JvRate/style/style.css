@@ -1,19 +1,17 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-rate__$(element) {
     @mixin-content;
   }
 }
 
-@mixin b rate {
+@b rate {
   display: inline-flex;
   align-items: center;
   font-size: 0;
   vertical-align: middle;
 
   /* 图标列表 */
-  @mixin e icons {
+  @e icons {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
@@ -24,7 +22,7 @@
   }
 
   /* 图标项 */
-  @mixin e icon {
+  @e icon {
     position: relative;
     cursor: pointer;
     transition: transform 0.15s ease-in-out;
@@ -37,7 +35,7 @@
   }
 
   /* 半选图标 */
-  @mixin e half {
+  @e half {
     position: absolute;
     left: 0;
     top: 0;
@@ -46,14 +44,14 @@
   }
 
   /* 提示文字 */
-  @mixin e text {
+  @e text {
     margin-left: 8px;
     font-size: 14px;
     color: var(--jv-text-color-secondary);
   }
 
   /* 只读状态 */
-  @mixin when readonly {
+  @when readonly {
     .jv-rate__icon {
       cursor: default;
 
@@ -64,7 +62,7 @@
   }
 
   /* 禁用状态 */
-  @mixin when disabled {
+  @when disabled {
     opacity: 0.6;
     cursor: not-allowed;
 

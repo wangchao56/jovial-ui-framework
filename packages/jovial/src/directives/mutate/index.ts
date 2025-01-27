@@ -1,4 +1,4 @@
-import type { MutationOptions } from '@jovial/composables/mutationObserver'
+import type { MutationOptions } from '@/composables'
 // Types
 import type { DirectiveBinding } from 'vue'
 
@@ -10,7 +10,7 @@ export interface MutationDirectiveBinding
   modifiers: MutationOptions
 }
 
-function mounted(el: HTMLElement, binding: MutationDirectiveBinding) {
+function mounted(el: HTMLElement & { _mutate?: Record<string, { observer: MutationObserver }> }, binding: MutationDirectiveBinding) {
   const modifiers = binding.modifiers || {}
   const value = binding.value
   const { once, immediate, ...modifierKeys } = modifiers
@@ -41,13 +41,13 @@ function mounted(el: HTMLElement, binding: MutationDirectiveBinding) {
   if (immediate)
     handler?.([], observer)
 
-  el._mutate = new Object(el._mutate)
+  el._mutate = new Object(el._mutate) as Record<string, { observer: MutationObserver }>
   el._mutate![binding.instance!.$.uid] = { observer }
 
   observer.observe(el, options)
 }
 
-function unmounted(el: HTMLElement, binding: MutationDirectiveBinding) {
+function unmounted(el: HTMLElement & { _mutate?: Record<string, { observer: MutationObserver }> }, binding: MutationDirectiveBinding) {
   if (!el._mutate?.[binding.instance!.$.uid])
     return
 

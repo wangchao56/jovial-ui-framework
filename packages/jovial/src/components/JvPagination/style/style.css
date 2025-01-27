@@ -1,5 +1,3 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-pagination__$(element) {
     @mixin-content;
@@ -23,7 +21,7 @@
     background: var(--jv-hover-color);
   }
 
-  @mixin when active {
+  @when active {
     color: var(--jv-color-white);
     background: var(--jv-color-primary);
 
@@ -33,7 +31,7 @@
     }
   }
 
-  @mixin when disabled {
+  @when disabled {
     color: var(--jv-text-color-disabled);
     cursor: not-allowed;
 
@@ -44,33 +42,33 @@
   }
 }
 
-@mixin b pagination {
+@b pagination {
   display: flex;
   align-items: center;
   font-size: 14px;
 
   /* 总数显示 */
-  @mixin e total {
+  @e total {
     margin-right: 16px;
     color: var(--jv-text-color-secondary);
   }
 
   /* 每页条数选择器 */
-  @mixin e size-changer {
+  @e size-changer {
     margin-right: 16px;
     width: 110px;
   }
 
   /* 页码按钮基础样式 */
-  @mixin e prev {
+  @e prev {
     @mixin common;
   }
 
-  @mixin e next {
+  @e next {
     @mixin common;
   }
 
-  @mixin e page {
+  @e page {
     @mixin common;
   }
   display: flex;
@@ -89,7 +87,7 @@
     background: var(--jv-hover-color);
   }
 
-  @mixin when active {
+  @when active {
     color: var(--jv-color-white);
     background: var(--jv-color-primary);
 
@@ -99,7 +97,7 @@
     }
   }
 
-  @mixin when disabled {
+  @when disabled {
     color: var(--jv-text-color-disabled);
     cursor: not-allowed;
 
@@ -111,7 +109,7 @@
 }
 
 /* 快速跳转 */
-@mixin e jumper {
+@e jumper {
   margin-left: 16px;
 
   input {
@@ -136,7 +134,7 @@
 }
 
 /* 禁用状态 */
-@mixin when disabled {
+@when disabled {
   cursor: not-allowed;
 
   .jv-pagination__total,
@@ -146,7 +144,7 @@
 }
 
 /* 简单模式 */
-@mixin when simple {
+@when simple {
   .jv-pagination__page {
     margin: 0 8px;
   }

@@ -1,11 +1,9 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-card__$(element) {
     @mixin-content;
   }
 }
-@mixin b card {
+@b card {
   --jv-card-padding: 16px;
   position: relative;
   box-sizing: border-box;

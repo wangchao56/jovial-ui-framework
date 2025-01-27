@@ -1,18 +1,10 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
-@define-mixin e $element {
-  .jv-tooltip__$(element) {
-    @mixin-content;
-  }
-}
-
-@mixin b tooltip {
+@b tooltip {
   display: inline-block;
   cursor: pointer;
   position: relative;
   width: max-content;
   overflow: hidden;
-  @mixin e trigger {
+  @e trigger {
     display: inline-block;
     overflow: hidden;
     width: inherit;

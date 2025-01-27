@@ -222,3 +222,82 @@
 .jv-button > .jv-icon {
   color: black;
 }
+/* :root {
+  color-scheme: dark;
+  --jv-color: #357f37;
+  --jv-background: #0e251e;
+  --jv-border-color: #142935;
+} */
+:root {
+  color-scheme: light;
+  --jv-theme-primary-color: #c21d03;
+  --jv-theme-surface-color: #fd5732;
+  --jv-theme-secondary-color: #ffb787;
+  --jv-theme-success-color: #bebebe;
+  --jv-theme-warning-color: #393939;
+  --jv-theme-error-color: #232121;
+  --jv-theme-info-color: #4b4848;
+  --jv-theme-background-color: #fbfbfb;
+  --jv-theme-text-color: #f1f1f1;
+  --jv-theme-border-color: #ffb787;
+}
+
+html {
+  background-color: var(--jv-theme-background-color) !important;
+  border-color: var(--jv-theme-border-color);
+  color: var(--jv-color);
+  font-family: sans-serif;
+  /* font-family: settings.$body-font-family
+  line-height: settings.$line-height-root */
+  /* font-size: settings.$font-size-root */
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+@supports (-webkit-touch-callout: none) {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    cursor: pointer;
+  }
+}
+
+/* @property --jv-color-success {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: red;
+} */
+
+/* 暗黑主题 */
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --jv-theme-primary-color: #6c35de;
+  --jv-theme-surface-color: #a364ff;
+  --jv-theme-secondary-color: #ffc7ff;
+  --jv-theme-success-color: #cb80ff;
+  --jv-theme-warning-color: #373737;
+  --jv-theme-error-color: #ffffff;
+  --jv-theme-info-color: #e0e0e0;
+  --jv-theme-background-color: #241b35;
+  --jv-theme-text-color: #e0e0e0;
+  --jv-theme-border-color: #342a45;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: grid;
+  place-items: center;
+  min-height: inherit;
+}

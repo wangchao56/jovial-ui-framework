@@ -1,5 +1,3 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-dialog__$(element) {
     @mixin-content;
@@ -18,7 +16,7 @@
   }
 }
 
-@mixin b dialog {
+@b dialog {
   --jv-dialog-width: 30vw;
   --jv-dialog-height: auto;
   --jv-dialog-padding: 24px;

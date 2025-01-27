@@ -1,12 +1,4 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
-@define-mixin e $element {
-  .jv-collapse__$(element) {
-    @mixin-content;
-  }
-}
-
-@mixin b collapse {
+@b collapse {
   --jv-collapse-bg-color: #6edaf5ad;
   /* background-color: var(--jv-collapse-bg-color); */
   padding: var(--jv-font-size-large);

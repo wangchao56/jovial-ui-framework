@@ -1,12 +1,10 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @define-mixin e $element {
   .jv-steps__$(element) {
     @mixin-content;
   }
 }
 
-@mixin b steps {
+@b steps {
   display: flex;
   width: 100%;
 
@@ -58,7 +56,7 @@
   }
 
   /* 步骤项 */
-  @mixin e item {
+  @e item {
     position: relative;
     white-space: nowrap;
 
@@ -147,7 +145,7 @@
       }
     }
 
-    @mixin when clickable {
+    @when clickable {
       cursor: pointer;
 
       &:hover {
@@ -157,7 +155,7 @@
       }
     }
 
-    @mixin when disabled {
+    @when disabled {
       cursor: not-allowed;
 
       .jv-steps__icon {
@@ -174,7 +172,7 @@
   }
 
   /* 图标 */
-  @mixin e icon {
+  @e icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -188,27 +186,27 @@
   }
 
   /* 连接线 */
-  @mixin e line {
+  @e line {
     position: absolute;
     background: var(--jv-border-color);
     transition: all 0.3s;
   }
 
   /* 内容区域 */
-  @mixin e content {
+  @e content {
     padding-top: 8px;
     text-align: center;
   }
 
   /* 标题 */
-  @mixin e title {
+  @e title {
     font-size: 14px;
     line-height: 1.5;
     transition: color 0.3s;
   }
 
   /* 描述 */
-  @mixin e description {
+  @e description {
     margin-top: 4px;
     font-size: 12px;
     line-height: 1.5;
@@ -216,7 +214,7 @@
   }
 
   /* 禁用状态 */
-  @mixin when disabled {
+  @when disabled {
     cursor: not-allowed;
   }
 }

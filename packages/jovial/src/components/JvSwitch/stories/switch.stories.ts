@@ -80,10 +80,51 @@ export const Disabled: Story = {
 export const Loading: Story = {
   render: () => ({
     components: { JvSwitch },
+    setup() {
+      const loading = ref(false)
+      const value = ref(false)
+
+      // 模拟异步操作
+      const handleClick = async () => {
+        loading.value = true
+        await new Promise(resolve => setTimeout(resolve, 5000))
+        loading.value = false
+      }
+
+      return {
+        value,
+        loading,
+        handleClick,
+      }
+    },
     template: `
-      <div style="display: flex; gap: 20px; align-items: center;">
-        <jv-switch :model-value="false" loading />
-        <jv-switch :model-value="true" loading />
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- 受控的loading状态 -->
+        <div style="display: flex; gap: 20px; align-items: center;">
+          <span>受控loading:</span>
+          <jv-switch 
+            v-model="value"
+            :loading="loading"
+            @click="handleClick"
+            manual
+          />
+          <span>value: {{ value }}</span>
+        </div>
+
+        <!-- 不同状态组合 -->
+        <div style="display: flex; gap: 20px; align-items: center;">
+          <jv-switch :model-value="false" loading />
+          <jv-switch :model-value="true" loading />
+          <jv-switch :model-value="false" loading disabled />
+          <jv-switch :model-value="true" loading disabled />
+        </div>
+
+        <!-- 不同尺寸 -->
+        <div style="display: flex; gap: 20px; align-items: center;">
+          <jv-switch size="small" loading />
+          <jv-switch loading />
+          <jv-switch size="large" loading />
+        </div>
       </div>
     `,
   }),

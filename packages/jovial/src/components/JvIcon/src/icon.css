@@ -1,5 +1,3 @@
-@import '@jovial/theme-chalk/src/common/mixins.css';
-
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -23,7 +21,7 @@
   max-height: var(--jv-icon-size);
 }
 
-@mixin b icon {
+@b icon {
   display: inline-block;
   vertical-align: middle;
   text-align: center;

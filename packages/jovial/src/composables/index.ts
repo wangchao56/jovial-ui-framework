@@ -28,8 +28,15 @@ export type {
 //   RtlOptions,
 // } from './locale'
 export { useMutationObserver } from './mutationObserver'
+export type { MutationOptions } from './mutationObserver'
 // export { useProxiedModel } from './proxiedModel'
 export { useResizeObserver } from './resizeObserver'
+
+export { useExpandedKeys } from './useExpandedKeys'
+export type { UseExpandedKeys } from './useExpandedKeys'
+
+export { useSelectedKeys } from './useSelectedKeys'
+export type { UseSelectedKeys } from './useSelectedKeys'
 
 export { useZIndex } from './useZindex'
 

@@ -16,11 +16,6 @@ html {
   --jv-theme-primary-100: #1d9c25;
 }
 
-[data-theme='jieni'] {
-  color-scheme: jieni;
-  --jv-theme-primary-100: #119a83;
-}
-
 /* 根据系统切换 */
 @media (prefers-color-scheme: dark) {
   [data-theme='dark'] {

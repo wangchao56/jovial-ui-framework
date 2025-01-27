@@ -1,5 +1,5 @@
 // export { Tooltip } from './tooltip'
-export { badgeDirective as badge } from './badge'
+export { Badge } from './badge'
 export { ClickOutside } from './click-outside'
 // export { Color } from './color'
 export { Intersect } from './intersect'

@@ -1,6 +1,6 @@
 packages:
   - 'packages/**' # 存放组件代码
   - scripts # 存放脚本
-  - build # 存放构建脚本
+  - build # 存放打包后的文件
   - typings # 存放类型代码
-  - examples # 存放示例项目代码
+  - 'examples/**' # 存放示例项目代码

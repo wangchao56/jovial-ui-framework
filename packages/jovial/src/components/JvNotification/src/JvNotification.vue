@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { JvNotificationEmits, JvNotificationExpose, JvNotificationProps } from './JvNotification'
-import { badge } from '@/directives/index'
+import { Badge } from '@/directives/index'
 import JvButton from '@components/JvButton/src/button.vue'
 import JvIcon from '@components/JvIcon/src/JvIcon.vue'
 import { createNamespace } from '@jovial/utils'
@@ -24,7 +24,7 @@ const emit = defineEmits<JvNotificationEmits>()
 
 const bem = createNamespace('notification')
 
-const vBadge = badge
+const vBadge = Badge
 
 const visible = useModel(props, 'visible')
 let timer: NodeJS.Timeout | null = null

@@ -46,9 +46,9 @@ export function fromXYZ(xyz: XYZ): RGB {
   }
 
   return {
-    r: rgb[0],
-    g: rgb[1],
-    b: rgb[2],
+    r: rgb[0] as number,
+    g: rgb[1] as number,
+    b: rgb[2] as number,
   }
 }
 

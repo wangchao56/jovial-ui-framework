@@ -34,25 +34,25 @@
   backdrop-filter: blur(var(--jv-calendar-backdrop-blur));
   padding: 24px;
 
-  @mixin e header {
+  @e header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
   }
 
-  @mixin e title {
+  @e title {
     font-size: 1.25rem;
     font-weight: bold;
     color: var(--jv-calendar-text-color);
   }
 
-  @mixin e actions {
+  @e actions {
     display: flex;
     gap: 8px;
   }
 
-  @mixin e button {
+  @e button {
     padding: 8px 12px;
     border-radius: 8px;
     background-color: var(--jv-calendar-button-bg);
@@ -66,27 +66,27 @@
     }
   }
 
-  @mixin e weekdays {
+  @e weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 4px;
     margin-bottom: 8px;
   }
 
-  @mixin e weekday {
+  @e weekday {
     text-align: center;
     padding: 8px;
     color: var(--jv-calendar-text-color-secondary);
     font-weight: 500;
   }
 
-  @mixin e grid {
+  @e grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 4px;
   }
 
-  @mixin e cell {
+  @e cell {
     aspect-ratio: 1;
     display: flex;
     align-items: center;
@@ -102,12 +102,12 @@
       background-color: var(--jv-calendar-cell-hover-bg);
     }
 
-    @mixin m selected {
+    @m selected {
       background-color: var(--jv-calendar-cell-selected-bg);
       border-color: var(--jv-calendar-cell-selected-border);
     }
 
-    @mixin m inactive {
+    @m inactive {
       color: var(--jv-calendar-text-color-secondary);
     }
   }
@@ -118,12 +118,12 @@
   background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
   padding: 32px;
 
-  @mixin e container {
+  @e container {
     max-width: 600px;
     margin: 0 auto;
   }
 
-  @mixin e selected-date {
+  @e selected-date {
     margin-top: 16px;
     text-align: center;
     color: var(--jv-calendar-text-color);
