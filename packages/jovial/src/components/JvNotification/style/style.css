@@ -1,4 +1,4 @@
-@import './theme-vars.css';
+@import url('./theme-vars.css');
 
 @define-mixin e $element {
   .jv-notification__$(element) {
@@ -7,17 +7,17 @@
 }
 
 @b notification {
-  position: fixed;
   display: flex;
-  align-items: flex-start;
+  position: fixed;
   width: 330px;
   padding: 14px 26px 14px 13px;
-  border-radius: var(--jv-border-radius-lg);
-  border: 1px solid var(--jv-border-color);
   background: var(--jv-bg-color);
+  border: 1px solid var(--jv-border-color);
+  border-radius: var(--jv-border-radius-lg);
   box-shadow: var(--jv-shadow-lg);
-  overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  align-items: flex-start;
+  overflow: hidden;
 
   /* 位置样式 */
   &--top-right {
@@ -31,8 +31,8 @@
   }
 
   &--bottom-right {
-    bottom: 16px;
     right: 16px;
+    bottom: 16px;
   }
 
   &--bottom-left {
@@ -94,11 +94,11 @@
   /* 标题 */
   &__title {
     margin: 0;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
-    color: var(--jv-text-color);
     margin-bottom: 8px;
+    color: var(--jv-text-color);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
   }
 
   /* 消息体 */
@@ -119,13 +119,14 @@
     right: 14px;
     padding: 0;
     color: var(--jv-text-color-placeholder);
-    transition: color 0.3s;
     cursor: pointer;
+    transition: color 0.3s;
 
     &:hover {
       color: var(--jv-text-color-secondary);
     }
   }
+
   /* 悬停效果 */
   &:hover {
     box-shadow: var(--jv-shadow-xl);

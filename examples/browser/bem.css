@@ -19,13 +19,21 @@
   }
 
   @m small {
-    font-size: 12px;
     padding: 4px 8px;
+    font-size: 12px;
   }
 
   /* 状态 */
   @when disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+}
+
+@each $type in info, success, warning, danger {
+  @m $(type) {
+    --jv-message-border-color: var(--jv-color-$(type));
+    --jv-message-bg-color: var(--jv-color-$(type)-light-7);
+    --jv-message-text-color: var(--jv-color-$(type));
   }
 }

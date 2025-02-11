@@ -1,19 +1,20 @@
 @b badge {
   position: relative;
+
   &::after {
     display: inline-block;
-    content: attr(data-count);
     position: absolute;
     top: 0;
     right: 0;
-    line-height: 1;
-    color: white;
     width: max-content;
     height: max-content;
+    border-radius: 8px;
+    color: white;
+    line-height: 1;
     text-align: center;
+    content: attr(data-count);
     white-space: nowrap;
     background-color: var(--jv-badge-color, red);
-    border-radius: 8px;
   }
 
   @when visible {
@@ -22,11 +23,13 @@
     }
   }
 }
+
 @m rounded {
   &::after {
     border-radius: 50%;
   }
 }
+
 @m top-right {
   &::after {
     top: 0;
@@ -46,8 +49,8 @@
 @m bottom-right {
   &::after {
     top: auto;
-    bottom: 0;
     right: 0;
+    bottom: 0;
     transform: translate(50%, 50%);
   }
 }
@@ -68,6 +71,7 @@
     font-weight: var(--jv-font-weight-regular);
   }
 }
+
 @m medium {
   &::after {
     padding: 4px;

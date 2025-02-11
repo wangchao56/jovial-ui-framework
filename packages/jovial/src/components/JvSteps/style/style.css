@@ -23,8 +23,8 @@
 
     .jv-steps__line {
       top: 16px;
-      left: 50%;
       right: -50%;
+      left: 50%;
       height: 1px;
     }
   }
@@ -63,9 +63,9 @@
     /* 等待状态 */
     &--wait {
       .jv-steps__icon {
+        background: var(--jv-color-white);
         color: var(--jv-text-color-secondary);
         border-color: var(--jv-border-color);
-        background: var(--jv-color-white);
       }
 
       .jv-steps__title {
@@ -84,9 +84,9 @@
     /* 进行中状态 */
     &--process {
       .jv-steps__icon {
+        background: var(--jv-color-primary);
         color: var(--jv-color-white);
         border-color: var(--jv-color-primary);
-        background: var(--jv-color-primary);
       }
 
       .jv-steps__title {
@@ -106,9 +106,9 @@
     /* 完成状态 */
     &--finish {
       .jv-steps__icon {
+        background: var(--jv-color-white);
         color: var(--jv-color-primary);
         border-color: var(--jv-color-primary);
-        background: var(--jv-color-white);
       }
 
       .jv-steps__title {
@@ -127,9 +127,9 @@
     /* 错误状态 */
     &--error {
       .jv-steps__icon {
+        background: var(--jv-color-danger);
         color: var(--jv-color-white);
         border-color: var(--jv-color-danger);
-        background: var(--jv-color-danger);
       }
 
       .jv-steps__title {
@@ -159,9 +159,9 @@
       cursor: not-allowed;
 
       .jv-steps__icon {
+        background: var(--jv-disabled-bg-color);
         color: var(--jv-text-color-disabled);
         border-color: var(--jv-border-color);
-        background: var(--jv-disabled-bg-color);
       }
 
       .jv-steps__title,
@@ -208,9 +208,9 @@
   /* 描述 */
   @e description {
     margin-top: 4px;
+    color: var(--jv-text-color-secondary);
     font-size: 12px;
     line-height: 1.5;
-    color: var(--jv-text-color-secondary);
   }
 
   /* 禁用状态 */

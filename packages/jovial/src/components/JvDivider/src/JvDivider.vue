@@ -67,19 +67,19 @@ hr {
   --jv-divider-bg-color: #c8c8c8;
   --jv-divider-margin: 16px;
   --jv-divider-stroke-width: 1px;
-  --jv-divider-title-bg: #ffffff;
+  --jv-divider-title-bg: #fff;
 
+  position: relative;
   width: v-bind(lengthComputed);
-  border: none;
-  overflow: visible;
-  text-align: v-bind(titlePosition);
-  height: 0px;
+  height: 0;
   margin: var(--jv-divider-margin) 0;
+  border: none;
+  text-align: v-bind(titlePosition);
+  transform: v-bind(directionTransform);
+  overflow: visible;
   border-top: var(--jv-divider-stroke-width) solid;
   border-color: var(--jv-divider-bg-color);
-  position: relative;
   transform-origin: center;
-  transform: v-bind(directionTransform);
 }
 
 .is-dashed {
@@ -88,17 +88,17 @@ hr {
 
 .is-title {
   &::after {
-    content: attr(data-title);
-    background: var(--jv-divider-title-bg);
     position: absolute;
-    color: var(--jv-divider-bg-color);
     top: 50%;
     left: v-bind(leftGap);
-    padding: 0 10px;
     width: max-content;
-    transform: translate(-50%, -50%);
+    padding: 0 10px;
+    background: var(--jv-divider-title-bg);
+    color: var(--jv-divider-bg-color);
     font-size: 14px;
     line-height: 20px;
+    transform: translate(-50%, -50%);
+    content: attr(data-title);
   }
 }
 </style>

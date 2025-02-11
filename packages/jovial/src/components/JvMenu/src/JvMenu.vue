@@ -6,7 +6,7 @@ import { createNamespace } from '@jovial/utils'
 import { computed, provide, watch } from 'vue'
 import JvMenuChildren from './components/JvMenuChildren.vue'
 import { JvMenuContextKey } from './JvMenu'
-import '../style/style.css'
+import '../style/menu.css'
 
 defineOptions({ name: 'JvMenu' })
 
@@ -109,10 +109,10 @@ provide(JvMenuContextKey, {
 
 <style>
 .jv-menu {
-  border-right: 1px solid var(--jv-border-color);
-  transition: width 0.3s;
-  min-width: 200px;
   height: 100%;
+  transition: width 0.3s;
+  border-right: 1px solid var(--jv-border-color);
+  min-width: 200px;
 }
 
 .jv-menu--horizontal {

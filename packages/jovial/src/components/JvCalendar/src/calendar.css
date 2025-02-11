@@ -8,30 +8,26 @@
 
 @b calendar {
   --jv-calendar-background-color: #fff;
-  --jv-calendar-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.5);
+  --jv-calendar-box-shadow: 4px 4px 8px rgb(0 0 0 / 10%), -4px -4px 8px rgb(255 255 255 / 50%);
   --jv-calendar-title-padding: 20px;
   --jv-calendar-title-font-size: 24px;
   --jv-calendar-title-font-weight: bold;
-  --jv-calendar-title-box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.5);
-
+  --jv-calendar-title-box-shadow: inset 4px 4px 8px rgb(0 0 0 / 5%), inset -4px -4px 8px rgb(255 255 255 / 50%);
   --jv-calendar-table-header-background-color: #f9f9f9;
   --jv-calendar-table-cell-selected-shadow: inset 0px -4px 0px 0px #56b0bc, inset 0px 4px 0px 0px #56b0bc,
     inset 4px 0px 0px 0px #56b0bc, inset -4px 0px 0px 0px #56b0bc;
-
   --jv-calendar-table-cell-color: #333;
   --jv-calendar-table-cell-hover-color: #56b0bc;
   --jv-calendar-table-cell-selected-color: #fff;
   --jv-calendar-table-cell-prevandnext-color: #999;
-
   --jv-calendar-table-tfoot-bg-color: #f9f9f9;
   --jv-calendar-table-tfoot-font-size: 14px;
   --jv-calendar-table-tfoot-font-weight: bold;
-  --jv-calendar-table-tfoot-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.5);
-
+  --jv-calendar-table-tfoot-shadow: inset 4px 4px 8px rgb(0 0 0 / 5%), inset -4px -4px 8px rgb(255 255 255 / 50%);
   --jv-calendar-table-thead-bg-color: #f0f0f0;
   --jv-calendar-table-thead-font-size: 16px;
   --jv-calendar-table-thead-font-weight: bold;
-  --jv-calendar-table-thead-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+  --jv-calendar-table-thead-shadow: inset 4px 4px 8px rgb(0 0 0 / 5%), inset -4px -4px 8px rgb(255 255 255 / 50%);
 
   min-width: max-content;
   width: 500px;
@@ -40,10 +36,10 @@
 
   &__title {
     padding: var(--jv-calendar-title-padding);
+    box-shadow: var(--jv-calendar-title-box-shadow);
     font-size: var(--jv-calendar-title-font-size);
     font-weight: var(--jv-calendar-title-font-weight);
     background-color: var(--jv-calendar-background-color);
-    box-shadow: var(--jv-calendar-title-box-shadow);
   }
 }
 
@@ -52,45 +48,46 @@
   box-sizing: border-box;
   background-color: #fff;
   box-shadow:
-    4px 4px 16px rgba(0, 0, 0, 0.1),
-    -4px -4px 16px rgba(255, 255, 255, 0.5);
+    4px 4px 16px rgb(0 0 0 / 10%),
+    -4px -4px 16px rgb(255 255 255 / 50%);
 
   @e caption {
-    caption-side: top;
     display: table-caption;
     padding: 10px;
+    box-shadow:
+      inset 4px 4px 8px rgb(0 0 0 / 5%),
+      inset -4px -4px 8px rgb(255 255 255 / 50%);
     font-size: 18px;
     font-weight: bold;
+    caption-side: top;
     background-color: #fff;
-    box-shadow:
-      inset 4px 4px 8px rgba(0, 0, 0, 0.05),
-      inset -4px -4px 8px rgba(255, 255, 255, 0.5);
   }
 
   @e header {
     padding: 8px 24px;
     background-color: var(--jv-calendar-table-header-background-color);
     box-shadow:
-      inset 4px 4px 8px rgba(0, 0, 0, 0.05),
-      inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+      inset 4px 4px 8px rgb(0 0 0 / 5%),
+      inset -4px -4px 8px rgb(255 255 255 / 50%);
   }
 
   @e actions {
-    width: 100%;
     display: flex;
+    width: 100%;
+    padding: 8px;
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
-    padding: 8px;
     box-sizing: border-box;
+
     &--text {
       padding: 8px 16px;
+      box-shadow:
+        inset 4px 4px 8px rgb(0 0 0 / 5%),
+        inset -4px -4px 8px rgb(255 255 255 / 50%);
       font-size: 14px;
       font-weight: var(--jv-font-weight-light);
       background-color: var(--jv-calendar-table-header-background-color);
-      box-shadow:
-        inset 4px 4px 8px rgba(0, 0, 0, 0.05),
-        inset -4px -4px 8px rgba(255, 255, 255, 0.5);
     }
   }
 
@@ -101,45 +98,42 @@
   }
 
   @e cell {
-    width: 14.2857%;
-    text-align: center;
-    box-sizing: border-box;
-    padding: 10px;
     position: relative;
+    width: 14.2857%;
+    padding: 10px;
+    text-align: center;
     cursor: pointer;
+    box-sizing: border-box;
 
     &.is-selected {
       position: relative;
-      box-shadow: var(--jv-calendar-table-cell-selected-shadow);
-      border-radius: 5px;
       background: linear-gradient(145deg, #f0f0f0, #cacaca);
+      border-radius: 5px;
+      box-shadow: var(--jv-calendar-table-cell-selected-shadow);
       box-shadow:
         6px 6px 12px #bebebe,
-        -6px -6px 12px #ffffff;
+        -6px -6px 12px #fff;
     }
 
-    &.is-selected:before {
+    &.is-selected::before {
       box-shadow: var(--jv-calendar-table-cell-selected-shadow);
     }
 
     &.is-today {
-      background-color: var(--jv-calendar-table-cell-hover-color);
-      box-shadow: var(--jv-calendar-table-cell-selected-shadow);
-      border-radius: 5px;
       background: linear-gradient(145deg, #14b46c, var(--jv-calendar-table-cell-hover-color));
+      border-radius: 5px;
+      box-shadow: var(--jv-calendar-table-cell-selected-shadow);
       box-shadow:
         6px 6px 12px #bebebe,
-        -6px -6px 12px #ffffff;
+        -6px -6px 12px #fff;
+      background-color: var(--jv-calendar-table-cell-hover-color);
     }
 
-    &:before {
-      content: '';
+    &::before {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+      inset: 0;
+      background: linear-gradient(180deg, rgb(255 255 255 / 20%) 0%, rgb(255 255 255 / 0%) 100%);
+      content: '';
       pointer-events: none;
     }
 
@@ -147,8 +141,8 @@
       border: none;
       background-color: #f0f0f0;
       box-shadow:
-        inset 2px 2px 4px rgba(0, 0, 0, 0.05),
-        inset -2px -2px 4px rgba(255, 255, 255, 0.5);
+        inset 2px 2px 4px rgb(0 0 0 / 5%),
+        inset -2px -2px 4px rgb(255 255 255 / 50%);
     }
 
     &--prev-month {

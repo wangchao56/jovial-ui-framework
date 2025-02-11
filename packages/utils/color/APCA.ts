@@ -42,6 +42,12 @@ const loConFactor = 12.82051282051282 // = 1/0.078,
 const loConOffset = 0.06 // The simple offset
 const loClip = 0.001 // Output clip (lint trap #2)
 
+/**
+ * 计算APCA对比度
+ * @param text 前景色
+ * @param background 背景色
+ * @returns 对比度
+ */
 export function APCAcontrast(text: RGB, background: RGB) {
   // Linearize sRGB
   const Rtxt = (text.r / 255) ** mainTRC

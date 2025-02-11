@@ -15,7 +15,7 @@ import '../style/button.css'
 
 defineOptions({
   name: 'JvButton',
-  inheritAttrs: true,
+  inheritAttrs: true, // 是否继承原生属性 true 表示继承
 })
 // 使用 withDefaults 为 props 设置默认值
 const props = withDefaults(defineProps<ButtonProps>(), {
@@ -38,8 +38,6 @@ const emit = defineEmits<ButtonEmits>()
 defineSlots<ButtonSlots>()
 const bem = createNamespace('button')
 const theme = useTheme()
-
-console.log(theme)
 
 const rootRef = ref<HTMLButtonElement | null>(null)
 
@@ -70,18 +68,6 @@ watchEffect(() => {
   _disabled.value = props.disabled
 })
 
-const exposed: ButtonExposed = {
-  root: rootRef.value,
-  setLoading: (loading: boolean) => {
-    _loading.value = loading
-  },
-  setDisabled: (disabled: boolean) => {
-    _disabled.value = disabled
-  },
-}
-
-defineExpose<ButtonExposed>(exposed)
-
 // 注入按钮组上下文
 const buttonGroupContext = inject(JvButtonGroupContextKey, null)
 
@@ -92,11 +78,23 @@ const finalProps = computed(() => ({
   size: buttonGroupContext?.size || props.size,
   rounded: buttonGroupContext?.rounded || props.rounded,
 }))
+defineExpose<ButtonExposed>({
+  root: rootRef,
+  setLoading: (loading: boolean) => {
+    _loading.value = loading
+  },
+  setDisabled: (disabled: boolean) => {
+    _disabled.value = disabled
+  },
+})
 </script>
 
 <template>
   <button
     ref="rootRef"
+    v-bind="$attrs"
+    role="button"
+    tabindex="0"
     :class="[
       bem.b(),
       bem.m(finalProps.type),
@@ -108,13 +106,19 @@ const finalProps = computed(() => ({
       bem.is('disabled', _disabled),
       bem.is('block', block),
       bem.is('stacked', stacked),
+      props.class,
+      theme.themeClasses.value,
     ]"
     :disabled="loading || disabled"
     :style="buttonStyle"
     :type="nativeType"
     :autofocus="autofocus"
-    @click.stop="emitClick($event)"
+    @click="emitClick($event)"
     @mousedown="emitMouseDown($event)"
+    @keydown.prevent="emit('keydown', $event)"
+    @keyup.prevent="emit('keyup', $event)"
+    @focus="emit('focus', $event)"
+    @blur="emit('blur', $event)"
   >
     <span v-if="$slots.prepend || prependIcon" :class="bem.e('prepend')">
       <!-- 自定义前置图标 -->

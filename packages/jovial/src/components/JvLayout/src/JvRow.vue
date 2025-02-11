@@ -95,9 +95,11 @@ defineExpose({
   margin: 0;
   padding: 0;
   transition: flex-wrap 0.3s ease;
+
   &.is-wrap {
     flex-wrap: wrap;
   }
+
   &.is-nowrap {
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -111,16 +113,16 @@ defineExpose({
 }
 
 .jv-row--overflow::after {
-  content: '';
   position: absolute;
-  right: 0;
   top: 0;
+  right: 0;
   bottom: 0;
   width: 24px;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8));
-  pointer-events: none;
+  background: linear-gradient(to right, transparent, rgb(255 255 255 / 80%));
   opacity: 0;
   transition: opacity 0.3s ease;
+  content: '';
+  pointer-events: none;
 }
 
 .jv-row--overflow.jv-row--nowrap::after {

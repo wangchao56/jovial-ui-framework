@@ -1,7 +1,6 @@
 import type { App, DeepReadonly, InjectionKey } from 'vue'
 import {
   getCurrentInstance,
-  getForeground,
   getLuma,
   IN_BROWSER,
   parseColor,
@@ -77,7 +76,7 @@ export interface ThemeOptions {
   themes: Record<string, DeepPartial<InternalThemeDefinition>>
 }
 
-interface ThemeInstance {
+export interface ThemeInstance {
   /** 禁用主题 */
   readonly isDisabled: boolean
   /** 主题名称 */
@@ -98,7 +97,16 @@ interface ThemeInstance {
 export const ThemeSymbol: InjectionKey<ThemeInstance>
   = Symbol.for('jovial-ui-theme')
 
-// 默认主题配置
+// 替换原有的getForeground函数
+function getContrastText(background: string): string {
+  const rgb = parseColor(background)
+  // 计算相对亮度（WCAG公式）
+  const luminance = (0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b) / 255
+  // 根据对比度选择前景色
+  return luminance > 0.179 ? '#000000' : '#ffffff' // 阈值调整为4.5:1对比度
+}
+
+// 修正默认主题中的错误对比色
 function genDefaults(): ThemeOptions {
   return {
     defaultTheme: 'light',
@@ -106,43 +114,27 @@ function genDefaults(): ThemeOptions {
       light: {
         dark: false,
         colors: {
-          'background': '#ffffff',
-          'surface': '#ffffff',
-          'primary': '#6200ee',
-          'secondary': '#03dac4',
-          'success': '#00c853',
-          'warning': '#ffd600',
-          'error': '#d50000',
-          'info': '#2962ff',
-          'on-background': '#000000',
-          'on-surface': '#000000',
-          'on-primary': '#ffffff',
-          'on-secondary': '#000000',
-          'on-success': '#000000',
-          'on-warning': '#000000',
-          'on-error': '#ffffff',
-          'on-info': '#ffffff',
+          background: '#ffffff',
+          surface: '#ffffff',
+          primary: '#6200ee',
+          secondary: '#03dac4',
+          success: '#00c853',
+          warning: '#ffd600',
+          error: '#d50000',
+          info: '#2962ff',
         },
       },
       dark: {
         dark: true,
         colors: {
-          'background': '#121212',
-          'surface': '#121212',
-          'primary': '#bb86fc',
-          'secondary': '#03dac4',
-          'success': '#00c853',
-          'warning': '#ffd600',
-          'error': '#cf6679',
-          'info': '#81d4fa',
-          'on-background': '#ffffff',
-          'on-surface': '#ffffff',
-          'on-primary': '#000000',
-          'on-secondary': '#000000',
-          'on-success': '#000000',
-          'on-warning': '#000000',
-          'on-error': '#ffffff',
-          'on-info': '#ffffff',
+          background: '#121212',
+          surface: '#121212',
+          primary: '#bb86fc',
+          secondary: '#03dac4',
+          success: '#00c853',
+          warning: '#ffd600',
+          error: '#cf6679',
+          info: '#81d4fa',
         },
       },
     },
@@ -172,17 +164,13 @@ export function createTheme(
           ...original.colors,
         },
       })
-      // 遍历主题中的颜色
+      // 修改主题生成逻辑中的颜色处理部分
       for (const [color, value] of Object.entries(theme.colors)) {
-        if (!value) {
-          // 没有值 continue
+        if (!value || color.startsWith('on-'))
           continue
-        }
-        // 生成对应的"on-"颜色键
         const onColor = `on-${color}` as keyof OnColors
-        const colorVal = parseColor(value)
-        // 计算前景色并将其赋值给"on-"颜色
-        theme.colors[onColor] = getForeground(colorVal)
+        // 使用新的对比度计算方法
+        theme.colors[onColor] = getContrastText(value)
       }
     }
     return result
@@ -273,6 +261,9 @@ export function createTheme(
       updateStyles()
     }
 
+    /**
+     * 更新样式
+     */
     function updateStyles() {
       // 如果在浏览器环境中且样式元素不存在
       if (typeof document !== 'undefined' && !styleEl) {
@@ -295,7 +286,6 @@ export function createTheme(
   }
 
   const themeClasses = computed(() => parsedOptions.isDisabled ? undefined : `${THEME_CLASS}--${name.value}`)
-  console.log(themeClasses.value)
   return {
     install,
     isDisabled: false,
@@ -313,6 +303,12 @@ export function createTheme(
     },
   }
 }
+
+/**
+ * 提供主题
+ * @param props 主题
+ * @returns 主题
+ */
 export function provideTheme(props: { theme?: string }) {
   getCurrentInstance('provideTheme')
 
@@ -342,17 +338,27 @@ export function provideTheme(props: { theme?: string }) {
   return newTheme
 }
 
+/**
+ * 使用主题
+ * @returns 主题
+ */
 export function useTheme() {
   getCurrentInstance('useTheme')
 
   const theme = inject(ThemeSymbol, null)
 
   if (!theme)
-    throw new Error('Could not find Vuetify theme injection')
+    throw new Error('Could not find Jovial theme injection')
 
   return theme
 }
 
+/**
+ * 创建CSS类
+ * @param lines 行数组
+ * @param selector 选择器
+ * @param declarations 声明
+ */
 function createCssClass(
   lines: string[],
   selector: string,
@@ -364,6 +370,11 @@ function createCssClass(
     '}\n',
   )
 }
+/**
+ * 生成CSS变量
+ * @param theme 主题
+ * @returns 生成的CSS变量
+ */
 function genCssVariables(theme: InternalThemeDefinition): string[] {
   // 根据主题的黑暗模式设置覆盖层的乘数
   const lightOverlay = theme.dark ? 2 : 1

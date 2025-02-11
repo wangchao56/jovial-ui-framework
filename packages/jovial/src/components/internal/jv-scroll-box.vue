@@ -1,166 +1,157 @@
 <script setup lang="ts">
+import type { PropType } from 'vue'
 import BScroll from '@better-scroll/core'
 import MouseWheel from '@better-scroll/mouse-wheel'
 import ScrollBar from '@better-scroll/scroll-bar'
+import { createNamespace } from '@jovial/utils'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 defineOptions({
   name: 'JvScrollBox',
 })
 const props = defineProps({
   scrollMode: {
-    type: Object as PropType<{
-      vertical: boolean
-      horizontal: boolean
-    }>,
-    default() {
-      return {
-        vertical: true,
-        horizontal: false,
-      }
-    },
+    type: Object as PropType<ScrollMode>,
+    default: () => ({ vertical: true, horizontal: false }),
   },
   width: {
     type: String,
-    default: '280px',
+    default: '100%',
   },
   height: {
     type: String,
-    default: '280px',
+    default: '300px',
   },
+  probeType: {
+    type: Number,
+    default: 3,
+  },
+  click: {
+    type: Boolean,
+    default: true,
+  },
+  scrollDelay: {
+    type: Number,
+    default: 300,
+  },
+  scrollEasing: {
+    type: String,
+    default: 'swipe',
+  },
+  disabled: Boolean,
 })
+const emit = defineEmits(['scrollStart', 'scroll', 'scrollEnd'])
 BScroll.use(ScrollBar)
 BScroll.use(MouseWheel)
 
-const wrapperRef = ref<HTMLElement | null>(null)
-const horizontalRef = ref<HTMLElement>()
-const verticalRef = ref<HTMLElement>()
-const bscroll = ref<BScroll | null>(null)
-const scrollmode = computed(() => ({
-  vertical: props.scrollMode?.vertical ?? true,
-  horizontal: props.scrollMode?.horizontal ?? false,
-}))
+interface ScrollMode {
+  vertical?: boolean
+  horizontal?: boolean
+}
 
-const width = computed(() => props.width)
-const height = computed(() => props.height)
+const bem = createNamespace('scroll-box')
+
+const wrapperRef = ref<HTMLElement | null>(null)
+const bscroll = ref<BScroll | null>(null)
+
+function initScroll() {
+  if (!wrapperRef.value || props.disabled)
+    return
+
+  bscroll.value = new BScroll(wrapperRef.value, {
+    freeScroll: true,
+    click: props.click,
+    probeType: props.probeType,
+    scrollY: props.scrollMode.vertical,
+    scrollX: props.scrollMode.horizontal,
+    mouseWheel: {
+      speed: 10,
+      invert: false,
+      easeTime: props.scrollDelay,
+    },
+    scrollbar: {
+      fade: false,
+      interactive: true,
+    },
+  })
+
+  // 事件绑定
+  bscroll.value.on('scrollStart', () => emit('scrollStart'))
+  bscroll.value.on('scroll', (pos: { x: number, y: number }) => emit('scroll', pos))
+  bscroll.value.on('scrollEnd', () => emit('scrollEnd'))
+}
 
 onMounted(() => {
-  if (wrapperRef.value) {
-    // console.log(2)
-    // 使用插件
-    // 初始化 BScroll 实例，并应用传入的配置
-    bscroll.value = new BScroll(wrapperRef.value, {
-      freeScroll: true,
-      click: true,
-      scrollY: scrollmode.value.vertical,
-      scrollX: scrollmode.value.horizontal,
-      mouseWheel: {
-        speed: 10,
-        invert: false,
-        easeTime: 300,
-      },
-      scrollbar: {
-        customElements: [horizontalRef.value!, verticalRef.value!],
-        fade: false,
-        interactive: true,
-        scrollbarTrackClickable: true,
-      },
-    })
-  }
-  nextTick(() => {
-    // console.log('nextTick')
-
-    if (bscroll.value) {
-      // 刷新 BScroll 实例，以适应新的内容或尺寸变化
-      bscroll.value.refresh()
-    }
-  })
+  initScroll()
 })
 
-onUnmounted(() => {
-  if (bscroll.value) {
-    // 销毁 BScroll 实例
-    bscroll.value.destroy()
+watch(() => props.disabled, (val) => {
+  if (val) {
+    bscroll.value?.disable()
   }
+  else {
+    bscroll.value?.enable()
+  }
+})
+
+onBeforeUnmount(() => {
+  bscroll.value?.destroy()
+})
+
+defineExpose({
+  refresh: () => bscroll.value?.refresh(),
+  scrollTo: (x: number, y: number, time = 300) => bscroll.value?.scrollTo(x, y, time),
+  instance: bscroll,
 })
 </script>
 
 <template>
-  <div class="custom-scrollbar-container">
-    <div ref="wrapperRef" class="custom-scrollbar-wrapper">
-      <div class="custom-scrollbar-content">
+  <div
+    :class="[
+      bem.b(),
+      bem.is('disabled', disabled),
+      bem.m(`mode-${scrollMode.vertical ? 'vertical' : 'horizontal'}`),
+    ]"
+    :style="{ width, height }"
+  >
+    <div ref="wrapperRef" :class="bem.e('wrapper')">
+      <div :class="bem.e('content')">
         <slot />
-      </div>
-      <!-- custom-vertical-scrollbar -->
-      <div
-        v-if="scrollmode.vertical"
-        ref="verticalRef"
-        class="custom-vertical-scrollbar"
-      >
-        <div class="custom-vertical-indicator" />
-      </div>
-      <!-- custom-horizontal-scrollbar -->
-      <div
-        v-if="scrollmode.horizontal"
-        ref="horizontalRef"
-        class="custom-horizontal-scrollbar"
-      >
-        <div class="custom-horizontal-indicator" />
       </div>
     </div>
   </div>
 </template>
 
-<style lang="css" scoped>
-.custom-scrollbar-container {
-  .custom-scrollbar-wrapper {
-    position: relative;
-    width: v-bind(width);
-    height: v-bind(height);
+<style>
+@b scroll-box {
+  position: relative;
+  overflow: hidden;
+
+  @e wrapper {
+    height: 100%;
     overflow: hidden;
   }
 
-  .custom-scrollbar-wrapper {
-    background-color: rgba(29, 28, 28, 0.652);
+  @e content {
+    min-height: 100%;
+    box-sizing: border-box;
   }
 
-  .custom-scrollbar-content {
-    max-width: none;
+  @m disabled {
+    opacity: 0.6;
+    pointer-events: none;
   }
 
-  .custom-vertical-scrollbar {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    height: 100%;
-    width: 7px;
-    border-radius: 6px;
-    transform: translateY(-50%) translateZ(0);
-    background-color: rgba(200, 200, 200, 0.3);
+  @m mode-vertical {
+    .jv-scroll-box__wrapper {
+      overflow-y: hidden;
+    }
   }
 
-  .custom-vertical-indicator {
-    width: 100%;
-    height: 20px;
-    border-radius: 6px;
-    background-color: #db8090;
-  }
-
-  .custom-horizontal-scrollbar {
-    position: absolute;
-    left: 50%;
-    bottom: 10px;
-    /* width: 100px; */
-    height: 7px;
-    border-radius: 6px;
-    transform: translateX(-50%) translateZ(0);
-    background-color: rgba(200, 200, 200, 0.3);
-  }
-
-  .custom-horizontal-indicator {
-    height: 100%;
-    width: 20px;
-    border-radius: 6px;
-    background-color: #db8090;
+  @m mode-horizontal {
+    .jv-scroll-box__wrapper {
+      overflow-x: hidden;
+    }
   }
 }
 </style>

@@ -11,6 +11,29 @@ import type { TouchStoredHandlers } from '../packages/directives/touch'
 import 'vue/jsx'
 
 declare global {
+
+  export type PropertyKey = string | number | symbol
+  // 制定接口中的某些key为必选
+  export type RequiredKeys<T, K extends keyof T> = {
+    [P in K]-?: T[P]
+  } & Omit<T, K>
+
+  // 制定接口中的某些key为必选
+  export type OptionalKeys<T, K extends keyof T> = {
+    [P in K]?: T[P]
+  } & Omit<T, K>
+  // 方法1：直接提取共有属性名
+  export type CommonKeys<T, U> = Extract<keyof T, keyof U>
+  // 方法2：生成包含共有属性的完整类型
+  export type CommonProperties<T, U> = {
+    [K in Extract<keyof T, keyof U>]: T[K] & U[K]
+  }
+
+  /**
+   * 提取A类型中存在但B类型中不存在的属性
+   */
+  export type Diff<A, B> = Omit<A, keyof B>
+
   interface HTMLCollection {
     [Symbol.iterator]: () => IterableIterator<Element>
   }
@@ -202,6 +225,5 @@ declare module 'vue' {
   }
 
   export interface CSSProperties extends CustomProperties {}
-}
 
-declare type PropertyKey = string | number | symbol
+}

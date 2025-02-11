@@ -84,6 +84,7 @@ function afterLeave() {
 .overlay-fade-leave-active {
   transition: background-color 0.3s;
 }
+
 .overlay-fade-enter-from,
 .overlay-fade-leave-to {
   background-color: transparent !important;

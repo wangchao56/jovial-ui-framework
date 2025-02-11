@@ -28,5 +28,14 @@ const config: StorybookConfig = {
     },
   },
   docs: { defaultName: 'Documentation' },
+  viteFinal: (config) => {
+    return config
+  },
+  refs: {
+    'jovial-ui': {
+      title: 'Jovial UI',
+      url: 'http://localhost:6006',
+    },
+  },
 }
 export default config

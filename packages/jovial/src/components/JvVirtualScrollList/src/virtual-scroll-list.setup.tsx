@@ -35,14 +35,14 @@ export default defineComponent({
       range.value = newRange
     }
     const bscrollOptions: Options = {
-      probeType: 3,
+      probeType: 3, // 3 表示在任何时候都派发 scroll 事件
       scrollY: true,
       scrollbar: {
         fade: false,
         interactive: true,
         scrollbarTrackClickable: true,
       },
-      mouseWheel: {
+      mouseWheel: { // 鼠标滚轮
         speed: 10,
         invert: false,
         easeTime: 300,

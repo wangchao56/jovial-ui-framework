@@ -1,7 +1,0 @@
-@define-mixin e $element {
-  .jv-treeSelect__$(element) {
-    @mixin-content;
-  }
-}
-@b treeSelect {
-}

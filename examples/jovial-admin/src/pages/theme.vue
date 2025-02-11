@@ -346,7 +346,7 @@ const boxStyle = computed(() => {
   --jv-theme-secondary-color: #ffc7ff;
   --jv-theme-success-color: #cb80ff;
   --jv-theme-warning-color: #373737;
-  --jv-theme-error-color: #ffffff;
+  --jv-theme-error-color: #fff;
   --jv-theme-info-color: #e0e0e0;
   --jv-theme-background-color: #ffc7ff;
   --jv-theme-text-color: #e0e0e0;
@@ -357,6 +357,7 @@ const boxStyle = computed(() => {
 <style  module="jienicss2">
 .proprety {
   --jv-btn-background: var(--jv-theme-border-color);
+
   transition: background-color 0.5s ease-in-out;
 }
 </style>
@@ -364,6 +365,7 @@ const boxStyle = computed(() => {
 <style scoped>
 .jv-button {
   --jv-btn-background: var(--jv-theme-border-color);
+
   background-color: var(--jv-btn-background) !important;
   color: var(--jv-theme-text-color) !important;
   border-color: var(--jv-theme-border-color) !important;

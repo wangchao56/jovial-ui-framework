@@ -84,9 +84,10 @@ function stopLoading() {
   --jv-loading-size: 40px;
   --jv-loading-color: #333;
   --jv-loading-speed: 1.2s;
+
+  display: inline-block;
   width: var(--jv-loading-size);
   height: var(--jv-loading-size);
-  display: inline-block;
 }
 
 .jv-loading svg {
@@ -104,6 +105,7 @@ function stopLoading() {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -114,10 +116,12 @@ function stopLoading() {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.3;
     transform: scale(0.85);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);

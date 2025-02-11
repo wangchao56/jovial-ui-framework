@@ -3,6 +3,7 @@
     @mixin-content;
   }
 }
+
 @define-mixin m $modifier {
   &.jv-space--$(modifier) {
     @mixin-content;
@@ -15,16 +16,14 @@
   --jv-space-justify: flex-start;
   --jv-space-align: flex-start;
   --jv-space-flex-direction: row;
+
   min-width: 100%;
   min-height: max-content;
   display: flex;
-  flex-wrap: nowrap;
+  flex-flow: var(--jv-space-flex-direction) nowrap;
   justify-content: var(--jv-space-justify);
   align-items: var(--jv-space-align);
-  flex-direction: var(--jv-space-flex-direction);
-
-  row-gap: var(--jv-space-vertical-size);
-  column-gap: var(--jv-space-size);
+  gap: var(--jv-space-vertical-size) var(--jv-space-size);
   overflow: hidden;
   padding: 16px;
   box-sizing: border-box;
@@ -32,6 +31,7 @@
   @m wrap {
     flex-wrap: wrap;
   }
+
   @m inline {
     display: inline-flex;
   }
@@ -39,18 +39,23 @@
   @m justify-start {
     justify-content: flex-start !important;
   }
+
   @m justify-center {
     justify-content: center;
   }
+
   @m justify-end {
     justify-content: flex-end;
   }
+
   @m justify-between {
     justify-content: space-between;
   }
+
   @m justify-around {
     justify-content: space-around;
   }
+
   @m justify-evenly {
     justify-content: space-evenly;
   }
@@ -58,21 +63,27 @@
   @m align-start {
     align-items: flex-start;
   }
+
   @m align-center {
     align-items: center;
   }
+
   @m align-end {
     align-items: flex-end;
   }
+
   @m align-stretch {
     align-items: stretch;
   }
+
   @m align-baseline {
     align-items: baseline;
   }
+
   @m horizontal {
     flex-direction: row;
   }
+
   @m vertical {
     flex-direction: column;
   }

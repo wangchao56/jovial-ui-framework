@@ -11,4 +11,3 @@ const bem = createNamespace('transfer')
 <template>
   <div :class="bem.b()" />
 </template>
-    import "../style/style.css"

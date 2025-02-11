@@ -6,50 +6,51 @@
 
 @b radio {
   display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
   position: relative;
+  cursor: pointer;
+  align-items: center;
+  user-select: none;
 
   @e icon-wrapper {
+    display: inline-flex;
     position: relative;
     width: 2.5rem;
     height: 2.5rem;
-    display: inline-flex;
+    border-radius: 50%;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
     overflow: hidden;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
-      background-color: rgba(var(--jv-theme-primary), 0.1);
+      background-color: rgb(var(--jv-theme-primary) 0.1);
     }
+
     &:active {
-      transform-origin: center;
-      transform: scale(0.9);
       transition: transform 0.2s ease;
+      transform: scale(0.9);
+      transform-origin: center;
     }
   }
 
   @e icon {
     width: 1.5rem;
     height: 1.5rem;
-    transition: transform 0.2s ease;
     border-radius: 50%;
+    transition: transform 0.2s ease;
   }
 
   @e input {
-    cursor: pointer;
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     margin: 0;
     opacity: 0;
-    outline: none;
+    cursor: pointer;
     z-index: 1;
+    outline: none;
 
     &:focus-visible + .jv-radio__icon-wrapper {
       background-color: var(--jv-color-primary-light-9);
@@ -57,43 +58,49 @@
   }
 
   @e label {
-    font-size: var(--jv-font-size-base);
-    color: var(--jv-text-color-primary);
     margin-left: 4px;
+    color: var(--jv-text-color-primary);
+    font-size: var(--jv-font-size-base);
     transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
 @b radio {
   &.is-disabled {
-    cursor: not-allowed;
     opacity: 0.7;
+    cursor: not-allowed;
+
     @e icon-wrapper {
       cursor: not-allowed;
       background-color: var(--jv-theme-color-error);
     }
+
     @e icon {
       .jv-icon__svg {
-        color: rgba(118, 114, 114, 0.772);
-        background-color: rgba(118, 114, 114, 0.772) !important;
+        color: rgb(118 114 114 / 77.2%);
+        background-color: rgb(118 114 114 / 77.2%) !important;
+
         &:active {
-          transform: none;
           transition: none;
+          transform: none;
+
           /* 使用贝塞尔曲线实现震荡 */
           animation: jv-radio-shake 0.4s cubic-bezier(0.36, 0, 0.66, -0.56) both;
         }
       }
     }
+
     @e input {
       cursor: not-allowed;
+
       &:hover:not(:checked) {
         border-color: var(--jv-border-color);
       }
     }
 
     @e label {
-      cursor: not-allowed;
       color: var(--jv-text-color-disabled);
+      cursor: not-allowed;
     }
   }
 
@@ -112,14 +119,17 @@
     transform: translateX(0.25rem);
   }
 }
+
 @keyframes jv-radio-shake {
   0%,
   100% {
     transform: translateX(0);
   }
+
   25% {
     transform: translateX(-3px);
   }
+
   75% {
     transform: translateX(3px);
   }

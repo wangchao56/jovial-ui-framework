@@ -38,9 +38,10 @@ module.exports = {
     }),
     require('postcss-nested'),
     require('postcss-mixins'),
+    require('postcss-conditionals'),
     require('postcss-each')({
       plugins: {
-        beforeEach: [require('postcss-for'), require('postcss-color-mix')],
+        beforeEach: [require('postcss-for'), require('postcss-conditionals'), require('postcss-color-mix')],
       },
     }),
   ],

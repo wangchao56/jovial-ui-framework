@@ -56,6 +56,7 @@ const colClasses = computed(() => {
 .jv-col {
   box-sizing: border-box;
 }
+
 /* 生成基础列宽类 */
 @for $i from 1 to 24 {
   .jv-col-$i {
@@ -69,60 +70,65 @@ const colClasses = computed(() => {
 }
 
 /* 响应式断点 */
-@media screen and (max-width: 576px) {
+@media screen and (width <= 576px) {
   @for $i from 1 to 24 {
     .jv-col-xs-$i {
       flex: 1 1 calc($i / 24 * 100%);
       max-width: calc($i / 24 * 100%);
     }
+
     .jv-col-xs-offset-$i {
       margin-left: calc($i / 24 * 100%);
     }
   }
 }
 
-@media screen and (min-width: 576px) {
+@media screen and (width >= 576px) {
   @for $i from 1 to 24 {
     .jv-col-sm-$i {
       flex: 1 1 calc($i / 24 * 100%);
       max-width: calc($i / 24 * 100%);
     }
+
     .jv-col-sm-offset-$i {
       margin-left: calc($i / 24 * 100%);
     }
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (width >= 768px) {
   @for $i from 1 to 24 {
     .jv-col-md-$i {
       flex: 1 1 calc($i / 24 * 100%);
       max-width: calc($i / 24 * 100%);
     }
+
     .jv-col-md-offset-$i {
       margin-left: calc($i / 24 * 100%);
     }
   }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (width >= 992px) {
   @for $i from 1 to 24 {
     .jv-col-lg-$i {
       flex: 1 1 calc($i / 24 * 100%);
       max-width: calc($i / 24 * 100%);
     }
+
     .jv-col-lg-offset-$i {
       margin-left: calc($i / 24 * 100%);
     }
   }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (width >= 1200px) {
   @for $i from 1 to 24 {
     .jv-col-xl-$i {
       flex: 1 1 calc($i / 24 * 100%);
       max-width: calc($i / 24 * 100%);
     }
+
     .jv-col-xl-offset-$i {
       margin-left: calc($i / 24 * 100%);
     }

@@ -5,8 +5,9 @@
 }
 
 @b dropdown {
-  border: 1px solid gray;
   display: inline-block;
+  border: 1px solid gray;
+
   --jv-color-bg-base: white;
   --jv-color-border-light: #ebeef5;
 

@@ -29,22 +29,31 @@ module.exports = {
     // 允许空源
     'no-empty-source': null,
 
-    // 允许特定的 at 规则
+    // 禁用 at-rule 描述符检查
+    'at-rule-descriptor-no-unknown': null,
+    'at-rule-descriptor-value-no-unknown': null,
+
+    // 允许未知的 at 规则
     'at-rule-no-unknown': [
       true,
       {
         ignoreAtRules: [
-          'extend',
-          'define-mixin',
-          'mixin',
-          'include',
-          'content',
-          'rules',
-          'each',
+          // postcss-bem-fix
           'b',
           'e',
           'm',
           'when',
+          // postcss-mixins
+          'define-mixin',
+          'mixin',
+          // postcss-each
+          'each',
+          // postcss-for
+          'for',
+          // 其他自定义 at 规则
+          'include',
+          'content',
+          'extend',
         ],
       },
     ],

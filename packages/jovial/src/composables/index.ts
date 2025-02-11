@@ -39,7 +39,14 @@ export { useSelectedKeys } from './useSelectedKeys'
 export type { UseSelectedKeys } from './useSelectedKeys'
 
 export { useZIndex } from './useZindex'
-
+// 可改造为通用状态管理
+export function useToggle(initial = false) {
+  const state = ref(initial)
+  const toggle = (value?: boolean) => {
+    state.value = value ?? !state.value
+  }
+  return [state, toggle] as const
+}
 // export { useTheme } from './theme'
 // export type { ThemeDefinition, ThemeInstance } from './theme'
 

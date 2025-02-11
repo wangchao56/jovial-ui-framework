@@ -3,7 +3,12 @@ import JvIcon from '@/components/JvIcon'
 import { JvListContextKey } from '@components/JvList'
 import { createNamespace } from '@jovial/utils'
 import { computed, createVNode, defineComponent, Fragment, inject } from 'vue'
-import { type EmitOptions, jvListItemEmits, jvListItemProps, type JvListItemSlotsType } from './types'
+import {
+  type EmitOptions,
+  jvListItemEmits,
+  jvListItemProps,
+  type JvListItemSlotsType,
+} from './types'
 
 export const bem = createNamespace('list-item')
 
@@ -31,7 +36,10 @@ export default defineComponent({
       }
       if (typeof finalProps.value.rounded === 'string') {
         // 预设的圆角类名直接返回
-        if (finalProps.value.rounded.startsWith('rounded-') || finalProps.value.rounded === 'rounded') {
+        if (
+          finalProps.value.rounded.startsWith('rounded-')
+          || finalProps.value.rounded === 'rounded'
+        ) {
           className = finalProps.value.rounded
         }
         // 其他字符串值作为自定义圆角值
@@ -76,7 +84,14 @@ export default defineComponent({
     })
 
     return () => {
-      const { title, subtitle, description, prependAvatar, prependIcon, appendIcon } = finalProps.value
+      const {
+        title,
+        subtitle,
+        description,
+        prependAvatar,
+        prependIcon,
+        appendIcon,
+      } = finalProps.value
       // prpand 渲染什么内容
       const renderPrepend = () => {
         if (slots.prepend) {
@@ -97,15 +112,11 @@ export default defineComponent({
       // content 渲染什么内容
       const renderContent = () => {
         if (slots.default) {
-          return (
-            <div class={bem.e('content')}>
-              {slots.default()}
-            </div>
-          )
+          return <div class={bem.e('content')}>{slots.default()}</div>
         }
         return (
           <div class={bem.e('content')}>
-            {slots.title ? slots.title() : title }
+            {slots.title ? slots.title() : title}
             {slots.subtitle ? slots.subtitle() : subtitle}
             {slots.description ? slots.description() : description}
           </div>
@@ -117,74 +128,85 @@ export default defineComponent({
           return slots.append()
         }
         if (appendIcon) {
-          return (
-            <JvIcon
-              name={appendIcon}
-            />
-          )
+          return <JvIcon name={appendIcon} />
         }
       }
 
-      return createVNode(props.tag, {
-        key: finalProps.value.metaRaw?.key,
-        class: [
-          bem.b(),
-          borderRadiusClass.value,
-          bem.is('disabled', finalProps.value.disabled),
-          bem.is('selected', finalProps.value.selected),
-          bem.is('active', finalProps.value.active),
-          bem.is('clickable', finalProps.value.clickable || finalProps.value.link),
-          bem.is('hoverable', finalProps.value.hoverable),
-          {
-            'cursor-pointer': finalProps.value.link || finalProps.value.href,
-          },
-          props.class,
-        ],
-        style: itemStyle.value,
-        href: finalProps.value.href,
-        onClick: (e: MouseEvent | KeyboardEvent) => {
-          if (finalProps.value.disabled)
-            return
-          emit('click', e, emitOptions.value)
-          if (listContext?.props.selectable && finalProps.value.clickable && finalProps.value.metaRaw.type === 'item') {
-            emit('select', emitOptions.value)
-            return
-          }
-          if (finalProps.value.expandable && finalProps.value.metaRaw.type === 'group') {
-            isExpanded.value = !isExpanded.value // 切换展开状态
-            emit('expand', emitOptions.value)
-            return
-          }
-          if (finalProps.value.link && finalProps.value.href) {
+      return createVNode(
+        props.tag,
+        {
+          key: finalProps.value.metaRaw?.key,
+          class: [
+            bem.b(),
+            borderRadiusClass.value,
+            bem.is('disabled', finalProps.value.disabled),
+            bem.is('selected', finalProps.value.selected),
+            bem.is('active', finalProps.value.active),
+            bem.is(
+              'clickable',
+              finalProps.value.clickable || finalProps.value.link,
+            ),
+            bem.is('hoverable', finalProps.value.hoverable),
+            {
+              'cursor-pointer': finalProps.value.link || finalProps.value.href,
+            },
+            props.class,
+          ],
+          style: itemStyle.value,
+          href: finalProps.value.href,
+          onClick: (e: MouseEvent | KeyboardEvent) => {
+            if (finalProps.value.disabled)
+              return
             emit('click', e, emitOptions.value)
-          }
+            if (
+              listContext?.props.selectable
+              && finalProps.value.clickable
+              && finalProps.value.metaRaw.type === 'item'
+            ) {
+              emit('select', emitOptions.value)
+              return
+            }
+            if (
+              finalProps.value.expandable
+              && finalProps.value.metaRaw.type === 'group'
+            ) {
+              isExpanded.value = !isExpanded.value // 切换展开状态
+              emit('expand', emitOptions.value)
+              return
+            }
+            if (finalProps.value.link && finalProps.value.href) {
+              emit('click', e, emitOptions.value)
+            }
+          },
         },
-      }, [
-        <Fragment>
-          <div class={[
-            bem.e('prepend'),
-            { 'divider-right': finalProps.value.showDivider },
-          ]}
-          >
-            {renderPrepend()}
-          </div>
-          {renderContent()}
-          <div class={[
-            bem.e('append'),
-            { 'divider-left': finalProps.value.showDivider },
-          ]}
-          >
-            {renderAppend()}
-          </div>
-          {
-            finalProps.value.expandable && isExpanded.value && slots.expand && (
-              <div class={bem.e('expand')}>
-                {slots.expand()}
-              </div>
-            )
-          }
-        </Fragment>,
-      ])
+        [
+          <Fragment>
+            <div
+              class={[
+                bem.e('prepend'),
+                { 'divider-right': finalProps.value.showDivider },
+              ]}
+            >
+              {renderPrepend()}
+            </div>
+            {renderContent()}
+            <div
+              class={[
+                bem.e('append'),
+                { 'divider-left': finalProps.value.showDivider },
+              ]}
+            >
+              {renderAppend()}
+            </div>
+            {finalProps.value.expandable
+            && isExpanded.value
+            && slots.expand && (
+              <div class={bem.e('expand')}>{slots.expand()}</div>
+            )}
+            {' '}
+          </Fragment>,
+        ],
+      )
     }
   },
 })

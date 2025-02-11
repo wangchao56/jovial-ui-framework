@@ -43,6 +43,7 @@ function handleClose(evt: MouseEvent) {
   .jv-tag-leave-active {
   transition: opacity 0.2s ease-in-out;
 }
+
 .jv-tag-leave-to {
   opacity: 0;
 }

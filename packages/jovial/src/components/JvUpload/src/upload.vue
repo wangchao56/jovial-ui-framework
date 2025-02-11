@@ -7,9 +7,6 @@ export default defineComponent({
     const files = ref<File[]>([])
     const uploadProgress = ref<number | null>(null)
     const fileInput = ref<HTMLInputElement | null>(null)
-    // watchEffect(() => {
-    //   // console.log(files.value)
-    // })
 
     const triggerFileInput = () => {
       if (fileInput.value) {
@@ -113,14 +110,15 @@ export default defineComponent({
 
 <style scoped>
 .file-upload {
-  border: 2px dashed #ccc;
   padding: 20px;
+  border: 2px dashed #ccc;
   text-align: center;
 }
+
 .file-upload span {
   display: block;
   margin: 10px 0;
-  cursor: pointer;
   color: #007bff;
+  cursor: pointer;
 }
 </style>

@@ -242,8 +242,8 @@ function toggleTheme() {
 
 .content {
   h1 {
-    color: var(--jv-color-text-1);
     margin-bottom: 1rem;
+    color: var(--jv-color-text-1);
   }
 
   p {

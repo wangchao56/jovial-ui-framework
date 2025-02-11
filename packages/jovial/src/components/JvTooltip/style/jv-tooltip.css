@@ -1,9 +1,10 @@
 @b tooltip {
   display: inline-block;
-  cursor: pointer;
   position: relative;
   width: max-content;
+  cursor: pointer;
   overflow: hidden;
+
   @e trigger {
     display: inline-block;
     overflow: hidden;

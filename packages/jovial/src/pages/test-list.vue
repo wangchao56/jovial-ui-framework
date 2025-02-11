@@ -157,8 +157,8 @@ function handleExpand(key: string, expanded: boolean) {
 }
 
 h2 {
-  text-align: center;
-  color: var(--jv-color-text-primary);
   margin-bottom: 20px;
+  color: var(--jv-color-text-primary);
+  text-align: center;
 }
 </style>

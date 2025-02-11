@@ -242,37 +242,3 @@ defineExpose({
     </Transition>
   </div>
 </template>
-
-<style scoped>
-/* 图标进入和离开动画 */
-.jv-rate-icon-move {
-  transition: transform 0.3s ease-out;
-}
-
-.jv-rate-icon-enter-active,
-.jv-rate-icon-leave-active {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.jv-rate-icon-enter-from,
-.jv-rate-icon-leave-to {
-  opacity: 0;
-  transform: scale(1.5);
-}
-
-.jv-rate-icon-leave-active {
-  position: absolute;
-}
-
-/* 文字过渡动画 */
-.jv-rate-text-enter-active,
-.jv-rate-text-leave-active {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.jv-rate-text-enter-from,
-.jv-rate-text-leave-to {
-  opacity: 0;
-  transform: translateY(10px);
-}
-</style>

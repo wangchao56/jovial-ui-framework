@@ -1,7 +1,8 @@
 /* 定义 BEM 规范的 mixins */
+
 /* 定义按钮变体样式的 mixin */
 .jv-button {
-  --jv-text-color-disabled: hsl(210, 6%, 21%);
+  --jv-text-color-disabled: hsl(210deg 6% 21%);
   --jv-btn-color: var(--jv-color-text-primary);
   --jv-btn-bgcolor: 0, 0%, 100%;
   --jv-button-bg-color: var(--jv-theme-color-background);
@@ -9,219 +10,253 @@
   --jv-button-width: auto;
   --jv-theme-on-surface: 0, 0%, 100%;
 
-  font-family: 'Roboto', sans-serif;
-  align-items: center;
-  display: -ms-inline-grid;
   display: inline-grid;
-  grid-template-areas: 'prepend content append';
-  -ms-grid-columns: -webkit-max-content 4px auto 4px -webkit-max-content;
-  -ms-grid-columns: max-content 4px auto 4px max-content;
-  grid-template-columns: -webkit-max-content auto -webkit-max-content;
-  grid-template-columns: max-content auto max-content;
+  position: relative;
+  width: var(--jv-button-width);
+  border: 0;
+  border-radius: 4px;
   font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: Roboto, sans-serif;
+  align-items: center;
+  grid-template-areas: 'prepend content append';
+  -ms-grid-columns: max-content 4px auto 4px max-content;
+  grid-template-columns: max-content auto max-content;
   justify-content: center;
   letter-spacing: 0.0892857em;
-  line-height: normal;
   max-width: 100%;
-  position: relative;
   text-indent: 0.0892857em;
   text-transform: uppercase;
   transition-property: box-shadow, transform, opacity, background;
   transition-duration: 0.28s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   vertical-align: middle;
   flex-shrink: 0;
-  border-radius: 4px;
   outline: none;
-  border: 0;
-  text-decoration: none;
-  cursor: pointer;
   box-sizing: border-box;
-  width: var(--jv-button-width);
-  -moz-column-gap: 4px;
   column-gap: 4px;
 }
+
 .jv-button .jv-button__content {
-  -ms-grid-row: 1;
-  -ms-grid-column: 3;
+  border-radius: inherit;
+  color: var(--jv-btn-color);
+  font-size: 1rem;
+  line-height: 1.25;
+  text-align: center;
+  grid-row: 1;
+  grid-column: 3;
   grid-area: content;
   flex-direction: column;
-  line-height: 1.25;
-  font-size: 1rem;
-  color: var(--jv-btn-color);
-  background-color: hsla(var(--jv-btn-bgcolor), 0.04);
-  border-radius: inherit;
+  background-color: hsl(var(--jv-btn-bgcolor) 0.04);
   overflow: hidden;
-  text-align: center;
   white-space: nowrap;
 }
+
 .jv-button .jv-button__prepend {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
+  grid-row: 1;
+  grid-column: 1;
   grid-area: prepend;
-  -ms-grid-column-align: start;
+  grid-column-align: start;
   justify-self: start;
 }
+
 .jv-button .jv-button__append {
-  -ms-grid-row: 1;
-  -ms-grid-column: 5;
+  grid-row: 1;
+  grid-column: 5;
   grid-area: append;
-  -ms-grid-column-align: end;
+  grid-column-align: end;
   justify-self: end;
 }
+
 .jv-button--tiny {
   --jv-btn-size: 0.625rem;
   --jv-btn-height: 20px;
+
   height: var(--jv-btn-height);
   padding: 0 15px;
 }
+
 .jv-button--tiny > .jv-button__content {
   font-size: var(--jv-btn-size) !important;
   line-height: calc(var(--jv-btn-size) + 3px);
 }
+
 .jv-button--small {
   --jv-btn-size: 0.75rem;
   --jv-btn-height: 28px;
+
   height: var(--jv-btn-height);
   padding: 0 18px;
 }
+
 .jv-button--small > .jv-button__content {
   font-size: var(--jv-btn-size) !important;
   line-height: calc(var(--jv-btn-size) + 3px);
 }
+
 .jv-button--medium {
   --jv-btn-size: 0.875rem;
   --jv-btn-height: 36px;
+
   height: var(--jv-btn-height);
   padding: 0 20px;
 }
+
 .jv-button--medium > .jv-button__content {
   font-size: var(--jv-btn-size) !important;
   line-height: calc(var(--jv-btn-size) + 3px);
 }
+
 .jv-button--large {
   --jv-btn-size: 1rem;
   --jv-btn-height: 44px;
+
   height: var(--jv-btn-height);
   padding: 0 22px;
 }
+
 .jv-button--large > .jv-button__content {
   font-size: var(--jv-btn-size) !important;
   line-height: calc(var(--jv-btn-size) + 3px);
 }
+
 .jv-button--x-large {
   --jv-btn-size: 1.125rem;
   --jv-btn-height: 52px;
+
   height: var(--jv-btn-height);
   padding: 0 25px;
 }
+
 .jv-button--x-large > .jv-button__content {
   font-size: var(--jv-btn-size) !important;
   line-height: calc(var(--jv-btn-size) + 3px);
 }
+
 .jv-button--primary {
   color: var(--jv-btn-color) !important;
   background-color: var(--jv-color-primary-light) !important;
   border-color: var(--jv-color-primary-light) !important;
 }
+
 .jv-button--success {
   color: var(--jv-btn-color) !important;
   background-color: var(--jv-color-success) !important;
   border-color: var(--jv-color-success) !important;
 }
+
 .jv-button--warning {
   color: var(--jv-btn-color) !important;
   background-color: var(--jv-color-warning) !important;
   border-color: var(--jv-color-warning) !important;
 }
+
 .jv-button--danger {
   color: var(--jv-btn-color) !important;
   background-color: var(--jv-color-danger) !important;
   border-color: var(--jv-color-danger) !important;
 }
+
 .jv-button--info {
   color: var(--jv-btn-color) !important;
   background-color: var(--jv-color-info) !important;
   border-color: var(--jv-color-info) !important;
 }
-/*按钮变体样式 */
+
+/* 按钮变体样式 */
 .jv-button--text {
   background-color: transparent;
   box-shadow: none;
 }
+
 .jv-button--plain {
   background-color: transparent;
   color: var(--jv-btn-color);
 }
+
 .jv-button--flat {
   box-shadow: none;
 }
+
 .jv-button--tonal {
-  background-color: hsla(var(--jv-btn-color), 0.1) !important;
+  background-color: hsl(var(--jv-btn-color) 0.1) !important;
 }
+
 .jv-button--outlined {
+  padding: 0 19px;
   border: 1px solid;
   background-color: transparent;
-  padding: 0 19px;
 }
+
 .jv-button--elevated {
-  box-shadow:
-    0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0px 2px 2px rgba(0, 0, 0, 0.14),
-    0px 1px 5px rgba(0, 0, 0, 0.12);
-  color: rgba(var(--jv-theme-on-surface), var(--jv-high-emphasis-opacity));
   background: rgb(var(--jv-theme-surface));
+  box-shadow:
+    0 3px 1px -2px rgb(0 0 0 / 20%),
+    0 2px 2px rgb(0 0 0 / 14%),
+    0 1px 5px rgb(0 0 0 / 12%);
+  color: rgb(var(--jv-theme-on-surface) var(--jv-high-emphasis-opacity));
 }
+
 .jv-button.is-disabled {
-  opacity: 0.6;
   border: 1px solid var(--jv-text-color-disabled);
+  opacity: 0.6;
 }
+
 .jv-button.is-disabled > .jv-button__content {
   color: var(--jv-text-color-disabled);
   cursor: not-allowed;
 }
+
 .jv-button.is-disabled:hover,
 .jv-button.is-disabled:focus {
   background-color: transparent;
   box-shadow: none;
   cursor: not-allowed;
 }
+
 .jv-button.is-rounded {
   border-radius: 20px;
 }
+
 .jv-button.is-block {
   display: block inline-grid;
   width: 100%;
 }
+
 .jv-button.is-dashed {
   border: 2px dashed;
   background-color: transparent !important;
+
   /*  filter: opacity(0.5); 50% 透明度 */
   box-shadow: none;
 }
+
 .jv-button.is-loading {
-  pointer-events: none;
-  cursor: not-allowed;
   opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
+
 .jv-button.is-loading > .jv-button__content {
   visibility: hidden;
   opacity: 0;
 }
+
 .jv-button.is-loading > .jv-button__loader {
-  -ms-grid-row: 1;
-  -ms-grid-column: 3;
+  grid-row: 1;
+  grid-column: 3;
   grid-area: content;
-  -ms-grid-column-align: center;
+  grid-column-align: center;
   justify-self: center;
 }
+
 .jv-button > .jv-icon {
   color: black;
 }
+
 /* :root {
   color-scheme: dark;
   --jv-color: #357f37;
@@ -230,6 +265,7 @@
 } */
 :root {
   color-scheme: light;
+
   --jv-theme-primary-color: #c21d03;
   --jv-theme-surface-color: #fd5732;
   --jv-theme-secondary-color: #ffb787;
@@ -247,19 +283,23 @@ html {
   border-color: var(--jv-theme-border-color);
   color: var(--jv-color);
   font-family: sans-serif;
+
   /* font-family: settings.$body-font-family
   line-height: settings.$line-height-root */
+
   /* font-size: settings.$font-size-root */
   overflow-x: hidden;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
 }
+
 @supports (-webkit-touch-callout: none) {
   html {
-    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
+
   body {
     cursor: pointer;
   }
@@ -275,12 +315,13 @@ html {
 
 [data-theme='dark'] {
   color-scheme: dark;
+
   --jv-theme-primary-color: #6c35de;
   --jv-theme-surface-color: #a364ff;
   --jv-theme-secondary-color: #ffc7ff;
   --jv-theme-success-color: #cb80ff;
   --jv-theme-warning-color: #373737;
-  --jv-theme-error-color: #ffffff;
+  --jv-theme-error-color: #fff;
   --jv-theme-info-color: #e0e0e0;
   --jv-theme-background-color: #241b35;
   --jv-theme-text-color: #e0e0e0;
@@ -293,6 +334,7 @@ body {
   box-sizing: border-box;
   min-height: 100vh;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

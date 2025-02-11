@@ -37,6 +37,10 @@ function useProvided<T>(props: any, prop: string, provided: Ref<T>) {
 /**
  * 创建提供函数
  * @param data 包含当前语言、回退语言、语言包和useI18n的数据对象
+ * @param data.current 当前语言引用
+ * @param data.fallback 回退语言引用
+ * @param data.messages 语言包引用
+ * @param data.useI18n useI18n组合式函数
  * @returns 返回一个创建LocaleInstance的函数
  */
 function createProvideFunction(data: {
@@ -74,7 +78,7 @@ function createProvideFunction(data: {
       messages,
       t: (key: string, ...params: unknown[]) => i18n.t(key, params),
       n: i18n.n,
-      provide: createProvideFunction({ current, fallback, messages, useI18n: data.useI18n }),
+      provide: createProvideFunction({ current, fallback, messages, useI18n: data.useI18n }) as unknown as (props: LocaleOptions) => LocaleInstance,
     }
   }
 }
@@ -82,6 +86,8 @@ function createProvideFunction(data: {
 /**
  * 创建Vue I18n适配器
  * @param param0 Vue I18n适配器参数
+ * @param param0.i18n Vue I18n实例
+ * @param param0.useI18n Vue I18n的useI18n组合式函数
  * @returns 国际化实例
  *
  * 功能:

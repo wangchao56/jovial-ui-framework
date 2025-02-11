@@ -5,15 +5,15 @@
 }
 
 @b avatar {
-  position: relative;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
   width: var(--jv-avatar-size);
   height: var(--jv-avatar-size);
-  font-size: var(--jv-avatar-font-size);
-  color: var(--jv-color-white);
   background: var(--jv-color-info);
+  color: var(--jv-color-white);
+  font-size: var(--jv-avatar-font-size);
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 
   & > img {

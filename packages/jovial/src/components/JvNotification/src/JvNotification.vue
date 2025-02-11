@@ -5,6 +5,7 @@ import JvButton from '@components/JvButton/src/button.vue'
 import JvIcon from '@components/JvIcon/src/JvIcon.vue'
 import { createNamespace } from '@jovial/utils'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import '../style/notification.css'
 
 defineOptions({ name: 'JvNotification' })
 const props = withDefaults(defineProps<JvNotificationProps>(), {
@@ -213,40 +214,3 @@ defineExpose<JvNotificationExpose>({
     </Transition>
   </Teleport>
 </template>
-
-<style scoped>
-.notification-top-right-enter-active,
-.notification-top-right-leave-active,
-.notification-top-left-enter-active,
-.notification-top-left-leave-active,
-.notification-bottom-right-enter-active,
-.notification-bottom-right-leave-active,
-.notification-bottom-left-enter-active,
-.notification-bottom-left-leave-active {
-  transition: all 0.3s ease-in-out;
-}
-
-.notification-top-right-enter-from,
-.notification-top-right-leave-to {
-  transform: translateX(100%);
-  background-color: transparent !important;
-}
-
-.notification-top-left-enter-from,
-.notification-top-left-leave-to {
-  transform: translateX(-100%);
-  background-color: transparent !important;
-}
-
-.notification-bottom-right-enter-from,
-.notification-bottom-right-leave-to {
-  transform: translateX(100%);
-  background-color: transparent !important;
-}
-
-.notification-bottom-left-enter-from,
-.notification-bottom-left-leave-to {
-  transform: translateX(-100%);
-  background-color: transparent !important;
-}
-</style>

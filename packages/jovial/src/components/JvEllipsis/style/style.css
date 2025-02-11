@@ -1,0 +1,7 @@
+@import '@jovial/theme-chalk/src/common/mixins.css';
+
+@b ellipsis {
+  @e content {
+    display: block;
+  }
+}

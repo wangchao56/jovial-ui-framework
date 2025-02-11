@@ -3,7 +3,7 @@ import type { ListItem } from '@components/JvListItem'
 import type { Options, Placement } from '@popperjs/core'
 import JvDivider from '@components/JvDivider'
 import JvList from '@components/JvList'
-import JvListItem from '@components/JvListItem'
+import JvListItem from '@components/JvList/src/JvListItem.vue'
 import JvTooltip from '@components/JvTooltip'
 import { computed } from 'vue'
 
@@ -56,7 +56,3 @@ const popperOptions: Options = {
     </JvTooltip>
   </template>
 </template>
-
-<style lang='scss' scoped>
-
-</style>

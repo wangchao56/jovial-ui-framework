@@ -8,13 +8,15 @@
   background-color: var(--jv-color-white);
   box-sizing: border-box;
   border-bottom: 1px solid var(--jv-color-border-light);
+
   /* border-color: var(--jv-color-border-light); */
+
   /* border-style: solid; */
   @e header {
     padding: var(--jv-spacing-small);
-    cursor: pointer;
     font-size: var(--jv-font-size-medium);
     line-height: var(--jv-line-height-medium);
+    cursor: pointer;
     vertical-align: middle;
   }
 
@@ -23,12 +25,12 @@
   }
 
   @e content {
-    box-sizing: inherit;
     padding: var(--jv-spacing-small);
-    font-size: var(--jv-font-size-small);
     color: var(--jv-color-text-secondary);
-    user-select: text;
+    font-size: var(--jv-font-size-small);
     cursor: default;
+    box-sizing: inherit;
+    user-select: text;
     min-height: max-content;
   }
 }

@@ -22,7 +22,7 @@ const isVertical = computed(() => {
     return true
   if (props.direction === 'horizontal')
     return false
-  return slots.default?.().some((vnode) => {
+  return slots.default?.().some((vnode: any) => {
     const tag = vnode.type?.name
     return tag === 'JvHeader' || tag === 'JvFooter'
   })

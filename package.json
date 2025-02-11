@@ -28,7 +28,8 @@
     "build:bem": "node scripts/postcss/build-bem.js",
     "publish": "node scripts/publish/publish.js",
     "publish:beta": "node scripts/publish/publish-beta.js",
-    "lint:style": "stylelint \"**/*.{css,vue}\" --fix"
+    "lint:style": "stylelint \"**/*.{css,vue}\"",
+    "lint:style:fix": "stylelint \"**/*.{css,vue}\" --fix"
   },
   "dependencies": {
     "@better-scroll/core": "^2.5.1",
@@ -49,6 +50,7 @@
     "async-validator": "^4.2.5",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
+    "highlight.js": "^11.11.1",
     "lodash-es": "^4.17.21",
     "md-editor-v3": "^5.2.1",
     "sanitize-html": "^2.14.0",
@@ -115,6 +117,7 @@
     "postcss-bem-fix": "^2.1.0",
     "postcss-cli": "^11.0.0",
     "postcss-color-mix": "^1.1.0",
+    "postcss-conditionals": "^2.1.0",
     "postcss-each": "^1.1.0",
     "postcss-each-variables": "^0.3.0",
     "postcss-for": "^2.1.1",
@@ -133,9 +136,9 @@
     "sass-loader": "^16.0.4",
     "storybook": "8.4.7",
     "stylelint": "^15.11.0",
-    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-config-recommended-vue": "^1.6.0",
     "stylelint-config-standard": "^34.0.0",
-    "stylelint-order": "^6.0.3",
+    "stylelint-order": "^6.0.4",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.19.1",
     "unplugin-auto-import": "^0.19.0",

@@ -45,15 +45,16 @@ function _bem(
  * @returns            返回一个对象，对象中包含b、e、m、be、em、bm、bem方法
  */
 function createBEM(prefixName: string) {
+  /** 块级元素 */
   const b = (blockSuffix: string = '') => _bem(prefixName, blockSuffix, '', '')
-
+  /** 元素 */
   const e = (element: string) => _bem(prefixName, '', element, '')
-
+  /** 修改器 */
   const m = (modifier: string) => _bem(prefixName, '', '', modifier)
-
+  /** 块级元素和元素 */
   const be = (blockSuffix: string, element: string) =>
     _bem(prefixName, blockSuffix, element, '')
-
+  /** 元素和修改器 */
   const em = (element: string, modifier: string) =>
     _bem(prefixName, '', element, modifier)
   const bm = (blockSuffix: string, modifier: string) =>
@@ -81,7 +82,7 @@ function createBEM(prefixName: string) {
  * @param namespace   命名空间
  * @returns            返回一个对象，对象中包含b、e、m、be、em、bm、bem方法
  */
-export function createNamespace(namespace: string) {
+export function createNamespace(namespace: string): ReturnType<typeof createBEM> {
   const prefixName = `jv-${namespace}`
 
   return createBEM(prefixName)

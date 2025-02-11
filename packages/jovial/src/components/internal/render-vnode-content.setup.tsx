@@ -22,6 +22,7 @@ import { createTextVNode, defineComponent, isVNode } from 'vue'
 
 export default defineComponent({
   name: 'JvRenderVNodeContent',
+  inheritAttrs: true, // 继承属性
   props: {
     /** 要渲染的内容 */
     render: {
@@ -30,11 +31,11 @@ export default defineComponent({
     },
     /** 渲染函数的参数 */
     params: {
-      type: Array as PropType<any[]>,
-      default: () => [],
+      type: Object as PropType<Record<string, any>>,
+      default: () => ({}),
     },
   },
-  setup(props, { slots }) {
+  setup(props, { slots, attrs }) {
     return () => {
       try {
         // 优先使用默认插槽
@@ -48,7 +49,7 @@ export default defineComponent({
         if (render) {
           // 如果是函数，使用提供的参数调用
           if (typeof render === 'function') {
-            return render(...params)
+            return render({ ...params, ...attrs })
           }
           // 如果是 VNode，直接返回
           else if (isVNode(render)) {

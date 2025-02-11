@@ -1,10 +1,11 @@
-@import './theme-vars.css';
+@import url('./theme-vars.css');
 
 @define-mixin e $element {
   .jv-progress__$(element) {
     @mixin-content;
   }
 }
+
 @define-mixin m $modifier {
   .jv-progress--$(modifier) {
     @mixin-content;
@@ -32,15 +33,17 @@
   --jv-progress-text-color: #222;
   --jv-progress-text-size: 14px;
   --jv-progress-text-font-weight: 400;
+
   /* 字体偏移 */
   --jv-progress-text-offset: 8px;
+
   /* 位置 */
   --jv-progress-text-position: top;
   --jv-progress-text-inside: false;
 
+  display: flex;
   position: relative;
   width: var(--jv-progress-width);
-  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -48,6 +51,7 @@
 @e line {
   &--right {
     justify-content: space-between;
+
     @mixin em line-text, right {
       margin-left: var(--jv-progress-text-offset);
     }
@@ -56,6 +60,7 @@
   &--left {
     justify-content: flex-start;
     flex-direction: row-reverse;
+
     @mixin em line-text, left {
       margin-right: var(--jv-progress-text-offset);
     }
@@ -64,6 +69,7 @@
   &--top {
     justify-content: flex-start;
     flex-direction: column-reverse;
+
     @mixin em line-text, top {
       margin-bottom: var(--jv-progress-text-offset);
     }
@@ -72,6 +78,7 @@
   &--bottom {
     justify-content: flex-start;
     flex-direction: column;
+
     @mixin em line-text, bottom {
       margin-top: var(--jv-progress-text-offset);
     }
@@ -81,6 +88,7 @@
     justify-content: flex-start;
     flex-direction: column-reverse;
     align-items: flex-start;
+
     @mixin em line-text, top-left {
       margin-left: var(--jv-progress-text-offset);
     }
@@ -90,6 +98,7 @@
     justify-content: flex-start;
     flex-direction: column-reverse;
     align-items: flex-end;
+
     @mixin em line-text, top-right {
       margin-right: var(--jv-progress-text-offset);
     }
@@ -99,6 +108,7 @@
     justify-content: flex-start;
     flex-direction: column;
     align-items: flex-start;
+
     @mixin em line-text, bottom-left {
       margin-left: var(--jv-progress-text-offset);
     }
@@ -108,6 +118,7 @@
     justify-content: flex-start;
     flex-direction: column;
     align-items: flex-end;
+
     @mixin em line-text, bottom-right {
       margin-right: var(--jv-progress-text-offset);
     }
@@ -115,10 +126,11 @@
 }
 
 @e line-text {
-  text-align: center;
+  color: var(--jv-progress-text-color);
   font-size: var(--jv-progress-font-size);
   font-weight: var(--jv-progress-font-weight);
-  color: var(--jv-progress-text-color);
+  text-align: center;
+
   /* 不换行 */
   white-space: nowrap;
 }

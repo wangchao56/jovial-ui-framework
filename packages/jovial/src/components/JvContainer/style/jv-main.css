@@ -1,48 +1,36 @@
-@import './theme-vars.css';
-
-@define-mixin e $element {
-  .jv-main__$(element) {
-    @mixin-content;
-  }
-}
+@import url('./theme-vars.css');
 
 @b main {
-  z-index: 1 !important;
-  --jv-main-height: 100%;
-  grid-area: main;
   display: block;
   width: 100%;
   height: var(--jv-main-height);
+  border: var(--jv-border-solid);
+  z-index: 1 !important;
+  grid-area: main;
   min-height: var(--jv-main-height);
   max-height: 100%;
   overflow: hidden;
   box-sizing: border-box;
   background-color: var(--jv-main-bg-color);
-  border: var(--jv-border-solid);
+  margin-top: var(--jv-header-height);
+  --jv-main-height: 100%;
 }
 
 @e wrapper {
   --jv-main-wrapper-padding: 16px;
   --jv-main-wrapper-width: 100%;
   --jv-main-wrapper-height: calc(100% - var(--jv-main-wrapper-padding) * 2);
-  z-index: 2 !important;
-  box-sizing: border-box;
+
   position: relative;
-  inset: var(--jv-main-wrapper-padding);
   width: var(--jv-main-wrapper-width);
-  max-width: calc(100% - var(--jv-main-wrapper-padding) * 2);
   height: var(--jv-main-wrapper-height);
-  background-color: #fff;
   border: var(--jv-border-solid);
-  overflow: auto;
   border-radius: var(--jv-main-border-radius);
   box-shadow: var(--jv-shadow);
-
-  /* &:before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: #222;
-    z-index: -1;
-  } */
+  z-index: 2 !important;
+  box-sizing: border-box;
+  inset: var(--jv-main-wrapper-padding);
+  max-width: calc(100% - var(--jv-main-wrapper-padding) * 2);
+  background-color: #fff;
+  overflow: auto;
 }

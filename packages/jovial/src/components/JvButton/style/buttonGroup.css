@@ -4,8 +4,9 @@
 
   & > .button {
     position: relative;
-    border: var(--jv-border-solid);
     padding: 4px;
+    border: var(--jv-border-solid);
+
     &:not(:first-child) {
       margin-left: -1px;
     }
@@ -20,7 +21,7 @@
       border-bottom-left-radius: 0;
     }
 
-    &:not(:first-child):not(:last-child) {
+    &:not(:first-child, :last-child) {
       border-radius: 0;
     }
 
@@ -38,22 +39,16 @@
 
     & > .button {
       &:not(:first-child) {
-        margin-left: 0;
         margin-top: -1px;
+        margin-left: 0;
       }
 
       &:first-child {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-        border-top-left-radius: var(--jv-btn-borderRadius);
-        border-top-right-radius: var(--jv-btn-borderRadius);
+        border-radius: var(--jv-btn-borderRadius) var(--jv-btn-borderRadius) 0 0;
       }
 
       &:last-child {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-bottom-left-radius: var(--jv-btn-borderRadius);
-        border-bottom-right-radius: var(--jv-btn-borderRadius);
+        border-radius: 0 0 var(--jv-btn-borderRadius) var(--jv-btn-borderRadius);
       }
     }
   }

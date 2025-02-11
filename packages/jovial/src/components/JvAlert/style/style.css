@@ -3,6 +3,7 @@
     @mixin-content;
   }
 }
+
 @define-mixin m $modifier {
   .jv-alert--$(modifier) {
     @mixin-content;
@@ -10,21 +11,21 @@
 }
 
 @b alert {
-  padding: 16px;
-  border-radius: 4px;
   display: flex;
+  padding: 16px;
+  border: 1px solid rgb(var(--jv-theme-on-surface) 0.12);
+  border-radius: 4px;
+  color: rgb(var(--jv-theme-on-surface));
+  transition: all 0.3s ease-in-out;
   justify-content: flex-start;
   align-items: flex-start;
   background-color: rgb(var(--jv-theme-surface));
-  color: rgb(var(--jv-theme-on-surface));
-  border: 1px solid rgba(var(--jv-theme-on-surface), 0.12);
-  transition: all 0.3s ease-in-out;
 }
 
 @m success {
-  background-color: rgba(var(--jv-theme-success), 0.1);
+  background-color: rgb(var(--jv-theme-success) 0.1);
   color: rgb(var(--jv-theme-success));
-  border-color: rgba(var(--jv-theme-success), 0.2);
+  border-color: rgb(var(--jv-theme-success) 0.2);
 
   .jv-icon {
     color: rgb(var(--jv-theme-success));
@@ -32,9 +33,9 @@
 }
 
 @m info {
-  background-color: rgba(var(--jv-theme-info), 0.1);
+  background-color: rgb(var(--jv-theme-info) 0.1);
   color: rgb(var(--jv-theme-info));
-  border-color: rgba(var(--jv-theme-info), 0.2);
+  border-color: rgb(var(--jv-theme-info) 0.2);
 
   .jv-icon {
     color: rgb(var(--jv-theme-info));
@@ -42,9 +43,9 @@
 }
 
 @m warning {
-  background-color: rgba(var(--jv-theme-warning), 0.1);
+  background-color: rgb(var(--jv-theme-warning) 0.1);
   color: rgb(var(--jv-theme-warning));
-  border-color: rgba(var(--jv-theme-warning), 0.2);
+  border-color: rgb(var(--jv-theme-warning) 0.2);
 
   .jv-icon {
     color: rgb(var(--jv-theme-warning));
@@ -52,9 +53,9 @@
 }
 
 @m error {
-  background-color: rgba(var(--jv-theme-error), 0.1);
+  background-color: rgb(var(--jv-theme-error) 0.1);
   color: rgb(var(--jv-theme-error));
-  border-color: rgba(var(--jv-theme-error), 0.2);
+  border-color: rgb(var(--jv-theme-error) 0.2);
 
   .jv-icon {
     color: rgb(var(--jv-theme-error));
@@ -69,6 +70,7 @@
 
 @e content {
   flex: 1;
+
   &--title {
     margin: 0;
     font-size: 16px;
@@ -78,29 +80,29 @@
 
   &--description {
     margin: 8px 0 0;
+    opacity: 0.9;
     font-size: 14px;
     line-height: 1.6;
-    opacity: 0.9;
   }
 }
 
 @e close {
-  align-self: flex-start;
+  margin: -4px;
+  padding: 4px;
   background: none;
   border: none;
-  padding: 4px;
-  margin: -4px;
-  cursor: pointer;
   opacity: 0.7;
+  color: currentcolor;
+  cursor: pointer;
   transition: opacity 0.2s;
-  color: currentColor;
+  align-self: flex-start;
 
   &:hover {
     opacity: 1;
   }
 
   .jv-icon {
+    color: currentcolor;
     font-size: 16px;
-    color: currentColor;
   }
 }

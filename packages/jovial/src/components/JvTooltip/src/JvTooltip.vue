@@ -1,154 +1,173 @@
 <script setup lang='ts'>
-import type { JvPopperInstance, ReferenceType } from '@components/JvPopper'
-import type { ObjectEmitsOptions } from 'vue'
+import type { PopperExpose, ReferenceType } from '@components/JvPopper'
+import type { Options } from '@popperjs/core'
+import type { VNodeChild } from 'vue'
 import type { TooltipEmits, TooltipExpose, TooltipProps, TooltipSlots } from './tooltip'
-import { useClickOutside } from '@/composables'
+import type { JvTooltipTriggerProps } from './trigger'
+import { useContainerManager } from '@/utils/containerManager'
 import JvPopper from '@components/JvPopper'
-import { createNamespace } from '@jovial/utils'
-import { debounce, throttle } from 'lodash-es'
-import '../style/jv-tooltip.css'
+import { consoleWarn, createNamespace, getSlotsFirstChild, isTextNode } from '@jovial/utils'
+import { useParentElement } from '@vueuse/core'
+import JvTooltipContent from './content.vue'
+import JvTooltipTrigger from './JvTrigger.vue'
+import JvTooltipRoot from './root.vue'
+import { createTooltipModifiers, mapTooltipToPopperProps } from './tooltip-utils'
+import { onDebounceToggleHandler } from './useTootipManager'
 
 defineOptions({ name: 'JvTooltip' })
 const props = withDefaults(defineProps<TooltipProps>(), {
   trigger: 'hover',
   content: '',
-  manual: false,
   placement: 'top',
-  openDelay: 0,
-  closeDelay: 0,
+  openDelay: 250,
+  closeDelay: 250,
   arrow: true,
-  // disabled: false,
-  // transition: 'fade',
   popperOptions: () => ({}),
+  disableAnimation: false,
 })
 const emit = defineEmits<TooltipEmits>()
 const slots = defineSlots<TooltipSlots>()
-const bem = createNamespace('tooltip')
-const triggerNode = ref<ReferenceType>()
-const tooltipNode = ref<HTMLElement>()
-const isOpen = ref<boolean>(false)
-const JvpopperRef = ref<JvPopperInstance>()
 
-let events: ObjectEmitsOptions = reactive({})
-let outerEvents: ObjectEmitsOptions = reactive({})
-const popperOptions = computed(() => ({
+const tootipId = useId()
+const bem = createNamespace('tooltip')
+const referenceRef = ref<ReferenceType | null>(null)
+const isOpen = useModel(props, 'visible')
+const JvpopperRef = ref<PopperExpose>()
+const containerManager = useContainerManager()
+const container = containerManager.getContainer({
+  namespace: 'tooltip-container',
+})
+const appendTo = computed(() => `#${container.element.id}`)
+// 这种结构可使每个属性都具有响应性?
+const { activator, openDelay, closeDelay, content, trigger, disableAnimation } = toRefs(props) // 解构activator 并使用toRefs的作用是 当activator变化时，会触发响应式更新
+
+const closeOnClickOutside = computed(() => unref(trigger) !== 'hover')
+const popperOptions = computed<Partial<Options>>(() => ({
   placement: props.placement,
+  modifiers: createTooltipModifiers({ arrow: props.arrow, offset: props.offset }),
   ...props.popperOptions,
 }))
+const popperStyle = computed(() => ({
+  '--jv-popper-bg-color': '#323232',
+  '--jv-popper-border-color': '#4d4d4d',
+  ...props.popperStyle ?? {},
+}))
+const popperProps = computed(() => mapTooltipToPopperProps({
+  ...props,
+  openDelay: disableAnimation.value ? unref(openDelay) / 2 : unref(openDelay),
+  closeDelay: disableAnimation.value ? unref(closeDelay) / 2 : unref(closeDelay),
+}, {
+  reference: referenceRef.value,
+  options: popperOptions.value,
+  closeOnClickOutside: closeOnClickOutside.value,
+  manual: true,
+  dataPopper: `tooltip-${tootipId}`,
+  style: popperStyle.value,
+}))
+
+// 打开
 function open() {
-  isOpen.value = true
-  emit('visibleChange', true)
+  JvpopperRef.value?.show()
 }
 function close() {
-  isOpen.value = false
-  emit('visibleChange', false)
+  JvpopperRef.value?.hide()
 }
-
-const openDebounce = debounce(open, props.openDelay)
-const closeDebounce = throttle(close, props.closeDelay)
-
-function openFinal() {
-  closeDebounce.cancel()
-  openDebounce()
+function toggle() {
+  JvpopperRef.value?.toggle()
 }
-function closeFinal() {
-  openDebounce.cancel()
-  closeDebounce()
-}
-
-function togglePopper(e: Event) {
-  e.stopPropagation() // 阻止冒泡
-  e.preventDefault() // 阻止默认行为
-  if (isOpen.value) {
-    closeFinal()
-  }
-  else {
+const { openFinal, closeFinal, toggleFinal, cleanup } = onDebounceToggleHandler({
+  open,
+  close,
+  toggle,
+  openDelay: unref(openDelay),
+  closeDelay: unref(closeDelay),
+})
+// 监听isOpen的变化
+watch(isOpen, (val) => {
+  if (val) {
     openFinal()
   }
-}
-useClickOutside(tooltipNode, () => {
-  if (props.trigger !== 'hover' && isOpen.value && !props.manual) {
+  else {
     closeFinal()
   }
 })
 
-/** 批量添加事件 */
-function attachEvents() {
-  events = {}
-  outerEvents = {}
-  if (props.manual) { // 手动触发时不绑定事件
-    // 多次点击时触发提示 （仅在开发阶段）
-    if (process.env.NODE_ENV === 'development') {
-      events.click = () => {
-        console.warn('使用manual属性控制显示隐藏, 请使用show/hide方法控制显示隐藏.')
-      }
-    }
-  }
-  else {
-    switch (props.trigger) {
-      case 'hover':
-        events.mouseenter = openFinal
-        outerEvents = Object.assign(outerEvents, {
-          mouseleave: (e: Event) => {
-            e.stopPropagation() // 阻止冒泡
-            closeFinal()
-          },
-        })
+const renderContent = computed(() => content.value || slots.default || '')
 
-        break
-      case 'click':
-        events.click = togglePopper
-        break
-      case 'focus':
-        events.focus = togglePopper
-        break
-      case 'contextmenu':
-        Object.assign(events, {
-          contextmenu: (e: Event) => {
-            e.preventDefault() // 阻止默认行为
-            togglePopper(e)
-          },
-        })
-        break
-    }
-  }
+// 获取插槽, 确保只有一个子节点 ,如果有多个子节点, 打印警告信息
+if (slots.default?.().length > 1) {
+  consoleWarn('JvTooltip: 插槽只能有一个子节点')
 }
-watchEffect(() => {
-  attachEvents()
+// 获取父元素
+const parentDom = useParentElement()
+
+// 修改后
+const firstChild = computed<VNodeChild>(() => getSlotsFirstChild(slots.default))
+const isTriggerTextNode = computed<boolean>(() => {
+  return isTextNode(firstChild)
 })
-
-function show() {
-  props.manual && openFinal()
+const triggerProps = computed<JvTooltipTriggerProps>(() => ({
+  isTriggerTextNode: isTriggerTextNode.value,
+  firstChild: firstChild.value,
+  activator: activator.value,
+  tootipId,
+  referenceRef,
+  setReference: (el: HTMLElement | null) => {
+    referenceRef.value = el
+  },
+  bem,
+  trigger: unref(trigger),
+  onOpen: openFinal,
+  onClose: closeFinal,
+  onToggle: toggleFinal,
+  parentDom: parentDom as Ref<HTMLElement>,
+}))
+function toggleHandler(val: boolean) {
+  isOpen.value = val
+  emit('visibleChange', val)
 }
-function hide() {
-  props.manual && closeFinal()
+function clickOutsideHandler(val: boolean, _evt: MouseEvent) {
+  console.log('clickOutsideHandler', val)
+  isOpen.value = val
+  emit('visibleChange', val)
+}
+const popperEvents = {
+  open: toggleHandler,
+  close: toggleHandler,
+  clickOutside: clickOutsideHandler,
 }
 
-const renderContent = computed(() => props.content || slots.content || slots.default || '')
-
+onBeforeUnmount(() => {
+  cleanup()
+})
 defineExpose<TooltipExpose>({
+  popperRef: JvpopperRef,
   /** @description 显示  */
-  show,
-  hide,
+  show: () => {
+    JvpopperRef.value?.show()
+  },
+  /** @description 隐藏  */
+  hide: () => {
+    JvpopperRef.value?.hide()
+  },
 })
 </script>
 
 <template>
-  <div ref="tooltipNode" :class="bem.b()" v-on="outerEvents">
-    <div ref="triggerNode" :class="bem.e('trigger')" v-on="events">
+  <JvTooltipRoot>
+    <JvTooltipTrigger v-bind="triggerProps">
       <slot />
-    </div>
-    <JvPopper ref="JvpopperRef" v-model="isOpen" :reference="triggerNode" :options="popperOptions" :content="renderContent" :arrow="arrow" />
-  </div>
+    </JvTooltipTrigger>
+    <JvPopper
+      ref="JvpopperRef"
+      manual
+      :append-to="appendTo"
+      v-bind="popperProps"
+      v-on="popperEvents"
+    >
+      <template #default>
+        <JvTooltipContent :render-content="renderContent" :trigger="trigger" :open-final="openFinal" :close-final="closeFinal" />
+      </template>
+    </JvPopper>
+  </JvTooltipRoot>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.1s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

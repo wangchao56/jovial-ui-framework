@@ -20,6 +20,7 @@ import JvDialog from './JvDialog'
 import JvDrawer from './JvDrawer'
 import JvDropdown from './JvDropdown'
 import JvEditor from './JvEditor'
+import JvEllipsis from './JvEllipsis'
 import { JvForm, JvFormItem } from './JvForm'
 import JvIcon from './JvIcon'
 import JvInput from './JvInput'
@@ -34,5 +35,6 @@ import JvRate from './JvRate'
 import JvSpace from './JvSpace'
 import JvSwitch from './JvSwitch'
 import JvTooltip from './JvTooltip'
+import { JvCode, JvLink, JvParagraph, JvText, JvTitle } from './JvTypography'
 
-export default [JvMenu, JvAside, JvContainer, JvFooter, JvHeader, JvMain, JvButton, JvButtonGroup, JvColSpace, JvIcon, JvInput, JvForm, JvFormItem, JvCollapse, JvCollapseItem, JvTooltip, JvSpace, JvDropdown, JvList, JvListItem, JvListGroup, JvMessage, JvSwitch, JvBadge, JvEditor, JvDialog, JvDrawer, JvAlert, JvCard, JvOverlay, JvNotification, JvAffix, JvRate, JvRow, JvCol, JvRadio, JvCheckbox, JvApp, JvRadioGroup] as const
+export default [JvMenu, JvAside, JvContainer, JvFooter, JvHeader, JvMain, JvButton, JvButtonGroup, JvColSpace, JvIcon, JvInput, JvForm, JvFormItem, JvCollapse, JvCollapseItem, JvTooltip, JvSpace, JvDropdown, JvList, JvListItem, JvListGroup, JvMessage, JvSwitch, JvBadge, JvEditor, JvDialog, JvDrawer, JvAlert, JvCard, JvOverlay, JvNotification, JvAffix, JvRate, JvRow, JvCol, JvRadio, JvCheckbox, JvApp, JvRadioGroup, JvParagraph, JvText, JvTitle, JvLink, JvCode, JvEllipsis] as const

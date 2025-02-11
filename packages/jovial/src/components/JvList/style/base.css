@@ -1,44 +1,67 @@
-/* 展开动画 */
-.jv-expand-enter-active,
-.jv-expand-leave-active {
-  transition: all 0.3s ease-in-out;
-  overflow: hidden;
-}
+@b list {
+  @m expand {
+    /* 展开/收起动画 */
+    @m enter-active,
+    @m leave-active {
+      transition: all 0.3s ease-out;
+      overflow: hidden;
+    }
 
-.jv-expand-enter-from,
-.jv-expand-leave-to {
-  height: 0;
-  opacity: 0;
-}
+    @m enter-from,
+    @m leave-to {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
 
-/* 子组件样式 */
-.jv-list-item-title,
-.jv-list-item-subtitle {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+    @m enter-to,
+    @m leave-from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-.jv-list-item-title {
-  font-size: var(--jv-list-item-title-font-size, 1rem);
-  font-weight: var(--jv-list-item-title-font-weight, 500);
-  line-height: var(--jv-list-item-title-line-height, 1.5);
-}
+  @m fade {
+    /* 淡入/淡出动画 */
+    @m enter-active,
+    @m leave-active {
+      transition: opacity 0.3s ease;
+    }
 
-.jv-list-item-subtitle {
-  font-size: var(--jv-list-item-subtitle-font-size, 0.875rem);
-  color: var(--jv-list-item-subtitle-color, var(--jv-color-text-secondary));
-}
+    @m enter-from,
+    @m leave-to {
+      opacity: 0;
+    }
+  }
 
-/* 展开动画 */
-.jv-expand-enter-active,
-.jv-expand-leave-active {
-  transition: all 0.3s ease-in-out;
-  overflow: hidden;
-}
+  @m slide {
+    /* 滑动动画 */
+    @m enter-active,
+    @m leave-active {
+      transition: all 0.3s ease-out;
+    }
 
-.jv-expand-enter-from,
-.jv-expand-leave-to {
-  height: 0;
-  opacity: 0;
+    @m enter-from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    @m leave-to {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+  }
+
+  @m collapse {
+    /* 折叠动画 */
+    @m enter-active,
+    @m leave-active {
+      transition: height 0.3s ease-in-out;
+      overflow: hidden;
+    }
+
+    @m enter-from,
+    @m leave-to {
+      height: 0 !important;
+    }
+  }
 }

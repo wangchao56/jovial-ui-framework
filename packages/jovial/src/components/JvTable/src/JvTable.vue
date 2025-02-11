@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import type { JvTableEmits } from './JvTable'
 import { createNamespace } from '@jovial/utils'
-import { jvTableEmits, jvTableProps } from './JvTable'
+import { jvTableProps } from './JvTable'
 
 defineOptions({ name: 'JvTable' })
 defineProps(jvTableProps)
-defineEmits(jvTableEmits)
+defineEmits<JvTableEmits>()
 const bem = createNamespace('table')
 </script>
 
 <template>
   <div :class="bem.b()" />
 </template>
-    import "../style/style.css"

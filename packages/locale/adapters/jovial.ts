@@ -1,9 +1,8 @@
 import type { Ref } from 'vue'
 import type { LocaleInstance, LocaleMessages, LocaleOptions } from '../types'
-import { consoleError, consoleWarn, getObjectValueByPath, useProxiedModel } from '@jovial/utils'
+import { consoleError, consoleWarn, getCurrentInstance, getObjectValueByPath, useProxiedModel } from '@jovial/utils'
 import { ref, shallowRef, watch } from 'vue'
 import en from '../language/en'
-
 /** Jovial国际化前缀 */
 const LANG_PREFIX = '$jv.'
 
@@ -101,11 +100,18 @@ function useProvided<T>(props: any, prop: string, provided: Ref<T>) {
 
 /**
  * 创建提供函数
- * @param state 状态对象,包含当前语言、回退语言和语言包
+ * @param state 状态对象
+ * @param state.current 当前语言引用
+ * @param state.fallback 回退语言引用
+ * @param state.messages 语言包引用
  * @returns 提供函数
  */
-function createProvideFunction(state: { current: Ref<string>, fallback: Ref<string>, messages: Ref<LocaleMessages> }) {
-  return (props: LocaleOptions): LocaleInstance => {
+function createProvideFunction(state: {
+  current: Ref<string>
+  fallback: Ref<string>
+  messages: Ref<LocaleMessages>
+}): (props: LocaleOptions) => LocaleInstance {
+  return function provideFn(props: LocaleOptions): LocaleInstance {
     const current = useProvided(props, 'locale', state.current)
     const fallback = useProvided(props, 'fallback', state.fallback)
     const messages = useProvided(props, 'messages', state.messages)
@@ -117,7 +123,7 @@ function createProvideFunction(state: { current: Ref<string>, fallback: Ref<stri
       messages,
       t: createTranslateFunction(current, fallback, messages),
       n: createNumberFunction(current, fallback),
-      provide: createProvideFunction({ current, fallback, messages }),
+      provide: provideFn as LocaleInstance['provide'],
     }
   }
 }
@@ -150,4 +156,17 @@ export function createJovialAdapter(options?: LocaleOptions): LocaleInstance {
     n: createNumberFunction(current, fallback),
     provide: createProvideFunction({ current, fallback, messages }),
   }
+}
+
+export const LocaleSymbol: InjectionKey<LocaleInstance> = Symbol.for('jovial-ui-locale')
+
+export function useLocale() {
+  getCurrentInstance('useLocale')
+
+  const locale = inject(LocaleSymbol, null) as LocaleInstance
+
+  if (!locale)
+    throw new Error('Could not find Jovial locale injection')
+
+  return locale
 }

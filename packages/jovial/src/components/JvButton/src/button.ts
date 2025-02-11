@@ -32,14 +32,16 @@ export interface ButtonProps {
   nativeType?: NativeType
   /** 原生 autofocus 属性 */
   autofocus?: boolean
-
   /** 按钮的图标 */
   icon?: string
   /** 按钮的前置图标 */
   prependIcon?: string
   /** 按钮的后置图标 */
   appendIcon?: string
-
+  /** 按钮的样式 */
+  style?: Record<string, string>
+  /** 按钮的类名 */
+  class?: string
 }
 /** 按钮的事件类型 */
 export interface ButtonEmits {
@@ -49,6 +51,12 @@ export interface ButtonEmits {
   (e: 'mousedown', payload: MouseEvent): void
   /** 键盘按下事件 */
   (e: 'keydown', payload: KeyboardEvent): void
+  /** 键盘弹起事件 */
+  (e: 'keyup', payload: KeyboardEvent): void
+  /** 聚焦事件 */
+  (e: 'focus', payload: FocusEvent): void
+  /** 失焦事件 */
+  (e: 'blur', payload: FocusEvent): void
 }
 /** 按钮的插槽类型 */
 export interface ButtonSlots {
@@ -64,7 +72,7 @@ export interface ButtonSlots {
 /** 按钮的暴露类型 */
 export interface ButtonExposed {
   /** 按钮的根元素 */
-  root: HTMLButtonElement | null
+  root: Ref<HTMLButtonElement | null>
   /** 设置按钮的加载状态 */
   setLoading: (loading: boolean) => void
   /** 设置按钮的禁用状态 */

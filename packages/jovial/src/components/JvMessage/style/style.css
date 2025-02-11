@@ -19,39 +19,39 @@
   --jv-message-text-color: var(--jv-color-text-primary);
   --jv-transition-duration: 0.3s;
 
+  display: flex;
   position: fixed;
   top: 0;
   left: 50%;
-  transform: translate(-50%, 0);
+  border: 1px solid var(--jv-message-border-color);
+  border-radius: 4px;
+  color: var(--jv-message-text-color);
+
   /* inset: 0 auto auto auto; */
   z-index: 9999;
-  display: flex;
-  align-items: center;
-  color: var(--jv-message-text-color);
-  background-color: var(--jv-message-bg-color);
-  border-radius: 4px;
-  border: 1px solid var(--jv-message-border-color);
   transition:
     top var(--jv-transition-duration),
     opacity var(--jv-transition-duration),
     transform var(--jv-transition-duration);
+  transform: translate(-50%, 0);
+  align-items: center;
+  background-color: var(--jv-message-bg-color);
 
   @e prepend {
     padding: 8px 16px;
   }
 
-  @e append {
-  }
-
   @e append--icon {
     color: var(--jv-message-text-color) !important;
   }
+
   @e content {
     padding: 8px 16px;
     padding-left: 0;
     flex: 1;
     font-size: 14px;
     line-height: 20px;
+
     /* 文本超出隐藏 */
     overflow: hidden;
     text-overflow: ellipsis;
@@ -66,27 +66,3 @@
     --jv-message-text-color: var(--jv-color-$(type));
   }
 }
-/*
-@m info {
-  --jv-message-border-color: var(--jv-color-info);
-  --jv-message-bg-color: var(--jv-color-info-light-7);
-  --jv-message-text-color: var(--jv-color-info);
-}
-
-@m success {
-  --jv-message-border-color: var(--jv-color-success);
-  --jv-message-bg-color: var(--jv-color-success-light-7);
-  --jv-message-text-color: var(--jv-color-success);
-}
-
-@m warning {
-  --jv-message-border-color: var(--jv-color-warning);
-  --jv-message-bg-color: var(--jv-color-warning-light-7);
-  --jv-message-text-color: var(--jv-color-warning);
-}
-
-@m danger {
-  --jv-message-border-color: var(--jv-color-danger);
-  --jv-message-bg-color: var(--jv-color-danger-light-7);
-  --jv-message-text-color: var(--jv-color-danger);
-} */

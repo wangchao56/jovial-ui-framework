@@ -1,8 +1,8 @@
 /* 定义布局网格区域 */
 .jv-layout {
   display: grid;
-  height: 100vh;
   width: 100%;
+  height: 100vh;
 
   /* 默认布局 - 有侧边栏 */
   &--default {
@@ -65,8 +65,8 @@
 }
 
 .jv-layout__main {
-  background: var(--jv-main-bg, #f5f7fa);
   padding: var(--jv-main-padding, 20px);
+  background: var(--jv-main-bg, #f5f7fa);
   overflow: auto;
 }
 

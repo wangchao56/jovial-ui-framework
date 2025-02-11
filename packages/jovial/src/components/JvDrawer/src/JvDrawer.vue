@@ -97,20 +97,25 @@ const cssVars = computed<CSSProperties>(() => ({
 .drawer-slide-leave-active {
   transition: transform 0.3s;
   transition-property: transform;
+
   /* transition-delay: -0.2s; */
 }
+
 .drawer-slide-enter-from,
 .drawer-slide-leave-to {
   transform: translateX(10%);
 }
+
 .drawer-slide-enter-from[data-position='left'],
 .drawer-slide-leave-to[data-position='left'] {
   transform: translateX(-100%);
 }
+
 .drawer-slide-enter-from[data-position='top'],
 .drawer-slide-leave-to[data-position='top'] {
   transform: translateY(-100%);
 }
+
 .drawer-slide-enter-from[data-position='bottom'],
 .drawer-slide-leave-to[data-position='bottom'] {
   transform: translateY(10%);

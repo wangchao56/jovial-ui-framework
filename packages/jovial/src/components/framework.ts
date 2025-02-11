@@ -1,7 +1,7 @@
 import type { LocaleOptions } from '@jovial/locale'
 import type { App, VNode } from 'vue'
 import { createDefaults, type DefaultsOptions, DefaultsSymbol } from '@/composables/defaults'
-import { createJovialAdapter } from '@jovial/locale'
+import { createJovialAdapter, LocaleSymbol } from '@jovial/locale'
 import { getUid } from '@jovial/utils'
 import { createTheme, type ThemeOptions, ThemeSymbol } from './theme'
 
@@ -55,7 +55,8 @@ export function createJovialUI(jovial: JovialOptions = {}) {
 
     app.provide(DefaultsSymbol, defaults)
     app.provide(ThemeSymbol, theme)
-    app.provide('jovial:locale', locale) // 提供国际化实例
+    app.provide(LocaleSymbol, locale) // 提供国际化实例
+
     getUid.reset()
   }
 

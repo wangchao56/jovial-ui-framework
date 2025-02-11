@@ -1,7 +1,7 @@
 :root {
   /* Colors */
-  --jv-white: #ffffff;
-  --jv-black: #000000;
+  --jv-white: #fff;
+  --jv-black: #000;
 
   /* Background Colors */
   --jv-bg-color: var(--jv-white);
@@ -80,9 +80,9 @@
   --jv-info-900: #1d1d1f;
 
   /* Shadow */
-  --jv-shadow-base: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-  --jv-shadow-lg: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  --jv-shadow-xl: 0 4px 16px 0 rgba(0, 0, 0, 0.15);
+  --jv-shadow-base: 0 2px 4px rgb(0 0 0 / 12%), 0 0 6px rgb(0 0 0 / 4%);
+  --jv-shadow-lg: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  --jv-shadow-xl: 0 4px 16px 0 rgb(0 0 0 / 15%);
 }
 
 /* Dark Theme */
@@ -90,13 +90,13 @@
   --jv-bg-color: #141414;
   --jv-bg-color-overlay: #1d1e1f;
   --jv-border-color: #434343;
-  --jv-text-color: rgba(255, 255, 255, 0.85);
-  --jv-text-color-regular: rgba(255, 255, 255, 0.65);
-  --jv-text-color-secondary: rgba(255, 255, 255, 0.45);
-  --jv-text-color-placeholder: rgba(255, 255, 255, 0.25);
+  --jv-text-color: rgb(255 255 255 / 85%);
+  --jv-text-color-regular: rgb(255 255 255 / 65%);
+  --jv-text-color-secondary: rgb(255 255 255 / 45%);
+  --jv-text-color-placeholder: rgb(255 255 255 / 25%);
 
   /* Shadow */
-  --jv-shadow-base: 0 2px 4px rgba(0, 0, 0, 0.24), 0 0 6px rgba(0, 0, 0, 0.12);
-  --jv-shadow-lg: 0 2px 12px 0 rgba(0, 0, 0, 0.24);
-  --jv-shadow-xl: 0 4px 16px 0 rgba(0, 0, 0, 0.32);
+  --jv-shadow-base: 0 2px 4px rgb(0 0 0 / 24%), 0 0 6px rgb(0 0 0 / 12%);
+  --jv-shadow-lg: 0 2px 12px 0 rgb(0 0 0 / 24%);
+  --jv-shadow-xl: 0 4px 16px 0 rgb(0 0 0 / 32%);
 }

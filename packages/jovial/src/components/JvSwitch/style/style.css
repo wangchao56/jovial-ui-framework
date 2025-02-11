@@ -5,16 +5,16 @@
 }
 
 @b switch {
-  position: relative;
   display: inline-flex;
-  align-items: center;
+  position: relative;
   cursor: pointer;
+  align-items: center;
 
   @e track {
     width: var(--jv-switch-width);
     height: var(--jv-switch-height);
-    border-radius: calc(var(--jv-switch-height) / 2);
     background: rgb(var(--jv-theme-surface-variant));
+    border-radius: calc(var(--jv-switch-height) / 2);
     transition: background-color 0.3s;
   }
 
@@ -23,8 +23,8 @@
     left: 2px;
     width: var(--jv-switch-thumb-size);
     height: var(--jv-switch-thumb-size);
-    border-radius: 50%;
     background: rgb(var(--jv-theme-on-surface-variant));
+    border-radius: 50%;
     transition: transform 0.3s;
   }
 
@@ -34,13 +34,13 @@
     }
 
     @e thumb {
-      transform: translateX(20px);
       background: rgb(var(--jv-theme-on-primary));
+      transform: translateX(20px);
     }
   }
 
   @m disabled {
-    cursor: not-allowed;
     opacity: var(--jv-disabled-opacity);
+    cursor: not-allowed;
   }
 }

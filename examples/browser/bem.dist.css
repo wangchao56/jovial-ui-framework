@@ -1,4 +1,4 @@
-.jv-Button {
+.jv-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -9,21 +9,34 @@
 
   /* 状态 */
 }
-.jv-Button.is-disabled {
+
+.jv-button.is-disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.jv-Button__icon {
+
+.jv-button__icon {
   margin-right: 8px;
 }
-.jv-Button__label {
+
+.jv-button__label {
   flex: 1;
 }
-.jv-Button--primary {
+
+.jv-button--primary {
   background: var(--jv-color-primary);
   color: #fff;
 }
-.jv-Button--small {
-  font-size: 12px;
+
+.jv-button--small {
   padding: 4px 8px;
+  font-size: 12px;
+}
+
+@each $type in info, success, warning, danger {
+  @m $(type) {
+    --jv-message-border-color: var(--jv-color-$(type));
+    --jv-message-bg-color: var(--jv-color-$(type)-light-7);
+    --jv-message-text-color: var(--jv-color-$(type));
+  }
 }

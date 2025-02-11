@@ -18,6 +18,7 @@ export default antfu({
     'public',
     '**/public',
     '**/components-old/**',
+    '**/storybook-static',
   ],
   formatters: true,
   vue: true,

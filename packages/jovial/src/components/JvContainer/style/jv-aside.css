@@ -1,17 +1,17 @@
-@import './theme-vars.css';
+@import url('./theme-vars.css');
 
 @b aside {
   --jv-aside-margin-right: 16px;
+
+  width: max-content;
+  height: var(--jv-aside-height);
+  margin-right: var(--jv-aside-margin-right);
+  border: var(--jv-border-solid);
   grid-area: aside !important;
   box-sizing: border-box !important;
   background-color: var(--jv-aside-bg-color);
-  border: var(--jv-border-solid);
   min-width: var(--jv-aside-width);
-  width: max-content;
   max-width: 30%;
-  height: var(--jv-aside-height);
   min-height: 100%;
-  margin-right: var(--jv-aside-margin-right);
-
   overflow: auto;
 }

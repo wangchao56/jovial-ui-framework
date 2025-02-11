@@ -89,6 +89,7 @@ const circleStyle = computed(() => ({
   from {
     transform: rotate(-90deg);
   }
+
   to {
     transform: rotate(270deg);
   }

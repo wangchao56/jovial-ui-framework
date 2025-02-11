@@ -1,0 +1,190 @@
+.jv-code {
+  --jv-code-bg: var(--jv-color-background-soft);
+  --jv-code-border: var(--jv-border);
+  --jv-code-radius: 6px;
+  position: relative;
+  font-family: var(--jv-font-mono);
+}
+
+.jv-code--block {
+  background: var(--jv-code-bg);
+  border: 1px solid var(--jv-code-border);
+  border-radius: var(--jv-code-radius);
+  margin: 1em 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 1px var(--jv-code-border);
+}
+
+.jv-code--block:hover {
+  box-shadow: 0 0 0 2px var(--jv-color-primary);
+}
+
+.jv-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--jv-code-border);
+}
+
+.jv-code-header-left,
+.jv-code-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jv-code-collapse {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: 0.8em;
+  position: relative;
+  padding-left: 16px;
+}
+
+.jv-code-collapse::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  width: 2px;
+  height: 14px;
+  background: currentColor;
+  transform: translateY(-50%);
+  opacity: 0.3;
+  transition: opacity 0.2s;
+}
+
+.jv-code-collapse:hover::before {
+  opacity: 0.6;
+}
+
+.jv-code-title {
+  font-weight: 500;
+}
+
+.jv-code-lang {
+  font-size: 0.8em;
+  opacity: 0.7;
+}
+
+.jv-code-copy {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: 1em;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+pre {
+  margin: 0;
+  padding: 1em;
+  overflow-x: auto;
+}
+
+code {
+  font-family: inherit;
+}
+
+/* 折叠动画 */
+.jv-code-content {
+  transition: max-height 0.3s ease-out;
+  overflow: hidden;
+}
+
+.jv-code--collapsed .jv-code-content {
+  max-height: 0 !important;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* 暗黑主题适配 */
+.dark .jv-code {
+  --jv-code-bg: var(--jv-color-background-dark);
+  --jv-code-border: var(--jv-color-border-dark);
+}
+
+/* 优化代码内容区域 */
+pre.jv-code-content {
+  position: relative;
+  padding: 1.2em 1.5em;
+  line-height: 1.6;
+  counter-reset: line;
+}
+
+/* 添加行号支持 */
+code {
+  display: block;
+  position: relative;
+  padding-left: 3.5em;
+}
+
+code:before {
+  content: counter(line);
+  counter-increment: line;
+  position: absolute;
+  left: -2.5em;
+  width: 2em;
+  text-align: right;
+  color: var(--jv-color-text-secondary);
+  opacity: 0.6;
+}
+
+/* 优化高亮样式 */
+.hljs {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.hljs-keyword {
+  color: var(--jv-color-primary) !important;
+}
+
+.hljs-string {
+  color: var(--jv-color-success) !important;
+}
+
+.hljs-comment {
+  color: var(--jv-color-text-secondary) !important;
+  font-style: italic;
+}
+
+/* 美化滚动条 */
+pre::-webkit-scrollbar {
+  height: 8px;
+  background: var(--jv-code-bg);
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: var(--jv-color-border);
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: var(--jv-color-primary);
+}
+
+/* 添加代码块圆角 */
+.jv-code--block pre {
+  border-radius: 0 0 var(--jv-code-radius) var(--jv-code-radius);
+}
+
+/* 优化长代码显示 */
+code {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* 添加代码行hover效果 */
+code > span:hover {
+  background: var(--jv-color-background-light);
+}

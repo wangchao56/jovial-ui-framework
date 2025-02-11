@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import JvApp from './components/JvApp/src/JvApp.vue'
+import { JvButton } from './components/JvButton'
 import { useTheme } from './components/theme'
-import TestJvMenu from './pages/test-jvmenu.vue'
 
 const themeName = ref('light')
 const theme = useTheme()
@@ -12,18 +12,74 @@ function toggleTheme() {
   theme.switch(newTheme)
 }
 // 监控 webstorage 的变化
-window.addEventListener('storage', (event) => {
-  console.log('storage', event)
+window.addEventListener('storage', () => {
   themeName.value = localStorage.getItem('theme') ?? 'light'
 })
+
+const pRef = ref<HTMLElement>()
+const isOpenTooltip = ref(false)
+// 测试torefs是否具有响应性
+const testContent = ref('当前方向bottom-start')
+function toggleTooltip() {
+  // 测试torefs是否具有响应性
+  testContent.value = '当前方向bottom-start 2323'
+  isOpenTooltip.value = !isOpenTooltip.value
+}
+function tooltipVisibleChange(_val: boolean) {
+}
 </script>
 
 <template>
   <JvApp :theme="themeName">
-    <JvButton @click="toggleTheme">
-      {{ theme.name.value === 'light' ? '切换到暗色主题 🌙' : '切换到亮色主题 ☀️' }}
-    </JvButton>
-    <TestJvMenu />
+    <JvContainer>
+      <JvHeader>
+        <JvSpace>
+          <p ref="pRef">
+            当前方向bottom-start
+          </p>
+          <!-- 切换主题 -->
+          <JvButton @click="toggleTheme">
+            切换主题
+          </JvButton>
+        </JvSpace>
+      </JvHeader>
+      <JvMain>
+        <JvButton @click="toggleTooltip">
+          按钮 点击
+        </JvButton>
+        <button
+          v-tooltip:bottom-start.click="{
+            theme,
+            content: testContent,
+            openDelay: 100,
+            closeDelay: 100,
+          }"
+        >
+          当前方向bottom-start
+        </button>
+        <button
+          v-tooltip:bottom-start.hover="{
+            theme,
+            content: testContent,
+            openDelay: 100,
+            closeDelay: 100,
+          }"
+        >
+          当前方向bottom-start
+        </button>
+        <JvTooltip v-model:visible="isOpenTooltip" trigger="hover" :content="testContent" placement="bottom-start" @visible-change="tooltipVisibleChange">
+          <JvButton>
+            按钮
+          </JvButton>
+        </JvTooltip>
+        <JvTooltip trigger="click" content="当前方向right-start" placement="right-start">
+          按钮
+        </JvTooltip>
+        <JvTooltip trigger="click" content="当前方向top-start" placement="top-start">
+          按钮
+        </JvTooltip>
+      </JvMain>
+    </JvContainer>
   </JvApp>
 </template>
 

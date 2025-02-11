@@ -84,3 +84,37 @@ export enum SizeOptions {
 
 /** 按钮的 DOM 的 type 属性 */
 export type NativeType = 'button' | 'submit' | 'reset'
+/**
+ * 提取A类型中存在但B类型中不存在的属性
+ * 示例:
+ * interface A {
+ *  id: number;
+ *  name: string;
+ * }
+ * interface B {
+ *  id: number;
+ *  name: string;
+ *  email: string;
+ * }
+ * 结果类型为 { id: number; name: string }
+ * type DiffAB = Diff<A, B>;
+ */
+export type Diff<A, B> = Omit<A, keyof B>
+
+/**
+ * 提取A类型中存在但B类型中不存在的属性
+ * 示例:
+ * interface A {
+ *  id: number;
+ *  name: string;
+ * }
+ * interface B {
+ *  id: number;
+ *  name: string;
+ * }
+ * 结果类型为 { id: number & string; name: string }
+ * type CommonPropsAB = CommonProperties<A, B>;
+ */
+export type CommonProperties<T, U> = {
+  [K in Extract<keyof T, keyof U>]: T[K] & U[K];
+}

@@ -20,21 +20,29 @@ Mixins：
   文本截断 mixin
 */
 :root {
-  /* 字体大小 */
-  --jv-font-size-xs: 12px;
-  --jv-font-size-sm: 14px;
-  --jv-font-size-base: 16px;
-  --jv-font-size-lg: 18px;
-  --jv-font-size-xl: 20px;
-  --jv-font-size-2xl: 24px;
-  --jv-font-size-3xl: 30px;
+  /* 字体家族 */
+  --jv-font-family-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --jv-font-family-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
+  --jv-font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+
+  /* 字体大小（基准16px，比例1.125） */
+  --jv-font-size-xs: 0.75rem; /* 12px */
+  --jv-font-size-sm: 0.875rem; /* 14px */
+  --jv-font-size-base: 1rem; /* 16px */
+  --jv-font-size-lg: 1.125rem; /* 18px */
+  --jv-font-size-xl: 1.25rem; /* 20px */
+  --jv-font-size-2xl: 1.5rem; /* 24px */
+  --jv-font-size-3xl: 1.875rem; /* 30px */
 
   /* 字体粗细 */
+  --jv-font-weight-thin: 100;
   --jv-font-weight-light: 300;
   --jv-font-weight-regular: 400;
   --jv-font-weight-medium: 500;
   --jv-font-weight-semibold: 600;
   --jv-font-weight-bold: 700;
+  --jv-font-weight-black: 900;
 
   /* 行高 */
   --jv-line-height-none: 1;
@@ -42,6 +50,13 @@ Mixins：
   --jv-line-height-normal: 1.5;
   --jv-line-height-relaxed: 1.75;
   --jv-line-height-loose: 2;
+
+  /* 字间距 */
+  --jv-letter-spacing-tighter: -0.05em;
+  --jv-letter-spacing-tight: -0.025em;
+  --jv-letter-spacing-normal: 0em;
+  --jv-letter-spacing-wide: 0.025em;
+  --jv-letter-spacing-wider: 0.05em;
 
   /* 字体颜色 */
   --jv-text-color-primary: #303133;
@@ -124,7 +139,7 @@ Mixins：
 
 /* 文本颜色 */
 .text-primary {
-  color: var(--jv-text-color-primary);
+  color: rgb(var(--jv-theme-on-primary));
 }
 
 .text-regular {
@@ -132,7 +147,19 @@ Mixins：
 }
 
 .text-secondary {
-  color: var(--jv-text-color-secondary);
+  color: rgb(var(--jv-theme-on-secondary));
+}
+/* 优化后的文本颜色（关联主题系统） */
+.text-success {
+  color: rgb(var(--jv-theme-on-success));
+}
+
+.text-warning {
+  color: rgb(var(--jv-theme-on-warning));
+}
+
+.text-error {
+  color: rgb(var(--jv-theme-on-error));
 }
 
 .text-placeholder {
@@ -212,15 +239,15 @@ Mixins：
 
 /* Mixins */
 @define-mixin text-primary {
-  color: var(--jv-text-color-primary);
+  color: rgb(var(--jv-theme-on-primary));
 }
 
 @define-mixin text-regular {
-  color: var(--jv-text-color-regular);
+  color: rgb(var(--jv-theme-on-background));
 }
 
 @define-mixin text-secondary {
-  color: var(--jv-text-color-secondary);
+  color: rgb(var(--jv-theme-on-secondary));
 }
 
 @define-mixin font-base {
@@ -232,4 +259,27 @@ Mixins：
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* 交互文本 */
+.jv-interactive {
+  cursor: text;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--jv-text-color-primary);
+    text-decoration: underline;
+    text-decoration-thickness: 0.05em;
+  }
+
+  &:active {
+    color: var(--jv-text-color-regular);
+  }
+
+  /* 聚焦状态 */
+  &:focus-visible {
+    outline: 2px solid var(--jv-color-primary);
+    outline-offset: 0.2em;
+    border-radius: 2px;
+  }
 }

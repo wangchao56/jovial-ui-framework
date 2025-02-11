@@ -2,28 +2,28 @@
 :root {
   /* 基础阴影 */
   --jv-shadow-none: none;
-  --jv-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --jv-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --jv-shadow-base: 0 1px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --jv-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --jv-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  --jv-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  --jv-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --jv-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 5%);
+  --jv-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%);
+  --jv-shadow-base: 0 1px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
+  --jv-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
+  --jv-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+  --jv-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 10%), 0 8px 10px -6px rgb(0 0 0 / 10%);
+  --jv-shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 25%);
 
   /* 方向阴影 */
-  --jv-shadow-top: 0 -1px 3px 0 rgba(0, 0, 0, 0.1), 0 -1px 2px -1px rgba(0, 0, 0, 0.1);
-  --jv-shadow-right: 1px 0 3px 0 rgba(0, 0, 0, 0.1), 1px 0 2px -1px rgba(0, 0, 0, 0.1);
-  --jv-shadow-bottom: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --jv-shadow-left: -1px 0 3px 0 rgba(0, 0, 0, 0.1), -1px 0 2px -1px rgba(0, 0, 0, 0.1);
+  --jv-shadow-top: 0 -1px 3px 0 rgb(0 0 0 / 10%), 0 -1px 2px -1px rgb(0 0 0 / 10%);
+  --jv-shadow-right: 1px 0 3px 0 rgb(0 0 0 / 10%), 1px 0 2px -1px rgb(0 0 0 / 10%);
+  --jv-shadow-bottom: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%);
+  --jv-shadow-left: -1px 0 3px 0 rgb(0 0 0 / 10%), -1px 0 2px -1px rgb(0 0 0 / 10%);
 
   /* 内阴影 */
-  --jv-shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  --jv-shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 5%);
 
   /* 彩色阴影 */
-  --jv-shadow-primary: 0 4px 6px -1px rgba(24, 144, 255, 0.2), 0 2px 4px -2px rgba(24, 144, 255, 0.1);
-  --jv-shadow-success: 0 4px 6px -1px rgba(82, 196, 26, 0.2), 0 2px 4px -2px rgba(82, 196, 26, 0.1);
-  --jv-shadow-warning: 0 4px 6px -1px rgba(250, 173, 20, 0.2), 0 2px 4px -2px rgba(250, 173, 20, 0.1);
-  --jv-shadow-danger: 0 4px 6px -1px rgba(245, 34, 45, 0.2), 0 2px 4px -2px rgba(245, 34, 45, 0.1);
+  --jv-shadow-primary: 0 4px 6px -1px rgb(24 144 255 / 20%), 0 2px 4px -2px rgb(24 144 255 / 10%);
+  --jv-shadow-success: 0 4px 6px -1px rgb(82 196 26 / 20%), 0 2px 4px -2px rgb(82 196 26 / 10%);
+  --jv-shadow-warning: 0 4px 6px -1px rgb(250 173 20 / 20%), 0 2px 4px -2px rgb(250 173 20 / 10%);
+  --jv-shadow-danger: 0 4px 6px -1px rgb(245 34 45 / 20%), 0 2px 4px -2px rgb(245 34 45 / 10%);
 }
 
 /* 基础阴影类 */
@@ -139,6 +139,7 @@
 
 @define-mixin shadow-hover {
   transition: box-shadow 0.3s ease-in-out;
+
   &:hover {
     box-shadow: var(--jv-shadow-lg);
   }

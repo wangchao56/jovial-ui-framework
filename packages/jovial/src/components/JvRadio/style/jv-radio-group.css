@@ -1,12 +1,11 @@
 @b radio-group {
-  border: none;
-  padding: 0;
-  margin: 0;
-  min-width: 0;
   display: flex;
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-width: 0;
   gap: 16px;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
 
   &.is-column {
     flex-direction: column;
@@ -19,9 +18,9 @@
   }
 
   &__legend {
-    font-size: var(--jv-font-size-base);
-    color: var(--jv-text-color-regular);
     margin-bottom: 8px;
+    color: var(--jv-text-color-regular);
+    font-size: var(--jv-font-size-base);
     font-weight: 500;
   }
 }

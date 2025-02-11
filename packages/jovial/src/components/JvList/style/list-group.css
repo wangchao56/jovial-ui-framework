@@ -16,13 +16,15 @@
 
   @e icon {
     margin-right: var(--jv-spacing-small);
-    transform: rotate(90deg);
-    transition: transform 0.3s ease;
     color: var(--jv-color-text-secondary);
+    transition: transform 0.3s ease;
+    transform: rotate(90deg);
+
     /* 默认旋转  */
     &.is-expanded:not(.is-custom) {
       transform: rotate(0deg);
     }
+
     /* 自定义图标不旋转 */
     &.is-custom {
       transform: none;
@@ -30,10 +32,10 @@
   }
 
   @e title {
-    flex: 1;
+    color: inherit;
     font-size: var(--jv-font-size-base);
     font-weight: var(--jv-font-weight-medium);
-    color: inherit;
+    flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

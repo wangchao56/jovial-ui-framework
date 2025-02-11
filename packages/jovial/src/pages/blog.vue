@@ -110,27 +110,27 @@ const articles = [
   background-color: var(--jv-color-bg-1);
 
   &__content {
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
+    margin: 0 auto;
+    max-width: 1200px;
     justify-content: space-between;
     align-items: center;
   }
 
   &__title {
+    margin: 0;
+    color: var(--jv-color-text-1);
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--jv-color-text-1);
-    margin: 0;
   }
 
   &__theme-toggle {
+    padding: 0.5rem;
     background: none;
     border: none;
+    border-radius: 50%;
     font-size: 1.5rem;
     cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 50%;
     transition: background-color 0.3s;
 
     &:hover {
@@ -157,26 +157,26 @@ const articles = [
   padding: 1.5rem;
   border-radius: 8px;
   background-color: var(--jv-color-bg-1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
   transition:
     transform 0.3s,
     box-shadow 0.3s;
 
   &:hover {
+    box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   &__title {
+    margin: 0 0 1rem;
+    color: var(--jv-color-text-1);
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--jv-color-text-1);
-    margin: 0 0 1rem;
   }
 
   &__summary {
-    color: var(--jv-color-text-2);
     margin: 0 0 1rem;
+    color: var(--jv-color-text-2);
     line-height: 1.6;
   }
 
@@ -190,10 +190,10 @@ const articles = [
 // 深色主题适配
 :root[class*='jv-theme--dark'] {
   .article-card {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 30%);
 
     &:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 12px rgb(0 0 0 / 40%);
     }
   }
 }

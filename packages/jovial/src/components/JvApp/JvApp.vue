@@ -23,6 +23,6 @@ const theme = provideTheme(props)
 .jv-application {
   display: flex;
   background-color: rgb(var(--jv-theme-background));
-  color: rgba(var(--jv-theme-on-background), var(--jv-high-emphasis-opacity, 1));
+  color: rgb(var(--jv-theme-on-background) var(--jv-high-emphasis-opacity, 1));
 }
 </style>

@@ -5,15 +5,94 @@
 }
 
 @b list {
-  list-style: none;
   margin: 0;
-  padding: 0;
-  background: var(--jv-list-bg, transparent);
-  color: var(--jv-list-color, inherit);
+  padding: var(--jv-list-padding);
+  list-style: none;
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+
+    ::marker {
+      display: none;
+      content: none;
+    }
+  }
+  @e item {
+    display: flex;
+    align-items: center;
+    padding: var(--jv-list-item-padding);
+    min-height: var(--jv-list-item-height);
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background: rgb(var(--jv-theme-primary) var(--jv-variant-hover-opacity));
+    }
+
+    @m selected {
+      background: rgb(var(--jv-theme-primary) var(--jv-variant-opacity));
+      color: rgb(var(--jv-theme-primary));
+    }
+
+    @m disabled {
+      opacity: var(--jv-disabled-opacity);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+
+  @e icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--jv-list-item-icon-size);
+    height: var(--jv-list-item-icon-size);
+    margin-right: var(--jv-list-item-icon-margin);
+    flex-shrink: 0;
+  }
+
+  @e content {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  @e title {
+    font-size: 1rem;
+    line-height: 1.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @e subtitle {
+    color: rgb(var(--jv-theme-on-surface-variant));
+    font-size: 0.875rem;
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @m dense {
+    @e item {
+      min-height: 40px;
+    }
+  }
+
+  @m nav {
+    @e item {
+      margin: 0 8px;
+      padding: 0 8px;
+      border-radius: var(--jv-border-radius);
+    }
+  }
 
   .jv-divider {
     margin: 0;
   }
+
   &.is-bordered {
     border: 1px solid var(--jv-border-color);
     border-radius: var(--jv-border-radius-base);
@@ -27,18 +106,15 @@
 
   &-subheader {
     padding: var(--jv-spacing-small) var(--jv-spacing-medium) !important;
-    font-size: var(--jv-font-size-sm);
     color: var(--jv-color-text-secondary);
+    font-size: var(--jv-font-size-sm);
   }
 }
 
-ul,
-li {
-  /* list-style: none; */
-  margin: 0;
-  padding: 0;
-  ::marker {
-    display: none;
-    content: none;
-  }
+:root {
+  --jv-list-padding: 8px 0;
+  --jv-list-item-padding: 0 16px;
+  --jv-list-item-height: 48px;
+  --jv-list-item-icon-size: 24px;
+  --jv-list-item-icon-margin: 16px;
 }

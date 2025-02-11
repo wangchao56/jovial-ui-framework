@@ -30,12 +30,12 @@ const classes = computed(() => [
 <style scoped>
 .jv-list-item-action {
   display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 0.5rem;
+  color: var(--jv-list-item-action-color, inherit);
   font-size: var(--jv-list-item-action-font-size, 0.875rem);
   font-weight: var(--jv-list-item-action-font-weight, 400);
-  color: var(--jv-list-item-action-color, inherit);
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
 }
 </style>

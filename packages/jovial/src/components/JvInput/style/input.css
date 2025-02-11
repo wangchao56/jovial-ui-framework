@@ -18,6 +18,7 @@
 
 @define-mixin input-size $height {
   --jv-input-height: $height;
+
   height: var(--jv-input-height);
 }
 
@@ -25,29 +26,32 @@
   --jv-input-height: 36px;
   --jv-input-toggle-width: 24px;
 
-  position: relative;
   display: inline-flex;
-  align-items: center;
+  position: relative;
   width: 100%;
+  align-items: center;
   box-sizing: border-box;
 
   @e wrapper {
-    box-sizing: border-box;
     display: inline-flex;
-    border: 1px solid #ccc;
-    flex: 1;
-    align-items: center;
     position: relative;
-    transition: all 0.3s;
     padding-right: 5px;
     padding-left: 5px;
+    border: 1px solid #ccc;
     box-shadow:
       1px 0 0 0 #ccc inset,
       0 1px 0 0 #ccc inset,
       0 -1px 0 0 #ccc inset;
+    transition: all 0.3s;
+    box-sizing: border-box;
+    flex: 1;
+    align-items: center;
+
     &:focus-within {
       border-color: #409eff;
-      --jv-input-shadow-color: rgba(64, 158, 255, 0.2);
+
+      --jv-input-shadow-color: rgb(64 158 255 / 20%);
+
       outline: 0;
       box-shadow: 0 0 0 2px var(--jv-input-shadow-color);
     }
@@ -58,16 +62,17 @@
   }
 
   @e inner {
-    flex: 1;
-    border: 0;
-    padding: 0;
-    border: none;
-    outline: none;
-    padding: 0 8px;
     height: var(--jv-input-height);
+    padding: 0;
+    padding: 0 8px;
+    border: 0;
+    border: none;
+    font-size: medium;
+    flex: 1;
+    outline: none;
     box-sizing: border-box;
     background-color: transparent;
-    font-size: medium;
+
     &::placeholder {
       color: #c0c4cc;
       font-size: 14px;
@@ -85,18 +90,20 @@
   }
 
   @e toggle {
-    cursor: pointer;
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
     width: var(--jv-input-toggle-width);
     height: 100%;
+    cursor: pointer;
     transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    align-items: center;
+    justify-content: center;
+
     &:hover {
       & > .jv-icon {
         color: #909399 !important;
       }
     }
+
     & > .jv-icon {
       color: #c0c4cc !important;
     }
@@ -106,22 +113,24 @@
   }
 
   @e clear {
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 1;
-    cursor: pointer;
     display: inline-flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    margin-right: 5px;
+    cursor: pointer;
+    z-index: 1;
+    transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     align-items: center;
     justify-content: center;
-    margin-right: 5px;
-    height: 100%;
-    transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+
     &:hover {
       & > .jv-icon {
         color: #1b1c1c !important;
       }
     }
+
     & > .jv-icon {
       color: #c0c4cc !important;
     }
@@ -129,6 +138,7 @@
 
   @m disabled {
     cursor: not-allowed;
+
     & > .jv-input__wrapper {
       background-color: #f5f7fa;
       border-color: #e4e7ed;
@@ -136,18 +146,23 @@
       cursor: not-allowed;
     }
   }
+
   @m x-large {
     @mixin input-size 52px;
   }
+
   @m large {
     @mixin input-size 40px;
   }
+
   @m small {
     @mixin input-size 28px;
   }
+
   @m tiny {
     @mixin input-size 24px;
   }
+
   @m medium {
     @mixin input-size 36px;
   }
@@ -156,22 +171,23 @@
     @e append {
       display: inline-flex;
       padding: 0 10px;
-      line-height: var(--jv-input-height);
       border: 1px solid #ccc;
       box-shadow:
         0 0 0 1px #ccc inset,
         0 1px 0 0 #ccc inset,
         0 -1px 0 0 #ccc inset;
+      line-height: var(--jv-input-height);
     }
+
     @e prepend {
       display: inline-flex;
       padding: 0 10px;
-      line-height: var(--jv-input-height);
       border: 1px solid #ccc;
       box-shadow:
         1px 0 0 0 #ccc inset,
         0 1px 0 0 #ccc inset,
         0 -1px 0 0 #ccc inset;
+      line-height: var(--jv-input-height);
     }
   }
 }

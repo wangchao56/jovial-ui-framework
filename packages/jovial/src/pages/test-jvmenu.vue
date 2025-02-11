@@ -103,8 +103,8 @@ const items: MenuItem[] = [
 
 .menu-container {
   margin: 20px 0;
-  border: 1px solid #eee;
   padding: 20px;
+  border: 1px solid #eee;
 }
 
 h2 {

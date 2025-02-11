@@ -13,22 +13,23 @@
 
 <style scoped>
 section {
-  width: 100vw;
   /* height: 100vh; */
   display: flex;
+  width: 100vw;
+  padding: 60px;
   flex-direction: column;
   align-items: center;
   justify-content: start;
   overflow-y: scroll;
   gap: 146px;
-  padding: 60px;
   box-sizing: border-box;
 }
+
 div {
+  display: grid;
   width: 70vw;
   height: 80vh;
   background-color: #ccc;
-  display: grid;
   place-content: center;
 }
 </style>

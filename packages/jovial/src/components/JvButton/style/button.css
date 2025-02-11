@@ -1,9 +1,9 @@
 :root {
-  --jv-text-color-disabled: hsl(210, 6%, 21%);
+  --jv-text-color-disabled: hsl(210deg 6% 21%);
   --jv-btn-color: rgb(var(--jv-theme-on-surface));
   --jv-btn-bgcolor: rgb(var(--jv-theme-surface));
-  --jv-btn-disabled-color: rgba(var(--jv-theme-on-surface), 0.38);
-  --jv-btn-disabled-bg: rgba(var(--jv-theme-on-surface), 0.12);
+  --jv-btn-disabled-color: rgb(var(--jv-theme-on-surface) 0.38);
+  --jv-btn-disabled-bg: rgb(var(--jv-theme-on-surface) 0.12);
   --jv-btn-border-radius: 4px;
   --jv-button-bg-color: var(--jv-theme-color-background);
   --jv-button-width: auto;
@@ -11,14 +11,19 @@
 
 @b button {
   display: inline-grid;
+  position: relative;
+  width: var(--jv-button-width);
+  border: 0;
+  border-radius: 4px;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  cursor: pointer;
   grid-template-areas: 'prepend content append';
   grid-template-columns: max-content 1fr max-content;
   align-items: center;
-  font-weight: 500;
   letter-spacing: 0.0892857em;
-  line-height: normal;
   max-width: 100%;
-  position: relative;
   text-indent: 0.0892857em;
   text-transform: uppercase;
   transition-property: box-shadow, transform, opacity, background;
@@ -27,25 +32,28 @@
   user-select: none;
   vertical-align: middle;
   flex-shrink: 0;
-  border-radius: 4px;
   outline: none;
-  border: 0;
-  text-decoration: none;
-  cursor: pointer;
   box-sizing: border-box;
-  width: var(--jv-button-width);
   column-gap: 4px;
 
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgb(var(--jv-theme-primary));
+  }
+
   @e content {
+    border-radius: inherit;
+    color: var(--jv-btn-color);
+    font-size: 1rem;
+    line-height: 1.25;
+    text-align: center;
     grid-area: content;
     flex-direction: column;
-    line-height: 1.25;
-    font-size: 1rem;
-    color: var(--jv-btn-color);
-    background-color: hsla(var(--jv-btn-bgcolor), 0.04);
-    border-radius: inherit;
+    background-color: hsl(var(--jv-btn-bgcolor) 0.04);
     overflow: hidden;
-    text-align: center;
     white-space: nowrap;
   }
 
@@ -62,8 +70,10 @@
   @m tiny {
     --jv-btn-size: 0.625rem;
     --jv-btn-height: 20px;
+
     height: var(--jv-btn-height);
     padding: 0 15px;
+
     & > .button__content {
       font-size: var(--jv-btn-size) !important;
       line-height: calc(var(--jv-btn-size) + 3px);
@@ -73,8 +83,10 @@
   @m small {
     --jv-btn-size: 0.75rem;
     --jv-btn-height: 28px;
+
     height: var(--jv-btn-height);
     padding: 0 18px;
+
     & > .button__content {
       font-size: var(--jv-btn-size) !important;
       line-height: calc(var(--jv-btn-size) + 3px);
@@ -84,8 +96,10 @@
   @m medium {
     --jv-btn-size: 0.875rem;
     --jv-btn-height: 36px;
+
     height: var(--jv-btn-height);
     padding: 0 20px;
+
     & > .button__content {
       font-size: var(--jv-btn-size) !important;
       line-height: calc(var(--jv-btn-size) + 3px);
@@ -95,8 +109,10 @@
   @m large {
     --jv-btn-size: 1rem;
     --jv-btn-height: 44px;
+
     height: var(--jv-btn-height);
     padding: 0 22px;
+
     & > .button__content {
       font-size: var(--jv-btn-size) !important;
       line-height: calc(var(--jv-btn-size) + 3px);
@@ -106,8 +122,10 @@
   @m x-large {
     --jv-btn-size: 1.125rem;
     --jv-btn-height: 52px;
+
     height: var(--jv-btn-height);
     padding: 0 25px;
+
     & > .button__content {
       font-size: var(--jv-btn-size) !important;
       line-height: calc(var(--jv-btn-size) + 3px);
@@ -142,8 +160,9 @@
   @m text {
     background-color: transparent;
     color: rgb(var(--jv-theme-primary));
+
     &:hover {
-      background-color: rgba(var(--jv-theme-primary), 0.04);
+      background-color: rgb(var(--jv-theme-primary) 0.04);
     }
   }
 
@@ -157,31 +176,32 @@
   }
 
   @m tonal {
-    background-color: rgba(var(--jv-theme-primary), 0.08) !important;
+    background-color: rgb(var(--jv-theme-primary) 0.08) !important;
     color: rgb(var(--jv-theme-primary)) !important;
   }
 
   @m outlined {
-    border: thin solid currentColor;
+    border: thin solid currentcolor;
     background-color: transparent;
     color: rgb(var(--jv-theme-primary));
   }
 
   @m elevated {
     background: var(--jv-btn-bgcolor);
-    color: var(--jv-btn-color);
     box-shadow:
-      0 3px 1px -2px rgba(0, 0, 0, 0.2),
-      0 2px 2px 0 rgba(0, 0, 0, 0.14),
-      0 1px 5px 0 rgba(0, 0, 0, 0.12);
+      0 3px 1px -2px rgb(0 0 0 / 20%),
+      0 2px 2px 0 rgb(0 0 0 / 14%),
+      0 1px 5px 0 rgb(0 0 0 / 12%);
+    color: var(--jv-btn-color);
   }
 
   @m disabled {
+    opacity: 0.6;
     color: var(--jv-btn-disabled-color);
     background-color: var(--jv-btn-disabled-bg);
     border-color: transparent;
     pointer-events: none;
-    opacity: 0.6;
+
     & > .button__content {
       color: var(--jv-text-color-disabled);
       cursor: not-allowed;
@@ -211,14 +231,15 @@
   }
 
   @m loading {
-    pointer-events: none;
-    cursor: not-allowed;
     opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
 
     & > .button__content {
       visibility: hidden;
       opacity: 0;
     }
+
     & > .button__loader {
       grid-area: content;
       justify-self: center;

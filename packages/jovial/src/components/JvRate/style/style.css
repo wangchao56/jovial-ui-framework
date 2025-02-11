@@ -1,9 +1,3 @@
-@define-mixin e $element {
-  .jv-rate__$(element) {
-    @mixin-content;
-  }
-}
-
 @b rate {
   display: inline-flex;
   align-items: center;
@@ -24,10 +18,10 @@
   /* 图标项 */
   @e icon {
     position: relative;
-    cursor: pointer;
-    transition: transform 0.15s ease-in-out;
     width: max-content;
     height: max-content;
+    cursor: pointer;
+    transition: transform 0.15s ease-in-out;
 
     &:hover {
       transform: scale(1.1);
@@ -37,8 +31,8 @@
   /* 半选图标 */
   @e half {
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
     width: 50%;
     overflow: hidden;
   }
@@ -46,8 +40,8 @@
   /* 提示文字 */
   @e text {
     margin-left: 8px;
-    font-size: 14px;
     color: var(--jv-text-color-secondary);
+    font-size: 14px;
   }
 
   /* 只读状态 */

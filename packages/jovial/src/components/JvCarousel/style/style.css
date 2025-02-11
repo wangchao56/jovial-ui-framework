@@ -36,8 +36,8 @@
     }
 
     .jv-carousel__indicators {
-      right: 12px;
       top: 50%;
+      right: 12px;
       transform: translateY(-50%);
       flex-direction: column;
 
@@ -75,9 +75,9 @@
 
   /* 指示器容器 */
   @e indicators {
+    display: flex;
     position: absolute;
     z-index: 2;
-    display: flex;
     gap: 8px;
   }
 
@@ -85,12 +85,12 @@
   @e indicator {
     width: 30px;
     height: 2px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgb(255 255 255 / 50%);
     cursor: pointer;
     transition: all 0.3s;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.75);
+      background: rgb(255 255 255 / 75%);
     }
 
     @when active {
@@ -100,23 +100,23 @@
 
   /* 箭头 */
   @e arrow {
+    display: flex;
     position: absolute;
     top: 50%;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 36px;
     height: 36px;
     margin-top: -18px;
-    color: var(--jv-color-white);
-    background: rgba(31, 45, 61, 0.11);
+    background: rgb(31 45 61 / 11%);
     border-radius: 50%;
+    color: var(--jv-color-white);
     cursor: pointer;
+    z-index: 2;
     transition: all 0.3s;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
-      background: rgba(31, 45, 61, 0.23);
+      background: rgb(31 45 61 / 23%);
     }
 
     &--prev {

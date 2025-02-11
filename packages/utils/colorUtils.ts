@@ -330,6 +330,11 @@ export function getContrast(first: Color, second: Color) {
   return (light + 0.05) / (dark + 0.05)
 }
 
+/**
+ * 获取前景色
+ * @param color 颜色
+ * @returns 前景色
+ */
 export function getForeground(color: Color) {
   const blackContrast = Math.abs(APCAcontrast(parseColor(0), parseColor(color)))
   const whiteContrast = Math.abs(
@@ -344,7 +349,6 @@ export function getForeground(color: Color) {
   // } else if (contrastAsText < 60 && !['background', 'surface'].includes(color)) {
   //   consoleInfo(`${key} theme color ${color} has poor contrast as text (${contrastAsText.toFixed()}%)`)
   // }
-
   // Prefer white text if both have an acceptable contrast ratio
   return whiteContrast > Math.min(blackContrast, 50) ? '#fff' : '#000'
 }

@@ -1,10 +1,11 @@
-@import './theme-vars.css';
+@import url('./theme-vars.css');
 
 @define-mixin e $element {
   .jv-circle-progress__$(element) {
     @mixin-content;
   }
 }
+
 @define-mixin m $modifier {
   .jv-circle-progress--$(modifier) {
     @mixin-content;
@@ -12,10 +13,11 @@
 }
 
 @b circle-progress {
-  border-radius: var(--jv-progress-radius);
   display: inline-block;
   width: var(--jv-progress-width);
   height: var(--jv-progress-width);
+  border-radius: var(--jv-progress-radius);
+
   circle {
     transition: stroke-dashoffset 0.6s ease;
   }
