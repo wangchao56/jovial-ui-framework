@@ -16,3 +16,7 @@ storybook-static
 *.sw?
 
 *storybook.log
+storybook*
+
+# Storybook生成目录
+packages/jovial/storybook-static/
