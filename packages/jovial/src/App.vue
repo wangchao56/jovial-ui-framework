@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import JvApp from './components/JvApp/src/JvApp.vue'
 import { JvButton } from './components/JvButton'
 import { useTheme } from './components/theme'
+import TestTable from './pages/test-table.vue'
 
 const themeName = ref('light')
 const theme = useTheme()
@@ -20,12 +21,15 @@ const pRef = ref<HTMLElement>()
 const isOpenTooltip = ref(false)
 // 测试torefs是否具有响应性
 const testContent = ref('当前方向bottom-start')
+// eslint-disable-next-line unused-imports/no-unused-vars
 function toggleTooltip() {
   // 测试torefs是否具有响应性
   testContent.value = '当前方向bottom-start 2323'
   isOpenTooltip.value = !isOpenTooltip.value
 }
+// eslint-disable-next-line unused-imports/no-unused-vars
 function tooltipVisibleChange(_val: boolean) {
+  console.log('tooltipVisibleChange', _val)
 }
 </script>
 
@@ -34,7 +38,7 @@ function tooltipVisibleChange(_val: boolean) {
     <JvContainer>
       <JvHeader>
         <JvSpace>
-          <p ref="pRef">
+          <p ref="pRef" v-tooltip:right.click="{ content: '当前方向bottom-start' }">
             当前方向bottom-start
           </p>
           <!-- 切换主题 -->
@@ -44,40 +48,7 @@ function tooltipVisibleChange(_val: boolean) {
         </JvSpace>
       </JvHeader>
       <JvMain>
-        <JvButton @click="toggleTooltip">
-          按钮 点击
-        </JvButton>
-        <button
-          v-tooltip:bottom-start.click="{
-            theme,
-            content: testContent,
-            openDelay: 100,
-            closeDelay: 100,
-          }"
-        >
-          当前方向bottom-start
-        </button>
-        <button
-          v-tooltip:bottom-start.hover="{
-            theme,
-            content: testContent,
-            openDelay: 100,
-            closeDelay: 100,
-          }"
-        >
-          当前方向bottom-start
-        </button>
-        <JvTooltip v-model:visible="isOpenTooltip" trigger="hover" :content="testContent" placement="bottom-start" @visible-change="tooltipVisibleChange">
-          <JvButton>
-            按钮
-          </JvButton>
-        </JvTooltip>
-        <JvTooltip trigger="click" content="当前方向right-start" placement="right-start">
-          按钮
-        </JvTooltip>
-        <JvTooltip trigger="click" content="当前方向top-start" placement="top-start">
-          按钮
-        </JvTooltip>
+        <TestTable />
       </JvMain>
     </JvContainer>
   </JvApp>

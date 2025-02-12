@@ -3,18 +3,11 @@ module.exports = {
     'stylelint-config-standard',
     'stylelint-config-recommended-vue',
   ],
+  ignoreFiles: ['!packages/jovial/src/components/**/*'],
   plugins: [
     'stylelint-order', // 用于 CSS 属性排序
   ],
   rules: {
-    // 允许 BEM 命名规则
-    'selector-class-pattern': [
-      '^jv-[a-z]+(__[a-z]+)?(--[a-z]+)?$',
-      {
-        message: 'Class names should follow BEM naming convention',
-      },
-    ],
-
     // 允许使用自定义属性
     'property-no-unknown': [
       true,
@@ -25,14 +18,11 @@ module.exports = {
         ],
       },
     ],
-
     // 允许空源
     'no-empty-source': null,
-
     // 禁用 at-rule 描述符检查
     'at-rule-descriptor-no-unknown': null,
     'at-rule-descriptor-value-no-unknown': null,
-
     // 允许未知的 at 规则
     'at-rule-no-unknown': [
       true,
@@ -136,9 +126,7 @@ module.exports = {
     'font-family-name-quotes': 'always-where-required',
     'font-family-no-duplicate-names': true,
 
-    // 数值
-    'number-leading-zero': 'always',
-    'unit-allowed-list': ['px', 'em', 'rem', '%', 'deg', 'ms', 's', 'vh', 'vw', 'fr'],
+    'unit-allowed-list': ['px', 'em', 'rem', '%', 'deg', 'ms', 's', 'vh', 'vw', 'fr', 'lh', 'ch'],
 
     // 简写属性
     'shorthand-property-no-redundant-values': true,
@@ -149,6 +137,20 @@ module.exports = {
     // 其他
     'no-duplicate-selectors': true,
     'no-invalid-double-slash-comments': true,
-    'declaration-no-important': true,
+    'declaration-no-important': null,
+    'declaration-property-value-no-unknown': [
+      true,
+      {
+        ignoreProperties: {
+          'text-justify': ['inter-ideograph'],
+        },
+      },
+    ],
+    'selector-class-pattern': null,
+    'custom-property-pattern': null,
+    'number-max-precision': null,
+    'declaration-block-no-redundant-longhand-properties': null,
+    'block-no-empty': null,
+    'no-descending-specificity': null,
   },
 }

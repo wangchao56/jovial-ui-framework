@@ -77,12 +77,12 @@ export default defineComponent({
 <template>
   <div class="file-upload" @dragover.prevent @drop.prevent="handleDrop">
     <input
+      v-show="false"
       ref="fileInput"
       type="file"
       multiple
       webkitdirectory
       directory
-      style="display: none"
       @change="handleFileChange"
     >
     <button @click="triggerFileInput">
@@ -108,7 +108,7 @@ export default defineComponent({
   </div>
 </template>
 
-<style scoped>
+<style lang="post" scoped>
 .file-upload {
   padding: 20px;
   border: 2px dashed #ccc;

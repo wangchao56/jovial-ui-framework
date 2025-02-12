@@ -1,5 +1,9 @@
 import { ref } from 'vue'
 
+/**
+ * 展开节点
+ * @returns 展开节点
+ */
 function useExpandedKeys() {
   const expandedKeys = ref<Set<PropertyKey>>(new Set())
 

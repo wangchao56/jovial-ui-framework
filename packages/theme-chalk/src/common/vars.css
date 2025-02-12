@@ -1,5 +1,6 @@
 :root {
   --colors: (primary: #49a1f9, success: #67c23a, warning: #e6a23c, danger: #f56c6c, info: #909399);
+
   /* 间距系统 */
   --jv-space-xs: 4px;
   --jv-space-sm: 8px;
@@ -17,6 +18,7 @@
   /* 栅格系统 */
   --jv-grid-columns: 12;
   --jv-grid-gutter: 24px;
+
   /* postcss生产色彩变量 */
   @each $val, $color in var(--colors) {
     --jv-color-$(val): $(color);

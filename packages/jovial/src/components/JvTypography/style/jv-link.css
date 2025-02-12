@@ -6,25 +6,28 @@
   --jv-link-disabled-color: var(--jv-text-color-disabled);
 
   color: var(--jv-link-color);
+  font-size: var(--jv-typography-font-size);
+  text-decoration: var(--jv-typography-text-decoration);
   cursor: pointer;
   transition: var(--jv-transition-color);
 
   /* 继承排版属性 */
   font-family: var(--jv-typography-font-family);
-  font-size: var(--jv-typography-font-size);
-  text-decoration: var(--jv-typography-text-decoration);
 }
 
 /* 链接类型修饰符 */
 .link--primary {
   --jv-link-color: var(--jv-color-primary);
 }
+
 .link--success {
   --jv-link-color: var(--jv-color-success);
 }
+
 .link--warning {
   --jv-link-color: var(--jv-color-warning);
 }
+
 .link--danger {
   --jv-link-color: var(--jv-color-danger);
 }
@@ -34,31 +37,34 @@
   color: var(--jv-link-hover-color);
   text-decoration: underline;
 }
+
 .link:active {
   color: var(--jv-link-active-color);
 }
 
 /* 禁用状态 */
 .link--disabled {
+  opacity: 0.6;
   color: var(--jv-link-disabled-color);
   cursor: not-allowed;
-  opacity: 0.6;
   pointer-events: none;
 }
 
 /* 自定义颜色模式 */
 .link--custom-color {
-  --jv-link-hover-color: currentColor;
-  --jv-link-active-color: currentColor;
+  --jv-link-hover-color: currentcolor;
+  --jv-link-active-color: currentcolor;
 }
 
 /* 变体修饰符 */
 .link--underline {
   text-decoration: underline;
 }
+
 .link--dashed {
   text-decoration: dashed underline;
 }
+
 .link--text {
   text-decoration: none;
 }

@@ -14,8 +14,9 @@
   --jv-calendar-title-font-weight: bold;
   --jv-calendar-title-box-shadow: inset 4px 4px 8px rgb(0 0 0 / 5%), inset -4px -4px 8px rgb(255 255 255 / 50%);
   --jv-calendar-table-header-background-color: #f9f9f9;
-  --jv-calendar-table-cell-selected-shadow: inset 0px -4px 0px 0px #56b0bc, inset 0px 4px 0px 0px #56b0bc,
-    inset 4px 0px 0px 0px #56b0bc, inset -4px 0px 0px 0px #56b0bc;
+  --jv-calendar-table-cell-selected-shadow:
+    inset 0px -4px 0px 0px #56b0bc, inset 0px 4px 0px 0px #56b0bc, inset 4px 0px 0px 0px #56b0bc,
+    inset -4px 0px 0px 0px #56b0bc;
   --jv-calendar-table-cell-color: #333;
   --jv-calendar-table-cell-hover-color: #56b0bc;
   --jv-calendar-table-cell-selected-color: #fff;

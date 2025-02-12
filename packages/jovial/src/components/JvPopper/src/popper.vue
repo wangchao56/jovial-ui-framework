@@ -41,7 +41,7 @@ watch(() => visible.value, (newVal) => {
       popperInstance = createPopper(reference.value, popperNode.value, finalOptions.value)
     }
     else {
-      popperInstance?.destroy()
+      destroy()
     }
   }
   // error:如果visible为false, 在此处不能执行popperInstance?.destroy()
@@ -69,25 +69,27 @@ onMounted(() => {
     }, outsideOptions)
   }
   else {
-    clearup.value = () => {}
+    clearup.value = undefined
   }
 })
 
 onUnmounted(() => {
-  if (popperInstance) {
-    popperInstance.destroy()
-    popperInstance = null
-  }
+  destroy()
+  // 执行清理函数
   clearup.value?.()
 })
+
+function destroy() {
+  popperInstance?.destroy()
+  popperInstance = null
+}
+function update() {
+  popperInstance?.forceUpdate()
+}
 defineExpose<PopperExpose>({
   root: popperNode,
-  update: () => {
-    popperInstance?.forceUpdate()
-  },
-  destroy: () => {
-    popperInstance?.destroy()
-  },
+  update,
+  destroy,
   popperInstance,
   show: () => {
     if (props.manual) {
@@ -107,19 +109,25 @@ defineExpose<PopperExpose>({
   visible,
 })
 const id = useId()
+
+// 进入前执行
+function beforeEnterHandler(_el: Element) {
+  emit('beforeEnter')
+  update()
+}
 // 进入后执行
 function afterEnterHandler(_el: Element) {
   emit('open', true)
 }
+// 离开前执行
+function beforeLeaveHandler(_el: Element) {
+  emit('beforeLeave')
+}
+
 // 离开后执行
 function afterLeaveHandler(_el: Element) {
   emit('close', false)
-}
-// 进入前执行
-function beforeEnterHandler(_el: Element) {
-}
-// 离开前执行
-function beforeLeaveHandler(_el: Element) {
+  destroy()
 }
 const popperStyle = computed(() => ({
   zIndex: zIndex.current.value,
@@ -138,7 +146,7 @@ const closeAnimationDuration = computed(() => props.disableAnimation ? 0 : props
     @after-enter="afterEnterHandler"
     @after-leave="afterLeaveHandler"
   >
-    <Teleport defer :to="appendTo" :disabled="visible && !appendTo.startsWith('#')">
+    <Teleport defer :to="appendTo" :disabled="visible">
       <div
         v-if="visible"
         v-bind="$attrs"
@@ -160,15 +168,18 @@ const closeAnimationDuration = computed(() => props.disableAnimation ? 0 : props
 .fade-leave-active {
   transition-property: opacity;
 }
+
 /* 进入阶段的过渡效果 */
 .fade-enter-active {
   transition-timing-function: ease-in;
   transition-duration: calc(v-bind(openAnimationDuration) * 1ms);
 }
+
 .fade-leave-active {
   transition-timing-function: ease;
   transition-duration: calc(v-bind(closeAnimationDuration) * 1ms);
 }
+
 /* 进入开始时的样式 */
 .fade-enter-from,
 .fade-leave-to {

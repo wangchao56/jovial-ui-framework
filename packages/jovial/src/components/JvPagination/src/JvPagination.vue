@@ -11,7 +11,7 @@
  * 8. 完整的禁用状态支持
  */
 
-import type { JvPaginationEmits, JvPaginationProps, JvPaginationSlots } from './pagination'
+import type { JvPaginationEmits, JvPaginationProps, JvPaginationSlots } from './JvPagination'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jovial/utils'
 import { computed, ref, watch } from 'vue'
@@ -43,6 +43,7 @@ const currentPage = ref(props.modelValue)
 // 跳转页码输入框
 const jumpPage = ref('')
 
+// eslint-disable-next-line unused-imports/no-unused-vars
 const pageSize = ref(props.pageSize)
 // 总页数
 const totalPages = computed(() => Math.ceil(props.total / props.pageSize))
@@ -93,6 +94,7 @@ function handlePageChange(page: number) {
 }
 
 // 处理每页条数改变
+// eslint-disable-next-line unused-imports/no-unused-vars
 function handleSizeChange(size: number) {
   emit('update:pageSize', size)
   // 重新计算当前页码，确保不超出范围
@@ -146,7 +148,7 @@ watch(
     </div>
 
     <!-- 每页条数选择器 -->
-    <JvSelect
+    <!-- <JvSelect
       v-if="showSizeChanger"
       v-model="pageSize"
       :options="pageSizeOptions.map((size: number) => ({
@@ -156,7 +158,7 @@ watch(
       :disabled="disabled"
       :class="bem.e('size-changer')"
       @change="handleSizeChange"
-    />
+    /> -->
 
     <!-- 上一页 -->
     <div

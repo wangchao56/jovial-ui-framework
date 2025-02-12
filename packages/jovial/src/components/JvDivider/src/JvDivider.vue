@@ -62,7 +62,7 @@ const dividerStyle = computed(() => ({
   >
 </template>
 
-<style scoped>
+<style lang="post" scoped>
 hr {
   --jv-divider-bg-color: #c8c8c8;
   --jv-divider-margin: 16px;

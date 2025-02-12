@@ -1,18 +1,12 @@
-@define-mixin e $element {
-  .jv-steps__$(element) {
-    @mixin-content;
-  }
-}
-
 @b steps {
   display: flex;
   width: 100%;
 
   /* 水平布局 */
-  &--horizontal {
+  @m horizontal {
     flex-direction: row;
 
-    .jv-steps__item {
+    @e item {
       flex: 1;
       padding-bottom: 20px;
 
@@ -21,7 +15,7 @@
       }
     }
 
-    .jv-steps__line {
+    @e line {
       top: 16px;
       right: -50%;
       left: 50%;
@@ -30,10 +24,10 @@
   }
 
   /* 垂直布局 */
-  &--vertical {
+  @m vertical {
     flex-direction: column;
 
-    .jv-steps__item {
+    @e item {
       display: flex;
       padding: 0 0 20px 20px;
 
@@ -42,14 +36,14 @@
       }
     }
 
-    .jv-steps__line {
+    @e line {
       top: 28px;
       bottom: 0;
       left: 16px;
       width: 1px;
     }
 
-    .jv-steps__content {
+    @e content {
       flex: 1;
       padding-left: 12px;
     }
@@ -61,86 +55,86 @@
     white-space: nowrap;
 
     /* 等待状态 */
-    &--wait {
-      .jv-steps__icon {
+    @m wait {
+      @e icon {
         background: var(--jv-color-white);
         color: var(--jv-text-color-secondary);
         border-color: var(--jv-border-color);
       }
 
-      .jv-steps__title {
+      @e title {
         color: var(--jv-text-color-secondary);
       }
 
-      .jv-steps__description {
+      @e description {
         color: var(--jv-text-color-secondary);
       }
 
-      .jv-steps__line {
+      @e line {
         background: var(--jv-border-color);
       }
     }
 
     /* 进行中状态 */
-    &--process {
-      .jv-steps__icon {
+    @m process {
+      @e icon {
         background: var(--jv-color-primary);
         color: var(--jv-color-white);
         border-color: var(--jv-color-primary);
       }
 
-      .jv-steps__title {
+      @e title {
         color: var(--jv-text-color);
         font-weight: 500;
       }
 
-      .jv-steps__description {
+      @e description {
         color: var(--jv-text-color);
       }
 
-      .jv-steps__line {
+      @e line {
         background: var(--jv-border-color);
       }
     }
 
     /* 完成状态 */
-    &--finish {
-      .jv-steps__icon {
+    @m finish {
+      @e icon {
         background: var(--jv-color-white);
         color: var(--jv-color-primary);
         border-color: var(--jv-color-primary);
       }
 
-      .jv-steps__title {
+      @e title {
         color: var(--jv-text-color);
       }
 
-      .jv-steps__description {
+      @e description {
         color: var(--jv-text-color-secondary);
       }
 
-      .jv-steps__line {
+      @e line {
         background: var(--jv-color-primary);
       }
     }
 
     /* 错误状态 */
-    &--error {
-      .jv-steps__icon {
+    @m error {
+      @e icon {
         background: var(--jv-color-danger);
         color: var(--jv-color-white);
         border-color: var(--jv-color-danger);
       }
 
-      .jv-steps__title {
+      @e title {
         color: var(--jv-color-danger);
       }
 
-      .jv-steps__description {
+      @e description {
         color: var(--jv-color-danger);
       }
 
-      .jv-steps__line {
+      @e line {
         background: var(--jv-border-color);
       }
     }
@@ -149,7 +143,7 @@
       cursor: pointer;
 
       &:hover {
-        .jv-steps__title {
+        @e title {
           color: var(--jv-color-primary);
         }
       }
@@ -158,14 +152,14 @@
     @when disabled {
       cursor: not-allowed;
 
-      .jv-steps__icon {
+      @e icon {
         background: var(--jv-disabled-bg-color);
         color: var(--jv-text-color-disabled);
         border-color: var(--jv-border-color);
       }
 
-      .jv-steps__title,
-      .jv-steps__description {
+      @e title,
+      @e description {
         color: var(--jv-text-color-disabled);
       }
     }

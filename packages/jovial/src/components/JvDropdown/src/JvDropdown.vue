@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { ListItem } from '@/components/JvList'
-// import type { ListItem } from '@components/JvList'
 import type { JvPopperInstance } from '@components/JvPopper'
 import type { JvDropdownEmits, JvDropdownProps } from './JvDropdown'
 import JvPopper from '@components/JvPopper'

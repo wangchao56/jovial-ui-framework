@@ -28,6 +28,20 @@ export const makeLocationProps = propsFactory(
   'location',
 )
 
+/**
+ * 位置计算钩子
+ * 作用：根据给定的位置值计算对应的CSS样式
+ *
+ * @param props - 位置属性对象
+ * @param opposite - 是否启用反向位置计算（默认false）
+ * @param offset - 偏移量计算函数（可选）
+ * @returns {ComputedRef<CSSProperties>} 计算后的CSS样式对象
+ *
+ * 核心功能：
+ * 1. 解析位置值并计算对应的CSS样式
+ * 2. 支持反向位置计算
+ * 3. 响应式计算结果
+ */
 export function useLocation(
   props: LocationProps,
   opposite = false,

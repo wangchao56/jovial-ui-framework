@@ -145,13 +145,16 @@ onUnmounted(stop)
 .jv-ellipsis {
   overflow: hidden;
   max-height: fit-content;
+
   .content {
     position: relative;
     overflow: hidden;
   }
+
   p {
     margin: 0;
   }
+
   .text {
     font: inherit;
     word-wrap: break-word;
@@ -159,23 +162,26 @@ onUnmounted(stop)
     word-break: break-all;
     text-overflow: ellipsis;
   }
+
   .more {
-    float: right;
-    vertical-align: text-bottom;
-    height: 100%;
-    width: fit-content;
     display: flex;
+    float: right;
+    width: fit-content;
+    height: 100%;
+    vertical-align: text-bottom;
     flex-direction: column-reverse;
     shape-outside: inset(calc(100% - 1lh) 0 0);
     clip-path: inset(calc(100% - 1lh) 0 0 0);
   }
 }
+
 /* 多行模式 */
 .jv-ellipsis[style*='-webkit-line-clamp'] {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   white-space: normal;
 }
+
 .jv-ellipsis__popper {
   max-width: 500px !important;
   text-wrap: pretty;

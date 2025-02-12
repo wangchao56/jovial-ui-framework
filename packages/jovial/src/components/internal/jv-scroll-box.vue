@@ -53,6 +53,9 @@ const bem = createNamespace('scroll-box')
 
 const wrapperRef = ref<HTMLElement | null>(null)
 const bscroll = ref<BScroll | null>(null)
+// 自定义滚动条
+const verticalBarRef = ref<HTMLElement | null>(null)
+const horizontalBarRef = ref<HTMLElement | null>(null)
 
 function initScroll() {
   if (!wrapperRef.value || props.disabled)
@@ -118,6 +121,14 @@ defineExpose({
       <div :class="bem.e('content')">
         <slot />
       </div>
+    </div>
+    <!-- custom-vertical-scrollbar -->
+    <div ref="verticalBarRef" class="custom-vertical-scrollbar">
+      <div class="custom-vertical-indicator" />
+    </div>
+    <!-- custom-horizontal-scrollbar -->
+    <div ref="horizontalBarRef" class="custom-horizontal-scrollbar">
+      <div class="custom-horizontal-indicator" />
     </div>
   </div>
 </template>

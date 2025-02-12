@@ -54,6 +54,19 @@ function genDefaults() {
   }
 }
 
+/**
+ * 获取容器元素
+ * 作用：根据给定的元素或字符串获取对应的DOM元素
+ *
+ * @param el - 组件实例、DOM元素或字符串
+ * @returns {HTMLElement} 对应的DOM元素
+ *
+ * 核心功能：
+ * 1. 支持组件实例、DOM元素和字符串三种类型
+ * 2. 自动处理字符串转换为DOM元素
+ * 3. 支持滚动元素和普通元素两种类型
+ * 4. 返回对应的DOM元素
+ */
 function getContainer(el?: ComponentPublicInstance | HTMLElement | string) {
   return (
     getTarget(el)
@@ -61,6 +74,18 @@ function getContainer(el?: ComponentPublicInstance | HTMLElement | string) {
   )
 }
 
+/**
+ * 获取目标元素
+ * 作用：根据给定的元素或字符串获取对应的DOM元素
+ *
+ * @param el - 组件实例、DOM元素或字符串
+ * @returns {HTMLElement} 对应的DOM元素
+ *
+ * 核心功能：
+ * 1. 支持组件实例、DOM元素和字符串三种类型
+ * 2. 自动处理字符串转换为DOM元素
+ * 3. 返回对应的DOM元素
+ */
 function getTarget(
   el: ComponentPublicInstance | HTMLElement | string | undefined,
 ) {
@@ -69,6 +94,20 @@ function getTarget(
     : refElement(el)
 }
 
+/**
+ * 获取偏移量
+ * 作用：根据给定的目标元素和方向计算偏移量
+ *
+ * @param target - 目标元素或偏移量
+ * @param horizontal - 是否水平方向（默认false）
+ * @param rtl - 是否RTL方向（默认false）
+ * @returns {number} 计算后的偏移量
+ *
+ * 核心功能：
+ * 1. 支持数字偏移量和DOM元素两种类型
+ * 2. 根据方向计算偏移量
+ * 3. 支持RTL方向计算
+ */
 function getOffset(target: any, horizontal?: boolean, rtl?: boolean): number {
   if (typeof target === 'number')
     return horizontal && rtl ? -target : target
@@ -83,6 +122,18 @@ function getOffset(target: any, horizontal?: boolean, rtl?: boolean): number {
   return totalOffset
 }
 
+/**
+ * 创建GoTo实例
+ * 作用：根据给定的选项和语言环境创建GoTo实例
+ *
+ * @param options - 选项对象
+ * @param locale - 语言环境实例
+ * @returns {GoToInstance} 创建的GoTo实例
+ *
+ * 核心功能：
+ * 1. 根据给定的选项和语言环境创建GoTo实例
+ * 2. 支持RTL方向计算
+ */
 export function createGoTo(
   options: GoToOptions | undefined,
   locale: LocaleInstance & RtlInstance,
@@ -93,6 +144,20 @@ export function createGoTo(
   }
 }
 
+/**
+ * 滚动到目标位置
+ * 作用：根据给定的目标元素和选项滚动到目标位置
+ *
+ * @param target - 目标元素或偏移量
+ * @param options - 选项对象
+ * @param horizontal - 是否水平方向（默认false）
+ * @param goTo - GoTo实例
+ * @returns {Promise<number>} 滚动后的目标位置
+ *
+ * 核心功能：
+ * 1. 根据给定的目标元素和选项滚动到目标位置
+ * 2. 支持RTL方向计算
+ */
 export async function scrollTo(
   _target: ComponentPublicInstance | HTMLElement | number | string,
   _options: GoToOptions,

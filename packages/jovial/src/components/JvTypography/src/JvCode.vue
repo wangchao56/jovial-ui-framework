@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { CodeProps } from './types'
+import { createNamespace } from '@jovial/utils'
 import hljs from 'highlight.js/lib/core'
 import css from 'highlight.js/lib/languages/css'
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -11,7 +12,6 @@ import '../style/jv-code.css'
 defineOptions({
   name: 'JvCode',
 })
-
 const props = withDefaults(defineProps<CodeProps>(), {
   type: 'block',
   collapsible: false,
@@ -19,6 +19,7 @@ const props = withDefaults(defineProps<CodeProps>(), {
   fontSize: 14,
   color: 'var(--jv-color-text)',
 })
+const bem = createNamespace('code')
 hljs.registerLanguage('javascript', javascript)
 hljs.registerLanguage('typescript', typescript)
 hljs.registerLanguage('css', css)
@@ -45,35 +46,35 @@ onMounted(() => {
 
 <template>
   <div
-    class="jv-code"
     :class="[
-      `jv-code--${type}`,
-      { 'jv-code--collapsed': isCollapsed },
+      bem.b(),
+      bem.m(type),
+      ...(collapsible ? [bem.m('collapsible')] : []),
     ]"
     :style="{
       fontSize: `${fontSize}px`,
       color,
     }"
   >
-    <div v-if="type === 'block'" class="jv-code-header">
-      <div class="jv-code-header-left">
+    <div v-if="type === 'block'" :class="bem.e('header')">
+      <div :class="bem.em('header', 'left')">
         <button
           v-if="collapsible"
-          class="jv-code-collapse"
+          :class="bem.e('collapse')"
           @click="isCollapsed = !isCollapsed"
         >
           {{ isCollapsed ? '▶' : '▼' }}
         </button>
-        <span v-if="title" class="jv-code-title">{{ title }}</span>
+        <span v-if="title" :class="bem.e('title')">{{ title }}</span>
       </div>
-      <div class="jv-code-header-right">
-        <span v-if="language" class="jv-code-lang">{{ language }}</span>
-        <button class="jv-code-copy" @click="copyCode">
+      <div :class="bem.em('header', 'right')">
+        <span v-if="language" :class="bem.e('lang')">{{ language }}</span>
+        <button :class="bem.e('copy')" @click="copyCode">
           ⎘
         </button>
       </div>
     </div>
-    <pre v-show="!isCollapsed" class="jv-code-content" :class="`language-${language}`">
+    <pre v-show="!isCollapsed" :class="[bem.e('content'), `language-${language}`]">
       <code ref="codeRef">
         <slot />
       </code>

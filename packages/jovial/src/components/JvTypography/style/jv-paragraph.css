@@ -7,14 +7,15 @@
   --jv-max-line-width: 80ch;
   --jv-hanging-indent: -2em;
   --jv-list-style: '•';
+
   margin: var(--jv-paragraph-spacing) 0;
+  padding: 0 1em;
   line-height: var(--jv-cjk-line-spacing);
+  transition: color 0.2s;
   text-spacing: ideograph-alpha ideograph-numeric;
   hyphens: auto;
-  transition: color 0.2s;
   max-inline-size: var(--jv-max-line-width);
   overflow: hidden;
-  padding: 0 1em;
 
   @m indent {
     text-indent: var(--jv-paragraph-indent);
@@ -28,16 +29,16 @@
       text-justify: inter-word;
     }
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
       text-align-last: left;
     }
   }
 
   @m vertical {
+    padding: 0 0.8em;
+    line-height: 2;
     writing-mode: vertical-rl;
     text-orientation: upright;
-    line-height: 2;
-    padding: 0 0.8em;
 
     &.indent {
       text-indent: 3em;
@@ -55,6 +56,7 @@
     widows: 3;
   }
 }
+
 /* 中文排版优化 */
 [lang^='zh'] .jv-paragraph {
   line-height: var(--jv-cjk-line-spacing);
@@ -79,15 +81,16 @@
   color: var(--jv-blockquote-color);
 
   &::before {
-    content: '“';
-    font-size: 1.8em;
     margin-right: 0.2em;
+    font-size: 1.8em;
+    content: '“';
     vertical-align: -0.4em;
   }
+
   &::after {
-    content: '”';
-    font-size: 1.8em;
     margin-left: 0.2em;
+    font-size: 1.8em;
+    content: '”';
     vertical-align: -0.4em;
   }
 }
@@ -96,15 +99,15 @@
 .jv-paragraph pre:not(.jv-code-content) {
   --jv-pre-bg: rgba(var(--jv-theme-on-background), 0.05);
 
-  font-family: var(--jv-font-family-mono);
-  background: var(--jv-pre-bg);
   padding: 1.5em;
+  background: var(--jv-pre-bg);
   border-radius: 0.4em;
+  font-family: var(--jv-font-family-mono);
   tab-size: 4;
   overflow-x: auto;
 
   @media (prefers-color-scheme: dark) {
-    --jv-pre-bg: rgba(255, 255, 255, 0.08);
+    --jv-pre-bg: rgb(255 255 255 / 8%);
   }
 }
 
@@ -151,11 +154,12 @@
 @media (max-width: 768px) {
   .jv-paragraph blockquote {
     --jv-blockquote-indent: 1em;
+
     margin: 1em 0;
   }
 
   /* 响应式处理 */
-  @media screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     .jv-paragraph {
       --jv-paragraph-indent: 1.5em;
       --jv-paragraph-spacing: 0.6em;

@@ -1,9 +1,3 @@
-@define-mixin e $element {
-  .jv-skeleton__$(element) {
-    @mixin-content;
-  }
-}
-
 @b skeleton {
   display: block;
   width: 100%;

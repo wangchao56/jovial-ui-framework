@@ -73,7 +73,7 @@ defineExpose<JvAlertExpose>({
   </Transition>
 </template>
 
-<style scoped>
+<style lang="postcss" scoped>
 .alert-fade-enter-active,
 .alert-fade-leave-active {
   transition: opacity 0.3s;

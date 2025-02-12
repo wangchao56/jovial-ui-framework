@@ -19,10 +19,10 @@
 /* 字体文本相关设置 */
 @define-mixin font $size: var(--jv-font-size-base), $weight: var(--jv-font-weight-normal),
   $line-height: var(--jv-line-height-base) {
+  color: $(color);
   font-size: $(size);
   font-weight: $(weight);
   line-height: $(line-height);
-  color: $(color);
   @mixin-content;
 }
 

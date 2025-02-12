@@ -144,7 +144,7 @@ const icons = {
   </Transition>
 </template>
 
-<style scoped>
+<style lang="post" scoped>
 .fade-up-enter-from,
 .fade-up-leave-to {
   opacity: 0;

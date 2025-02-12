@@ -19,7 +19,7 @@ const theme = provideTheme(props)
   </div>
 </template>
 
-<style scoped>
+<style lang="post" scoped>
 .jv-application {
   display: flex;
   background-color: rgb(var(--jv-theme-background));

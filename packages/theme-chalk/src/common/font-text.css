@@ -21,10 +21,10 @@ Mixins：
 */
 :root {
   /* 字体家族 */
-  --jv-font-family-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --jv-font-family-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
-  --jv-font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-    monospace;
+  --jv-font-family-sans: system-ui, -apple-system, 'Segoe UI', roboto, 'Helvetica Neue', arial, sans-serif;
+  --jv-font-family-serif: georgia, cambria, 'Times New Roman', times, serif;
+  --jv-font-family-mono:
+    ui-monospace, sfmono-regular, menlo, monaco, consolas, 'Liberation Mono', 'Courier New', monospace;
 
   /* 字体大小（基准16px，比例1.125） */
   --jv-font-size-xs: 0.75rem; /* 12px */
@@ -149,6 +149,7 @@ Mixins：
 .text-secondary {
   color: rgb(var(--jv-theme-on-secondary));
 }
+
 /* 优化后的文本颜色（关联主题系统） */
 .text-success {
   color: rgb(var(--jv-theme-on-success));

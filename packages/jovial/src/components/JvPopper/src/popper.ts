@@ -48,7 +48,10 @@ export interface PopperEmits {
   (e: 'close', visible: boolean): void
   (e: 'click', evt: MouseEvent): void
   (e: 'clickOutside', visible: boolean, evt: MouseEvent): void
-  (e: 'clickOverlay', visible: boolean, evt: MouseEvent): void
+  /** 进入前执行 */
+  (e: 'beforeEnter'): void
+  /** 离开前执行 */
+  (e: 'beforeLeave'): void
   (e: HTMLElementEventMap[keyof HTMLElementEventMap]): void
 }
 export const popperSlots = {} as const

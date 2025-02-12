@@ -1,3 +1,4 @@
+import { consoleWarn } from '@jovial/utils'
 import { type ComponentPublicInstance, getCurrentInstance, type Ref, ref } from 'vue'
 
 export interface UseParentOptions {
@@ -11,6 +12,11 @@ export interface UseParentOptions {
   crossLevel?: boolean
 }
 
+/**
+ * 父组件
+ * @param options 选项
+ * @returns 父组件
+ */
 export function useParent(
   options: UseParentOptions = {},
 ): Ref<HTMLElement | ComponentPublicInstance | null> {
@@ -19,7 +25,7 @@ export function useParent(
 
   const findParent = () => {
     if (!instance?.parent) {
-      console.warn('useParent: 未找到父组件')
+      consoleWarn('useParent: 未找到父组件')
       return null
     }
 
@@ -57,12 +63,4 @@ export function useParent(
   })
 
   return parentRef
-}
-
-// 类型增强
-declare module '@vue/runtime-core' {
-  interface ComponentInternalInstance {
-    $parent?: ComponentInternalInstance
-    provides?: Record<symbol | string, unknown>
-  }
 }

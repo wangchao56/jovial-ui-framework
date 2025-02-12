@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { ref } from 'vue'
-import JvPagination from '../src/pagination.vue'
+import JvPagination from '../src/JvPagination.vue'
 
 const meta = {
   title: 'Navigation/Pagination',

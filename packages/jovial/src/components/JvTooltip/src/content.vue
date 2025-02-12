@@ -21,7 +21,6 @@ const closeClearUp = ref<() => void>()
 // 挂载时执行
 onMounted(() => {
   if (props.trigger === 'hover') {
-    console.log(' contentRef', contentRef.value)
     openClearUp.value = useEventListener(contentRef, 'mouseenter', props.openFinal, {
       capture: true,
       once: true,
@@ -53,13 +52,15 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-<style lang="css" scoped>
-.jv-tooltip__content {
-  padding: 4px 8px;
-  border-radius: 4px;
+<style lang="postCss" scoped>
+@b tooltip {
+  @e content {
+    padding: 4px 8px;
+    border-radius: 4px;
   background-color: #323232;
   color: #fff;
-  font-size: 12px;
-  line-height: 1.5;
+    font-size: 12px;
+    line-height: 1.5;
+  }
 }
 </style>

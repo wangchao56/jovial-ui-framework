@@ -142,7 +142,7 @@ function createTooltipInstance(
     namespace: 'tooltip-container',
   })
   // 创建Vue实例
-  const vm = createVNode(
+  const vm = h(
     JvPopper,
     {
       ...popperProps,
@@ -162,7 +162,6 @@ function createTooltipInstance(
       }),
     },
   )
-
   // 渲染到DOM
   const fragment = document.createDocumentFragment()
   render(vm, fragment as any)
@@ -227,7 +226,6 @@ const TooltipDirective: Directive<TooltipElement, TooltipBinding, TriggerKeys, P
   mounted(el, binding) {
     const tooltipId = `tooltip-${uuidv4().slice(0, 7)}`
     const { instance, container } = createTooltipInstance(el, binding, tooltipId)
-
     instances.set(el, instance)
     el._tooltipContainer = container
     el._tooltipVm = instance.vm

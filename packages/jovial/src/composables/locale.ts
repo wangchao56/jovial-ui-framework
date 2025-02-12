@@ -162,6 +162,16 @@ export function provideRtl(locale: LocaleInstance, rtl: RtlInstance['rtl'], prop
   }
 }
 
+/**
+ * 使用RTL实例
+ * 作用：获取RTL实例的RTL状态和RTL类
+ *
+ * @returns {object} 包含RTL状态和RTL类
+ *
+ * 核心功能：
+ * 1. 自动获取RTL实例
+ * 2. 响应式获取RTL状态和RTL类
+ */
 export function useRtl() {
   const locale = inject(LocaleSymbol)
 

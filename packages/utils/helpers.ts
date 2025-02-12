@@ -149,6 +149,16 @@ export function getZIndex(el?: Element | null): number {
   return index
 }
 
+/**
+ * 转换为单位
+ * @param str 字符串或数字
+ * @param unit 单位
+ * @returns 单位字符串
+ * @example
+ * ```ts
+ * const size = convertToUnit('100') // '100px'
+ * ```
+ */
 export function convertToUnit(str: number, unit?: string): string
 export function convertToUnit(
   str: string | number | null | undefined,
@@ -172,6 +182,16 @@ export function convertToUnit(
   }
 }
 
+/**
+ * 是否为纯对象
+ * @param obj 对象
+ * @returns 是否为纯对象
+ * @example
+ * ```ts
+ * const obj = { a: 1, b: 2 }
+ * const isPlain = isPlainObject(obj) // true
+ * ```
+ */
 export function isPlainObject(obj: any): obj is Record<string, any> {
   let proto
   return (
@@ -182,6 +202,15 @@ export function isPlainObject(obj: any): obj is Record<string, any> {
   )
 }
 
+/**
+ * 引用元素
+ * @param obj 组件实例或元素
+ * @returns 元素
+ * @example
+ * ```ts
+ * const el = refElement(component) // HTMLElement
+ * ```
+ */
 export function refElement(
   obj?: ComponentPublicInstance<any> | HTMLElement,
 ): HTMLElement | undefined {
@@ -217,6 +246,13 @@ export const keyCodes = Object.freeze({
   shift: 16,
 })
 
+/**
+ * 键盘事件别名
+ * @example
+ * ```ts
+ * const keyCodes = keyCodes
+ * ```
+ */
 export const keyValues: Record<string, string> = Object.freeze({
   enter: 'Enter',
   tab: 'Tab',
@@ -542,6 +578,22 @@ export function humanReadableFileSize(
   return `${bytes.toFixed(1)} ${prefix[unit]}B`
 }
 
+/**
+ * 深度合并对象
+ * 作用：将源对象和目标对象进行深度合并
+ *
+ * @param source - 源对象
+ * @param target - 目标对象
+ * @param arrayFn - 数组合并函数（可选）
+ * @returns 合并后的对象
+ *
+ * 核心功能：
+ * 1. 递归合并对象
+ * 2. 支持数组合并
+ * 3. 支持深度合并
+ * 4. 支持数组合并函数
+ */
+
 export function mergeDeep(
   source: Record<string, any> = {},
   target: Record<string, any> = {},
@@ -581,6 +633,25 @@ export function mergeDeep(
   return out
 }
 
+/**
+ * 扁平化片段
+ * 作用：将片段中的子节点扁平化
+ *
+ * @param nodes - 片段节点
+ * @returns 扁平化后的节点
+ *
+ * 核心功能：
+ * 1. 递归扁平化片段中的子节点
+ * 2. 支持片段节点
+ * 3. 支持非片段节点
+ * @example
+ * ```ts
+ * const nodes = flattenFragments([
+ *   h('div', 'Hello'),
+ *   h('div', 'World'),
+ * ])
+ * ```
+ */
 export function flattenFragments(nodes: VNode[]): VNode[] {
   return nodes
     .map((node) => {
@@ -598,6 +669,15 @@ export function flattenFragments(nodes: VNode[]): VNode[] {
  * 将字符串转换为 kebab-case 格式
  * @param str - 要转换的字符串，默认为空字符串
  * @returns 转换后的 kebab-case 字符串
+ *
+ * 核心功能：
+ * 1. 将字符串转换为 kebab-case 格式
+ * 2. 支持空字符串
+ * 3. 支持缓存转换结果
+ * @example
+ * ```ts
+ * const kebab = toKebabCase('Hello World') // 'hello-world'
+ * ```
  */
 export function toKebabCase(str = '') {
   // 如果缓存中已经存在该字符串的转换结果，则直接返回缓存中的结果
@@ -618,6 +698,25 @@ toKebabCase.cache = new Map<string, string>()
 
 export type MaybeRef<T> = T | Ref<T>
 
+/**
+ * 查找具有提供者的子组件
+ * 作用：查找具有提供者的子组件
+ *
+ * @param key - 注入的键
+ * @param vnode - 虚拟节点
+ * @returns 具有提供者的子组件
+ *
+ * 核心功能：
+ * 1. 查找具有提供者的子组件
+ * 2. 支持虚拟节点
+ * 3. 支持数组虚拟节点
+ * 4. 支持 suspense 虚拟节点
+ * 5. 支持组件虚拟节点
+ * @example
+ * ```ts
+ * const children = findChildrenWithProvide(Symbol('provide'), vnode)
+ * ```
+ */
 export function findChildrenWithProvide(
   key: InjectionKey<any> | symbol,
   vnode?: VNodeChild,
@@ -652,6 +751,13 @@ export function findChildrenWithProvide(
   return []
 }
 
+/**
+ * 循环缓冲区
+ * 作用：循环缓冲区
+ *
+ * @param size - 缓冲区大小
+ * @returns 循环缓冲区
+ */
 export class CircularBuffer<T = never> {
   readonly #arr: Array<T> = []
   #pointer = 0
@@ -699,6 +805,15 @@ type _NotAUnion<T, U> = U extends any
 export function destructComputed<T extends object>(
   getter: ComputedGetter<T & NotAUnion<T>>
 ): ToRefs<T>
+/**
+ * 将计算的 ref 转换为 refs 的记录
+ * @param getter 计算的 getter 函数
+ * @returns refs 的记录
+ * @example
+ * ```ts
+ * const { a, b } = destructComputed(() => ({ a: 1, b: 2 }))
+ * ```
+ */
 export function destructComputed<T extends object>(getter: ComputedGetter<T>) {
   const refs = reactive({}) as T
   const base = computed(getter)

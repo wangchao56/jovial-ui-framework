@@ -50,7 +50,9 @@ function createBEM(prefixName: string) {
   /** 元素 */
   const e = (element: string) => _bem(prefixName, '', element, '')
   /** 修改器 */
-  const m = (modifier: string) => _bem(prefixName, '', '', modifier)
+  const m = (modifier: string) => {
+    return modifier ? _bem(prefixName, '', '', modifier) : ''
+  }
   /** 块级元素和元素 */
   const be = (blockSuffix: string, element: string) =>
     _bem(prefixName, blockSuffix, element, '')

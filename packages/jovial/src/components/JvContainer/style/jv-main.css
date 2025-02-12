@@ -4,6 +4,7 @@
   display: block;
   width: 100%;
   height: var(--jv-main-height);
+  margin-top: var(--jv-header-height);
   border: var(--jv-border-solid);
   z-index: 1 !important;
   grid-area: main;
@@ -12,7 +13,7 @@
   overflow: hidden;
   box-sizing: border-box;
   background-color: var(--jv-main-bg-color);
-  margin-top: var(--jv-header-height);
+
   --jv-main-height: 100%;
 }
 

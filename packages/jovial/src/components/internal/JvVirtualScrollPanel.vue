@@ -88,7 +88,7 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style scoped>
+<style lang="post" scoped>
 .virtual-scroll-container {
   width: 100%;
   overflow: hidden;

@@ -1,0 +1,10 @@
+@import url('@jovial/theme-chalk/src/common/shadows.css');
+
+@b table {
+  padding: 10px;
+  box-shadow: var(--jv-shadow-3);
+}
+
+@b table-container {
+  @mixin elevation 10;
+}

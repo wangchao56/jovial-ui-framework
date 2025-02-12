@@ -7,9 +7,6 @@
 }
 
 @define-mixin m $modifier {
-  .jv-circle-progress--$(modifier) {
-    @mixin-content;
-  }
 }
 
 @b circle-progress {

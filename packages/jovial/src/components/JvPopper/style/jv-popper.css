@@ -4,6 +4,7 @@
   --jv-popper-font-size: 12px;
   --jv-popper-arrow-size: 8px;
   --jv-popper-arrow-offset: calc(var(--jv-popper-arrow-size) / 2);
+
   display: inline-block;
   background: var(--jv-popper-bg-color);
   border: 1px solid var(--jv-popper-border-color);
@@ -41,6 +42,7 @@
     content: '';
   }
 }
+
 [data-popper-placement^='top'] {
   & > #jv-popper-arrow {
     bottom: -4px;
@@ -49,6 +51,7 @@
   & > #jv-popper-arrow::before {
     border-left: 1px solid transparent;
     border-top: 1px solid transparent;
+
     /* 裁剪三角形 */
     clip-path: polygon(0 100%, 100% 100%, 100% 0);
   }
@@ -62,6 +65,7 @@
   & > #jv-popper-arrow::before {
     border-right: 1px solid transparent;
     border-bottom: 1px solid transparent;
+
     /* 裁剪三角形 */
     clip-path: polygon(0 100%, 0 0, 100% 0);
   }
@@ -75,6 +79,7 @@
   & > #jv-popper-arrow::before {
     border-left: 1px solid transparent;
     border-bottom: 1px solid transparent;
+
     /* 裁剪三角形 */
     clip-path: polygon(100% 100%, 0 0, 100% 0);
   }

@@ -40,7 +40,7 @@ function handleClose(evt: MouseEvent) {
 </template>
 
 <style lang="css">
-  .jv-tag-leave-active {
+.jv-tag-leave-active {
   transition: opacity 0.2s ease-in-out;
 }
 

@@ -48,8 +48,8 @@ if (!menuContext) {
   </template>
 </template>
 
-<style>
-.jv-menu-children {
+<style lang="post" scoped>
+.jv-menu__children {
   padding: 0;
 }
 </style>

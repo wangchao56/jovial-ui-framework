@@ -36,7 +36,6 @@ export { useExpandedKeys } from './useExpandedKeys'
 export type { UseExpandedKeys } from './useExpandedKeys'
 
 export { useSelectedKeys } from './useSelectedKeys'
-export type { UseSelectedKeys } from './useSelectedKeys'
 
 export { useZIndex } from './useZindex'
 // 可改造为通用状态管理

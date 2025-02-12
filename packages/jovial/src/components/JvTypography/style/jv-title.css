@@ -3,9 +3,9 @@
   --jv-title-spacing: 1.2em;
 
   margin: var(--jv-title-spacing) 0;
+  color: var(--jv-text-color-primary);
   font-weight: 700;
   line-height: var(--jv-title-line-height);
-  color: var(--jv-text-color-primary);
 
   /* 等级 */
   &__level-1 {
@@ -37,18 +37,19 @@
     position: absolute;
     width: 1px;
     height: 1px;
-    padding: 0;
     margin: -1px;
+    padding: 0;
+    border: 0;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
-    border: 0;
   }
+
   /* 直排模式 */
   &[data-writing-mode='vertical'] {
+    padding: 0.8em 0;
+    line-height: 2;
     writing-mode: vertical-rl;
     text-orientation: upright;
-    line-height: 2;
-    padding: 0.8em 0;
   }
 }

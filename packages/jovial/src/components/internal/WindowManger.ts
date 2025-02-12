@@ -1,3 +1,5 @@
+import { createVNode } from 'vue'
+
 // 使用shallowReactive 避免监听不到实例的变化
 const instances: {
   id: string
@@ -11,7 +13,6 @@ let renderflag = true
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (!entry.isIntersecting) {
-      console.log('通知不可见')
       if (renderflag) {
         renderflag = false
         const vnodes = instances.map(item => item.vnode)

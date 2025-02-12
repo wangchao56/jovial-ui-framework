@@ -88,9 +88,9 @@ defineExpose<InfiniteScrollExpose>({
 
 <style>
 .jv-infinite-scroll {
+  position: relative;
   height: 100%;
   overflow: hidden;
-  position: relative;
 }
 
 .scroll-content {

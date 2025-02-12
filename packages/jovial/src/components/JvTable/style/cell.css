@@ -1,0 +1,29 @@
+@b table__cell {
+  padding: 10px;
+
+  @when fixed {
+    position: sticky;
+    z-index: 10;
+    background-color: #222;
+  }
+
+  @m fixed-left {
+    left: 0;
+  }
+
+  @m fixed-right {
+    right: 0;
+  }
+
+  @m align-left {
+    text-align: left;
+  }
+
+  @m align-center {
+    text-align: center;
+  }
+
+  @m align-right {
+    text-align: right;
+  }
+}

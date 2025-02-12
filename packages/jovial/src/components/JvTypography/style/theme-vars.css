@@ -11,7 +11,7 @@
 
   /* 文本装饰 */
   --jv-text-decoration: none;
-  --jv-text-decoration-color: currentColor;
+  --jv-text-decoration-color: currentcolor;
   --jv-text-decoration-style: solid;
 
   /* 排版特性 */

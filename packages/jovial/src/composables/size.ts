@@ -25,6 +25,16 @@ export const makeSizeProps = propsFactory(
   'size',
 )
 
+/**
+ * 尺寸
+ * @param props 尺寸属性
+ * @param name 组件名称
+ * @returns 尺寸
+ * @example
+ * ```ts
+ * const { sizeClasses, sizeStyles } = useSize({ size: 'large' })
+ * ```
+ */
 export function useSize(props: SizeProps, name = getCurrentInstanceName()) {
   return destructComputed(() => {
     let sizeClasses

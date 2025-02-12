@@ -14,7 +14,7 @@ const bem = createNamespace('main')
   </main>
 </template>
 
-<style lang="postcss" scoped>
+<style lang="post" scoped>
 @b main {
   --min-height: calc(100vh - var(--jv-header-height));
   --jv-main-height: 100%;
