@@ -3,6 +3,7 @@ node_modules
 old
 build/*
 storybook-static
+examples
 
 # Editor directories and files
 .vscode/*
