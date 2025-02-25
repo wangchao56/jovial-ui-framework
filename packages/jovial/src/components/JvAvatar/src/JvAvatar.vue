@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { JvAvatarEmits } from './avatar'
+import type { JvAvatarEmits } from './JvAvatar'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jovial/utils'
 import { computed, ref } from 'vue'
-import { jvAvatarProps } from './JvAvatar.ts'
+import { jvAvatarProps } from './JvAvatar'
 import '../style/style.css'
 
 defineOptions({ name: 'JvAvatar' })

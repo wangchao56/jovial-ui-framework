@@ -9,6 +9,7 @@
     "module": "ESNext", // 在输出中移除注释
     "moduleResolution": "node", // 禁止对同一文件的不一致的大小写引用
     "resolveJsonModule": true, // 允许导入 JSON 模块
+    "types": ["vite/client", "node"],
     "strict": true, // 不生成声明文件
     "noImplicitAny": false, // 设置模块类型为 ESNext
     "declaration": false, // 允许不明确标注类型的变量，默认使用 any 类型

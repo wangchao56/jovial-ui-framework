@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CalendarDateCell, CalendarEmits, CalendarProps } from '../src/calendar'
+import type { CalendarDateCell, CalendarEmits, CalendarProps } from '../src/JvCalendar'
 import {
   addMonths,
   addYears,
@@ -14,7 +14,7 @@ import {
   subYears,
 } from 'date-fns'
 import { computed, ref, watch } from 'vue'
-import { actionsMapEntries, CalendarDateCellType, weekMaping } from '../src/calendar'
+import { actionsMapEntries, CalendarDateCellType, weekMaping } from '../src/JvCalendar'
 import './simple.css'
 
 defineOptions({ name: 'SimpleCalendar' })

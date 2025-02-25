@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { JvAlertEmits, JvAlertExpose } from './JvAlert.ts'
 import JvButton from '@/components/JvButton/src/JvButton.vue'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jovial/utils'
-import { type JvAlertEmits, type JvAlertExpose, jvAlertProps } from './JvAlert'
+import { jvAlertProps } from './JvAlert.ts'
 import '../style/style.css'
 
 defineOptions({ name: 'JvAlert' })

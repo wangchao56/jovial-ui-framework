@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { JvAffixEmits } from './JvAffix'
+import type { JvAffixEmits } from './JvAffix.ts'
 import { useTheme } from '@/components/theme'
 import { createNamespace } from '@jovial/utils'
 import { computed, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
