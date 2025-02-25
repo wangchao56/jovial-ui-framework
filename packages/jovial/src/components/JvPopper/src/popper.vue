@@ -134,8 +134,8 @@ const popperStyle = computed(() => ({
   ...props.style,
 }))
 // 开启关闭延时该变更成动画的执行时间
-const openAnimationDuration = computed(() => props.disableAnimation ? 0 : props.openDelay)
-const closeAnimationDuration = computed(() => props.disableAnimation ? 0 : props.closeDelay)
+const openanimationduration = computed(() => props.disableAnimation ? 0 : props.openDelay)
+const closeanimationduration = computed(() => props.disableAnimation ? 0 : props.closeDelay)
 </script>
 
 <template>
@@ -172,12 +172,12 @@ const closeAnimationDuration = computed(() => props.disableAnimation ? 0 : props
 /* 进入阶段的过渡效果 */
 .fade-enter-active {
   transition-timing-function: ease-in;
-  transition-duration: calc(v-bind(openAnimationDuration) * 1ms);
+  transition-duration: calc(v-bind(openanimationduration) * 1ms);
 }
 
 .fade-leave-active {
   transition-timing-function: ease;
-  transition-duration: calc(v-bind(closeAnimationDuration) * 1ms);
+  transition-duration: calc(v-bind(closeanimationduration) * 1ms);
 }
 
 /* 进入开始时的样式 */

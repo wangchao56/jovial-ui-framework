@@ -1,9 +1,3 @@
-@define-mixin e $element {
-  .jv-collapse-item__$(element) {
-    @mixin-content;
-  }
-}
-
 @b collapse-item {
   background-color: var(--jv-color-white);
   box-sizing: border-box;

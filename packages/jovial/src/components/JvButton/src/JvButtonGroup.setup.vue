@@ -1,18 +1,12 @@
 <script setup lang="tsx">
-import type { JvButtonGroupProps } from './buttonGroup'
 import { createNamespace } from '@jovial/utils'
 import { provide, ref } from 'vue'
-import '../style/buttonGroup.css'
+import { jvButtonGroupProps } from './JvButtonGroup'
+import '../style/jv-button-group.css'
 
 defineOptions({ name: 'JvButtonGroup' })
 
-const props = withDefaults(defineProps<JvButtonGroupProps>(), {
-  size: 'medium',
-  vertical: false,
-  rounded: false,
-  gap: 0,
-  justify: 'start',
-})
+const props = defineProps(jvButtonGroupProps)
 
 const bem = createNamespace('button-group')
 const rootRef = ref<HTMLElement | null>(null)

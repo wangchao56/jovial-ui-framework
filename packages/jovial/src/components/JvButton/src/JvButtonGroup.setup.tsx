@@ -1,7 +1,7 @@
-import type { JvButtonGroupProps } from './buttonGroup'
+import type { JvButtonGroupProps } from './JvButtonGroup'
 import { createNamespace } from '@jovial/utils'
 import { defineComponent, provide, ref } from 'vue'
-import '../style/buttonGroup.css'
+import '../style/jv-button-group.css'
 
 export default defineComponent({
   name: 'JvButtonGroup',

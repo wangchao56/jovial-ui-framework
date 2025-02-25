@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import type { JvAlertEmits, JvAlertExpose, JvAlertProps } from './JvAlert'
-import JvButton from '@components/JvButton/src/button.vue'
+import JvButton from '@/components/JvButton/src/JvButton.vue'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jovial/utils'
+import { type JvAlertEmits, type JvAlertExpose, jvAlertProps } from './JvAlert'
 import '../style/style.css'
 
 defineOptions({ name: 'JvAlert' })
-withDefaults(defineProps<JvAlertProps>(), {
-  type: 'info',
-  closable: false,
-  closeText: '',
-  showIcon: false,
-})
+defineProps(jvAlertProps)
 const emit = defineEmits<JvAlertEmits>()
 const bem = createNamespace('alert')
 const visible = ref(true)
@@ -37,13 +32,24 @@ defineExpose<JvAlertExpose>({
     name="alert-fade"
     @after-leave="afterLeave"
   >
-    <div v-show="visible" :class="[bem.b(), bem.m(type)]">
-      <span v-if="showIcon" :class="bem.e('icon')">
+    <div
+      v-show="visible"
+      role="alert"
+      :aria-label="title"
+      :aria-live="showIcon ? 'polite' : 'off'"
+      :class="[bem.b(), bem.m(type)]"
+      tabindex="0"
+    >
+      <span v-if="showIcon" :aria-hidden="showIcon" :class="bem.e('icon')">
         <slot name="icon">
           <JvIcon :name="`$${type}`" />
         </slot>
       </span>
-      <hgroup :class="bem.e('content')">
+      <hgroup
+        :class="bem.e('content')"
+        role="region"
+        :aria-label="title"
+      >
         <slot name="title">
           <h4 :class="bem.em('content', 'title')">
             {{ title }}
@@ -57,6 +63,8 @@ defineExpose<JvAlertExpose>({
       </hgroup>
       <JvButton
         v-if="closable"
+        :aria-label="closeText"
+        :aria-hidden="!closable"
         variant="plain"
         size="small"
         :class="bem.e('close')"
@@ -73,7 +81,7 @@ defineExpose<JvAlertExpose>({
   </Transition>
 </template>
 
-<style lang="postcss" scoped>
+<style lang="css" scoped>
 .alert-fade-enter-active,
 .alert-fade-leave-active {
   transition: opacity 0.3s;

@@ -1,20 +1,16 @@
 <script setup lang="ts">
-import type { PaginationConfig } from './JvTable'
 import JvPagination from '@components/JvPagination/src/JvPagination.vue'
 import { createNamespace } from '@jovial/utils'
 import { computed } from 'vue'
+import { type PaginationConfig, useJvTableContext } from './JvTable'
 
 const props = defineProps<{
   pagination?: PaginationConfig | boolean
 }>()
 
-// eslint-disable-next-line unused-imports/no-unused-vars
-const emit = defineEmits<{
-  (e: 'pageChange', page: number, pageSize: number): void
-}>()
-
 const bem = createNamespace('table')
 
+const { onPageChange } = useJvTableContext()
 const internalPagination = computed(() => {
   const defaultConfig = {
     current: 1,
@@ -30,6 +26,9 @@ const internalPagination = computed(() => {
   }
   return { ...defaultConfig, ...props.pagination }
 })
+function handlePageChange(page: number, pageSize: number, total: number) {
+  onPageChange(page, pageSize, total)
+}
 </script>
 
 <template>
@@ -38,16 +37,18 @@ const internalPagination = computed(() => {
     role="rowgroup"
     :class="bem.b('footer')"
   >
-    表格底部
-    <JvPagination
-      v-model="internalPagination.current"
-      :total="internalPagination.total"
-      :page-size="internalPagination.pageSize"
-    />
+    <slot name="footer">
+      <JvPagination
+        v-model="internalPagination.current"
+        :total="internalPagination.total"
+        :page-size="internalPagination.pageSize"
+        @change="handlePageChange"
+      />
+    </slot>
   </footer>
 </template>
 
-<style lang="post" scoped>
+<style lang="css" scoped>
 @b table-footer {
   display: flex;
   justify-content: flex-end;

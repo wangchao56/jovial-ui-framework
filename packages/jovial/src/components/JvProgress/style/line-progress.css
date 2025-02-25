@@ -1,5 +1,3 @@
-@import url('./theme-vars.css');
-
 @b line-progress {
   display: inline-flex;
   position: relative;

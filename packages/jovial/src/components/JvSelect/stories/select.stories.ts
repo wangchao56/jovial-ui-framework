@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import JvSelect from '../src/select.vue'
 
 const meta = {
-  title: 'Form/Select',
+  title: '数据录入组件/JvSelect',
   component: JvSelect,
   tags: ['autodocs'],
   parameters: {

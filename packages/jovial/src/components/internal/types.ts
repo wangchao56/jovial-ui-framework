@@ -1,3 +1,4 @@
+import type BScroll from '@better-scroll/core'
 import type { Options } from '@better-scroll/core'
 import type { MouseWheelOptions } from '@better-scroll/mouse-wheel'
 import type { ScrollbarOptions } from '@better-scroll/scroll-bar'
@@ -12,3 +13,9 @@ export type RenderContent =
   | Element
 
 export type ScrollPanelOptions = Options & { scrollbar: ScrollbarOptions } & { mouseWheel: MouseWheelOptions }
+
+export interface ScrollPanelExpose {
+  refresh: () => void
+  scrollTo: (x: number, y: number, time?: number) => void
+  instance?: BScroll | null
+}

@@ -1,11 +1,3 @@
-@import url('./theme-vars.css');
-
-@define-mixin e $element {
-  .jv-notification__$(element) {
-    @mixin-content;
-  }
-}
-
 @b notification {
   display: flex;
   position: fixed;

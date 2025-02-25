@@ -5,7 +5,7 @@ import type { ComponentPublicInstance, CSSProperties, DeepReadonly, InjectionKey
 
 export type Trigger = 'click' | 'hover' | 'focus' | 'contextmenu' | string
 export type TriggerKeys = 'click' | 'hover' | 'focus' | 'contextmenu'
-export const tooltipProps = {
+export const jvTooltipProps = {
   activator: {
     type: [String, Object] as PropType<
       string | Element | 'parent' | ComponentPublicInstance
@@ -20,13 +20,28 @@ export const tooltipProps = {
     type: String as PropType<Placement>,
     default: 'top',
   },
+  /**
+   * 是否显示
+   */
   disabled: Boolean as PropType<boolean>,
   offset: Number as PropType<number>,
   trigger: {
     type: String as PropType<'hover' | 'click' | 'focus' | 'contextmenu'>,
     default: 'hover',
   },
-  triggerKeys: Array as PropType<string[]>,
+  popperOptions: Object as PropType<Partial<Options>>,
+  disableAnimation: Boolean as PropType<boolean>,
+  openDelay: {
+    type: Number as PropType<number>,
+    default: 0,
+  },
+  closeDelay: {
+    type: Number as PropType<number>,
+    default: 0,
+  },
+  arrow: Boolean as PropType<boolean>,
+  popperClass: String as PropType<string>,
+  popperStyle: Object as PropType<CSSProperties>,
 } as const
 /* @vue-ignore */
 export interface TooltipProps {
@@ -45,10 +60,6 @@ export interface TooltipProps {
   offset?: [number, number] | number
   /** 如何触发 Tooltip */
   trigger?: TriggerKeys
-  /** 用来标识虚拟触发是否被启用 */
-  // virtualTriggering?: boolean
-  /** 当鼠标点击或者聚焦在触发元素上时， 可以定义一组键盘按键并且通过它们来控制 Tooltip 的显示 */
-  // triggerKeys?: Array<string>
   /** popper参数 */
   popperOptions?: Partial<Options>
   /** 是否禁用动画 */

@@ -1,9 +1,3 @@
-@define-mixin e $element {
-  .jv-dropdown__$(element) {
-    @mixin-content;
-  }
-}
-
 @b dropdown {
   display: inline-block;
   border: 1px solid gray;

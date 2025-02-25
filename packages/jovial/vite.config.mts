@@ -34,4 +34,18 @@ export default defineConfig({
       interval: 1000, // 1秒
     },
   },
+  build: {
+    lib: {
+      entry: './src/components/index.ts', // 入口文件
+      name: 'jovial', // 库名称
+      fileName: format => `jovial.${format}.js`, // 输出文件名
+      formats: ['es', 'umd', 'cjs'], // 输出格式
+    },
+    rollupOptions: {
+      external: ['vue'], // 排除vue
+      output: {
+        globals: { vue: 'Vue' }, // 全局变量
+      },
+    },
+  },
 })

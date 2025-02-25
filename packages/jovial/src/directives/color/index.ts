@@ -1,10 +1,22 @@
 // Types
-import type { VuetifyThemeVariant } from 'types/services/theme'
-import type { VNode, VNodeDirective } from 'vue'
+import type { Directive, DirectiveBinding, VNode } from 'vue'
 
-import colors from '../../util/colors'
 // Utilities
-import { classToHex, isCssColor, parseGradient } from '../../util/colorUtils'
+import { classToHex, isCssColor, parseGradient } from '@jovial/utils'
+import colors from '@jovial/utils/colors'
+
+/**
+ * 测试覆盖了指令的所有主要功能：
+ * 背景颜色设置
+ * 文本颜色设置
+ * 边框颜色设置（包括边框方向修饰符）
+ * 渐变颜色设置
+ * 支持多种颜色格式（HEX、RGB、RGBA、主题颜色名）
+ */
+
+interface VuetifyThemeVariant {
+  [key: string]: string
+}
 
 interface BorderModifiers {
   top?: boolean
@@ -21,8 +33,9 @@ function setTextColor(
   const cssColor = !isCssColor(color)
     ? classToHex(color, colors, currentTheme)
     : color
-
+  // 设置文本颜色
   el.style.color = cssColor
+  // 设置光标颜色
   el.style.caretColor = cssColor
 }
 
@@ -34,8 +47,9 @@ function setBackgroundColor(
   const cssColor = !isCssColor(color)
     ? classToHex(color, colors, currentTheme)
     : color
-
+  // 设置背景颜色
   el.style.backgroundColor = cssColor
+  // 设置边框颜色
   el.style.borderColor = cssColor
 }
 
@@ -50,6 +64,7 @@ function setBorderColor(
     : color
 
   if (!modifiers || !Object.keys(modifiers).length) {
+    // 设置边框颜色
     el.style.borderColor = cssColor
     return
   }
@@ -61,6 +76,7 @@ function setBorderColor(
   if (modifiers.bottom)
     el.style.borderBottomColor = cssColor
   if (modifiers.left)
+    // 设置左边框颜色
     el.style.borderLeftColor = cssColor
 }
 
@@ -69,6 +85,7 @@ function setGradientColor(
   gradient: string,
   currentTheme: Partial<VuetifyThemeVariant>,
 ) {
+  // 设置渐变颜色
   el.style.backgroundImage = `linear-gradient(${parseGradient(
     gradient,
     colors,
@@ -76,8 +93,12 @@ function setGradientColor(
   )})`
 }
 
-function updateColor(el: HTMLElement, binding: VNodeDirective, node: VNode) {
-  const currentTheme = node.context!.$vuetify.theme.currentTheme
+function updateColor(
+  el: HTMLElement,
+  binding: DirectiveBinding,
+  node: VNode & { $vuetify?: { theme: { currentTheme: VuetifyThemeVariant } } },
+) {
+  const currentTheme = node.$vuetify?.theme.currentTheme || {}
 
   if (binding.arg === undefined) {
     setBackgroundColor(el, binding.value, currentTheme)
@@ -93,16 +114,20 @@ function updateColor(el: HTMLElement, binding: VNodeDirective, node: VNode) {
   }
 }
 
-function update(el: HTMLElement, binding: VNodeDirective, node: VNode) {
+function update(
+  el: HTMLElement,
+  binding: DirectiveBinding,
+  node: VNode & { $vuetify?: { theme: { currentTheme: VuetifyThemeVariant } } },
+) {
   if (binding.value === binding.oldValue)
     return
 
   updateColor(el, binding, node)
 }
 
-export const Color = {
-  bind: updateColor,
-  update,
+export const Color: Directive = {
+  mounted: updateColor,
+  updated: update,
 }
 
 export default Color

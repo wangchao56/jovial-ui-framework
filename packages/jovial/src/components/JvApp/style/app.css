@@ -1,6 +1,6 @@
 :root {
-  --jv-app-height: 100vh;
   --jv-app-width: 100%;
+  --jv-app-height: auto;
   --jv-app-transition: background-color 0.3s;
 }
 

@@ -1,26 +1,17 @@
 <script setup lang="ts">
-import type { DialogEmits, DialogProps, DialogSlots } from './JvDialog'
+import type { JvDialogEmits, JvDialogSlots } from './JvDialog'
+import JvButton from '@/components/JvButton/src/JvButton.vue'
 import JvRenderVNodeContent from '@components/internal/render-vnode-content.setup'
-import JvButton from '@components/JvButton/src/button.vue'
 import JvSpace from '@components/JvSpace'
 import { createNamespace } from '@jovial/utils'
 import { useEventListener } from '@vueuse/core'
-import './JvDialog.css'
+import { jvDialogProps } from './JvDialog'
+import '../style/jv-dialog.css'
 
 defineOptions({ name: 'JvDialog' })
-const props = withDefaults(defineProps<DialogProps>(), {
-  title: 'dialog title',
-  width: 350,
-  closeOnClickOverlay: false,
-  confirmText: '确认',
-  cancelText: '取消',
-  actionPosition: 'right',
-  confirmButtonProps: {},
-  cancelButtonProps: {},
-
-})
-const emit = defineEmits<DialogEmits>()
-const slots = defineSlots<DialogSlots>()
+const props = defineProps(jvDialogProps)
+const emit = defineEmits<JvDialogEmits>()
+const slots = defineSlots<JvDialogSlots>()
 
 const bem = createNamespace('dialog')
 
@@ -78,30 +69,45 @@ watch(visible, (val) => {
 useCssVars(_ctx => ({
   'jv-dialog-width': `${props.width}px`,
 }))
+
+const dialogId = `jv-dialog-${useId()}`
 </script>
 
 <template>
-  <dialog ref="dialogRef" :class="bem.b()" role="dialog">
-    <div :class="bem.e('header')">
+  <dialog
+    ref="dialogRef" :class="bem.b()" role="dialog"
+    aria-modal="true"
+    :aria-label="title"
+    :aria-describedby="dialogId"
+    tabindex="0"
+  >
+    <header :class="bem.e('header')">
       <slot name="header">
         {{ title }}
       </slot>
-    </div>
-    <div :class="bem.e('content')">
+    </header>
+    <div
+      :id="dialogId"
+      :class="bem.e('content')"
+      tabindex="0"
+      role="region"
+      aria-live="polite"
+      :aria-label="`${title} content`"
+    >
       <JvRenderVNodeContent v-if="renderContent" :render="renderContent" />
     </div>
-    <div :class="bem.e('footer')">
+    <footer :class="bem.e('footer')">
       <slot name="footer" />
       <slot name="actions">
         <JvSpace size="large" direction="horizontal" :justify="actionPosition === 'left' ? 'start' : 'end'">
           <JvButton type="primary" @click="confirm">
             {{ confirmText }}
           </JvButton>
-          <JvButton type="danger" @click="cancel">
+          <JvButton type="warning" @click="cancel">
             {{ cancelText }}
           </JvButton>
         </JvSpace>
       </slot>
-    </div>
+    </footer>
   </dialog>
 </template>

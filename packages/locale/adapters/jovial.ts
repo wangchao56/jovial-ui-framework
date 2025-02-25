@@ -1,8 +1,10 @@
 import type { Ref } from 'vue'
 import type { LocaleInstance, LocaleMessages, LocaleOptions } from '../types'
-import { consoleError, consoleWarn, getCurrentInstance, getObjectValueByPath, useProxiedModel } from '@jovial/utils'
-import { ref, shallowRef, watch } from 'vue'
+import { consoleError, consoleWarn, getCurrentInstance, getObjectValueByPath } from '@jovial/utils'
+import { ref, shallowRef, useModel, watch } from 'vue'
 import en from '../language/en'
+import zhHans from '../language/zh-Hans'
+import zhHant from '../language/zh-Hant'
 /** Jovial国际化前缀 */
 const LANG_PREFIX = '$jv.'
 
@@ -24,6 +26,9 @@ function replace(str: string, params: unknown[]) {
  * @param fallback 回退语言
  * @param messages 语言包
  * @returns 翻译函数
+ * @example
+ * const t = createTranslateFunction(current, fallback, messages)
+ * t('jv.button.cancel')
  */
 function createTranslateFunction(current: Ref<string>, fallback: Ref<string>, messages: Ref<LocaleMessages>) {
   return (key: string, ...params: unknown[]) => {
@@ -38,7 +43,6 @@ function createTranslateFunction(current: Ref<string>, fallback: Ref<string>, me
     const currentLocale = current.value && messages.value[current.value]
     // 获取回退语言的翻译
     const fallbackLocale = fallback.value && messages.value[fallback.value]
-
     // 从当前语言中获取翻译
     let str: string = getObjectValueByPath(currentLocale, shortKey, null)
 
@@ -70,6 +74,10 @@ function createTranslateFunction(current: Ref<string>, fallback: Ref<string>, me
  * @param current 当前语言
  * @param fallback 回退语言
  * @returns 数字格式化函数
+ * @example
+ * const n = createNumberFunction(current, fallback)
+ * n(1234567890) // 1,234,567,890
+ * n(1234567890, { style: 'currency', currency: 'USD' }) // $1,234,567,890.00
  */
 function createNumberFunction(current: Ref<string>, fallback: Ref<string>) {
   return (value: number, options?: Intl.NumberFormatOptions) => {
@@ -84,9 +92,18 @@ function createNumberFunction(current: Ref<string>, fallback: Ref<string>) {
  * @param prop 属性名
  * @param provided 提供的值
  * @returns 响应式引用
+ * @example
+ * const current = useProvided(props, 'locale', state.current) // 提供当前语言
+ * const fallback = useProvided(props, 'fallback', state.fallback) // 提供回退语言
+ * const messages = useProvided(props, 'messages', state.messages) // 提供语言包
+ * const t = createTranslateFunction(current, fallback, messages) // 创建翻译函数
+ * t('jv.button.cancel') // 翻译按钮取消
+ * const n = createNumberFunction(current, fallback) // 创建数字格式化函数
+ * n(1234567890) // 1,234,567,890
+ * n(1234567890, { style: 'currency', currency: 'USD' }) // $1,234,567,890.00
  */
 function useProvided<T>(props: any, prop: string, provided: Ref<T>) {
-  const internal = useProxiedModel(props, prop)
+  const internal = useModel(props, prop)
   internal.value = props[prop] ?? provided.value
 
   watch(provided, () => {
@@ -143,9 +160,9 @@ function createProvideFunction(state: {
  * 7. 支持在运行时切换语言
  */
 export function createJovialAdapter(options?: LocaleOptions): LocaleInstance {
-  const current = shallowRef(options?.locale ?? 'en')
-  const fallback = shallowRef(options?.fallback ?? 'en')
-  const messages = ref({ en, ...options?.messages })
+  const current = shallowRef(options?.locale ?? 'zhHans')
+  const fallback = shallowRef(options?.fallback ?? 'zhHans')
+  const messages = ref({ en, zhHans, zhHant, ...options?.messages })
 
   return {
     name: 'jovial',

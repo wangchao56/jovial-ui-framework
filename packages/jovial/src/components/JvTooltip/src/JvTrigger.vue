@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { JvTooltipTriggerProps } from './trigger'
-import JvText from '@components/JvTypography/src/JvText.vue'
+import JvText from '@/components/Typography/src/JvText.vue'
 import { isString } from '@jovial/utils'
 import isElement from 'lodash-es/isElement'
 import { isVNode, type VNode, type VNodeChild } from 'vue'

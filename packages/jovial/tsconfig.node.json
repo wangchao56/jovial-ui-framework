@@ -20,5 +20,5 @@
     "skipLibCheck": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.mts", "**/*.ts", "**/*.d.ts", "**/*.tsx", "**/*.mts", "src/components/JvProgress/src/CircleProgress.vue"]
+  "include": ["vite.config.mts", "**/*.ts", "**/*.d.ts", "**/*.tsx", "**/*.mts"]
 }

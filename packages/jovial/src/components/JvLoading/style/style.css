@@ -1,18 +1,24 @@
-@define-mixin e $element {
-  .jv-loading__$(element) {
-    @mixin-content;
-  }
-}
-
 @b loading {
-}
-
-.jv-loading {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   color: var(--jv-primary-color, #1890ff);
+
+  @e stop-btn {
+    padding: 4px 12px;
+    background: transparent;
+    border: 1px solid var(--jv-primary-color, #1890ff);
+    border-radius: 4px;
+    color: var(--jv-primary-color, #1890ff);
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background: var(--jv-primary-color, #1890ff);
+      color: white;
+    }
+  }
 }
 
 .loading-svg {
@@ -60,19 +66,4 @@
   50% {
     transform: scale(0.6);
   }
-}
-
-.jv-loading__stop-btn {
-  padding: 4px 12px;
-  background: transparent;
-  border: 1px solid var(--jv-primary-color, #1890ff);
-  border-radius: 4px;
-  color: var(--jv-primary-color, #1890ff);
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.jv-loading__stop-btn:hover {
-  background: var(--jv-primary-color, #1890ff);
-  color: white;
 }

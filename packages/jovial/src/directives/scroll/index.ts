@@ -11,7 +11,11 @@ interface ScrollDirectiveBinding extends Omit<DirectiveBinding, 'modifiers'> {
   }
 }
 
-function mounted(el: HTMLElement, binding: ScrollDirectiveBinding) {
+interface OnScrollObject { handler: EventListener | EventListenerObject, options: AddEventListenerOptions, target?: HTMLElement | Window | Element }
+
+type HostElement = HTMLElement & { _onScroll?: Record<string, OnScrollObject> }
+
+function mounted(el: HostElement, binding: ScrollDirectiveBinding) {
   const { self = false } = binding.modifiers ?? {}
   const value = binding.value
   const options = (typeof value === 'object' && value.options) || { passive: true }
@@ -28,7 +32,7 @@ function mounted(el: HTMLElement, binding: ScrollDirectiveBinding) {
 
   target.addEventListener('scroll', handler, options)
 
-  el._onScroll = new Object(el._onScroll)
+  el._onScroll = new Object(el._onScroll) as Record<string, OnScrollObject>
   el._onScroll![binding.instance!.$.uid] = {
     handler,
     options,
@@ -37,7 +41,7 @@ function mounted(el: HTMLElement, binding: ScrollDirectiveBinding) {
   }
 }
 
-function unmounted(el: HTMLElement, binding: ScrollDirectiveBinding) {
+function unmounted(el: HostElement, binding: ScrollDirectiveBinding) {
   if (!el._onScroll?.[binding.instance!.$.uid])
     return
 

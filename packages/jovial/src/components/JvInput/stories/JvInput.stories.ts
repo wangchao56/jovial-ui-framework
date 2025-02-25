@@ -3,7 +3,7 @@ import JvIcon from '@components/JvIcon/src/JvIcon.vue'
 import JvInput from '@components/JvInput/src/input.vue'
 
 const meta: Meta = {
-  title: 'Components/Input',
+  title: '数据录入组件/JvInput',
   component: JvInput,
   tags: ['autodocs'],
   subcomponents: {

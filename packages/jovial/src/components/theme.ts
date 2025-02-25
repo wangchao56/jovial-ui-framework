@@ -15,17 +15,26 @@ type DeepPartial<T> = T extends object
   ? { [P in keyof T]?: DeepPartial<T[P]> }
   : T
 
+/** 基础颜色定义 */
 interface BaseColors {
+  /** 背景色 */
   background: string
+  /** 表面色/前景色 */
   surface: string
+  /** 主色 */
   primary: string
+  /** 次色 */
   secondary: string
+  /** 成功色 */
   success: string
+  /** 警告色 */
   warning: string
+  /** 错误色 */
   error: string
+  /** 信息色 */
   info: string
 }
-
+/** 前景色 (文字颜色) */
 interface OnColors {
   /** 背景色 */
   'on-background': string
@@ -66,13 +75,18 @@ interface VariationsOptions {
 // 定义一个类型别名ThemeOptions，它是一个对象类型
 // 该对象可以包含以下属性：
 interface InternalThemeDefinition {
+  /** 是否为暗色主题 */
   dark: boolean
+  /** 颜色配置 */
   colors: Colors
+  /** 变量配置 */
   variables?: Record<string, string | number>
 }
+/** 主题选项 */
 export interface ThemeOptions {
-  // 一个可选的字符串属性，用于指定主题的名称
+  /** 默认主题 */
   defaultTheme: string
+  /** 主题配置 */
   themes: Record<string, DeepPartial<InternalThemeDefinition>>
 }
 
@@ -83,11 +97,17 @@ export interface ThemeInstance {
   readonly name: Readonly<Ref<string>>
   /** 主题类名 */
   readonly current: DeepReadonly<Ref<InternalThemeDefinition>>
+  /** 主题配置 */
   readonly themes: Ref<Record<string, InternalThemeDefinition>>
+  /** 主题类名 */
   readonly themeClasses: Readonly<Ref<string | undefined>>
+  /** 样式 */
   readonly styles: Readonly<Ref<string>>
+  /** 全局配置 */
   readonly global: {
+    /** 主题名称 */
     readonly name: Ref<string>
+    /** 当前主题 */
     readonly current: DeepReadonly<Ref<InternalThemeDefinition>>
   }
   /** 切换主题 */
@@ -114,14 +134,14 @@ function genDefaults(): ThemeOptions {
       light: {
         dark: false,
         colors: {
-          background: '#ffffff',
+          background: '#f5f5f5',
           surface: '#ffffff',
           primary: '#6200ee',
           secondary: '#03dac4',
           success: '#00c853',
           warning: '#ffd600',
           error: '#d50000',
-          info: '#2962ff',
+          info: '#ccc',
         },
       },
       dark: {
@@ -141,6 +161,11 @@ function genDefaults(): ThemeOptions {
   }
 }
 
+/**
+ * 创建主题
+ * @param options 主题选项
+ * @returns 主题实例
+ */
 export function createTheme(
   options: ThemeOptions = {} as ThemeOptions,
 ): ThemeInstance & { install: (app: App) => void } {
@@ -307,6 +332,7 @@ export function createTheme(
 /**
  * 提供主题
  * @param props 主题
+ * @param props.theme 主题名称
  * @returns 主题
  */
 export function provideTheme(props: { theme?: string }) {

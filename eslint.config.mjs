@@ -1,6 +1,7 @@
 import antfu from '@antfu/eslint-config'
 
 export default antfu({
+
   ignores: [
     'node_modules',
     '**/node_modules/**',
@@ -38,5 +39,10 @@ export default antfu({
         allow: ['warn', 'error'],
       }],
     },
+  },
+}, {
+  files: ['**/*.stories.*'],
+  rules: {
+    'no-console': ['off'],
   },
 })

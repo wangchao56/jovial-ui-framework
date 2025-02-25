@@ -1,10 +1,24 @@
 @import url('@jovial/theme-chalk/src/common/shadows.css');
 
 @b table {
-  padding: 10px;
-  box-shadow: var(--jv-shadow-3);
+  display: flex;
+  clear: both;
+  height: max-content;
+  border: 1px solid rgb(140 140 140);
+  border-radius: 4px;
+  max-width: 100%;
+  min-height: fit-content;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  overflow: hidden;
 }
 
-@b table-container {
-  @mixin elevation 10;
+@b table-native {
+  display: block;
+  width: fit-content;
+  min-width: fit-content;
+  table-layout: fixed;
+  border-collapse: collapse;
+  white-space: nowrap;
 }

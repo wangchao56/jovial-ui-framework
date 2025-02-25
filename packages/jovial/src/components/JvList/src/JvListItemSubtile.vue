@@ -23,7 +23,7 @@ const classes = computed(() => [
   </component>
 </template>
 
-<style lang="post" scoped>
+<style lang="css" scoped>
 .jv-list-item-subtitle {
   color: var(--jv-list-item-subtitle-color, inherit);
   font-size: var(--jv-list-item-subtitle-font-size, 0.875rem);

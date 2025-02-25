@@ -1,9 +1,3 @@
-@define-mixin e $element {
-  .jv-tabs__$(element) {
-    @mixin-content;
-  }
-}
-
 @b tabs {
   display: flex;
 

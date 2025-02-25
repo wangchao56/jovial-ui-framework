@@ -22,12 +22,16 @@ export interface MenuItemType {
   disabled?: boolean
   /** 菜单图标 */
   icon?: string | ((item: MenuItem) => VNode)
-  /** item 的唯一标志 */
+  /** item 的唯一标志 启用路由后会使用path作为唯一标志 */
   key: PropertyKey
   /** 菜单项标题 */
   label: string | ((item: MenuItem) => VNode)
   /** 菜单项标题（hover 时显示） */
   title?: string
+  /** 路由 */
+  path?: string
+  /** 排序 */
+  order?: number
 }
 
 export interface MenuItemGroupType {
@@ -60,6 +64,8 @@ export interface SubMenuType {
   key: PropertyKey
   /** 菜单项标题 */
   label: string | ((item: SubMenuType) => VNode)
+  /** 路由 */
+  path?: string
   /** 子菜单样式，mode="inline" 时无效 */
   popupClassName?: string
   /** 子菜单偏移量，mode="inline" 时无效 */

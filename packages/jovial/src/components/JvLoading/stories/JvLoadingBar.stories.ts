@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import JvLoadingBar from '../src/JvLoadingBar.vue'
 
 const meta = {
-  title: 'Components/LoadingBar',
+  title: '反馈组件/JvLoadingBar',
   component: JvLoadingBar,
   tags: ['autodocs'],
   argTypes: {

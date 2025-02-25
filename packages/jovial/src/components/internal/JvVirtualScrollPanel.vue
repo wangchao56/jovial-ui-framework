@@ -88,24 +88,24 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style lang="post" scoped>
+<style lang="css" scoped>
 .virtual-scroll-container {
+  position: relative;
   width: 100%;
   overflow: hidden;
-  position: relative;
 }
 
 .virtual-scroll-wrapper {
   position: absolute;
-  left: 0;
   top: 0;
   right: 0;
+  left: 0;
 }
 
 .virtual-scroll-content {
   position: absolute;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
 }
 </style>

@@ -1,21 +1,35 @@
-:root {
+@b switch {
   --jv-switch-width: 40px;
   --jv-switch-height: 20px;
   --jv-switch-thumb-size: 16px;
-}
+  --jv-theme-background: 255, 255, 255;
+  --jv-theme-primary: 255, 255, 255;
+  --jv-theme-on-primary: 0, 0, 0;
 
-@b switch {
   display: inline-flex;
   position: relative;
+  width: var(--jv-switch-width);
+  height: var(--jv-switch-height);
   cursor: pointer;
   align-items: center;
+  user-select: none;
 
-  @e track {
+  @e core {
     width: var(--jv-switch-width);
     height: var(--jv-switch-height);
-    background: rgb(var(--jv-theme-surface-variant));
+    user-select: inherit;
+    border-radius: calc(var(--jv-switch-height) / 2);
+    border-width: thin;
+    border-style: solid;
+    border-color: #f0f0f0;
+  }
+
+  @e track {
+    background: rgb(var(--jv-theme-background));
     border-radius: calc(var(--jv-switch-height) / 2);
     transition: background-color 0.3s;
+    fill: rgb(var(--jv-theme-background));
+    stroke: rgb(var(--jv-theme-background));
   }
 
   @e thumb {
@@ -23,24 +37,30 @@
     left: 2px;
     width: var(--jv-switch-thumb-size);
     height: var(--jv-switch-thumb-size);
-    background: rgb(var(--jv-theme-on-surface-variant));
+    background: rgb(var(--jv-theme-primary));
+    fill: rgb(var(--jv-theme-primary));
     border-radius: 50%;
     transition: transform 0.3s;
   }
 
-  @m checked {
-    @e track {
+  @when checked {
+    .jv-switch__track {
       background: rgb(var(--jv-theme-primary));
+      fill: rgb(var(--jv-theme-primary));
     }
 
-    @e thumb {
+    .jv-switch__thumb {
       background: rgb(var(--jv-theme-on-primary));
-      transform: translateX(20px);
+      fill: rgb(var(--jv-theme-on-primary));
     }
   }
 
-  @m disabled {
+  @when disabled {
     opacity: var(--jv-disabled-opacity);
     cursor: not-allowed;
+  }
+
+  @when loading {
+    cursor: progress;
   }
 }

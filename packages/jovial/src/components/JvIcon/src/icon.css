@@ -8,12 +8,6 @@
   }
 }
 
-@define-mixin e $element {
-  .jv-icon__$(element) {
-    @mixin-content;
-  }
-}
-
 @define-mixin icon-size $size {
   --jv-icon-size: $size;
 
@@ -32,6 +26,9 @@
   line-height: 1.5rem;
   text-align: center;
   vertical-align: middle;
+  transition-property: color, width, height, transform;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
 
   svg {
     width: 1em;

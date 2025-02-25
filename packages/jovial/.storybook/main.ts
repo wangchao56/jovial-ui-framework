@@ -12,11 +12,14 @@ function getAbsolutePath(value: string): any {
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
-    getAbsolutePath('@storybook/addon-onboarding'),
-    getAbsolutePath('@storybook/addon-essentials'),
-    getAbsolutePath('@chromatic-com/storybook'),
-    getAbsolutePath('@storybook/addon-interactions'),
-    getAbsolutePath('@storybook/addon-a11y'),
+    // getAbsolutePath('@storybook/addon-onboarding'),
+    // getAbsolutePath('@storybook/addon-essentials'),
+    // getAbsolutePath('@storybook/addon-interactions'),
+    '@storybook/addon-onboarding',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    '@storybook/addon-a11y',
+    '@chromatic-com/storybook',
   ],
   framework: {
     name: getAbsolutePath('@storybook/vue3-vite'),
@@ -27,15 +30,11 @@ const config: StorybookConfig = {
       },
     },
   },
-  docs: { defaultName: 'Documentation' },
+  docs: {
+    defaultName: 'Documentation',
+  },
   viteFinal: (config) => {
     return config
-  },
-  refs: {
-    'jovial-ui': {
-      title: 'Jovial UI',
-      url: 'http://localhost:6006',
-    },
   },
 }
 export default config

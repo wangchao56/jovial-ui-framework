@@ -1,5 +1,6 @@
 @b list {
   @m expand {
+
     /* 展开/收起动画 */
     @m enter-active,
     @m leave-active {
@@ -21,6 +22,7 @@
   }
 
   @m fade {
+
     /* 淡入/淡出动画 */
     @m enter-active,
     @m leave-active {
@@ -34,6 +36,7 @@
   }
 
   @m slide {
+
     /* 滑动动画 */
     @m enter-active,
     @m leave-active {
@@ -52,6 +55,7 @@
   }
 
   @m collapse {
+
     /* 折叠动画 */
     @m enter-active,
     @m leave-active {

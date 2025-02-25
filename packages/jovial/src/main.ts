@@ -3,6 +3,7 @@ import Jovial from '@/plugins'
 import ThemePlugin from '@jovial/utils/theme-plugin'
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router'
 import '@jovial/theme-chalk/src/index.css'
 
 const app = createApp(App)
@@ -10,6 +11,7 @@ app.use(Jovial)
 
 // app.use(Jovial)
 app.use(ThemePlugin)
+app.use(router)
 // app.directive('click-outside', directives.ClickOutside)
 // app.directive('badge', directives.Badge)
 app.mount('#app')

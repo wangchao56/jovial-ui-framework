@@ -1,0 +1,32 @@
+@b backTop {
+  position: fixed;
+  cursor: pointer;
+  z-index: 10;
+
+  @e icon {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    font-size: 20px;
+    transition: background-color 0.3s;
+    background-color: #fff;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: #f2f2f2;
+    }
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}

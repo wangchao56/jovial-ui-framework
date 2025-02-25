@@ -184,7 +184,7 @@ function handleInputChange(event: Event) {
   </div>
 </template>
 
-<style lang="post" scoped>
+<style lang="css" scoped>
 .slider {
   display: flex;
   align-items: center;

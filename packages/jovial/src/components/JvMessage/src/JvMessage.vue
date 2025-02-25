@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { JvMessageExpose, JvMessageProps } from './JvMessage'
+import JvButton from '@/components/JvButton/src/JvButton.vue'
 import { useZIndex } from '@/composables'
 import RenderVnode from '@components/internal/RenderVnode'
-import JvButton from '@components/JvButton/src/button.vue'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jovial/utils'
 import { useEventListener, useResizeObserver } from '@vueuse/core'
@@ -144,7 +144,7 @@ const icons = {
   </Transition>
 </template>
 
-<style lang="post" scoped>
+<style lang="css" scoped>
 .fade-up-enter-from,
 .fade-up-leave-to {
   opacity: 0;

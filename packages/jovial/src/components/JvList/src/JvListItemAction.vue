@@ -27,7 +27,7 @@ const classes = computed(() => [
   </component>
 </template>
 
-<style lang="post" scoped>
+<style lang="css" scoped>
 .jv-list-item-action {
   display: flex;
   padding: 0.5rem;

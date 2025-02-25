@@ -1,20 +1,11 @@
 <script setup lang="ts">
-import type { JvDividerProps } from './JvDivider'
 import { createNamespace } from '@jovial/utils'
+import { jvDividerProps } from './JvDivider'
 
 defineOptions({ name: 'JvDivider' })
-const props = withDefaults(defineProps<JvDividerProps>(), {
-  title: '',
-  titlePosition: 'center',
-  color: '',
-  direction: 'horizontal',
-  strokeWidth: 1,
-  length: 'full',
-  dashed: false,
-  margin: 16,
-  titleBackground: '#ffffff',
-})
+const props = defineProps(jvDividerProps)
 const bem = createNamespace('divider')
+const dividerRef = useTemplateRef('divider')
 const leftGap = computed(() => {
   switch (props.titlePosition) {
     case 'left':
@@ -51,54 +42,20 @@ const dividerStyle = computed(() => ({
   '--jv-divider-margin': `${props.margin}px`,
   '--jv-divider-stroke-width': `${props.strokeWidth}px`,
   '--jv-divider-title-bg': props.titleBackground,
+  '--jv-divider-text-align': props.titlePosition,
+  '--jv-divider-transform': directionTransform.value,
+  '--jv-divider-width': lengthComputed.value,
+  '--jv-divider-after-left': leftGap.value,
 }))
+defineExpose({
+  // 暴露根元素
+  root: dividerRef,
+})
 </script>
 
 <template>
   <hr
-    :class="[bem.b(), bem.is('dashed', dashed), bem.is('title', !!title)]"
-    :data-title="title"
+    ref="divider" :class="[bem.b(), bem.is('dashed', dashed), bem.is('title', !!title)]" :data-title="title"
     :style="dividerStyle"
   >
 </template>
-
-<style lang="post" scoped>
-hr {
-  --jv-divider-bg-color: #c8c8c8;
-  --jv-divider-margin: 16px;
-  --jv-divider-stroke-width: 1px;
-  --jv-divider-title-bg: #fff;
-
-  position: relative;
-  width: v-bind(lengthComputed);
-  height: 0;
-  margin: var(--jv-divider-margin) 0;
-  border: none;
-  text-align: v-bind(titlePosition);
-  transform: v-bind(directionTransform);
-  overflow: visible;
-  border-top: var(--jv-divider-stroke-width) solid;
-  border-color: var(--jv-divider-bg-color);
-  transform-origin: center;
-}
-
-.is-dashed {
-  border-style: dashed;
-}
-
-.is-title {
-  &::after {
-    position: absolute;
-    top: 50%;
-    left: v-bind(leftGap);
-    width: max-content;
-    padding: 0 10px;
-    background: var(--jv-divider-title-bg);
-    color: var(--jv-divider-bg-color);
-    font-size: 14px;
-    line-height: 20px;
-    transform: translate(-50%, -50%);
-    content: attr(data-title);
-  }
-}
-</style>

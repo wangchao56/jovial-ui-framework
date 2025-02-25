@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import type { ScrollPanelOptions } from './types'
+import type { ScrollPanelExpose, ScrollPanelOptions } from './types'
 import BScroll from '@better-scroll/core'
 import MouseWheel from '@better-scroll/mouse-wheel'
+import ObserveDOM from '@better-scroll/observe-dom'
 import ScrollBar from '@better-scroll/scroll-bar'
-import { createNamespace } from '@jovial/utils'
+import { convertToUnit, createNamespace } from '@jovial/utils'
+import { useResizeObserver } from '@vueuse/core'
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 defineOptions({
@@ -70,6 +72,7 @@ const props = defineProps({
 const emit = defineEmits(['scrollStart', 'scroll', 'scrollEnd'])
 BScroll.use(ScrollBar)
 BScroll.use(MouseWheel)
+BScroll.use(ObserveDOM)
 interface ScrollMode {
   vertical?: boolean
   horizontal?: boolean
@@ -84,29 +87,43 @@ const verticalBarRef = ref<HTMLElement>()
 const horizontalBarRef = ref<HTMLElement>()
 const { scrollbar, options } = toRefs(props)
 const finalWidth = computed(() => {
+  if (!props.width)
+    return '100%'
   if (typeof props.width === 'number')
-    return `${props.width}px`
-  return props.width.endsWith('px') ? props.width : `${props.width}px`
+    return convertToUnit(props.width, 'px')
+  return props.width
 })
 
 const finalHeight = computed(() => {
+  if (!props.height)
+    return '100%'
   if (typeof props.height === 'number')
-    return `${props.height}px`
-  return props.height.endsWith('px') ? props.height : `${props.height}px`
+    return convertToUnit(props.height, 'px')
+  return props.height
 })
+// 识别是否是移动端
+const isMobile = computed(() => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent,
+  )
+})
+
 async function initOptions() {
   if (!verticalBarRef.value || !horizontalBarRef.value)
     return
   // warn:自定义滚动条 下标0为水平滚动条，下标1为垂直滚动条
   const customScrollBar = [horizontalBarRef.value, verticalBarRef.value]
+
   const initOptions = computed<ScrollPanelOptions>(() => ({
+    observeDOM: true,
     freeScroll: true,
-    click: props.click,
+    click: isMobile.value ? true : props.click,
+    disableTouch: !isMobile.value,
     probeType: props.probeType,
     scrollY: props.scrollMode.vertical,
     scrollX: props.scrollMode.horizontal,
     mouseWheel: {
-      speed: 10,
+      speed: 20,
       invert: false,
       easeTime: props.scrollDelay,
     },
@@ -152,9 +169,17 @@ function initScroll(finalOptions: ScrollPanelOptions) {
   bscroll.value = new BScroll(wrapperRef.value, finalOptions) as BScroll
   // 事件绑定
   bscroll.value?.on('scrollStart', () => emit('scrollStart'))
-  bscroll.value?.on('scroll', (pos: { x: number, y: number }) => emit('scroll', pos))
+  bscroll.value?.on('scroll', (pos: { x: number, y: number }) =>
+    emit('scroll', pos))
   bscroll.value?.on('scrollEnd', () => emit('scrollEnd'))
 }
+
+// 动态的计算滚动条的长度
+
+const resizeObserver = useResizeObserver(wrapperRef, () => {
+  bscroll.value?.refresh()
+  // 如果是pc端，则不进行刷新
+})
 
 onMounted(async () => {
   const finalOptions = await initOptions()
@@ -163,126 +188,64 @@ onMounted(async () => {
   initScroll(finalOptions)
 })
 
-watch(() => props.disabled, (val) => {
-  if (val) {
-    bscroll.value?.disable()
-  }
-  else {
-    bscroll.value?.enable()
-  }
-})
+watch(
+  () => props.disabled,
+  (val) => {
+    if (val) {
+      bscroll.value?.disable()
+    }
+    else {
+      bscroll.value?.enable()
+    }
+  },
+)
 
 onBeforeUnmount(() => {
   bscroll.value?.destroy()
+  resizeObserver.stop()
 })
 
-defineExpose({
+function handleKeydown(e: KeyboardEvent) {
+  // eslint-disable-next-line no-console
+  console.log(e)
+}
+defineExpose<ScrollPanelExpose>({
   refresh: () => bscroll.value?.refresh(),
-  scrollTo: (x: number, y: number, time = 300) => bscroll.value?.scrollTo(x, y, time),
-  instance: bscroll,
+  scrollTo: (x: number, y: number, time = 300) =>
+    bscroll.value?.scrollTo(x, y, time),
+  instance: bscroll.value as BScroll,
 })
 </script>
 
 <template>
   <div
+    ref="wrapperRef"
     :class="[
-      bem.b(),
+      bem.e('wrapper'),
       bem.is('disabled', disabled),
       bem.m(`mode-${scrollMode.vertical ? 'vertical' : 'horizontal'}`),
     ]"
     :style="{ width: finalWidth, height: finalHeight }"
+    @keydown="handleKeydown"
   >
-    <div ref="wrapperRef" :class="bem.e('wrapper')">
-      <div :class="bem.e('content')">
-        <slot />
-      </div>
-      <!-- custom-vertical-scrollbar -->
-      <div v-if="scrollbar" ref="verticalBarRef" class="custom-vertical-scrollbar">
-        <div class="custom-vertical-indicator" />
-      </div>
-      <!-- custom-horizontal-scrollbar -->
-      <div v-if="scrollbar" ref="horizontalBarRef" class="custom-horizontal-scrollbar">
-        <div class="custom-horizontal-indicator" />
-      </div>
+    <div :class="bem.e('content')">
+      <slot :ref="wrapperRef" />
+    </div>
+    <!-- custom-vertical-scrollbar -->
+    <div
+      v-if="scrollbar"
+      ref="verticalBarRef"
+      class="custom-vertical-scrollbar"
+    >
+      <div class="custom-vertical-indicator" />
+    </div>
+    <!-- custom-horizontal-scrollbar -->
+    <div
+      v-if="scrollbar"
+      ref="horizontalBarRef"
+      class="custom-horizontal-scrollbar"
+    >
+      <div class="custom-horizontal-indicator" />
     </div>
   </div>
 </template>
-
-<style lang="post" scoped>
-@b scroll-panel {
-  position: relative;
-  overflow: hidden;
-
-  @e wrapper {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-
-  @e content {
-    min-height: max-content;
-    min-width: max-content;
-    box-sizing: border-box;
-  }
-
-  @m disabled {
-    opacity: 0.6;
-    pointer-events: none;
-  }
-
-  @m mode-vertical {
-    .jv-scroll-box__wrapper {
-      overflow-y: hidden;
-    }
-  }
-
-  @m mode-horizontal {
-    .jv-scroll-box__wrapper {
-      overflow-x: hidden;
-    }
-  }
-}
-
-.custom-vertical-scrollbar {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 10px;
-  height: 100%;
-  background-color: rgba(200, 200, 200, 0.3);
-  /* 鼠标悬停时 */
-  &:hover {
-    background-color: rgba(200, 200, 200, 0.6);
-  }
-  .custom-vertical-indicator {
-    background-color: #697572;
-    width: 100%;
-    height: 40px;
-    border-radius: 25px;
-  }
-}
-
-.custom-horizontal-scrollbar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 10px;
-  transform: translateZ(0);
-  background-color: rgba(200, 200, 200, 0.3);
-  &:hover {
-    background-color: rgba(200, 200, 200, 0.6);
-  }
-  .custom-horizontal-indicator {
-    background-color: #697572b5;
-    width: 40px;
-    height: 100%;
-    border-radius: 25px;
-    &:hover {
-      background-color: #697572;
-      cursor: pointer;
-      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    }
-  }
-}
-</style>

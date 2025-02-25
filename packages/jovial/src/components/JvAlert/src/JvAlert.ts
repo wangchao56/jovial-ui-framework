@@ -1,42 +1,44 @@
+import type { ExtractPropTypes, PropType, Slot } from 'vue'
+
 export const jvAlertProps = {
+  /** 类型 */
   type: {
-    type: String,
+    type: String as PropType<'success' | 'info' | 'warning' | 'error'>,
     default: 'info',
   },
-  message: {
-    type: String,
+  /** 标题 */
+  title: {
+    type: String as PropType<string>,
     required: true,
   },
+  /** 描述 */
+  description: {
+    type: String as PropType<string>,
+    default: '',
+  },
+  /** 是否显示关闭按钮 */
   closable: {
     type: Boolean,
     default: false,
   },
+  /** 关闭按钮文字 */
   closeText: {
-    type: String,
+    type: String as PropType<string>,
     default: '',
   },
+  /** 是否显示图标 */
   showIcon: {
     type: Boolean,
     default: false,
   },
+  /** 自定义icon名称 */
+  icon: {
+    type: String as PropType<string>,
+    default: '',
+  },
 } as const
 
-export interface JvAlertProps {
-  /** 类型 */
-  type?: 'success' | 'info' | 'warning' | 'error'
-  /** 标题 */
-  title: string
-  /** 描述 */
-  description: string
-  /** 是否显示关闭按钮 */
-  closable?: boolean
-  /** 关闭按钮文字 */
-  closeText?: string
-  /** 是否显示图标 */
-  showIcon?: boolean
-  /** 自定义icon名称 */
-  icon?: string
-}
+export type JvAlertProps = ExtractPropTypes<typeof jvAlertProps>
 
 export interface JvAlertEmits {
   /** 关闭弹窗 */
@@ -45,7 +47,7 @@ export interface JvAlertEmits {
 
 export interface JvAlertSlots {
   /** 默认插槽 */
-  default: () => void
+  default: Slot
 }
 
 export interface JvAlertExpose {

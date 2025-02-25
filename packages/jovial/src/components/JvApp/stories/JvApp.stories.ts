@@ -5,7 +5,7 @@ import { ref } from 'vue'
 import JvApp from '../src/JvApp.vue'
 
 const meta = {
-  title: 'Components/App',
+  title: '配置组件/JvApp',
   component: JvApp,
   tags: ['autodocs'],
   argTypes: {

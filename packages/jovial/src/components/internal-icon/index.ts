@@ -1,7 +1,10 @@
 import type { App } from 'vue'
 import AlertOutline from './AlertOutline'
 import AlienOutline from './AlienOutline'
+import ArrowUpBold from './ArrowUpBold.vue'
 import CheckOutline from './CheckOutline'
+import ChevronLeft from './ChevronLeft.vue'
+import ChevronRight from './ChevronRight.vue'
 import IconCloseThick from './close-thick'
 import IconEyeOff from './IconEyeOff'
 import IconEyeOn from './IconEyeOn'
@@ -30,10 +33,13 @@ export const internalIcons = {
   $starHalfFull: StarHalfFull,
   $radio: Radio,
   $radioOutline: RadioOutline,
+  $chevronLeft: ChevronLeft,
+  $chevronRight: ChevronRight,
+  $arrowUpBold: ArrowUpBold,
 }
 export default {
   install(app: App) {
-    const components = [AlertOutline, AlienOutline, CheckOutline, IconCloseThick, IconEyeOff, IconEyeOn, InfoOutline, Loading, Star, StarOutline, Switcher, Radio, RadioOutline]
-    components.forEach(component => app.component(component.name, component))
+    const components = [AlertOutline, AlienOutline, CheckOutline, IconCloseThick, IconEyeOff, IconEyeOn, InfoOutline, Loading, Star, StarOutline, Switcher, Radio, RadioOutline, ChevronLeft, ChevronRight, ArrowUpBold]
+    components.forEach(component => app.component(component.name ?? '', component))
   },
 }

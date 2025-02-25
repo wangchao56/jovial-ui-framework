@@ -1,4 +1,4 @@
-import type { VNodeChild } from 'vue'
+import type { Slot } from 'vue'
 
 /** 轮播方向 */
 export type CarouselDirection = 'horizontal' | 'vertical'
@@ -101,11 +101,11 @@ export interface JvCarouselEmits {
 
 export interface JvCarouselSlots {
   /** 轮播内容 */
-  default?: () => VNodeChild
+  default?: Slot
   /** 自定义指示器 */
-  indicator?: (props: { index: number, active: boolean }) => VNodeChild
+  indicator?: Slot<{ key: PropertyKey, index: number, active: boolean }>
   /** 自定义箭头 */
-  arrow?: (props: { prev: () => void, next: () => void }) => VNodeChild
+  arrow?: Slot<{ key: PropertyKey, prev: () => void, next: () => void }>
 }
 
 export interface JvCarouselExpose {

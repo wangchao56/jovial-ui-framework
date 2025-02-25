@@ -1,137 +1,124 @@
-// // @ts-nocheck
-// /* eslint-disable */
+import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
+import { defineComponent, h } from 'vue'
+import { Color } from '../index'
 
-// // Vue
-// // import Vue from 'vue'
+describe('color.ts', () => {
+  const createWrapper = (directive = {}) => {
+    return mount(defineComponent({
+      data: () => ({
+        color: '',
+      }),
+      render() {
+        return h('div', {
+          directives: [{
+            ...directive,
+            value: this.color,
+          }],
+        })
+      },
+    }), {
+      global: {
+        directives: {
+          Color,
+        },
+        provide: {
+          $vuetify: {
+            theme: {
+              currentTheme: {
+                primary: '#1976d2',
+              },
+            },
+          },
+        },
+      },
+    })
+  }
 
-// // Directives
-// // import Color from '../'
+  describe('背景颜色测试', () => {
+    it('应该正确设置背景颜色', async () => {
+      const wrapper = createWrapper({
+        name: 'Color',
+      })
 
-// // Utilities
-// import {
-//   mount,
-//   Wrapper,
-// } from '@vue/test-utils'
+      await wrapper.setData({ color: '#01f' })
+      expect(wrapper.element.style.backgroundColor).toBe('rgb(0, 17, 255)')
+      expect(wrapper.element.style.borderColor).toBe('#01f')
 
-// describe.skip('color.ts', () => {
-//   let mountFunction: () => Wrapper<Vue>
+      await wrapper.setData({ color: 'rgb(255, 255, 0)' })
+      expect(wrapper.element.style.backgroundColor).toBe('rgb(255, 255, 0)')
+      expect(wrapper.element.style.borderColor).toBe('rgb(255, 255, 0)')
 
-//   beforeEach(() => {
-//     mountFunction = (directive = {}) => {
-//       return mount(Vue.component('test', {
-//         directives: { Color },
-//         data: () => ({
-//           color: '',
-//         }),
-//         render (h) {
-//           return h('div', {
-//             directives: [{
-//               ...directive,
-//               value: this.color,
-//             }],
-//           })
-//         },
-//       }), {
-//         mocks: {
-//           $vuetify: {
-//             theme: {
-//               currentTheme: {
-//                 primary: '#1976d2',
-//               },
-//             },
-//           },
-//         },
-//       })
-//     }
-//   })
+      await wrapper.setData({ color: 'primary' })
+      expect(wrapper.element.style.backgroundColor).toBe('rgb(25, 118, 210)')
+      expect(wrapper.element.style.borderColor).toBe('#1976d2')
+    })
+  })
 
-//   it('should set background color', async () => {
-//     const wrapper = mountFunction({
-//       name: 'color',
-//     })
+  describe('文本颜色测试', () => {
+    it('应该正确设置文本颜色', async () => {
+      const wrapper = createWrapper({
+        name: 'Color',
+        arg: 'text',
+      })
 
-//     wrapper.setData({ color: '#01f' })
-//     expect(wrapper.element.style.backgroundColor).toEqual('rgb(0, 17, 255)')
-//     expect(wrapper.element.style.borderColor).toEqual('#01f')
+      await wrapper.setData({ color: '#01f' })
+      expect(wrapper.element.style.color).toBe('rgb(0, 17, 255)')
+      expect(wrapper.element.style.caretColor).toBe('#01f')
 
-//     wrapper.setData({ color: 'rgb(255, 255, 0)' })
-//     expect(wrapper.element.style.backgroundColor).toEqual('rgb(255, 255, 0)')
-//     expect(wrapper.element.style.borderColor).toEqual('rgb(255, 255, 0)')
+      await wrapper.setData({ color: 'rgba(0, 1, 2, 0.5)' })
+      expect(wrapper.element.style.color).toBe('rgba(0, 1, 2, 0.5)')
+      expect(wrapper.element.style.caretColor).toBe('rgba(0, 1, 2, 0.5)')
 
-//     wrapper.setData({ color: 'red' })
-//     expect(wrapper.element.style.backgroundColor).toEqual('rgb(244, 67, 54)')
-//     expect(wrapper.element.style.borderColor).toEqual('#f44336')
+      await wrapper.setData({ color: 'primary' })
+      expect(wrapper.element.style.color).toBe('rgb(25, 118, 210)')
+      expect(wrapper.element.style.caretColor).toBe('#1976d2')
+    })
+  })
 
-//     wrapper.setData({ color: 'red lighten-1' })
-//     expect(wrapper.element.style.backgroundColor).toEqual('rgb(239, 83, 80)')
-//     expect(wrapper.element.style.borderColor).toEqual('#ef5350')
+  describe('边框颜色测试', () => {
+    it('应该正确设置边框颜色', async () => {
+      const wrapper = createWrapper({
+        name: 'Color',
+        arg: 'border',
+      })
 
-//     wrapper.setData({ color: 'primary' })
-//     expect(wrapper.element.style.backgroundColor).toEqual('rgb(25, 118, 210)')
-//     expect(wrapper.element.style.borderColor).toEqual('#1976d2')
-//   })
+      await wrapper.setData({ color: '#01f' })
+      expect(wrapper.element.style.borderColor).toBe('#01f')
 
-//   it('should set text color', async () => {
-//     const wrapper = mountFunction({
-//       name: 'color',
-//       arg: 'text',
-//     })
+      await wrapper.setData({ color: 'rgb(255, 255, 0)' })
+      expect(wrapper.element.style.borderColor).toBe('rgb(255, 255, 0)')
 
-//     wrapper.setData({ color: '#01f' })
-//     expect(wrapper.element.style.color).toEqual('rgb(0, 17, 255)')
-//     expect(wrapper.element.style.caretColor).toEqual('#01f')
+      await wrapper.setData({ color: 'primary' })
+      expect(wrapper.element.style.borderColor).toBe('#1976d2')
+    })
 
-//     wrapper.setData({ color: 'rgba(0, 1, 2, 0.5)' })
-//     expect(wrapper.element.style.color).toEqual('rgba(0, 1, 2, 0.5)')
-//     expect(wrapper.element.style.caretColor).toEqual('rgba(0, 1, 2, 0.5)')
+    it('应该正确处理边框方向修饰符', async () => {
+      const wrapper = createWrapper({
+        name: 'Color',
+        arg: 'border',
+        modifiers: { top: true, right: true, left: true },
+      })
 
-//     wrapper.setData({ color: 'red' })
-//     expect(wrapper.element.style.color).toEqual('rgb(244, 67, 54)')
-//     expect(wrapper.element.style.caretColor).toEqual('#f44336')
+      await wrapper.setData({ color: '#fff' })
+      expect(wrapper.element.style.borderTopColor).toBe('#fff')
+      expect(wrapper.element.style.borderRightColor).toBe('#fff')
+      expect(wrapper.element.style.borderLeftColor).toBe('#fff')
+      expect(wrapper.element.style.borderBottomColor).toBe('')
+      expect(wrapper.element.style.borderColor).toBe('')
+    })
+  })
 
-//     wrapper.setData({ color: 'red lighten-1' })
-//     expect(wrapper.element.style.color).toEqual('rgb(239, 83, 80)')
-//     expect(wrapper.element.style.caretColor).toEqual('#ef5350')
+  describe('渐变颜色测试', () => {
+    it('应该正确设置渐变颜色', async () => {
+      const wrapper = createWrapper({
+        name: 'Color',
+        arg: 'gradient',
+      })
 
-//     wrapper.setData({ color: 'primary' })
-//     expect(wrapper.element.style.color).toEqual('rgb(25, 118, 210)')
-//     expect(wrapper.element.style.caretColor).toEqual('#1976d2')
-//   })
-
-//   it('should set border color', async () => {
-//     const wrapper = mountFunction({
-//       name: 'color',
-//       arg: 'border',
-//     })
-
-//     wrapper.setData({ color: '#01f' })
-//     expect(wrapper.element.style.borderColor).toEqual('#01f')
-
-//     wrapper.setData({ color: 'rgb(255, 255, 0)' })
-//     expect(wrapper.element.style.borderColor).toEqual('rgb(255, 255, 0)')
-
-//     wrapper.setData({ color: 'red' })
-//     expect(wrapper.element.style.borderColor).toEqual('#f44336')
-
-//     wrapper.setData({ color: 'red lighten-1' })
-//     expect(wrapper.element.style.borderColor).toEqual('#ef5350')
-
-//     wrapper.setData({ color: 'primary' })
-//     expect(wrapper.element.style.borderColor).toEqual('#1976d2')
-//   })
-
-//   it('should respect border sides modifiers', async () => {
-//     const wrapper = mountFunction({
-//       name: 'color',
-//       arg: 'border',
-//       modifiers: { top: true, right: true, left: true },
-//     })
-
-//     wrapper.setData({ color: '#fff' })
-//     expect(wrapper.element.style.borderTopColor).toEqual('#fff')
-//     expect(wrapper.element.style.borderRightColor).toEqual('#fff')
-//     expect(wrapper.element.style.borderLeftColor).toEqual('#fff')
-//     expect(wrapper.element.style.borderBottomColor).toEqual('')
-//     expect(wrapper.element.style.borderColor).toEqual('')
-//   })
-// })
+      await wrapper.setData({ color: 'to right, primary, #ff0' })
+      expect(wrapper.element.style.backgroundImage)
+        .toBe('linear-gradient(to right, rgb(25, 118, 210), rgb(255, 255, 0))')
+    })
+  })
+})

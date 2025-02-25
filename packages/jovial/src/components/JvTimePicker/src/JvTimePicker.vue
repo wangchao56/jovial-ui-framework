@@ -1,28 +1,14 @@
 <script setup lang="ts">
-import type { JvTimePickerEmits, JvTimePickerProps } from './JvTimePicker'
+import type { JvTimePickerEmits } from './JvTimePicker'
 import JvScrollBox from '@/components/internal/JvScrollPanel.vue'
 import JvPopper from '@/components/JvPopper/src/popper.vue'
 import { createNamespace } from '@jovial/utils'
 import { addHours, addMinutes, addSeconds, format } from 'date-fns'
 import { computed, nextTick, ref, watch } from 'vue'
+import { jvTimePickerProps } from './JvTimePicker'
 import '../style/style.css'
 
-const props = withDefaults(defineProps<JvTimePickerProps>(), {
-  hourFormat: '24',
-  showSecond: true,
-  format: 'HH:mm:ss',
-  minTime: '00:00:00',
-  maxTime: '23:59:59',
-  allowClear: true, // 是否允许清空
-  disabled: false, // 是否禁用
-  placeholder: '请选择时间', // 占位符
-  clearText: '清空', // 清空按钮文本
-  confirmText: '确定', // 确定按钮文本
-  cancelText: '取消', // 取消按钮文本
-  hourText: '时', // 小时文本
-  minuteText: '分', // 分钟文本
-  secondText: '秒', // 秒文本
-})
+const props = defineProps(jvTimePickerProps)
 
 const emit = defineEmits<JvTimePickerEmits>()
 

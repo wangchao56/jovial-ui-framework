@@ -1,9 +1,8 @@
-import type { IconifyIcon } from '@iconify/vue'
 import type { Size } from '@jovial/typings'
 
 import type { PropType } from 'vue'
 
-export const iconProps = {
+export const jvIconProps = {
   /** 图标大小 */
   size: {
     type: [String, Number] as PropType<Size | string | number>,
@@ -14,27 +13,10 @@ export const iconProps = {
     type: String,
     default: 'currentColor',
   },
+  /** 图标名称 */
   name: {
-    type: String,
-  },
-  fill: {
     type: String,
   },
 } as const
 
-export const iconSlots = {
-  default: {
-    type: String,
-  },
-}
-
-export interface IconProps {
-  /** 图标大小 */
-  size?: Size | string | number
-  /** 图标颜色 */
-  color?: string
-  /** 图标名称 */
-  name?: string | keyof IconifyIcon
-  /** 图标填充 */
-  fill?: string
-}
+export type JvIconProps = ExtractPropTypes<typeof jvIconProps>

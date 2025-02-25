@@ -83,7 +83,7 @@ export interface JvPaginationEmits {
   /** 每页条数改变时触发 */
   (e: 'update:pageSize', size: number): void
   /** 页码改变时触发 */
-  (e: 'change', page: number, pageSize: number): void
+  (e: 'change', page: number, pageSize: number, total: number): void
 }
 
 export interface JvPaginationSlots {

@@ -1,8 +1,7 @@
 import type { Ref } from 'vue'
 import type { I18n, useI18n } from 'vue-i18n'
 import type { LocaleInstance, LocaleMessages, LocaleOptions } from '../types'
-import { useProxiedModel } from '@jovial/utils'
-import { watch } from 'vue'
+import { useModel, watch } from 'vue'
 
 /**
  * Vue I18n适配器参数接口
@@ -22,7 +21,7 @@ interface VueI18nAdapterParams {
  * @returns 响应式引用
  */
 function useProvided<T>(props: any, prop: string, provided: Ref<T>) {
-  const internal = useProxiedModel(props, prop)
+  const internal = useModel(props, prop)
   internal.value = props[prop] ?? provided.value
 
   watch(provided, (v) => {

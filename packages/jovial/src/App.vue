@@ -1,56 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import JvApp from './components/JvApp/src/JvApp.vue'
-import { JvButton } from './components/JvButton'
-import { useTheme } from './components/theme'
-import TestTable from './pages/test-table.vue'
 
 const themeName = ref('light')
-const theme = useTheme()
-
-function toggleTheme() {
-  const newTheme = theme.name.value === 'light' ? 'dark' : 'light'
-  theme.switch(newTheme)
-}
-// 监控 webstorage 的变化
-window.addEventListener('storage', () => {
-  themeName.value = localStorage.getItem('theme') ?? 'light'
-})
-
-const pRef = ref<HTMLElement>()
-const isOpenTooltip = ref(false)
-// 测试torefs是否具有响应性
-const testContent = ref('当前方向bottom-start')
-// eslint-disable-next-line unused-imports/no-unused-vars
-function toggleTooltip() {
-  // 测试torefs是否具有响应性
-  testContent.value = '当前方向bottom-start 2323'
-  isOpenTooltip.value = !isOpenTooltip.value
-}
-// eslint-disable-next-line unused-imports/no-unused-vars
-function tooltipVisibleChange(_val: boolean) {
-  console.log('tooltipVisibleChange', _val)
-}
 </script>
 
 <template>
   <JvApp :theme="themeName">
-    <JvContainer>
-      <JvHeader>
-        <JvSpace>
-          <p ref="pRef" v-tooltip:right.click="{ content: '当前方向bottom-start' }">
-            当前方向bottom-start
-          </p>
-          <!-- 切换主题 -->
-          <JvButton @click="toggleTheme">
-            切换主题
-          </JvButton>
-        </JvSpace>
-      </JvHeader>
-      <JvMain>
-        <TestTable />
-      </JvMain>
-    </JvContainer>
+    <RouterView />
   </JvApp>
 </template>
 

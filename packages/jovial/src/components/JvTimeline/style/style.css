@@ -1,2 +1,77 @@
-@b timeline {
+.jv-timeline {
+  position: relative;
+  padding: 16px;
+
+  &--vertical {
+    .jv-timeline__item {
+      position: relative;
+      padding-bottom: 20px;
+      padding-left: 28px;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+
+    .jv-timeline__dot {
+      position: absolute;
+      top: 6px;
+      left: 0;
+    }
+  }
+
+  &--horizontal {
+    display: flex;
+
+    .jv-timeline__item {
+      position: relative;
+      padding-top: 28px;
+      flex: 1;
+
+      &:last-child {
+        flex: none;
+      }
+    }
+
+    .jv-timeline__dot {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__dot {
+    width: 12px;
+    height: 12px;
+    background: var(--jv-primary-color);
+    border-radius: 50%;
+
+    &-inner {
+      width: 100%;
+      height: 100%;
+      background: currentcolor;
+      border-radius: 50%;
+    }
+  }
+
+  &__content {
+    line-height: 1.5;
+  }
+
+  &__title {
+    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  &__text {
+    margin-bottom: 4px;
+    color: var(--jv-text-color-secondary);
+  }
+
+  &__time {
+    color: var(--jv-text-color-third);
+    font-size: 14px;
+  }
 }

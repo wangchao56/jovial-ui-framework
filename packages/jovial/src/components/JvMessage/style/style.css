@@ -1,15 +1,3 @@
-@define-mixin e $element {
-  .jv-message__$(element) {
-    @mixin-content;
-  }
-}
-
-@define-mixin m $modifier {
-  .jv-message--$(modifier) {
-    @mixin-content;
-  }
-}
-
 @b message {
   --jv-message-padding: 8px;
   --jv-message-icon-size: 16px;

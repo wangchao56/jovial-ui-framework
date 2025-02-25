@@ -79,7 +79,7 @@ function afterLeave() {
   </Transition>
 </template>
 
-<style lang="post" scoped>
+<style lang="css" scoped>
 .overlay-fade-enter-active,
 .overlay-fade-leave-active {
   transition: background-color 0.3s;

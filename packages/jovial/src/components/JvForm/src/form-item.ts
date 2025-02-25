@@ -17,31 +17,64 @@ export type FormValidateCallback = (
   invalidFields?: ValidateFieldsError
 ) => Promise<void> | void
 export const formItemProps = {
+  /**
+   * 表单项的键名
+   */
   prop: {
     type: [String, Array] as PropType<string | string[]>,
     default: '',
   },
+  /**
+   * 标签
+   */
   label: {
     type: String as PropType<string>,
     default: '',
   },
+  /**
+   * 标签位置
+   */
   labelPosition: {
     type: String as PropType<'left' | 'right'>,
     default: '',
   },
+  /**
+   * 标签宽度
+   */
   labelWidth: [String, Number] as PropType<string | number>,
+  /**
+   * 是否必填
+   */
   required: Boolean,
+  /**
+   * 表单项校验规则
+   */
   rules: [Array, Object] as PropType<FormItemRule[] | FormItemRule>,
+  /**
+   * 表单项校验错误信息
+   */
   error: String,
+  /**
+   * 是否显示校验错误信息
+   */
   showMessage: {
     type: Boolean as PropType<boolean>,
     default: true,
   },
+  /**
+   * 是否显示校验错误信息
+   */
   inlineMessage: Boolean,
+  /**
+   * 是否在行内显示校验信息
+   */
   size: {
     type: String as PropType<Exclude<Size, 'x-large'>>,
     default: '',
   },
+  /**
+   * 表单项校验状态
+   */
   validateStatus: {
     type: String as PropType<ValidateStatusType>,
     default: '',

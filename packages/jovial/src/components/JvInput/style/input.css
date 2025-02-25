@@ -1,23 +1,5 @@
-@define-mixin e $element {
-  .jv-input__$(element) {
-    @mixin-content;
-  }
-}
-
-@define-mixin m $modifier {
-  .jv-input--$(modifier) {
-    @mixin-content;
-  }
-}
-
-@define-mixin when $state {
-  .is-$(state) {
-    @mixin-content;
-  }
-}
-
 @define-mixin input-size $height {
-  --jv-input-height: $height;
+  --jv-input-height: $(height);
 
   height: var(--jv-input-height);
 }

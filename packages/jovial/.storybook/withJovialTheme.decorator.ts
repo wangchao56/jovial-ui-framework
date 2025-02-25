@@ -1,5 +1,4 @@
 // .storybook/withVeutifyTheme.decorator.js
-
 import { h } from 'vue'
 import StoryWrapper from './StoryWrapper.vue'
 

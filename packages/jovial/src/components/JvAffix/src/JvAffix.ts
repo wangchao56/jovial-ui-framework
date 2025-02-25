@@ -28,17 +28,11 @@ export const jvAffixProps = {
   },
 } as const
 
-export interface JvAffixProps {
-  offset?: number
-  bottomOffset?: number
-  position?: 'top' | 'bottom'
-  target?: () => HTMLElement | null | Window
-  zIndex?: number
-}
+export type JvAffixProps = ExtractPropTypes<typeof jvAffixProps>
 
 export interface JvAffixEmits {
-  change: (fixed: boolean) => void
-  scroll: (data: { scrollTop: number, fixed: boolean }) => void
+  (e: 'change', fixed: boolean): void
+  (e: 'scroll', data: { scrollTop: number, fixed: boolean }): void
 }
 
 export interface JvAffixSlots {

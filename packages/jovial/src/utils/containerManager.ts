@@ -3,12 +3,13 @@ interface ContainerOptions {
   namespace?: string
   style?: Partial<CSSStyleDeclaration>
 }
-
-const containerStore = new Map<string, {
+interface ContainerRecord {
   element: HTMLElement
   refCount: number
-  // observers: Set<MutationObserver>
-}>()
+}
+
+// 容器存储
+const containerStore = new Map<string, ContainerRecord>()
 
 // 添加 ID 生成函数
 function generateContainerId(namespace: string) {
@@ -33,7 +34,6 @@ export const containerManager = {
       const container = document.createElement('div')
       container.id = id
       Object.assign(container.style, style)
-
       // const observer = new MutationObserver((mutations) => {
       //   if (container.childElementCount === 0) {
       //     containerManager.releaseContainer(key)

@@ -4,7 +4,9 @@ import { defineComponent } from 'vue'
 
 export const jvMenuDividerProps = {
   dashed: Boolean as PropType<MenuDividerType['dashed']>,
-}
+} as const
+
+export type JvMenuDividerProps = ExtractPropTypes<typeof jvMenuDividerProps>
 
 export default defineComponent({
   name: 'JvMenuDivider',

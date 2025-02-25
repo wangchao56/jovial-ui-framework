@@ -1,9 +1,3 @@
-@define-mixin e $element {
-  .jv-slider__$(element) {
-    @mixin-content;
-  }
-}
-
 @b slider {
   display: flex;
   position: relative;

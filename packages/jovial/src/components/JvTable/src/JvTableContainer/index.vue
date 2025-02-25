@@ -1,18 +1,21 @@
 <script setup lang="ts">
+import type { ScrollPanelExpose } from '@/components/internal/types.ts'
 import type { Slot } from 'vue'
-import type { JvTableColumn } from '../JvTable'
+import type { JvTableColumn, JvTableColumnType } from '../JvTable'
+import type { RenderCellScope, RenderRowScope } from './types.ts'
 import JvScrollPanel from '@/components/internal/JvScrollPanel.vue'
 import { createNamespace } from '@jovial/utils'
 import { useVirtualList } from '@vueuse/core'
-import JvRenderCell from './renderCell.tsx'
-import JvRenderRow from './renderRow.tsx'
-import { JvTableContainerContextKey } from './types.ts'
+import RenderTbody from './renderTbody.tsx'
+import RenderThead from './renderThead.tsx'
+import { JvTableContainerContextKey } from './types'
 
 defineOptions({ name: 'JvTableContainer' })
 const props = defineProps<{
   dataSource: Record<string, any>[]
-  columns: JvTableColumn[]
+  columns: JvTableColumnType[]
   rowHeight: number
+  height: number | string
 }>()
 
 // eslint-disable-next-line unused-imports/no-unused-vars
@@ -20,12 +23,33 @@ const emit = defineEmits<{
   (e: 'rowClick', row: any): void
 }>()
 defineSlots<{
-  cell: Slot<{ record: Record<string, any>, column: JvTableColumn }>
+  row: Slot<RenderRowScope<Record<string, any>>>
+  cell: Slot<RenderCellScope<Record<string, any>>>
 }>()
 
 const { dataSource, columns, rowHeight } = toRefs(props)
 
 const bem = createNamespace('table')
+
+const initDataSourceResult = initDataSource(dataSource.value)
+const flatColumns = initColumns(columns.value)
+// 处理数据
+function initDataSource(dataSource: Record<string, any>[]) {
+  return dataSource.map((item) => {
+    return {
+      ...item,
+    }
+  })
+}
+// 处理columns 拍平 使用flat
+function initColumns(columns: JvTableColumnType[]): JvTableColumn[] {
+  return columns.flatMap((item) => {
+    if ('children' in item) {
+      return initColumns(item.children)
+    }
+    return item
+  })
+}
 
 // eslint-disable-next-line unused-imports/no-unused-vars
 const { list, containerProps, wrapperProps } = useVirtualList(dataSource.value, {
@@ -41,13 +65,16 @@ function handleScrollStart() {
 }
 
 function handleScroll(pos: { x: number, y: number }) {
-  scrollState.scrollX = pos.x
+  scrollState.scrollX = Math.abs(pos.x)
   scrollState.scrollY = pos.y
 }
 
 function handleScrollEnd() {
   scrollState.isScroll = false
 }
+
+const scrollPanelRef = ref<ScrollPanelExpose>()
+
 provide(JvTableContainerContextKey, {
   scrollState: toRef(scrollState),
 })
@@ -55,127 +82,35 @@ provide(JvTableContainerContextKey, {
 
 <template>
   <main :class="bem.b('container')" :style="containerProps">
+    <RenderThead :columns="columns" :scroll-x="scrollState.scrollX" :scroll-y="scrollState.scrollY" @scroll="handleScroll" />
     <JvScrollPanel
-      :class="bem.e('scroll-panel')" width="300" height="200"
+      ref="scrollPanelRef"
       :scroll-mode="{
         vertical: true,
         horizontal: true,
       }"
-      click
+      :height="height"
       scrollbar
       @scroll-start="handleScrollStart"
       @scroll="handleScroll"
       @scroll-end="handleScrollEnd"
     >
-      <table :class="bem.e('native')">
-        <colgroup>
-          <col
-            v-for="(col, idx) in columns"
-            :key="col.key"
-            :span="1"
-            :class="bem.e(`col-${idx}`)"
-          >
-        </colgroup>
-        <thead :class="bem.e('thead')">
-          <tr :class="bem.e('row')">
-            <th
-              v-for="col in columns"
-              :key="col.key"
-              :class="bem.e('cell')"
-            >
-              {{ col.title }}
-            </th>
-          </tr>
-        </thead>
-        <tbody
-          role="rowgroup"
-          :class="bem.e('tbody')"
-        >
-          <JvRenderRow
-            v-for="(record, index) in dataSource"
-            :key="record.id"
-            :record="record"
-            :index="index"
-            :columns="columns"
-          >
-            <template #cell="{ column }">
-              <JvRenderCell :record="record" :column="column" />
-            </template>
-          </JvRenderRow>
-        </tbody>
-      </table>
+      <RenderTbody :data="initDataSourceResult" :columns="flatColumns">
+        <slot
+          v-for="(record, index) in initDataSourceResult" :key="index" name="row" :row="record" :row-index="index"
+          :columns="flatColumns"
+        />
+      </RenderTbody>
     </JvScrollPanel>
   </main>
 </template>
 
-<style lang="post" scoped>
-.jv-table__cell-0 {
-  position: sticky;
-  left: 0;
-  z-index: 1;
-  background-color: #1aad8b;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
+<style lang="css" scoped>
 @b table-container {
   width: 100%;
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 0;
   height: max-content;
-}
-@b table {
-  @e native {
-    width: 600px;
-    border-collapse: collapse;
-  }
-  @e thead {
-    background-color: #fafafa;
-    & > .jv-table__row {
-      & > .jv-table__cell {
-        font-weight: 600;
-        position: relative;
-        &::after {
-          content: '';
-          display: block;
-          width: 1px;
-          height: 1.6em;
-          background-color: #f0f0f0;
-          position: absolute;
-          right: 0;
-          inset-inline-end: 0;
-          top: 50%;
-          transform: translateY(-50%);
-        }
-      }
-    }
-  }
-  @e tbody {
-    background-color: #fff;
-    & > .jv-table__row {
-      border-bottom: 1px solid #f0f0f0;
-      &:hover {
-        background-color: #f5f5f5;
-      }
-    }
-  }
-
-  @e cell {
-    padding: 12px;
-    flex-shrink: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-weight: 500;
-  }
-}
-.jv-table__col-0 {
-  background-color: #1aad8b;
-}
-.jv-table__col-1 {
-  background-color: #1aad8b;
-}
-.jv-table__col-2 {
-  background-color: #1aad8b;
 }
 </style>

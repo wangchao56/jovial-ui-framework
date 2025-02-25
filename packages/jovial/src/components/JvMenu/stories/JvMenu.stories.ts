@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import { ItemType } from '../src/types'
 
 const meta: Meta<typeof JvMenu> = {
-  title: 'Components/Navigation/Menu',
+  title: '导航组件/JvMenu',
   component: JvMenu,
   tags: ['autodocs'],
   argTypes: {

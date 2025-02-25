@@ -1,8 +1,2 @@
-@define-mixin e $element {
-  .jv-grid__$(element) {
-    @mixin-content;
-  }
-}
-
 @b grid {
 }

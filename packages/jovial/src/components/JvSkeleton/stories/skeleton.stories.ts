@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import JvSkeleton from '../index'
 
 const meta: Meta<typeof JvSkeleton> = {
-  title: 'Components/Skeleton 骨架屏',
+  title: '反馈组件/JvSkeleton(骨架屏)',
   component: JvSkeleton,
   tags: ['autodocs'],
   argTypes: {

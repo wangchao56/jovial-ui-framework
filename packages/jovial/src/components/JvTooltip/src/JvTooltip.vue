@@ -127,7 +127,6 @@ function toggleHandler(val: boolean) {
   emit('visibleChange', val)
 }
 function clickOutsideHandler(val: boolean, _evt: MouseEvent) {
-  console.log('clickOutsideHandler', val)
   isOpen.value = val
   emit('visibleChange', val)
 }

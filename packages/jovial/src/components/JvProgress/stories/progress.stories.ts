@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { JvCol, JvColSpace, JvRow } from '@/components/JvLayout'
 import JvTag from '@/components/JvTag/src/JvTag.vue'
+import { JvCol, JvColSpace, JvRow } from '@/components/Layout'
 import { ref } from 'vue'
 import JvProgress from '../src/JvProgress.vue'
 
 const meta: Meta<typeof JvProgress> = {
-  title: 'Components/Progress进度条',
+  title: '数据展示组件/JvProgress',
   component: JvProgress,
   tags: ['autodocs'],
   args: {

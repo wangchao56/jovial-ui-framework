@@ -30,8 +30,8 @@ export interface DebounceToggleHandler {
 }
 /**
  * 防抖控制
- * @param options
- * @returns
+ * @param options 防抖控制选项
+ * @returns 防抖控制返回值
  */
 export function onDebounceToggleHandler(options: DebounceToggleHandlerOptions): DebounceToggleHandler {
   const { openDelay, closeDelay } = options
@@ -96,8 +96,8 @@ interface TriggerSetupReturn {
 
 /**
  * 触发器设置
- * @param options
- * @returns
+ * @param options 触发器设置选项
+ * @returns 触发器设置返回值
  */
 export function setupTriggerEventsAndApplyEffect(options: TriggerSetupOptions): TriggerSetupReturn {
   const eventListeners = shallowReactive<Record<string, EventListener>>({})

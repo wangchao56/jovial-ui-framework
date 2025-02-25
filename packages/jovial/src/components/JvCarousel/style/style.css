@@ -1,9 +1,3 @@
-@define-mixin e $element {
-  .jv-carousel__$(element) {
-    @mixin-content;
-  }
-}
-
 @b carousel {
   position: relative;
   width: 100%;

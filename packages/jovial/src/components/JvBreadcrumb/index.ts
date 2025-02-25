@@ -1,7 +1,7 @@
 import { withInstall } from '@jovial/utils'
-import _breadcrumb from './src/breadcrumb.vue'
+import _breadcrumb from './src/JvBreadcrumb.vue'
 
-export * from './src/breadcrumb'
+export * from './src/JvBreadcrumb'
 
 const JvBreadcrumb = withInstall(_breadcrumb)
 

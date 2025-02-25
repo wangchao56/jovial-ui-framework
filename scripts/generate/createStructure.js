@@ -1,4 +1,3 @@
-// const fs = require('node:fs').promises
 const path = require('node:path')
 // 从命令行参数获取基本目录名称
 const process = require('node:process')
@@ -47,22 +46,14 @@ const fileContents = {
     import { ref } from 'vue';
     import { createNamespace } from '@jovial/utils';
     import { ${toHumpFirstLower(baseName)}Emits, ${toHumpFirstLower(baseName)}Props } from './${baseName}';
+    import "../style/style.css" \n
     defineOptions({ name: '${toHumpFirstUpper(baseName)}' });
     defineProps(${toHumpFirstLower(baseName)}Props);
     defineEmits(${toHumpFirstLower(baseName)}Emits);
     const bem = createNamespace('${toHumpFirstLower(baseName.replace('Jv', ''))}');
     </script>
-    import "../style/style.css"  `,
+    `,
 }
-
-// const styleFileContents = {
-//   [`${baseName}.scss`]: `
-//     @use 'mixins/mixins.scss' as *;
-//     @include b('${baseName}') {
-//       display: block;
-//     }
-//   `,
-// }
 
 // 定义目录结构
 const structure = {
@@ -85,18 +76,8 @@ const structure = {
     },
     'src': fileContents,
     'style': {
-      'style.css': `@import '@jovial/theme-chalk/src/common/mixins.css';
-
-      @define-mixin e $element {
-        .jv-${toHumpFirstLower(baseName.replace('Jv', ''))}__$(element) {
-          @mixin-content;
-        }
-      }
-      @mixin b ${toHumpFirstLower(baseName.replace('Jv', ''))} {}  
-      `,
-      'theme-vars.css': ``,
-      'index.ts': `import './theme-vars.css' 
-      import './style.css'`,
+      'style.css': `@b ${toHumpFirstLower(baseName.replace('Jv', ''))} {}`,
+      'index.ts': `import './style.css'`,
     },
     'index.ts': `
       import _${toHumpFirstUpper(baseName)} from './src/${baseName}.vue';

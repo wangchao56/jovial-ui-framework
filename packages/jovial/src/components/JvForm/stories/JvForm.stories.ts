@@ -7,7 +7,7 @@ import JvForm from '@components/JvForm/src/form.vue'
 import JvInput from '@components/JvInput/src/input.vue'
 
 const meta: Meta<typeof JvForm> = {
-  title: 'Components/JvForm',
+  title: '数据录入组件/JvForm',
   component: JvForm,
   tags: ['autodocs'],
   argTypes: {

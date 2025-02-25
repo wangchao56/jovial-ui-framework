@@ -1,24 +1,51 @@
-export const jvDividerProps = {} as const
-export interface JvDividerProps {
+export const jvDividerProps = {
   /** 标题 */
-  title?: string
+  title: {
+    type: String,
+    default: '',
+  },
   /** 标题位置 */
-  titlePosition?: 'left' | 'center' | 'right'
+  titlePosition: {
+    type: String as PropType<'left' | 'center' | 'right'>,
+    default: 'center',
+  },
   /** 颜色 */
-  color?: string
+  color: {
+    type: String,
+    default: '',
+  },
   /** 虚线 */
-  dashed?: boolean
+  dashed: {
+    type: Boolean,
+    default: false,
+  },
   /** 线条宽度(px) */
-  strokeWidth?: number
+  strokeWidth: {
+    type: Number,
+    default: 1,
+  },
   /** 线条方向 */
-  direction?: 'horizontal' | 'vertical'
-  /** 线条长度 */
-  length?: number | 'full'
+  direction: {
+    type: String as PropType<'horizontal' | 'vertical'>,
+    default: 'horizontal',
+  },
+  /** 线条长度(px) */
+  length: {
+    type: [Number, String] as PropType<number | 'full'>,
+    default: 'full',
+  },
   /** 上下间距(px) */
-  margin?: number
+  margin: {
+    type: Number,
+    default: 16,
+  },
   /** 标题背景色 */
-  titleBackground?: string
-}
+  titleBackground: {
+    type: String,
+    default: '',
+  },
+} as const
+export type JvDividerProps = ExtractPropTypes<typeof jvDividerProps>
 export const jvDividerEmits = {} as const
 export interface JvDividerEmits {}
 export const jvDividerSlots = {} as const

@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import type { JvAvatarEmits, JvAvatarProps } from './avatar'
+import type { JvAvatarEmits } from './avatar'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jovial/utils'
 import { computed, ref } from 'vue'
+import { jvAvatarProps } from './JvAvatar.ts'
 import '../style/style.css'
 
 defineOptions({ name: 'JvAvatar' })
 
-const props = withDefaults(defineProps<JvAvatarProps>(), {
-  size: 'medium',
-  shape: 'circle',
-})
+const props = defineProps(jvAvatarProps)
 const emit = defineEmits<JvAvatarEmits>()
 const bem = createNamespace('avatar')
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { JvNotificationEmits, JvNotificationExpose, JvNotificationProps } from './JvNotification'
+import JvButton from '@/components/JvButton/src/JvButton.vue'
 import { Badge } from '@/directives/index'
-import JvButton from '@components/JvButton/src/button.vue'
 import JvIcon from '@components/JvIcon/src/JvIcon.vue'
 import { createNamespace } from '@jovial/utils'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'

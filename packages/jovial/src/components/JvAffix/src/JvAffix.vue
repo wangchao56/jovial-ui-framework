@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import type { JvAffixEmits, JvAffixProps } from './JvAffix'
+import type { JvAffixEmits } from './JvAffix'
+import { useTheme } from '@/components/theme'
 import { createNamespace } from '@jovial/utils'
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { jvAffixProps } from './JvAffix'
 import '../style/style.css'
 
 defineOptions({ name: 'JvAffix' })
-const props = defineProps<JvAffixProps>()
+const props = defineProps(jvAffixProps)
 const emit = defineEmits<JvAffixEmits>()
 const bem = createNamespace('affix')
 
-const affixRef = ref<HTMLElement>()
-const wrapperRef = ref<HTMLElement>()
+const affixRef = useTemplateRef('affix')
 const fixed = ref(false)
-const scrollTarget = ref<HTMLElement | Window>()
-// const rootTop = ref(0)
+const scrollTarget = ref<HTMLElement | Window | null>(null)
+const theme = useTheme()
 
 // 计算固定样式
 const affixStyle = computed(() => {
@@ -56,7 +57,7 @@ function update() {
   // 如果 props.position 设置为 'top'
   if (props.position === 'top') {
     // 判断 affixRef 是否需要固定
-    const isFixed = affixRect.top - props.offset <= targetRect.top
+    const isFixed = affixRect.top - (props.offset ?? 0) <= targetRect.top
     // 如果固定状态发生了变化
     if (fixed.value !== isFixed) {
       fixed.value = isFixed
@@ -66,7 +67,7 @@ function update() {
   // 如果 props.position 不是 'top'
   else {
     // 判断 affixRef 是否需要固定
-    const isFixed = affixRect.bottom + props.bottomOffset >= targetRect.bottom
+    const isFixed = affixRect.bottom + (props.bottomOffset ?? 0) >= targetRect.bottom
     // 如果固定状态发生了变化
     if (fixed.value !== isFixed) {
       fixed.value = isFixed
@@ -142,9 +143,8 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="affixRef" :class="bem.b()">
+  <div ref="affix" :class="[bem.b(), theme.themeClasses.value]">
     <div
-      ref="wrapperRef"
       :class="[bem.e('wrapper'), bem.is('fixed', fixed)]"
       :style="affixStyle"
     >

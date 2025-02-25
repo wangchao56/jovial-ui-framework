@@ -38,7 +38,7 @@ export interface VariantStyle {
 /**
  * 使用变体的组合式函数
  * @param props - 变体属性
- * @param name - 组件名称
+ * @param _name - 组件名称
  * @returns 变体样式和类名
  */
 export function useVariant(
@@ -105,7 +105,7 @@ export function useVariant(
 /**
  * 变体属性工厂
  * @param props - 属性配置
- * @param name - 组件名称
+ * @param _name - 组件名称
  * @returns 属性定义
  */
 export function defineVariantProps(props = {}, _name = 'variant') {

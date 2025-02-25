@@ -57,22 +57,39 @@ export type Placement =
   | 'right-end'
 
 export type Slot<T extends any[] = any[]> = ((...args: T) => VNodeChild | VNodeChild[]) | undefined
-
+/**
+ * 触发类型
+ */
 export type TriggerType = 'hover' | 'click' | 'focus' | 'contextmenu'
+/**
+ * 按钮类型
+ */
 export type Type =
-  | 'default'
-  | 'primary'
-  | 'success'
-  | 'info'
-  | 'warning'
-  | 'danger'
+  | 'default' // 默认
+  | 'primary' // 主色
+  | 'success' // 成功
+  | 'warning' // 警告
+  | 'error' // 错误
+  | 'danger' // 危险
+  | 'info' // 信息
+/**
+ * 状态
+ */
+export type Status = 'success' | 'warning' | 'error' | 'info' | 'loading' | 'disabled'
+
+/**
+ * 变体
+ */
 export type Variant =
-  | 'text'
-  | 'flat'
-  | 'tonal'
-  | 'plain'
-  | 'elevated'
-  | 'outlined'
+  | 'text' // 文本
+  | 'flat' // 平面
+  | 'tonal' // 色调
+  | 'plain' // 朴素
+  | 'elevated' // 提升
+  | 'outlined' // 轮廓
+/**
+ * 大小
+ */
 export type Size = 'tiny' | 'small' | 'medium' | 'large' | 'x-large'
 export enum SizeOptions {
   'TINY' = 'tiny',

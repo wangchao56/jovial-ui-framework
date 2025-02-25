@@ -1,16 +1,7 @@
-/**
- * Carousel 组件实现了以下功能：
- * 1. 水平和垂直两种方向
- * 2. 滑动和淡入淡出两种动画
- * 3. 自动播放和循环播放
- * 4. 自定义指示器和箭头
- * 5. 鼠标悬停暂停
- * 6. 完整的类型定义
- */
-
 <script setup lang="ts">
 import type { JvCarouselEmits, JvCarouselProps, JvCarouselSlots } from './JvCarousel'
 import JvIcon from '@components/JvIcon'
+import { useLocale } from '@jovial/locale'
 import { createNamespace } from '@jovial/utils'
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import '../style/style.css'
@@ -29,9 +20,9 @@ const props = withDefaults(defineProps<JvCarouselProps>(), {
   loop: true,
   pauseOnHover: true,
 })
-
 const emit = defineEmits<JvCarouselEmits>()
 defineSlots<JvCarouselSlots>()
+const locale = useLocale()
 const bem = createNamespace('carousel')
 
 // 当前激活项
@@ -211,6 +202,7 @@ defineExpose({
     <template v-if="arrow && items.length > 1">
       <template v-if="$slots.arrow">
         <slot
+          :key="locale.t('arrow')"
           name="arrow"
           :prev="prev"
           :next="next"

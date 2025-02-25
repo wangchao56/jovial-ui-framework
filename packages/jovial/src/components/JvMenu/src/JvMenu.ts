@@ -54,6 +54,8 @@ export interface JvMenuProps {
   multiple?: boolean
   /** 变体 */
   variant?: Variant
+  /** 是否启用路由 启用后会使用items中的path作为路由 */
+  router?: boolean
 }
 
 export const jvMenuEmits = {

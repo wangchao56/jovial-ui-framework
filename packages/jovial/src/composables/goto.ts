@@ -148,8 +148,8 @@ export function createGoTo(
  * 滚动到目标位置
  * 作用：根据给定的目标元素和选项滚动到目标位置
  *
- * @param target - 目标元素或偏移量
- * @param options - 选项对象
+ * @param _target - 目标元素或偏移量
+ * @param _options - 选项对象
  * @param horizontal - 是否水平方向（默认false）
  * @param goTo - GoTo实例
  * @returns {Promise<number>} 滚动后的目标位置

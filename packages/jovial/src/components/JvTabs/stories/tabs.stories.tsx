@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { ref } from 'vue'
-import JvTabs from '../src/tabs.vue'
+import JvTabs from '../src/JvTabs.vue'
 
 const meta = {
-  title: 'Navigation/Tabs',
+  title: '导航组件/Tabs',
   component: JvTabs,
   tags: ['autodocs'],
   parameters: {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import JvRadio from '../src/JvRadio.vue'
 
 const meta: Meta<typeof JvRadio> = {
-  title: 'Components/JvRadio',
+  title: '数据录入组件/JvRadio',
   component: JvRadio,
   tags: ['autodocs'],
   args: {

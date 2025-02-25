@@ -1,38 +1,52 @@
+import type { CSSProperties } from 'vue'
+
 export const jvBadgeProps = {
+  /** 数量 */
   count: {
     type: Number,
     required: true,
   },
+  /** 最大值 */
   max: {
     type: Number,
     default: 99,
   },
+  /** 显示小红点 */
   dot: {
     type: Boolean,
     default: false,
   },
+  /** 位置 */
+  position: {
+    type: String as PropType<'top-right' | 'bottom-right' | 'top-left' | 'bottom-left'>,
+    default: 'top-right',
+  },
+  /** 尺寸 */
+  size: {
+    type: String as PropType<'small' | 'medium' | 'large'>,
+    default: 'medium',
+  },
+  /** 圆角 */
+  rounded: {
+    type: Boolean,
+    default: true,
+  },
+  /** 偏移量 */
+  offset: {
+    type: Array as PropType<number[]>,
+    default: () => [0, 0],
+  },
+  /** 自定义样式 */
+  style: {
+    type: Object as PropType<CSSProperties>,
+  },
+  /** 自定义颜色 */
+  color: {
+    type: String,
+  },
 } as const
 
-export interface JvBadgeProps {
-  /** 数量 */
-  count: number
-  /** 最大值 */
-  max?: number
-  /** 显示小红点 */
-  dot?: boolean
-  /** 位置 */
-  position?: 'top-right' | 'bottom-right' | 'top-left' | 'bottom-left'
-  /** 尺寸 */
-  size?: 'small' | 'medium' | 'large'
-  /** 圆角 */
-  rounded?: boolean
-  /** 偏移量[x,y] */
-  offset?: [number, number]
-  /** 自定义样式 */
-  style?: any
-  /** 自定义颜色 */
-  color?: string
-}
+export type JvBadgeProps = ExtractPropTypes<typeof jvBadgeProps>
 
 export const jvBadgeEmits = {
   click: (_event: MouseEvent) => true,

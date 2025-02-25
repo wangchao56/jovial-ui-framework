@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import type { JvTableColumn, JvTableEmits, JvTableExpose } from './JvTable'
-import { createNamespace } from '@jovial/utils'
-import { computed, ref, watch } from 'vue'
-import { jvTableProps } from './JvTable'
+import type { JvTableColumn, JvTableColumnType, JvTableEmits, JvTableExpose } from './JvTable'
+import type { CustomRenderCellScope } from './JvTableContainer/types'
+import { convertToUnit, createNamespace } from '@jovial/utils'
+import { useResizeObserver } from '@vueuse/core'
+import { computed, h, ref, type Slot } from 'vue'
+import { JvTableContextKey, jvTableProps } from './JvTable'
 import JvTableContainer from './JvTableContainer/index.vue'
+import RenderCell from './JvTableContainer/renderCell.tsx'
+import RenderRow from './JvTableContainer/renderRow.tsx'
 import JvTableFooter from './JvTableFooter.vue'
 import JvTableHeader from './JvTableHeader.vue'
 import '../style/table.css'
@@ -11,11 +15,13 @@ import '../style/table.css'
 defineOptions({ name: 'JvTable' })
 const props = defineProps(jvTableProps)
 const emit = defineEmits<JvTableEmits>()
+defineSlots<{
+  cell: Slot<CustomRenderCellScope<Record<string, any>>>
+}>()
 const bem = createNamespace('table')
-
-const containerRef = ref<HTMLElement>()
+const tableRef = ref<HTMLElement>()
 const scrollTop = ref(0)
-const currentSort = ref<{ column?: JvTableColumn, order?: 'asc' | 'desc' }>({})
+const currentSort = ref<{ column?: JvTableColumnType, order?: 'asc' | 'desc' }>({})
 
 // 处理排序
 // eslint-disable-next-line unused-imports/no-unused-vars
@@ -50,8 +56,8 @@ const totalHeight = computed(() => props.dataSource.length * props.rowHeight)
 // 暴露方法
 defineExpose<JvTableExpose>({
   scrollTo: (position: number) => {
-    if (containerRef.value) {
-      containerRef.value.scrollTop = position
+    if (tableRef.value) {
+      tableRef.value.scrollTop = position
     }
   },
   resetSort: () => {
@@ -66,13 +72,6 @@ function handleScroll(event: Event) {
   scrollTop.value = target.scrollTop
 }
 
-// 数据变化监听
-watch(() => props.dataSource, () => {
-  if (containerRef.value) {
-    containerRef.value.scrollTop = 0
-  }
-})
-
 // 分页相关逻辑
 // eslint-disable-next-line unused-imports/no-unused-vars
 const internalData = computed(() => {
@@ -85,11 +84,49 @@ const internalData = computed(() => {
   const start = (current - 1) * pageSize
   return props.dataSource.slice(start, start + pageSize)
 })
+
+const finalWidth = computed(() => {
+  if (props.width)
+    return convertToUnit(props.width)
+  return '100%'
+})
+
+const finalHeight = computed(() => {
+  if (props.height)
+    return convertToUnit(props.height)
+  return '100%'
+})
+const contentRect = ref<DOMRectReadOnly>()
+const resizeObserver = useResizeObserver(tableRef, (entries) => {
+  contentRect.value = entries[0].contentRect
+}, {
+  box: 'border-box',
+})
+
+onUnmounted(() => {
+  resizeObserver.stop()
+})
+
+provide(JvTableContextKey, {
+  contentRect,
+  dataSource: toRef(props, 'dataSource'),
+  columns: toRef(props, 'columns'),
+  rowHeight: toRef(props, 'rowHeight'),
+  pagination: toRef(props, 'pagination'),
+  onPageChange: (page: number, pageSize: number, total: number) => {
+    emit('pageChange', page, pageSize, total)
+  },
+})
 </script>
 
 <template>
   <div
+    ref="tableRef"
     :class="bem.b()"
+    :style="{
+      ...(width ? { width: finalWidth } : {}),
+      ...(height ? { height: finalHeight } : {}),
+    }"
   >
     <JvTableHeader
       title="标题"
@@ -98,29 +135,29 @@ const internalData = computed(() => {
       :data-source="dataSource"
       :columns="columns"
       :row-height="rowHeight"
+      :height="height || 'fit-content'"
       @row-click="emit('rowClick', $event)"
     >
-      <template #row="slotProps">
-        <slot name="row" v-bind="slotProps" />
+      <template #row="{ key: rowKey, row, rowIndex, columns }">
+        <RenderRow :key="rowKey" :row="row" :row-index="rowIndex" :columns="columns">
+          <template #cell="{ key: cellKey, column, row: cellRow, rowIndex: cellRowIndex, columnIndex }">
+            <component
+              :is="h(RenderCell, {
+                key: cellKey,
+                row: cellRow,
+                rowIndex: cellRowIndex,
+                column,
+                columnIndex,
+              }, {
+                default: $slots.cell,
+              })"
+            />
+          </template>
+        </RenderRow>
       </template>
     </JvTableContainer>
     <JvTableFooter
       :pagination="pagination"
-      @page-change="$emit('pageChange', $event)"
     />
   </div>
 </template>
-
-<style lang="post" scoped>
-@b table {
-  width: 360px;
-  height: 300px;
-  border: 1px solid rgb(140 140 140);
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: stretch;
-  overflow: hidden;
-}
-</style>

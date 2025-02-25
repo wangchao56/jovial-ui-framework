@@ -23,17 +23,10 @@ const preview: Preview = {
           name: 'dark',
           value: '#222',
         },
-        {
-          name: 'black',
-          value: '#000',
-        },
-        {
-          name: 'white',
-          value: '#fff',
-        },
       ],
     },
   },
+  tags: ['autodocs'],
 }
 setup((app) => {
   // Registers your app's plugins into Storybook

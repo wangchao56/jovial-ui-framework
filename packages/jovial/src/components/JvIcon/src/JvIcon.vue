@@ -1,51 +1,49 @@
 <script setup lang="ts">
-import type { IconProps } from './icon'
 import { internalIcons } from '@components/internal-icon'
 import { Icon } from '@iconify/vue'
 import { SizeOptions } from '@jovial/typings'
 import { createNamespace, isNumberExcludeNaN, isString } from '@jovial/utils'
 import { useDebounceFn } from '@vueuse/core'
 import { computed, nextTick, ref, watch } from 'vue'
+import { jvIconProps } from './icon'
 import './icon.css'
 
 defineOptions({ name: 'JvIcon' })
-const props = withDefaults(defineProps<IconProps>(), {
-  fill: 'currentColor',
-})
+const { color, size, name } = defineProps(jvIconProps)
 
 const bem = createNamespace('icon')
 const iconRef = ref<HTMLElement | null>(null)
 
 const iconClass = computed(() => {
   const baseClass = bem.b()
-  const sizeClass = isString(props.size) && (props.size as string).toUpperCase() in SizeOptions
-    ? bem.m(props.size as string)
+  const sizeClass = isString(size) && (size as string).toUpperCase() in SizeOptions
+    ? bem.m(size as string)
     : ''
   return [baseClass, sizeClass].filter(Boolean)
 })
 const iconStyle = computed(() => {
   const result = {} as Record<string, string>
 
-  if (props.color) {
-    result.color = props.color
+  if (color) {
+    result.color = color
   }
 
-  if (props.size || isNumberExcludeNaN(props.size)) {
-    result.fontSize = `${props.size}px`
-    result.lineHeight = `${props.size}px`
-    result.width = `${props.size}px`
-    result.height = `${props.size}px`
-    result.maxHeight = `${props.size}px`
-    result.maxWidth = `${props.size}px`
+  if (size || isNumberExcludeNaN(size)) {
+    result.fontSize = `${size}px`
+    result.lineHeight = `${size}px`
+    result.width = `${size}px`
+    result.height = `${size}px`
+    result.maxHeight = `${size}px`
+    result.maxWidth = `${size}px`
   }
   return result
 })
 
-const show = computed(() => props.name && !String(props.name).startsWith('$'))
+const show = computed(() => name && !String(name).startsWith('$'))
 
 const internalIconRender = computed(() => {
-  if (props.name && String(props.name).startsWith('$')) {
-    const iconName = props.name as keyof typeof internalIcons
+  if (name && String(name).startsWith('$')) {
+    const iconName = name as keyof typeof internalIcons
     return internalIcons[iconName]
   }
   return null
@@ -83,9 +81,9 @@ const debouncedSetFill = useDebounceFn((fill: string) => {
   }
 }, 16) // 约一帧的时间
 
-watch(() => [props.fill, props.name], ([newFill, _]) => {
-  if (newFill) {
-    debouncedSetFill(newFill)
+watch(() => [name], ([newName]) => {
+  if (newName) {
+    debouncedSetFill(newName)
   }
 }, { immediate: true })
 
@@ -108,11 +106,11 @@ defineExpose({
       :icon="name"
       :color="color"
     />
-    <internalIconRender v-else />
+    <component :is="internalIconRender" v-else-if="internalIconRender" />
   </i>
 </template>
 
-<style>
+<style lang="css" scoped>
 .jv-icon {
   display: inline-flex;
   align-items: center;

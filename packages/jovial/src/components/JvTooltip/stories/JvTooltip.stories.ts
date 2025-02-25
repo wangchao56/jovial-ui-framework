@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvButton from '@components/JvButton/src/button.vue'
+import JvButton from '@/components/JvButton/src/JvButton.vue'
 import JvTooltip from '@components/JvTooltip/src/JvTooltip.vue'
 import { ref } from 'vue'
 
 const meta: Meta<typeof JvTooltip> = {
-  title: 'Components/JvTooltip',
+  title: '反馈组件/JvTooltip',
   component: JvTooltip,
   argTypes: {
     placement: {

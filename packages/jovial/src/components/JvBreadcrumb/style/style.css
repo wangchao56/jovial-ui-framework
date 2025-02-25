@@ -1,9 +1,3 @@
-@define-mixin e $element {
-  .jv-breadcrumb__$(element) {
-    @mixin-content;
-  }
-}
-
 @b breadcrumb {
   display: flex;
   align-items: center;

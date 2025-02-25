@@ -20,8 +20,9 @@ export interface ObserveDirectiveBinding
     quiet?: boolean
   }
 }
+type HostElement = HTMLElement & { _observe?: Record<string, { init: boolean, observer: IntersectionObserver }> }
 
-function mounted(el: HTMLElement, binding: ObserveDirectiveBinding) {
+function mounted(el: HostElement, binding: ObserveDirectiveBinding) {
   if (!SUPPORTS_INTERSECTION)
     return
 
@@ -58,13 +59,13 @@ function mounted(el: HTMLElement, binding: ObserveDirectiveBinding) {
     options,
   )
 
-  el._observe = new Object(el._observe)
+  el._observe = new Object(el._observe) as Record<string, { init: boolean, observer: IntersectionObserver }>
   el._observe![binding.instance!.$.uid] = { init: false, observer }
 
   observer.observe(el)
 }
 
-function unmounted(el: HTMLElement, binding: ObserveDirectiveBinding) {
+function unmounted(el: HostElement, binding: ObserveDirectiveBinding) {
   const observe = el._observe?.[binding.instance!.$.uid]
   if (!observe)
     return

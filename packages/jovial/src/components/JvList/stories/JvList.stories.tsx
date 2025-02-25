@@ -5,7 +5,7 @@ import JvList from '../src/JvList.setup'
 import { basicListItems, treeData } from './mockData'
 
 const meta = {
-  title: 'Components/List',
+  title: '数据展示组件/JvList',
   component: JvList,
   tags: ['autodocs'],
   argTypes: {

@@ -1,14 +1,39 @@
-export const jvColorPickerProps = {} as const
-export interface JvColorPickerProps {
-  // 组件属性定义
-};
+export const jvColorPickerProps = {
+  /** 选中值 */
+  modelValue: {
+    type: String,
+    default: '#000000',
+  },
+  /** 是否禁用 */
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  /** 是否显示透明度 */
+  showAlpha: {
+    type: Boolean,
+    default: false,
+  },
+  /** 颜色格式 */
+  colorFormat: {
+    type: String,
+    default: 'hex',
+    validator: (value: string) => ['hex', 'rgb', 'hsl'].includes(value),
+  },
+} as const
+
+export type JvColorPickerProps = Partial<ExtractPropTypes<typeof jvColorPickerProps>>
+
 export interface JvColorPickerEmits {
-  // 事件定义
+  (e: 'update:modelValue', value: string): void
+  (e: 'change', value: string): void
 }
+
 export interface JvColorPickerSlots {
-  // 插槽定义
   default?: () => any
 }
+
 export interface JvColorPickerExpose {
-  // 暴露的方法和属性
+  focus: () => void
+  blur: () => void
 }

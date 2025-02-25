@@ -1,30 +1,29 @@
 import type { Slot, SlotsType } from 'vue'
 import { createNamespace } from '@jovial/utils'
-import { type JvCellProps, jvRowProps } from './types'
+import { jvRowProps, type RenderCellScope } from './types'
 import '../../style/row.css'
 
-const renderRow = defineComponent({
-  name: 'JvRenderRow',
+const RenderRow = defineComponent({
+  name: 'RenderRow',
   props: jvRowProps,
   slots: Object as SlotsType<{
-    cell: Slot<JvCellProps>
-    expand: Slot<JvCellProps>
+    cell: Slot<RenderCellScope<Record<string, any>>>
   }>,
   setup(props, { slots }) {
     const bem = createNamespace('table__row')
     return () => {
-      const { record, index, columns } = toRefs(props)
+      const { row, rowIndex, columns } = props
       return (
-        <tr role="row" aria-rowindex={index.value} class={bem.b()}>
-          {columns.value.map(column => (
-            slots.cell?.({ record: record.value!, column, index: index.value })
+        <tr role="row" aria-rowindex={rowIndex} class={bem.b()}>
+          {columns.map((column, columnIndex) => (
+            slots.cell?.({ key: column.key, row, rowIndex, column, columnIndex })
           ))}
           {/* 可展开行 */}
-          {slots.expand?.({ record: record.value!, index: index.value })}
+          {/* {slots.expand ? slots.expand({ key: 'expand', row, rowIndex: rowIndex.value, column: columns.value[columns.value.length - 1] }) : null} */}
         </tr>
       )
     }
   },
 })
 
-export default renderRow
+export default RenderRow

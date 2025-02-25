@@ -78,9 +78,18 @@ export function hasOwnProperty(obj: any, key: string) {
 function getType(value: any): string {
   return Object.prototype.toString.call(value)
 }
-
+/**
+ * 判断是否为数组
+ *  最好使用 Array.isArray 来判断
+ *  原因 [Symbol.toStringTag] 属性 可能被重写 所以使用 Object.prototype.toString.call 来判断会不准确
+ *  例如：
+ *
+ *
+ *
+ *
+ */
 function isArray(value: any): boolean {
-  return getType(value) === TypeOptions.Array
+  return Array.isArray(value)
 }
 
 function isNull(value: any): boolean {

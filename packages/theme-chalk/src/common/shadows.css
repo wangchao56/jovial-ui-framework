@@ -1,25 +1,4 @@
 /* 生成0-24级阴影变量 */
-
-/* @for $n from 0 to 24 {
-  $umbra-y: calc($n / 2 - 1px);
-  $umbra-blur: $n * 1px;
-  $umbra-spread: calc(-1 * ($n / 4 + 1px));
-
-  $penumbra-y: $n * 1px;
-  $penumbra-blur: calc($n * 1.5px);
-  $penumbra-spread: calc($n / 8px);
-
-  $ambient-y: calc($n / 2 - 1px);
-  $ambient-blur: calc($n * 2px - 2px);
-  $ambient-spread: calc($n / 4px);
-
-  --jv-shadow-elevation-level-$(n): 0 $umbra-y $umbra-blur $umbra-spread
-      var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, 0.2)),
-    0 $penumbra-y $penumbra-blur $penumbra-spread var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.14)),
-    0 $ambient-y $ambient-blur $ambient-spread var(--v-shadow-key-ambient-opacity, rgba(0, 0, 0, 0.12)) ${n >= 8 ?
-      '!important': ''};
-} */
-
 :root {
   /* 基础阴影变量 */
   --jv-shadow-elevation-level-2:
@@ -51,7 +30,7 @@
 /* 生成4-24级实用类 */
 @for $i from 4 to 25 {
   .elevation-$(i) {
-    @mixin elevation $(i);
+    @define-mixin elevation $(i);
   }
 }
 

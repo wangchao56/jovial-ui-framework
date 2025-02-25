@@ -52,13 +52,13 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-<style lang="postCss" scoped>
+<style lang="css" scoped>
 @b tooltip {
   @e content {
     padding: 4px 8px;
     border-radius: 4px;
-  background-color: #323232;
-  color: #fff;
+    background-color: #323232;
+    color: #fff;
     font-size: 12px;
     line-height: 1.5;
   }

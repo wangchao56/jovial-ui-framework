@@ -23,7 +23,7 @@ import {
   componentsDir,
   jovialRootDir,
   jovialSrcDir,
-} from '../../script/build/common.mjs'
+} from './common.mjs'
 
 /**
  * compileStyleEntry 函数用于创建一个 Rollup 插件，用于处理主题样式的入口文件。

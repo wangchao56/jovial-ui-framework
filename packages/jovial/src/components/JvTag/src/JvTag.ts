@@ -1,50 +1,84 @@
+import type { Size, Type } from '@jovial/typings'
+import type { Slot } from 'vue'
+// import { propsFactory } from '@jovial/utils'
+
 export const jvTagProps = {
+  /**
+   * 类型
+   */
   type: {
-    type: String as PropType<'primary' | 'success' | 'warning' | 'danger' | 'info'>,
+    type: String as PropType<Type>,
     default: 'primary',
   },
+  /**
+   * 尺寸
+   */
   size: {
-    type: String as PropType<'small' | 'medium' | 'large'>,
+    type: String as PropType<Size>,
     default: 'medium',
   },
+  /**
+   * 是否可关闭
+   */
   closable: {
     type: Boolean,
     default: false,
   },
-  round: {
+  /**
+   * 是否圆角
+   */
+  rounded: {
     type: Boolean,
     default: false,
   },
+  /**
+   * 是否禁用
+   */
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * 是否显示边框
+   */
+  border: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * 是否显示图标
+   */
+  showIcon: {
+    type: Boolean,
+    default: true,
+  },
+  /**
+   * 图标
+   */
+  icon: {
+    type: String,
+    default: '',
+  },
 } as const
 
-export interface JvTagProps {
-  /**
-   * @description 类型
-   */
-  type?: 'primary' | 'success' | 'warning' | 'danger' | 'info'
-  /**
-   * @description 尺寸
-   */
-  size?: 'small' | 'medium' | 'large'
-  /**
-   * @description 是否可关闭
-   */
-  closable?: boolean
-  /**
-   * @description 是否圆角
-   */
-  round?: boolean
-}
+export type JvTagProps = ExtractPropTypes<typeof jvTagProps>
 
 export interface JvTagEmits {
   (event: 'close', evt: MouseEvent): void
 }
 
-export const jvTagSlots = {} as const
 export interface JvTagSlots {
-  default?: () => any
+  default?: Slot
+  icon?: Slot
 }
 
 export interface JvTagExpose {
-  // 暴露的方法和属性
+  /**
+   * 根元素
+   */
+  root: Ref<HTMLElement>
+  /**
+   * 关闭按钮
+   */
+  closeButton: Ref<HTMLElement>
 }

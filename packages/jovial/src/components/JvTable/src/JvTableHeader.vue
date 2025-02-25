@@ -15,9 +15,10 @@ const bem = createNamespace('table')
   </header>
 </template>
 
-<style lang="post" scoped>
+<style lang="css" scoped>
 @b table-header {
 }
+
 @b table {
   @e header {
     background-color: #fff;
@@ -25,6 +26,7 @@ const bem = createNamespace('table')
     top: 0;
     z-index: 1;
   }
+
   @e title {
     padding: 12px;
     font-size: 16px;

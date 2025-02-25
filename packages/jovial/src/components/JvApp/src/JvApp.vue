@@ -1,8 +1,8 @@
 <script lang="ts" setup>
+import JvLoadingBar from '@components/JvLoading/src/JvLoadingBar.vue'
+import { useTheme } from '@components/theme'
 import { createNamespace } from '@jovial/utils'
 import { ref } from 'vue'
-import JvLoadingBar from '../../JvLoading/src/JvLoadingBar.vue'
-import { useTheme } from '../../theme'
 import '../style/app.css'
 
 defineOptions({ name: 'JvApp' })

@@ -1,7 +1,8 @@
-@define-mixin e $element {
-  .jv-tag__$(element) {
-    @mixin-content;
-  }
+@define-mixin type-style $type {
+  background-color: rgba(var(--jv-theme-background), 1); /* 使用 $(type) 的 10% 作为背景颜色 */
+  color: rgba(var(--jv-theme-$(type)), 1); /* 使用 $(type) 作为文字颜色 */
+  border-color: rgba(var(--jv-theme-$(type))); /* 使用 $(type) 的 20% 作为边框颜色 */
+  @mixin-content;
 }
 
 @b tag {
@@ -20,38 +21,44 @@
   font-weight: var(--jv-font-weight-medium);
   align-items: center;
   white-space: var(--jv-tag-white-space);
+  border-width: thin;
+  border-style: solid;
 
-  &--primary {
-    border: 1px solid var(--jv-color-primary-light);
-    color: var(--jv-color-primary-dark-2);
-    background-color: var(--jv-color-primary-light);
+  @e close {
+    margin-left: 8px;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
 
-  &--success {
-    border: 1px solid var(--jv-color-success-light);
-    color: var(--jv-color-success-dark-2);
-    background-color: var(--jv-color-success-light);
+  @m primary {
+    @mixin type-style primary;
   }
 
-  &--warning {
-    border: 1px solid var(--jv-color-warning-light);
-    color: var(--jv-color-warning-dark-2);
-    background-color: var(--jv-color-warning-light);
+  @m success {
+    @mixin type-style success;
   }
 
-  &--danger {
-    border: 1px solid var(--jv-color-danger-light);
-    color: var(--jv-color-danger-dark-2);
-    background-color: var(--jv-color-danger-light);
+  @m warning {
+    @mixin type-style warning;
   }
 
-  &--info {
-    border: 1px solid var(--jv-color-info-light);
-    color: var(--jv-color-info-dark-2);
-    background-color: var(--jv-color-info-light);
+  @m danger {
+    @mixin type-style danger;
   }
 
-  &--small {
+  @m error {
+    @mixin type-style error;
+  }
+
+  @m info {
+    @mixin type-style info;
+  }
+
+  @m small {
     height: 24px;
     padding: 0 8px;
     font-size: 12px;
@@ -61,7 +68,7 @@
     --jv-tag-padding: 0 8px;
   }
 
-  &--large {
+  @m large {
     height: 40px;
     padding: 0 12px;
     font-size: 16px;
@@ -71,17 +78,7 @@
     --jv-tag-padding: 0 12px;
   }
 
-  &--round {
+  @when rounded {
     border-radius: 999px;
-  }
-
-  &__close {
-    margin-left: 8px;
-    font-size: 16px;
-    cursor: pointer;
-
-    &:hover {
-      opacity: 0.8;
-    }
   }
 }

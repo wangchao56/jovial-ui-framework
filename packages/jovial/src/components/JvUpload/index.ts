@@ -1,9 +1,9 @@
 import { withInstall } from '@jovial/utils'
-import _upload from './src/upload.vue'
+import _upload from './src/JvUpload.vue'
 
 const upload = withInstall(_upload)
 
-export * from './src/upload'
+export * from './src/JvUpload'
 
 export default upload
 

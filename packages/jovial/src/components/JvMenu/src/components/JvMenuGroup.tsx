@@ -28,12 +28,17 @@ export default defineComponent({
     if (!menuContext) {
       throw new Error('JvMenuGroup 必须在 JvMenu 组件内使用')
     }
+    // 使用computed优化渲染
+    const groupLabel = computed(() => {
+      return slots.label?.() || props.label
+    })
+
     return () => {
       const { record } = props
       return (
-        <li role="presentation" key={record.key} id={record.key.toString()} class={bem.b()}>
-          <div role="presentation" class={bem.e('label')}>{slots.label?.() || props.label}</div>
-          <ul role="group" class={bem.e('content')}>
+        <li role="group" key={record.key} id={record.key.toString()} class={bem.b()}>
+          <div role="presentation" class={bem.e('label')}>{groupLabel.value}</div>
+          <ul role="menu" class={bem.e('content')}>
             <JvMenuChildren items={props.children} />
           </ul>
         </li>

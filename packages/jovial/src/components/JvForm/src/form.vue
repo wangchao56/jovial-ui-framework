@@ -2,7 +2,7 @@
 import type { ValidateFieldsError, Values } from 'async-validator'
 import type { FormContext, FormExpose } from './form'
 import type { FormItemContext } from './form-item'
-import { createNamespace, isEmpty } from '@jovial/utils'
+import { consoleWarn, createNamespace, isEmpty } from '@jovial/utils'
 import { provide } from 'vue'
 import { formEmits, formProps, formProviderKey } from './form'
 
@@ -49,7 +49,7 @@ function handleValidationResults(results: PromiseSettledResult<Awaited<any>>[], 
     else {
       // 如果有任何验证通过，可以在此处执行额外操作或记录日志
       // 例如，可以记录验证通过的字段或执行其他逻辑
-      console.log('Validation passed for:', result.value)
+      consoleWarn(`Validation passed for:${result.value}`)
     }
   })
 
@@ -83,12 +83,12 @@ async function validate(callback?: (valid: boolean, fields: ValidateFieldsError 
 }
 
 // 创建 FormContext 对象，并包含 props 和 addField 方法
-const context: FormContext = {
+const formContext: FormContext = {
   ...props,
   addField,
 }
 // 使用 provide 函数提供 FormContext 给后代组件
-provide(formProviderKey, context)
+provide(formProviderKey, formContext)
 
 function resetFields() {
   fieldsContext.forEach(context => context.resetField())

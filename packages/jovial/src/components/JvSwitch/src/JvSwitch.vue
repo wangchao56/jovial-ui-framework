@@ -69,16 +69,6 @@ const events = computed(() => {
   }
 })
 
-// 计算类名
-const switchClasses = computed(() => [
-  bem.b(),
-  bem.is('checked', innerValue.value),
-  bem.is('disabled', props.disabled),
-  bem.is('loading', isLoading.value),
-  bem.m(props.size),
-  theme.themeClasses.value,
-])
-
 // 计算不同尺寸下的视图框和按钮位置
 const sizeConfig = computed(() => {
   switch (props.size) {
@@ -124,6 +114,15 @@ const currentButtonX = computed(() =>
     ? sizeConfig.value.buttonX + sizeConfig.value.moveDistance
     : sizeConfig.value.buttonX,
 )
+// 计算类名
+const switchClasses = computed(() => [
+  bem.b(),
+  bem.is('checked', innerValue.value),
+  bem.is('disabled', props.disabled),
+  bem.is('loading', isLoading.value),
+  bem.m(props.size),
+  theme.themeClasses.value,
+])
 </script>
 
 <template>
@@ -151,7 +150,7 @@ const currentButtonX = computed(() =>
           :height="sizeConfig.height"
         />
         <circle
-          :class="bem.e('button')"
+          :class="bem.e('thumb')"
           :cx="currentButtonX"
           :cy="sizeConfig.buttonY"
           :r="sizeConfig.buttonRadius"

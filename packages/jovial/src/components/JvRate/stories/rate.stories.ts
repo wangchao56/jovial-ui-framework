@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import JvRate from '../src/JvRate.vue'
 
 const meta = {
-  title: 'Form/Rate',
+  title: '数据录入组件/JvRate',
   component: JvRate,
   tags: ['autodocs'],
   args: {

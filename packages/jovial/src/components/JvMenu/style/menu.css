@@ -1,14 +1,24 @@
 @import url('@jovial/theme-chalk/src/common/elevation.css');
 
 :root {
+
   /* 菜单基础变量 */
   --jv-menu-width: 240px;
   --jv-menu-collapsed-width: 64px;
   --jv-menu-item-height: 40px;
   --jv-menu-horizontal-height: 48px;
-  --jv-menu-padding: 16px;
+  --jv-menu-padding: 12px;
+  --jv-menu-border-radius: 6px;
+  --jv-menu-font-size: 14px;
   --jv-menu-icon-size: 20px;
-  --jv-menu-transition-duration: 0.3s;
+  --jv-menu-transition-duration: 0.2s;
+
+  /* 颜色变量 */
+  --jv-menu-bg: #fff;
+  --jv-menu-hover-bg: rgb(0 0 0 / 4%);
+  --jv-menu-active-bg: rgb(0 0 0 / 8%);
+  --jv-menu-text-color: #1f2937;
+  --jv-menu-secondary-text: #6b7280;
 }
 
 @b menu {
@@ -16,11 +26,21 @@
   position: relative;
   width: var(--jv-menu-width);
   height: 100%;
-  background: rgb(var(--jv-theme-surface));
-  color: rgb(var(--jv-theme-on-surface));
+  background: var(--jv-menu-bg);
+  color: var(--jv-menu-text-color);
+  font-size: var(--jv-menu-font-size);
   transition: width var(--jv-menu-transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
   flex-direction: column;
   border-right: 1px solid rgb(var(--jv-border-color));
+
+  /* 重置ul,li样式 */
+  menu,
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
 
   @e content {
     width: 100%;
@@ -41,19 +61,7 @@
     user-select: none;
 
     &:hover {
-      background: rgb(var(--jv-theme-primary) var(--jv-variant-hover-opacity));
-    }
-
-    @m selected {
-      background: rgb(var(--jv-theme-primary) var(--jv-variant-opacity));
-      color: rgb(var(--jv-theme-primary));
-      font-weight: 500;
-    }
-
-    @m disabled {
-      color: rgb(var(--jv-theme-on-surface) var(--jv-variant-disabled-opacity));
-      cursor: not-allowed;
-      pointer-events: none;
+      background: var(--jv-menu-hover-bg);
     }
   }
 
@@ -64,8 +72,7 @@
     width: var(--jv-menu-icon-size);
     height: var(--jv-menu-icon-size);
     margin-right: 12px;
-    font-size: var(--jv-menu-icon-size);
-    flex-shrink: 0;
+    color: var(--jv-menu-secondary-text);
   }
 
   @e item-label {
@@ -85,7 +92,7 @@
       align-items: center;
 
       &:hover {
-        background: rgb(var(--jv-theme-primary) var(--jv-variant-hover-opacity));
+        background: var(--jv-menu-hover-bg);
       }
     }
 
@@ -122,17 +129,17 @@
   @m collapsed {
     width: var(--jv-menu-collapsed-width);
 
-    .Menu__label,
-    .Menu__arrow {
+    .menu__label,
+    .menu__arrow {
       display: none;
     }
 
-    .Menu__item-icon {
+    .menu__item-icon {
       margin-right: 0;
     }
 
-    .Menu__item,
-    .Menu__submenu-title {
+    .menu__item,
+    .submenu__title {
       padding: 0;
       justify-content: center;
     }
@@ -153,17 +160,48 @@
   }
 }
 
+@b submenu {
+  @m selected {
+    background: rgb(var(--jv-theme-primary) var(--jv-variant-opacity));
+    color: rgb(var(--jv-theme-primary));
+    font-weight: 500;
+  }
+}
+
+@b menu-group {
+  @e label {
+    height: var(--jv-menu-item-height);
+    padding: 0 var(--jv-menu-padding);
+  }
+
+  @e content {
+    padding: 0 var(--jv-menu-padding);
+  }
+}
+
 /* 无障碍支持 */
-.Menu :focus-visible {
+.jv-menu:focus-visible {
   outline: 2px solid rgb(var(--jv-theme-primary));
   outline-offset: -2px;
 }
 
-.Menu [role='menuitem']:focus-visible::before {
+.jv-menu[role='menuitem']:focus-visible::before {
   content: '';
   position: absolute;
   left: 0;
   width: 3px;
   height: 100%;
   background-color: rgb(var(--jv-theme-primary));
+}
+
+/* 动画效果 */
+.jv-menu-slide-enter-active,
+.jv-menu-slide-leave-active {
+  transition: height var(--jv-menu-transition-duration);
+  overflow: hidden;
+}
+
+.jv-menu-slide-enter-from,
+.jv-menu-slide-leave-to {
+  height: 0 !important;
 }

@@ -14,6 +14,6 @@ const bem = createNamespace('grid')
   <div :class="bem.b()" />
 </template>
 
-<style lang="post" scoped>
+<style lang="css" scoped>
 
 </style>

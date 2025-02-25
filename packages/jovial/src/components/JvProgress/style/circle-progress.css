@@ -1,14 +1,3 @@
-@import url('./theme-vars.css');
-
-@define-mixin e $element {
-  .jv-circle-progress__$(element) {
-    @mixin-content;
-  }
-}
-
-@define-mixin m $modifier {
-}
-
 @b circle-progress {
   display: inline-block;
   width: var(--jv-progress-width);

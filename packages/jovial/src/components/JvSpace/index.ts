@@ -1,10 +1,10 @@
 import { withInstall } from '@jovial/utils'
-import _space from './src/space.vue'
-import './src/jv-space.css'
+import _JvSpace from './src/JvSpace.vue'
+import './style/jv-space.css'
 
-const JvSpace = withInstall(_space)
+const JvSpace = withInstall(_JvSpace)
 
-export * from './src/space'
+export * from './src/JvSpace'
 
 export default JvSpace
 

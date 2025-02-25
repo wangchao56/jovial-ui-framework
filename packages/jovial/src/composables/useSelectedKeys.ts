@@ -1,15 +1,29 @@
 import { ref } from 'vue'
 
+interface UseSelectedKeysOptions {
+  multiple: boolean
+  defaultSelectedKeys: PropertyKey[]
+}
+
 /**
  * 选中项
+ * @param options - 选项
+ * @param options.multiple - 是否多选
+ * @param options.defaultSelectedKeys - 默认选中项
  * @returns 选中项
  */
-function useSelectedKeys() {
-  const selectedKeys = ref<Set<PropertyKey>>(new Set())
+function useSelectedKeys(options: UseSelectedKeysOptions) {
+  const { multiple = false, defaultSelectedKeys = [] } = options
+  const selectedKeys = ref<Set<PropertyKey>>(new Set(defaultSelectedKeys))
 
   // 添加选中项
   const addSelectedKey = (key: PropertyKey) => {
-    selectedKeys.value.add(key)
+    if (multiple) {
+      selectedKeys.value.add(key)
+    }
+    else {
+      selectedKeys.value = new Set([key])
+    }
   }
 
   // 移除选中项

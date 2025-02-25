@@ -1,9 +1,3 @@
-@define-mixin e $element {
-  .jv-image__$(element) {
-    @mixin-content;
-  }
-}
-
 @b image {
   display: inline-block;
   position: relative;

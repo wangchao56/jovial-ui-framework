@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvButton from '@components/JvButton/src/button.vue'
-import JvCalendar from '@components/JvCalendar/src/calendar.vue'
+import JvButton from '@/components/JvButton/src/JvButton.vue'
+import JvCalendar from '@/components/JvCalendar/src/JvCalendar.vue'
 
 const meta: Meta = {
-  title: 'Components/Calendar日历',
+  title: '数据展示组件/JvCalendar',
   component: JvCalendar,
   tags: ['autodocs'],
   subcomponents: { JvButton },

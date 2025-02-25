@@ -90,7 +90,7 @@ function handlePageChange(page: number) {
 
   currentPage.value = page
   emit('update:modelValue', page)
-  emit('change', page, props.pageSize)
+  emit('change', page, props.pageSize, props.total)
 }
 
 // 处理每页条数改变

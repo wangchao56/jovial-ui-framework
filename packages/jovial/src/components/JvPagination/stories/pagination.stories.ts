@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import JvPagination from '../src/JvPagination.vue'
 
 const meta = {
-  title: 'Navigation/Pagination',
+  title: '导航组件/Pagination',
   component: JvPagination,
   tags: ['autodocs'],
   parameters: {

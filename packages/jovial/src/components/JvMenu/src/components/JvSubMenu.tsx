@@ -5,15 +5,19 @@ import { defineComponent, inject, type SlotsType } from 'vue'
 import { JvMenuContextKey } from '../JvMenu'
 import JvMenuChildren from './JvMenuChildren.vue'
 
+const jvSubMenuTitleProps = {
+  label: { type: [String, Function] as PropType<string | ((item: SubMenuType) => VNode)>, required: true },
+  icon: { type: [String, Function] as PropType<string | ((item: MenuItem) => VNode)>, default: '' },
+  disabled: Boolean,
+  expanded: Boolean,
+  record: { type: Object as PropType<SubMenuType>, required: true },
+} as const
+
+export type JvSubMenuTitleProps = ExtractPropTypes<typeof jvSubMenuTitleProps>
+
 const JvSubMenuTitle = defineComponent({
   name: 'JvSubMenuTitle',
-  props: {
-    label: { type: [String, Function] as PropType<string | ((item: SubMenuType) => VNode)>, required: true },
-    icon: { type: [String, Function] as PropType<string | ((item: MenuItem) => VNode)>, default: '' },
-    disabled: Boolean,
-    expanded: Boolean,
-    record: { type: Object as PropType<SubMenuType>, required: true },
-  },
+  props: jvSubMenuTitleProps,
   slots: Object as SlotsType<{
     label: () => VNode
     icon: () => VNode
@@ -62,14 +66,18 @@ const JvSubMenuTitle = defineComponent({
   },
 })
 
+const jvSubMenuProps = {
+  label: { type: [String, Function] as PropType<string | ((item: SubMenuType) => VNode)>, required: true },
+  icon: { type: [String, Function] as PropType<string | ((item: MenuItem) => VNode)>, default: '' },
+  disabled: Boolean,
+  record: { type: Object as PropType<SubMenuType>, required: true },
+} as const
+
+export type JvSubMenuProps = ExtractPropTypes<typeof jvSubMenuProps>
+
 export default defineComponent({
   name: 'JvSubMenu',
-  props: {
-    label: { type: [String, Function] as PropType<string | ((item: SubMenuType) => VNode)>, required: true },
-    icon: { type: [String, Function] as PropType<string | ((item: MenuItem) => VNode)>, default: '' },
-    disabled: Boolean,
-    record: { type: Object as PropType<SubMenuType>, required: true },
-  },
+  props: jvSubMenuProps,
   slots: Object as SlotsType<{
     label: () => VNode
     icon: () => VNode

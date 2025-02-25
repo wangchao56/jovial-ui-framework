@@ -74,8 +74,6 @@ const expectedWidth = computed(() => {
 
 // 增强的检测逻辑
 const checkEllipsis = useDebounceFn(() => {
-  console.log(1)
-
   try {
     if (!containerRef.value || !contentRef.value)
       return

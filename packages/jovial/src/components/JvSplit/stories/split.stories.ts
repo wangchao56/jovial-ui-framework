@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import JvSplit from '../index'
 
 const meta: Meta<typeof JvSplit> = {
-  title: 'Components/Split',
+  title: '布局组件/JvSplit',
   component: JvSplit,
   tags: ['autodocs'],
   argTypes: {

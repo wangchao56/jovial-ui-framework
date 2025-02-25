@@ -3,7 +3,7 @@ module.exports = {
     'stylelint-config-standard',
     'stylelint-config-recommended-vue',
   ],
-  ignoreFiles: ['!packages/jovial/src/components/**/*'],
+  ignoreFiles: ['node_modules', '**/node_modules/**', 'dist', '**/dist/**', '**/components-old/**', '**/storybook-static'],
   plugins: [
     'stylelint-order', // 用于 CSS 属性排序
   ],
@@ -145,6 +145,11 @@ module.exports = {
           'text-justify': ['inter-ideograph'],
         },
       },
+      {
+        ignoreProperties: {
+          '/^/': 'v-bind\\(.*\\)',
+        },
+      },
     ],
     'selector-class-pattern': null,
     'custom-property-pattern': null,
@@ -152,5 +157,11 @@ module.exports = {
     'declaration-block-no-redundant-longhand-properties': null,
     'block-no-empty': null,
     'no-descending-specificity': null,
+    'value-keyword-case': [
+      'lower',
+      {
+        ignoreKeywords: ['/v-bind\\(.*?\\)/'],
+      },
+    ],
   },
 }

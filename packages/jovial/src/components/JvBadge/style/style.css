@@ -1,5 +1,8 @@
 @b badge {
+  display: block;
   position: relative;
+  width: fit-content;
+  height: fit-content;
 
   &::after {
     display: inline-block;
@@ -15,6 +18,7 @@
     content: attr(data-count);
     white-space: nowrap;
     background-color: var(--jv-badge-color, red);
+    transform: translate(50%, -50%);
   }
 
   @when visible {

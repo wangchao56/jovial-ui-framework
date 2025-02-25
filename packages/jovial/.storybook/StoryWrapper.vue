@@ -1,6 +1,11 @@
 <script>
+import JvApp from '@components/JvApp/src/JvApp.vue'
+
 export default {
   name: 'StoryWrapper',
+  components: {
+    JvApp,
+  },
   props: {
     themeName: {
       type: String,
@@ -11,7 +16,7 @@ export default {
 </script>
 
 <template>
-  <jv-app :theme="themeName">
+  <JvApp :theme="themeName">
     <slot name="story" />
-  </jv-app>
+  </JvApp>
 </template>

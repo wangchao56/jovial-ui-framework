@@ -79,7 +79,7 @@ function stopLoading() {
   </div>
 </template>
 
-<style lang="post" scoped>
+<style lang="css" scoped>
 .jv-loading {
   --jv-loading-size: 40px;
   --jv-loading-color: #333;

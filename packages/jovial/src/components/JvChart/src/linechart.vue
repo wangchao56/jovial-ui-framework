@@ -87,7 +87,7 @@ watch(() => props.data, drawLineChart) // 当 data 改变时重新绘制图表
   <canvas ref="canvas" :width="width" :height="height" />
 </template>
 
-<style lang="post" scoped>
+<style lang="css" scoped>
 canvas {
   border: 1px solid #ccc;
 }

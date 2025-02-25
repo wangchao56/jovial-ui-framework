@@ -1,4 +1,3 @@
-import type { ComponentInstance } from '@jovial/utils'
 // Types
 import type {
   Component,
@@ -10,6 +9,7 @@ import type {
   VNode,
 } from 'vue'
 
+import type { ComponentInstance } from './defineComponent'
 import { consoleError, isObject } from '@jovial/utils'
 // Utilities
 import { h, mergeProps, render, resolveComponent } from 'vue'
@@ -46,6 +46,7 @@ export interface CustomDirective<
 
 export function useDirectiveComponent<Binding extends DirectiveBinding>(
   component: string | Component,
+  // 根据 binding 返回 props
   props?: (binding: Binding) => Record<string, any>
 ): CustomDirective<Binding>
 export function useDirectiveComponent<
@@ -98,6 +99,7 @@ function mountComponent(
         : vnode.ctx?.provides) ?? binding.instance!.$.provides
 
     const node = h(component, mergeProps(_props, value), children)
+    // 将组件的 appContext 和 provides 合并到节点中
     node.appContext = Object.assign(
       Object.create(null),
       (binding.instance as ComponentPublicInstance).$.appContext,
@@ -108,7 +110,7 @@ function mountComponent(
   }
 }
 
-function findComponentParent(
+export function findComponentParent(
   vnode: VNode,
   root: ComponentInternalInstance,
 ): ComponentInternalInstance | null {
