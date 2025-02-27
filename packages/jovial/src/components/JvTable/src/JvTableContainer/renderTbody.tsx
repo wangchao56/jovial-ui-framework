@@ -1,6 +1,6 @@
 import type { JvTableColumnType } from '../JvTable'
 import { createNamespace } from '@jovial/utils'
-import RenderTable from './renderTable.tsx'
+import RenderTable from './renderTable'
 import { RenderTbodyContextKey } from './types'
 import '../../style/tbody.css'
 

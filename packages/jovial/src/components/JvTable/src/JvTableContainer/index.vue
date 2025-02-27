@@ -2,12 +2,12 @@
 import type { ScrollPanelExpose } from '@/components/internal/types.ts'
 import type { Slot } from 'vue'
 import type { JvTableColumn, JvTableColumnType } from '../JvTable'
-import type { RenderCellScope, RenderRowScope } from './types.ts'
+import type { RenderCellScope, RenderRowScope } from './types'
 import JvScrollPanel from '@/components/internal/JvScrollPanel.vue'
 import { createNamespace } from '@jovial/utils'
 import { useVirtualList } from '@vueuse/core'
-import RenderTbody from './renderTbody.tsx'
-import RenderThead from './renderThead.tsx'
+import RenderTbody from './renderTbody'
+import RenderThead from './renderThead'
 import { JvTableContainerContextKey } from './types'
 
 defineOptions({ name: 'JvTableContainer' })

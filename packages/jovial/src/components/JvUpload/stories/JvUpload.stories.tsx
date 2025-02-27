@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvUpload from '@/components/JvUpload/src/JvUpload.vue'
+import JvUpload from '@components/JvUpload/src/JvUpload.vue'
 
 const meta = {
   title: '数据录入组件/JvUpload',

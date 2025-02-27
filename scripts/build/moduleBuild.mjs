@@ -22,17 +22,18 @@ import {
   utilsDir,
   componentsDir,
   jovialRootDir,
-  jovialSrcDir
+  jovialSrcDir,
+  postcssConfig
 } from './common.mjs'
 
 /**
  * compileStyleEntry 函数用于创建一个 Rollup 插件，用于处理主题样式的入口文件。
- * 该插件会将以 `@jovial/theme-chalk` 开头的模块路径替换为输出目录中的实际路径。
+ * 该插件会将以 `@jovial/theme` 开头的模块路径替换为输出目录中的实际路径。
  *
  * @returns {object} Rollup 插件对象
  */
 function compileStyleEntry() {
-  const themeEntryPrefix = `@jovial/theme-chalk`
+  const themeEntryPrefix = `@jovial/theme`
   return {
     name: 'compile-style-entry',
     resolveId(id) {
@@ -79,13 +80,34 @@ export async function moduleBuildEntry() {
         esbuild({
           include: /\.[jt]sx?$/,
           minify: process.env.NODE_ENV === 'production',
-          target: 'es2018',
-          jsxFactory: 'h',
-          jsxFragment: 'Fragment'
+          target: 'esnext',
+          jsxFactory: 'h', // 指定 JSX 工厂函数
+          jsxFragment: 'Fragment' // 指定 JSX 片段
         }),
         postcss({
-          extract: true, // 提取 CSS 到单独的文件
-          modules: true // 启用 CSS Modules
+          modules: true, // 启用 CSS Modules
+          config: postcssConfig,
+          // 新增样式输出配置
+          extract: {
+            dir: (id) => {
+              // 将样式文件输出到组件目录下的style文件夹
+              const componentPath = path.dirname(id).replace(componentsDir, '')
+              return path.join(
+                process.env.NODE_ENV === 'production' ? outputEsm : outputCjs,
+                componentPath,
+                'style'
+              )
+            },
+            fileName: (name) => {
+              // 保留原始文件名并添加哈希
+              const [filename] = name.split('.css')
+              return `${filename}.${hash(name)}.css`
+            }
+          },
+          // 保持原有CSS模块功能
+          modules: {
+            generateScopedName: '[name]__[local]___[hash:base64:5]'
+          }
         }),
         alias({
           entries: [
@@ -126,8 +148,8 @@ export async function moduleBuildEntry() {
       format: 'esm', // 输出格式
       preserveModules: true, // 保留模块
       preserveModulesRoot: componentsDir, // 保留模块根目录
-      entryFileNames: '[name].mjs', // 入口文件名
-      sourcemap: true, // 生成 sourcemap
+      entryFileNames: '[name].esm.js', // 入口文件名
+      sourcemap: false, // 生成 sourcemap
       exports: 'named' // 导出命名
     })
   } catch (error) {

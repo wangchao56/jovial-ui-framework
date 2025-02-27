@@ -1,7 +1,7 @@
 import type { JvTableColumn, JvTableColumnType } from '../JvTable'
 import { convertToUnit, createNamespace } from '@jovial/utils'
-import RenderCell from './renderCell.tsx'
-import RenderTable from './renderTable.tsx'
+import RenderCell from './renderCell'
+import RenderTable from './renderTable'
 import '../../style/thead.css'
 /**
  * 取值问题

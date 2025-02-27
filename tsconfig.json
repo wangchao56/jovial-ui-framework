@@ -23,7 +23,7 @@
   "exclude": [
     // 在编译时排除这些路径
     "node_modules",
-    "**/_tests_",
+    "**/__tests__",
     "dist/"
   ]
 }

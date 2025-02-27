@@ -1,4 +1,4 @@
-@import url('@jovial/theme-chalk/src/common/shadows.css');
+@import url('@jovial/theme/src/common/shadows.css');
 
 @b table {
   display: flex;

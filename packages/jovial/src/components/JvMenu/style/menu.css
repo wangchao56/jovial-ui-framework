@@ -1,7 +1,6 @@
-@import url('@jovial/theme-chalk/src/common/elevation.css');
+@import url('@jovial/theme/src/common/elevation.css');
 
 :root {
-
   /* 菜单基础变量 */
   --jv-menu-width: 240px;
   --jv-menu-collapsed-width: 64px;

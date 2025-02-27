@@ -13,7 +13,7 @@ export default defineConfig({
     Inspector(),
     AutoImport({
       imports: ['vue'],
-      dts: './src/auto-import.d.ts',
+      dts: './src/typings/auto-import.d.ts',
     }),
   ],
   resolve: {
@@ -37,14 +37,18 @@ export default defineConfig({
   build: {
     lib: {
       entry: './src/components/index.ts', // 入口文件
-      name: 'jovial', // 库名称
-      fileName: format => `jovial.${format}.js`, // 输出文件名
+      name: 'jovial-ui', // 库名称
+      fileName: format => `jovial-ui.${format}.js`, // 输出文件名
       formats: ['es', 'umd', 'cjs'], // 输出格式
     },
     rollupOptions: {
       external: ['vue'], // 排除vue
       output: {
         globals: { vue: 'Vue' }, // 全局变量
+        assetFileNames: 'index.css',
+        manualChunks(id) {
+          console.log(id)
+        },
       },
     },
   },

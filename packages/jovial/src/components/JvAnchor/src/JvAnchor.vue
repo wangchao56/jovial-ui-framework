@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { AnchorLinkItem, JvAnchorEmits } from './JvAnchor.ts'
+import type { AnchorLinkItem, JvAnchorEmits } from './JvAnchor.js'
 import { createNamespace } from '@jovial/utils'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { jvAnchorProps } from './JvAnchor.ts'
+import { jvAnchorProps } from './JvAnchor.js'
 import '../style/style.css'
 
 defineOptions({ name: 'JvAnchor' })

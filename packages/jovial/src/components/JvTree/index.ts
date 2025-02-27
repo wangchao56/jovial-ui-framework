@@ -2,15 +2,15 @@ import { withInstall } from '@jovial/utils'
 /**
  * tree 组件的设计规范
  */
-import _tree from './src/tree.vue'
+import _JvTree from './src/JvTree.vue'
 
-const Tree = withInstall(_tree)
+const JvTree = withInstall(_JvTree)
 
 export * from './src/tree'
-export default Tree
+export default JvTree
 
 declare module 'vue' {
   export interface GlobalComponents {
-    JvTree: typeof Tree
+    JvTree: typeof JvTree
   }
 }

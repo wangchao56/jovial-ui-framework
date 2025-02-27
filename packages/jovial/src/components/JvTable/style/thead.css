@@ -1,4 +1,4 @@
-@import url('@jovial/theme-chalk/src/common/shadows.css');
+@import url('@jovial/theme/src/common/shadows.css');
 
 @b table__thead {
   background-color: #fafafa;
@@ -37,7 +37,6 @@
   }
 
   & > .jv-table__row {
-
     /* 第一个cell和最后一个cell的padding-left和padding-right为0 */
 
     & > th.jv-table__cell:last-child {

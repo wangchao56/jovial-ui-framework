@@ -1,33 +1,29 @@
-import type { RouteRecordRaw } from 'vue-router'
+import type { App } from 'vue'
+import { ItemType } from '@/components/JvMenu'
 import { createRouter, createWebHistory } from 'vue-router'
-import MainLayout from '../layouts/MainLayout.vue'
+import { routesToMenu } from './helper'
+import { routes } from './routes'
 
-const routes: RouteRecordRaw[] = [
-  {
-    path: '/',
-    component: MainLayout,
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('../pages/Dashboard.vue'),
-      },
-      // {
-      //   path: 'analytics',
-      //   component: () => import('../pages/Analytics.vue'),
-      // },
-      // {
-      //   path: 'users',
-      //   component: () => import('../pages/Users.vue'),
-      // },
-      // {
-      //   path: 'roles',
-      //   component: () => import('../pages/Roles.vue'),
-      // },
-    ],
-  },
-]
-
-export const router = createRouter({
+const routerInstance = createRouter({
   history: createWebHistory(),
   routes,
 })
+
+export const router = routerInstance
+export default {
+  install: (app: App) => {
+    app.use(routerInstance)
+    // 获取菜单
+    const menuItems = routesToMenu(routes)
+    const newMenuItems = menuItems.map((item) => {
+      return {
+        ...item,
+        type: ItemType.Group,
+      }
+    })
+
+    // 存在localstorage中
+    localStorage.setItem('menuItems', JSON.stringify(newMenuItems))
+  },
+}
+export type RouterInstance = typeof routerInstance

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { createNamespace } from '@jovial/utils'
 import { computed } from 'vue'
-import { useTheme } from '../../theme'
+import { useTheme } from '../../../theme'
 
 defineOptions({ name: 'JvLoadingBar' })
 

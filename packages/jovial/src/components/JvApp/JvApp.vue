@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { createNamespace } from '@jovial/utils'
-import { provideTheme } from '../theme'
+import { provideTheme } from '../../theme'
 
 defineOptions({ name: 'JvApp' })
 const props = defineProps({

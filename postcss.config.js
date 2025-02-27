@@ -1,4 +1,5 @@
 module.exports = {
+  // 插件
   plugins: [
     require('postcss-import'), // 导入
     require('postcss-mixins'), // 混合

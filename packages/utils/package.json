@@ -1,9 +1,26 @@
 {
   "name": "@jovial/utils",
+  "type": "module",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
-  "license": "ISC",
-  "keywords": [],
-  "main": "index.js"
+  "description": "Jovial UI Utils",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build --config vite.build.config.ts",
+    "dev": "vite build --config vite.build.config.ts --watch"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  }
 }

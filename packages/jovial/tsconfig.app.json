@@ -23,5 +23,5 @@
     "src/**/*.vue",
     "env.d.ts",
     "src/**/*"
-  ]
+, "../../examples/jovial-admin/router"  ]
 }

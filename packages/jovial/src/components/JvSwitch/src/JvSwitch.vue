@@ -2,7 +2,7 @@
 import type { JvSwitchEmits, JvSwitchProps } from './JvSwitch'
 import { createNamespace } from '@jovial/utils'
 import { computed, ref, watch } from 'vue'
-import { useTheme } from '../../theme'
+import { useTheme } from '../../../theme'
 import '../style/style.css'
 
 defineOptions({ name: 'JvSwitch' })

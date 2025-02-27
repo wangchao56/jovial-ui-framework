@@ -118,9 +118,13 @@ function createHandlers(value: TouchHandlers = {}): TouchStoredHandlers {
   }
 }
 
+interface TouchElement extends HTMLElement {
+  _touchHandlers?: Record<string, TouchStoredHandlers>
+}
+
 function mounted(el: HTMLElement, binding: TouchDirectiveBinding) {
   const value = binding.value
-  const target = value?.parent ? el.parentElement : el
+  const target = (value?.parent ? el.parentElement : el) as TouchElement
   const options = value?.options ?? { passive: true }
   const uid = binding.instance?.$.uid // TODO: use custom uid generator
 
@@ -138,7 +142,7 @@ function mounted(el: HTMLElement, binding: TouchDirectiveBinding) {
 }
 
 function unmounted(el: HTMLElement, binding: TouchDirectiveBinding) {
-  const target = binding.value?.parent ? el.parentElement : el
+  const target = (binding.value?.parent ? el.parentElement : el) as TouchElement
   const uid = binding.instance?.$.uid
 
   if (!target?._touchHandlers || !uid)

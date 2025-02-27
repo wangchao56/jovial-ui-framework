@@ -4,7 +4,7 @@ import JvText from '@/components/Typography/src/JvText.vue'
 import { isString } from '@jovial/utils'
 import isElement from 'lodash-es/isElement'
 import { isVNode, type VNode, type VNodeChild } from 'vue'
-import JvFragmentWrapper from './fragment-wrapper.tsx'
+import JvFragmentWrapper from './fragment-wrapper'
 import { setupTriggerEventsAndApplyEffect } from './useTootipManager'
 
 defineOptions({

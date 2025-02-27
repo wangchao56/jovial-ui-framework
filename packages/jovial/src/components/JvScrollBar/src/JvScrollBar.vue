@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { addResizeListener, removeResizeListener } from '@/utils'
-import { createNamespace } from '@jovial/utils'
+import { addResizeListener, createNamespace, removeResizeListener } from '@jovial/utils'
+
 import { computed, onMounted, ref, watch } from 'vue'
 import Bar from './bar.vue'
 import { type JvScrollBarEmits, jvScrollBarProps } from './JvScrollBar'

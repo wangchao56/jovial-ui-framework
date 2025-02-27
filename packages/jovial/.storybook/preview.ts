@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/vue3'
 import { setup } from '@storybook/vue3'
 import { registerPlugins } from '../src/plugins'
 import { withJovialTheme } from './withJovialTheme.decorator'
-import '@jovial/theme-chalk/src/index.css'
+import '@jovial/theme/src/index.css'
 
 const preview: Preview = {
   parameters: {
