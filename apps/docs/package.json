@@ -1,0 +1,17 @@
+{
+  "name": "@jienix/jovial-docs",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vitepress dev config",
+    "docs:build": "vitepress build config",
+    "docs:preview": "vitepress preview config"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}

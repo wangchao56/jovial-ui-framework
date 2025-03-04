@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import type { LocaleInstance, LocaleMessages, LocaleOptions } from '../types'
-import { consoleError, consoleWarn, getCurrentInstance, getObjectValueByPath } from '@jovial/utils'
+import { consoleError, consoleWarn, getCurrentInstance, getObjectValueByPath } from '@jienix/utils'
 import { ref, shallowRef, useModel, watch } from 'vue'
 import en from '../language/en'
 import zhHans from '../language/zh-Hans'

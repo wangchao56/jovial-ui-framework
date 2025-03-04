@@ -1,0 +1,14 @@
+import { withInstall } from '@jienix/utils'
+import _JvTable from './src/JvTable.vue'
+import './style'
+
+const JvTable = withInstall(_JvTable)
+
+export * from './src/JvTable'
+export default JvTable
+export type JvJvTableInstance = InstanceType<typeof JvTable>
+declare module 'vue' {
+  export interface GlobalComponents {
+    JvTable: typeof JvTable
+  }
+}

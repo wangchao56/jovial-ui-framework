@@ -18,6 +18,8 @@ examples
 
 *storybook.log
 storybook*
+.storybook
+.vitepress
 
 # Storybook生成目录
 packages/jovial/storybook-static/
