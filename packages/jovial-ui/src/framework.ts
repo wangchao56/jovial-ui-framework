@@ -2,8 +2,8 @@ import type { LocaleOptions } from '@jienix/jovial-locale'
 import type { App, VNode } from 'vue'
 import { createDefaults, type DefaultsOptions, DefaultsSymbol } from '@jienix/jovial-composables'
 import { createJovialAdapter, LocaleSymbol } from '@jienix/jovial-locale'
+import { createTheme, type ThemeOptions, ThemeSymbol } from '@jienix/jovial-theme'
 import { getUid } from '@jienix/utils'
-import { createTheme, type ThemeOptions, ThemeSymbol } from './theme'
 
 export interface JovialOptions {
   aliases?: Record<string, any>

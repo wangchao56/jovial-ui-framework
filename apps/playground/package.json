@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.4",
+    "@jienix/jovial-components": "workspace:*",
     "@storybook/addon-a11y": "^8.5.8",
     "@storybook/addon-essentials": "^8.5.8",
     "@storybook/addon-interactions": "^8.5.8",
@@ -50,6 +51,7 @@
     "@storybook/test": "^8.5.8",
     "@storybook/vue3": "^8.5.8",
     "@storybook/vue3-vite": "^8.5.8",
+    "jovial-ui": "workspace:*",
     "storybook": "^8.5.8"
   },
   "publishConfig": {

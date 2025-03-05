@@ -7,5 +7,13 @@
   "keywords": [],
   "main": "index.js",
   "scripts": {
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@jienix/jovial-composables": "workspace:*",
+    "@jienix/jovial-directives": "workspace:*",
+    "@jienix/jovial-locale": "workspace:*",
+    "@jienix/jovial-theme": "workspace:*",
+    "@jienix/utils": "workspace:*"
   }
 }

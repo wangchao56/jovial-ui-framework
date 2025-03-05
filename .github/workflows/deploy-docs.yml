@@ -1,0 +1,38 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/docs/**' # 假设文档存放在 apps/docs 目录下
+      - 'packages/jovial-ui/**' # 组件库更新时也触发文档更新
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        run: npm install -g pnpm@8
+
+      - name: Install dependencies
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm --filter docs install  # 单独安装文档项目依赖
+
+      - name: Build Documentation
+        run: pnpm --filter docs docs:build # 执行文档构建命令
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./apps/docs/dist # 根据实际构建目录调整
+          keep_files: false # 清除旧文件
+          force_orphan: true # 保持纯净的部署分支

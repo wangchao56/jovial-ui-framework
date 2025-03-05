@@ -2,27 +2,33 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'My Awesome Project',
-  description: 'A VitePress Site',
+  title: 'JOVIAL-UI',
+  description: '一个基于 Vue 3 的 UI 组件库',
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' },
+      { text: '指南', link: '/guide/' },
+      { text: '组件', link: '/components/jv-button' },
     ],
 
     sidebar: [
       {
-        text: 'Examples',
+        text: '基础组件',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' },
+          { text: '按钮 JvButton', link: '/components/jv-button' },
+          { text: '输入框 JvInput', link: '/components/jv-input' },
+        ],
+      },
+      {
+        text: '数据展示',
+        items: [
+          { text: '表格 JvTable', link: '/components/jv-table' },
+          { text: '分页 JvPagination', link: '/components/jv-pagination' },
         ],
       },
     ],
-
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
+
+      { icon: 'github', link: 'https://github.com/wangchao56/jovial-ui-framework' },
     ],
   },
 })

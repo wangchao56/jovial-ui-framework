@@ -1,4 +1,4 @@
-import type { ComputedRef, MaybeRef } from '@jienix/utils'
+import type { ComputedRef, MaybeRef } from 'vue'
 import { getCurrentInstanceName } from '@jienix/utils'
 import { computed, unref } from 'vue'
 

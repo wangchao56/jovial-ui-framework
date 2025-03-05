@@ -1,9 +1,10 @@
-import type { App } from 'vue'
+import type { App, Plugin } from 'vue'
 import components from './components'
+import { createJovialUI } from './framework'
 
 // console.log(components)
 // 全局安装
-const install: any = function (app: App) {
+const install: Plugin = function (app: App) {
   // 判断是否安装
   if (install?.installed)
     return
@@ -13,7 +14,5 @@ const install: any = function (app: App) {
   })
   install.installed = true
 }
-export {
-  components,
-}
+export { components, createJovialUI }
 export default install

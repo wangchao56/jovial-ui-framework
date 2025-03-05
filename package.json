@@ -44,6 +44,7 @@
     "@jienix/jovial-directives": "workspace:*",
     "@jienix/jovial-locale": "workspace:*",
     "@jienix/jovial-theme": "workspace:*",
+    "@jienix/jovial-ui": "workspace:*",
     "@jienix/typings": "workspace:*",
     "@jienix/utils": "workspace:*",
     "@types/node": "^22.10.5",

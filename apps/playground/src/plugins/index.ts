@@ -1,7 +1,7 @@
 import type { App } from 'vue'
-import * as directives from '@/directives/index'
-import components from '@components/components'
-import { createJovialUI } from '@components/framework'
+import components from '@jienix/jovial-components'
+import * as directives from '@jienix/jovial-directives'
+import { createJovialUI } from 'jovial-ui'
 
 const defaultTheme = {
   name: 'default',

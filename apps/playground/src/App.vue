@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { JvApp } from 'jovial-ui'
 import { ref } from 'vue'
-import JvApp from './components/JvApp/src/JvApp.vue'
 
 const themeName = ref('light')
 </script>

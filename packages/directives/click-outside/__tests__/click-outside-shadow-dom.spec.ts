@@ -1,10 +1,10 @@
+// // Utilities
+// import { wait } from '@jienix/utils'
+// import { vi } from 'vitest'
 // // Directives
 // import ClickOutside from '../'
 
-// // Utilities
-// import { wait } from '@/../test'
-
-// function bootstrap (args?: object) {
+// function bootstrap(args?: object) {
 //   const outsideEl = document.createElement('div')
 //   const shadowHost = document.createElement('div')
 //   const shadowRoot = shadowHost.attachShadow({ mode: 'open' })
@@ -30,13 +30,17 @@
 //   shadowRoot.appendChild(shadowEl)
 
 //   vi.spyOn(window.document, 'addEventListener').mockImplementation((eventName, eventHandler, options) => {
-//     if (eventName === 'click') outsideClickHandler = eventHandler
-//     if (eventName === 'mousedown') outsideMousedownHandler = eventHandler
+//     if (eventName === 'click')
+//       outsideClickHandler = eventHandler
+//     if (eventName === 'mousedown')
+//       outsideMousedownHandler = eventHandler
 //   })
 
 //   vi.spyOn(shadowRoot, 'addEventListener').mockImplementation((eventName, eventHandler, options) => {
-//     if (eventName === 'click') shadowClickHandler = eventHandler
-//     if (eventName === 'mousedown') shadowMousedownHandler = eventHandler
+//     if (eventName === 'click')
+//       shadowClickHandler = eventHandler
+//     if (eventName === 'mousedown')
+//       shadowMousedownHandler = eventHandler
 //   })
 
 //   vi.spyOn(window.document, 'removeEventListener')

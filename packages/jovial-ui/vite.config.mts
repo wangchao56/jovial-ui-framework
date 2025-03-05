@@ -14,11 +14,12 @@ export default defineConfig({
     }),
   ],
   build: {
+    outDir: './dist',
     lib: {
       entry: './src/index.ts',
       name: 'jovial-ui',
       fileName: format => `index.${format}.js`,
-      formats: ['es', 'umd', 'cjs'],
+      formats: ['es', 'umd', 'cjs', 'iife'],
     },
     rollupOptions: {
       external: ['vue'],

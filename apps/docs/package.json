@@ -12,6 +12,7 @@
     "docs:preview": "vitepress preview config"
   },
   "devDependencies": {
+    "@jienix/jovial-ui": "workspace:*",
     "vitepress": "^1.6.3"
   }
 }

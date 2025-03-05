@@ -1,5 +1,5 @@
 {
-  "name": "jovial-ui",
+  "name": "@jienix/jovial-ui",
   "version": "1.0.0",
   "description": "Jovial UI Components Library",
   "author": "",
@@ -16,7 +16,7 @@
     "*.css"
   ],
   "main": "lib/index.cjs",
-  "module": "esm/index.mjs",
+  "module": "esm/index.js",
   "unpkg": "dist/index.full.min.js",
   "jsdelivr": "dist/index.full.min.js",
   "types": "types/index.d.ts",
@@ -40,7 +40,14 @@
   "peerDependencies": {
     "vue": "^3.5.13"
   },
-
+  "dependencies": {
+    "@jienix/jovial-components": "workspace:*",
+    "@jienix/jovial-directives": "workspace:*",
+    "@jienix/jovial-framework": "workspace:*",
+    "@jienix/jovial-locale": "workspace:*",
+    "@jienix/jovial-theme": "workspace:*",
+    "@jienix/utils": "workspace:*"
+  },
   "publishConfig": {
     "access": "public"
   }
