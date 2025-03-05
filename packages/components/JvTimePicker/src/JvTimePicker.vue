@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { JvTimePickerEmits } from './JvTimePicker'
-import JvScrollBox from '@/components/internal/JvScrollPanel.vue'
-import JvPopper from '@/components/JvPopper/src/popper.vue'
+import JvScrollBox from '@components/internal/JvScrollPanel.vue'
+import JvPopper from '@components/JvPopper/src/popper.vue'
 import { createNamespace } from '@jienix/utils'
 import { addHours, addMinutes, addSeconds, format } from 'date-fns'
 import { computed, nextTick, ref, watch } from 'vue'

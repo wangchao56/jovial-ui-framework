@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { useTheme } from '@jienix/jovial-theme'
 import { createNamespace } from '@jienix/utils'
 import { computed, ref, useId, watch } from 'vue'
-import { useTheme } from '../@jienix/jovial-theme'
 import { jvSliderEmits, jvSliderProps } from './JvSlider'
 import '../style/style.css'
 

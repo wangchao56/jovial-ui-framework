@@ -1,4 +1,4 @@
-import type { ReferenceType } from '@/components/JvPopper'
+import type { ReferenceType } from '@components/JvPopper'
 import type { createNamespace } from '@jienix/utils'
 import type { VNodeChild } from 'vue'
 import type { TooltipProps, TriggerKeys } from './tooltip'

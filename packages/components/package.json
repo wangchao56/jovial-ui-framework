@@ -7,7 +7,8 @@
   "keywords": [],
   "main": "index.js",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "tsc": "vue-tsc -b"
   },
   "dependencies": {
     "@jienix/jovial-composables": "workspace:*",

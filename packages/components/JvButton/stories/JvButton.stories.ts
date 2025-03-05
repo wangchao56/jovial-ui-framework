@@ -1,4 +1,4 @@
-import type { Variant } from '@jovial/typings'
+import type { Variant } from '@jienix/typings'
 import type { Meta, StoryObj } from '@storybook/vue3'
 import JvButton from '@components/JvButton/src/JvButton.vue'
 import JvSpace from '@components/JvSpace/src/JvSpace.vue'

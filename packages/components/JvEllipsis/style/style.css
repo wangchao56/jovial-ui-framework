@@ -1,5 +1,3 @@
-@import url('@jovial/theme/src/common/mixins.css');
-
 @b ellipsis {
   @e content {
     display: block;

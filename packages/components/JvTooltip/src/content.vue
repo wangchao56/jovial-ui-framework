@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { RenderContent } from '@/components/internal/types'
+import type { RenderContent } from '@components/internal/types'
 import JvRenderVNodeContent from '@components/internal/render-vnode-content.setup'
 import { createNamespace } from '@jienix/utils'
 import { useEventListener } from '@vueuse/core'

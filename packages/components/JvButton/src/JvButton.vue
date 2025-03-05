@@ -4,9 +4,9 @@ import type {
   JvButtonExposed,
   JvButtonSlots,
 } from './JvButton'
-import { useTheme } from '@/components/theme'
 import { Loading } from '@components/internal-icon/index'
 import JvIcon from '@components/JvIcon/src/JvIcon.vue'
+import { useTheme } from '@jienix/jovial-theme'
 import { createNamespace } from '@jienix/utils'
 import { computed, inject } from 'vue'
 import { jvButtonProps } from './JvButton'

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvButton from '@/components/JvButton/src/JvButton.vue'
+import JvButton from '@components/JvButton/src/JvButton.vue'
 import JvTooltip from '@components/JvTooltip/src/JvTooltip.vue'
 import { ref } from 'vue'
 

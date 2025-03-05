@@ -1,4 +1,4 @@
-import JvIcon from '@/components/JvIcon'
+import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jienix/utils'
 import { defineComponent, inject, type Slot, type SlotsType } from 'vue'
 import { Transition } from 'vue'

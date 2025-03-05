@@ -1,4 +1,4 @@
-import type { Size } from '@jovial/typings'
+import type { Size } from '@jienix/typings'
 import type { InputHTMLAttributes, VNodeChild } from 'vue'
 
 export interface InputProps {

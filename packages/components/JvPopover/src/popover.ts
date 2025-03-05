@@ -1,5 +1,5 @@
 import type { Placement } from '@floating-ui/vue'
-import type { TriggerType } from '@jovial/typings'
+import type { TriggerType } from '@jienix/typings'
 import type { VNodeChild } from 'vue'
 
 export const popoverProps = {} as const

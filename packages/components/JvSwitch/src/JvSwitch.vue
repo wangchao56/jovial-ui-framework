@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { JvSwitchEmits, JvSwitchProps } from './JvSwitch'
+import { useTheme } from '@jienix/jovial-theme'
 import { createNamespace } from '@jienix/utils'
 import { computed, ref, watch } from 'vue'
-import { useTheme } from '../@jienix/jovial-theme'
 import '../style/style.css'
 
 defineOptions({ name: 'JvSwitch' })

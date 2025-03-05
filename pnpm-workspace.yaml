@@ -2,4 +2,4 @@ packages:
   - 'packages/**' # 存放组件代码
   - scripts # 存放脚本
   - typings
-  - apps/**
+  - apps/*

@@ -1,5 +1,5 @@
-import type { Variant } from '@jovial/typings'
-import type { DeepReadonly, VNodeChild } from 'vue'
+import type { Variant } from '@jienix/typings'
+import type { DeepReadonly, InjectionKey, VNodeChild } from 'vue'
 import type { MenuItem, MenuMode, MenuTheme, MenuTrigger, SubMenuType } from './types'
 
 export const jvMenuProps = {

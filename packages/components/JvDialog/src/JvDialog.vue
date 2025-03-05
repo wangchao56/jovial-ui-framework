@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { JvDialogEmits, JvDialogSlots } from './JvDialog'
-import JvButton from '@/components/JvButton/src/JvButton.vue'
 import JvRenderVNodeContent from '@components/internal/render-vnode-content.setup'
+import JvButton from '@components/JvButton/src/JvButton.vue'
 import JvSpace from '@components/JvSpace'
 import { createNamespace } from '@jienix/utils'
 import { useEventListener } from '@vueuse/core'

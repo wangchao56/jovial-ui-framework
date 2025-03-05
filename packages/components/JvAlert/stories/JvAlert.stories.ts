@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvButton from '@/components/JvButton/src/JvButton.vue'
 import JvAlert from '@components/JvAlert'
+import JvButton from '@components/JvButton/src/JvButton.vue'
 
 const template = ` 
       <JvAlert v-bind="args">

@@ -1,4 +1,4 @@
-import type { Size } from '@jovial/typings'
+import type { Size } from '@jienix/typings'
 import type { PropType, Slot } from 'vue'
 
 export type AvatarShape = 'circle' | 'square'

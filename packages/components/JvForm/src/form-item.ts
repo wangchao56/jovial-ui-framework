@@ -1,4 +1,4 @@
-import type { Size } from '@jovial/typings'
+import type { Size } from '@jienix/typings'
 import type { RuleItem, ValidateFieldsError } from 'async-validator'
 import type { ComputedRef, InjectionKey, PropType, Ref, VNodeChild } from 'vue'
 

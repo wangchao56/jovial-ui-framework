@@ -7,8 +7,8 @@ import type {
   CalendarProps,
   CalendarSlots,
 } from './JvCalendar'
-import JvButton from '@/components/JvButton/src/JvButton.vue'
-import JvButtonGroup from '@/components/JvButton/src/JvButtonGroup.setup.vue'
+import JvButton from '@components/JvButton/src/JvButton.vue'
+import JvButtonGroup from '@components/JvButton/src/JvButtonGroup.setup.vue'
 import { useLocale } from '@jienix/jovial-locale'
 
 import { createNamespace } from '@jienix/utils'

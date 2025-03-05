@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { JvMessageExpose, JvMessageProps } from './JvMessage'
-import JvButton from '@/components/JvButton/src/JvButton.vue'
 import RenderVnode from '@components/internal/RenderVnode'
+import JvButton from '@components/JvButton/src/JvButton.vue'
 import JvIcon from '@components/JvIcon'
 import { useZIndex } from '@jienix/jovial-composables'
 import { createNamespace } from '@jienix/utils'

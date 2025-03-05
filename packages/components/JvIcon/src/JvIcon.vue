@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { internalIcons } from '@components/internal-icon'
 import { Icon } from '@iconify/vue'
+import { SizeOptions } from '@jienix/typings'
 import { createNamespace, isNumberExcludeNaN, isString } from '@jienix/utils'
-import { SizeOptions } from '@jovial/typings'
 import { useDebounceFn } from '@vueuse/core'
 import { computed, nextTick, ref, watch } from 'vue'
 import { jvIconProps } from './icon'

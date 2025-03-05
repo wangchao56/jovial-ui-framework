@@ -1,4 +1,4 @@
-import type { JvPaginationProps } from '@/components/JvPagination'
+import type { JvPaginationProps } from '@components/JvPagination'
 import type { PropType } from 'vue'
 
 // 表头类型

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvButton from '@/components/JvButton/src/JvButton.vue'
+import JvButton from '@components/JvButton/src/JvButton.vue'
 import JvDialog from '@components/JvDialog/src/JvDialog.vue'
 
 const template = ` 

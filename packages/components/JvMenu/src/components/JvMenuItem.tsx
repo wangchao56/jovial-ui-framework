@@ -1,8 +1,8 @@
-import type { PropType } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 import type { MenuItem } from '../types'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jienix/utils'
-import { defineComponent } from 'vue'
+import { computed, defineComponent, inject } from 'vue'
 import { JvMenuContextKey } from '../JvMenu'
 
 const jvMenuItemProps = {

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvButton from '@/components/JvButton/src/JvButton.vue'
 import JvBadge from '@components/JvBadge/src/JvBadge.vue'
+import JvButton from '@components/JvButton/src/JvButton.vue'
 
 const template = ` 
       <JvBadge v-bind="args">

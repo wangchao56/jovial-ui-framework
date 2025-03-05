@@ -1,4 +1,4 @@
-import * as stories from '@/components/JvButton/stories/JvButton.stories'
+import * as stories from '@components/JvButton/stories/JvButton.stories'
 import { composeStories } from '@storybook/vue3'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'

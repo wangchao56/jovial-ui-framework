@@ -8,8 +8,10 @@ export default defineConfig({
     vue(),
     vueJsx(),
     dts({
+      tsconfigPath: './tsconfig.build.json',
+      insertTypesEntry: true,
       entryRoot: './src',
-      outDir: './types',
+      outDir: 'dist/types',
       staticImport: true,
     }),
   ],
@@ -18,7 +20,7 @@ export default defineConfig({
     lib: {
       entry: './src/index.ts',
       name: 'jovial-ui',
-      fileName: format => `index.${format}.js`,
+      fileName: format => `${format}/index.${format === 'iife' ? 'min' : format}.${format === 'cjs' || format === 'umd' ? 'cjs' : 'js'}`,
       formats: ['es', 'umd', 'cjs', 'iife'],
     },
     rollupOptions: {
@@ -33,5 +35,9 @@ export default defineConfig({
     minify: 'terser',
     sourcemap: true,
   },
-
+  resolve: {
+    alias: {
+      '@components': '@jienix/jovial-components',
+    },
+  },
 })

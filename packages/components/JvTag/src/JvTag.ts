@@ -1,5 +1,5 @@
-import type { Size, Type } from '@jovial/typings'
-import type { Slot } from 'vue'
+import type { Size, Type } from '@jienix/typings'
+import type { ExtractPropTypes, PropType, Ref, Slot } from 'vue'
 // import { propsFactory } from '@jienix/utils'
 
 export const jvTagProps = {

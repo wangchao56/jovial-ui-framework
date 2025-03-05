@@ -1,5 +1,5 @@
 import type { PopperProps } from '@components/JvPopper'
-import type { CommonProperties, Diff } from '@jovial/typings'
+import type { CommonProperties, Diff } from '@jienix/typings'
 import type { Modifier, Options } from '@popperjs/core'
 import type { TooltipProps } from './tooltip'
 

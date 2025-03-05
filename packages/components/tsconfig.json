@@ -4,7 +4,6 @@
     /* Linting */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
       "@components/*": ["./*"]
     },
     "strict": true,
@@ -13,6 +12,13 @@
     "noUnusedParameters": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["./**/*.ts", "./**/*.d.ts", "./**/*.tsx", "./**/*.vue"],
-  "exclude": []
+  "include": [
+    "**/*.ts",
+    "**/*.d.ts",
+    "**/*.tsx",
+    "**/*.vue",
+    "**/*.css",
+    "./**/*.css",
+    "auto-imports.d.ts"
+  ]
 }

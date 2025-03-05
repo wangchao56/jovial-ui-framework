@@ -1,4 +1,4 @@
-import type { TooltipProps } from '@/components/JvTooltip'
+import type { TooltipProps } from '@components/JvTooltip'
 import type { Slot, VNode } from 'vue'
 
 export const jvEllipsisProps = {

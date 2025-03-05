@@ -1,4 +1,4 @@
-import type { NativeType, Size, Type, Variant } from '@jovial/typings'
+import type { NativeType, Size, Type, Variant } from '@jienix/typings'
 import type { VNodeChild } from 'vue'
 
 export type Placement = 'left' | 'center' | 'right'

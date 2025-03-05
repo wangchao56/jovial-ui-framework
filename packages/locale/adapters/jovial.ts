@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { InjectionKey, Ref } from 'vue'
 import type { LocaleInstance, LocaleMessages, LocaleOptions } from '../types'
 import { consoleError, consoleWarn, getCurrentInstance, getObjectValueByPath } from '@jienix/utils'
 import { ref, shallowRef, useModel, watch } from 'vue'

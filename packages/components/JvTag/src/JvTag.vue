@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { JvTagEmits } from './JvTag'
-import JvIcon from '@/components/JvIcon/src/JvIcon.vue'
+import JvIcon from '@components/JvIcon/src/JvIcon.vue'
 import { createNamespace } from '@jienix/utils'
 import { ref } from 'vue'
 import { jvTagProps } from './JvTag'

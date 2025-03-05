@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { useTheme } from '@/components/theme'
 import { JvButton } from '@components/JvButton'
+import { useTheme } from '@jienix/jovial-theme'
 import { ref } from 'vue'
 import JvApp from '../src/JvApp.vue'
 

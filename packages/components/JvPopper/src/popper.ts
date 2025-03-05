@@ -1,4 +1,4 @@
-import type { Slot } from '@jovial/typings'
+import type { Slot } from '@jienix/typings'
 import type { Instance, Options, VirtualElement } from '@popperjs/core'
 import type { MaybeElementRef } from '@vueuse/core'
 import type { CSSProperties } from 'vue'

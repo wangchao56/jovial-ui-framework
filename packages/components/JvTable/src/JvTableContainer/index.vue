@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { ScrollPanelExpose } from '@/components/internal/types.ts'
+import type { ScrollPanelExpose } from '@components/internal/types.ts'
 import type { Slot } from 'vue'
 import type { JvTableColumn, JvTableColumnType } from '../JvTable'
 import type { RenderCellScope, RenderRowScope } from './types'
-import JvScrollPanel from '@/components/internal/JvScrollPanel.vue'
+import JvScrollPanel from '@components/internal/JvScrollPanel.vue'
 import { createNamespace } from '@jienix/utils'
 import { useVirtualList } from '@vueuse/core'
 import RenderTbody from './renderTbody'

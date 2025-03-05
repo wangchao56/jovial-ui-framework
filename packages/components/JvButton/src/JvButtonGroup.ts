@@ -1,4 +1,4 @@
-import type { Size } from '@jovial/typings'
+import type { Size } from '@jienix/typings'
 import type { VNodeChild } from 'vue'
 
 /** 按钮组上下文接口 */

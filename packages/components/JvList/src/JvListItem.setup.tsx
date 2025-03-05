@@ -1,5 +1,5 @@
-import JvAvatar from '@/components/JvAvatar'
-import JvIcon from '@/components/JvIcon'
+import JvAvatar from '@components/JvAvatar'
+import JvIcon from '@components/JvIcon'
 import { JvListContextKey } from '@components/JvList'
 import { createNamespace } from '@jienix/utils'
 import { computed, createVNode, defineComponent, Fragment, inject } from 'vue'

@@ -1,4 +1,4 @@
-import type { Arrayable, FieldPath } from '@jovial/typings'
+import type { Arrayable, FieldPath } from '@jienix/typings'
 import type { Values } from 'async-validator'
 import type { InjectionKey, MaybeRef, PropType, UnwrapRef } from 'vue'
 import type {

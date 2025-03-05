@@ -1,10 +1,11 @@
-import type { App, DeepReadonly, InjectionKey } from 'vue'
+import type { App, DeepReadonly, InjectionKey, Ref } from 'vue'
 import {
   getCurrentInstance,
   getLuma,
   IN_BROWSER,
   parseColor,
 } from '@jienix/utils'
+import { computed, inject, provide, ref } from 'vue'
 
 const THEME_PREFIX = 'jv-theme'
 const THEME_CLASS = `${THEME_PREFIX}`
@@ -310,7 +311,9 @@ export function createTheme(
     }
   }
 
-  const themeClasses = computed(() => parsedOptions.isDisabled ? undefined : `${THEME_CLASS}--${name.value}`)
+  const themeClasses = computed(() =>
+    parsedOptions.isDisabled ? undefined : `${THEME_CLASS}--${name.value}`,
+  )
   return {
     install,
     isDisabled: false,

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvTag from '@/components/JvTag/src/JvTag.vue'
-import { JvCol, JvColSpace, JvRow } from '@/components/Layout'
+import JvTag from '@components/JvTag/src/JvTag.vue'
+import { JvCol, JvColSpace, JvRow } from '@components/Layout'
 import { ref } from 'vue'
 import JvProgress from '../src/JvProgress.vue'
 
