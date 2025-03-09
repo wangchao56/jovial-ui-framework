@@ -62,28 +62,7 @@ export const jvCarouselProps = {
   },
 } as const
 
-export interface JvCarouselProps {
-  /** 当前激活项 */
-  modelValue?: number
-  /** 是否自动播放 */
-  autoplay?: boolean
-  /** 自动播放间隔 */
-  interval?: number
-  /** 轮播方向 */
-  direction?: CarouselDirection
-  /** 切换动画 */
-  effect?: CarouselEffect
-  /** 指示器位置 */
-  indicatorPosition?: CarouselIndicatorPosition
-  /** 是否显示箭头 */
-  arrow?: boolean
-  /** 切换动画时长 */
-  duration?: number
-  /** 是否循环播放 */
-  loop?: boolean
-  /** 是否暂停自动播放 */
-  pauseOnHover?: boolean
-}
+export type JvCarouselProps = ExtractPropTypes<typeof jvCarouselProps>
 
 export const jvCarouselEmits = {
   /** 切换时触发 */

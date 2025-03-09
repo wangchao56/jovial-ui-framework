@@ -1,2 +1,2 @@
-import './style.css'
-import './jv-radio-group.css'
+import '@jienix/jovial-theme/src/components/jv-radio.css'
+import '@jienix/jovial-theme/src/components/jv-radio-group.css'

@@ -6,7 +6,7 @@ import _JvIcon from './src/JvIcon.vue'
 
 const JvIcon = withInstall(_JvIcon)
 
-export * from './src/icon'
+export * from './src/JvIcon'
 export default JvIcon
 
 declare module 'vue' {

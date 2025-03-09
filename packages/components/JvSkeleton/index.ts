@@ -1,5 +1,5 @@
 import { withInstall } from '@jienix/utils'
-import _JvSkeleton from './src/JvSkeleton.setup'
+import _JvSkeleton from './src/JvSkeleton.vue'
 import './style'
 
 const JvSkeleton = withInstall(_JvSkeleton)

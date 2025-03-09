@@ -2,7 +2,7 @@
 import { createNamespace } from '@jienix/utils'
 import { jvDividerProps } from './JvDivider'
 
-defineOptions({ name: 'JvDivider' })
+defineOptions({ name: 'JvDivider', inheritAttrs: false })
 const props = defineProps(jvDividerProps)
 const bem = createNamespace('divider')
 const dividerRef = useTemplateRef('divider')

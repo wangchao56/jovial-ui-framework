@@ -1,6 +1,5 @@
 import type { Size, Type } from '@jienix/typings'
 import type { ExtractPropTypes, PropType, Ref, Slot } from 'vue'
-// import { propsFactory } from '@jienix/utils'
 
 export const jvTagProps = {
   /**
@@ -61,14 +60,23 @@ export const jvTagProps = {
   },
 } as const
 
-export type JvTagProps = ExtractPropTypes<typeof jvTagProps>
+export type JvTagProps = Partial<ExtractPropTypes<typeof jvTagProps>>
 
 export interface JvTagEmits {
+  /**
+   * 关闭时触发
+   */
   (event: 'close', evt: MouseEvent): void
 }
 
 export interface JvTagSlots {
+  /**
+   * 默认插槽
+   */
   default?: Slot
+  /**
+   * 图标插槽
+   */
   icon?: Slot
 }
 

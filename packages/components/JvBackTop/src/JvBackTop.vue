@@ -5,14 +5,12 @@ import JvButton from '@components/JvButton/src/JvButton.vue'
 import { createNamespace } from '@jienix/utils'
 import { h, onBeforeUnmount, onMounted, ref } from 'vue'
 import { jvBackTopProps } from './JvBackTop'
-import '../style/style.css'
 
-defineOptions({ name: 'JvBackTop' })
+defineOptions({ name: 'JvBackTop', inheritAttrs: false })
 
-const props = defineProps(jvBackTopProps)
+const { right, bottom, visibilityHeight, duration, target } = defineProps(jvBackTopProps)
 const emit = defineEmits<JvBackTopEmits>()
 const bem = createNamespace('backTop')
-
 const visible = ref(false)
 const el = ref<HTMLElement | null>(null)
 const container = ref<HTMLElement | Window>(window)
@@ -25,7 +23,7 @@ function handleScroll() {
     ? document.documentElement.scrollTop
     : (container.value as HTMLElement).scrollTop
 
-  visible.value = scrollTop >= props.visibilityHeight
+  visible.value = scrollTop >= visibilityHeight
 }
 
 // 滚动到顶部
@@ -36,7 +34,7 @@ function scrollToTop() {
   const startTime = Date.now()
 
   const scroll = () => {
-    const progress = (Date.now() - startTime) / props.duration
+    const progress = (Date.now() - startTime) / duration
     if (progress < 1) {
       const scrollTop = begin * (1 - easeInOutCubic(progress))
       if (container.value instanceof Window) {
@@ -64,11 +62,11 @@ function handleClick(event: MouseEvent) {
 }
 
 onMounted(() => {
-  if (props.target === 'window') {
+  if (target === 'window') {
     container.value = window
   }
   else {
-    container.value = document.querySelector(props.target) as HTMLElement
+    container.value = document.querySelector(target) as HTMLElement
   }
   container.value?.addEventListener('scroll', handleScroll)
   handleScroll()
@@ -90,9 +88,7 @@ defineExpose({
       v-show="visible" ref="el" :class="bem.b()" :style="{
         right: `${right}px`,
         bottom: `${bottom}px`,
-      }"
-      position="bottom" :bottom-offset="bottom"
-      :target="() => container" @click="handleClick"
+      }" position="bottom" :bottom-offset="bottom" :target="() => container" @click="handleClick"
     >
       <component
         :is="h(JvButton, {

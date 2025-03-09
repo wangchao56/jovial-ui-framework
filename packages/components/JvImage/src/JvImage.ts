@@ -17,7 +17,7 @@ export const jvImageProps = {
   },
   /** 响应式图片源列表 */
   sources: {
-    type: Array as () => ImageSource[],
+    type: Array as PropType<ImageSource[]>,
     default: () => [],
   },
   /** 图片适应容器的方式 */
@@ -62,37 +62,22 @@ export const jvImageProps = {
   },
   /** 图片宽度 */
   width: {
-    type: [String, Number],
+    type: [String, Number] as PropType<string | number>,
     default: '',
   },
   /** 图片高度 */
   height: {
-    type: [String, Number],
+    type: [String, Number] as PropType<string | number>,
     default: '',
   },
   /** 图片圆角 */
   radius: {
-    type: [String, Number],
+    type: [String, Number] as PropType<string | number>,
     default: 0,
   },
 } as const
 
-export interface JvImageProps {
-  src?: string
-  sources?: ImageSource[]
-  fit?: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down'
-  alt?: string
-  lazy?: boolean
-  fallback?: string
-  previewSrc?: string
-  preview?: boolean
-  placeholder?: string
-  hideOnError?: boolean
-  width?: string | number
-  height?: string | number
-  radius?: string | number
-}
-
+export type JvImageProps = ExtractPropTypes<typeof jvImageProps>
 export const jvImageEmits = {
   /** 图片加载成功时触发 */
   load: (evt: Event) => evt instanceof Event,
@@ -103,9 +88,9 @@ export const jvImageEmits = {
 } as const
 
 export interface JvImageEmits {
-  load: (evt: Event) => void
-  error: (evt: Event) => void
-  click: (evt: MouseEvent) => void
+  (e: 'load', evt: Event): void
+  (e: 'error', evt: Event): void
+  (e: 'click', evt: MouseEvent): void
 }
 
 export const jvImageSlots = {

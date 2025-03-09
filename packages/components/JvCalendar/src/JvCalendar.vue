@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { Dayjs } from 'dayjs'
 import type {
   CalendarDateCell,
   CalendarDateCellTypeLiteral,
@@ -7,17 +6,29 @@ import type {
   CalendarProps,
   CalendarSlots,
 } from './JvCalendar'
-import JvButton from '@components/JvButton/src/JvButton.vue'
-import JvButtonGroup from '@components/JvButton/src/JvButtonGroup.setup.vue'
+import { JvButton, JvButtonGroup } from '@components/JvButton'
 import { useLocale } from '@jienix/jovial-locale'
 
 import { createNamespace } from '@jienix/utils'
-import dayjs from 'dayjs'
+import {
+  addMonths,
+  addYears,
+  endOfMonth,
+  format,
+  getDate,
+  getDay,
+  getDaysInMonth,
+  isSameDay,
+  setDate,
+  startOfMonth,
+  startOfWeek,
+  subMonths,
+  subYears,
+} from 'date-fns'
 import { computed, normalizeClass, ref, unref } from 'vue'
 import {
   actionsMapEntries,
   CalendarDateCellType,
-  CalendarPeriod,
   weekMaping,
 } from './JvCalendar'
 
@@ -30,26 +41,26 @@ defineSlots<CalendarSlots>()
 
 const nscal = createNamespace('calendar')
 const nsTable = createNamespace('calendar-table')
-const now = dayjs()
-const selectDay = ref<Dayjs>()
+const now = new Date()
+const selectDay = ref<Date>()
 
 const date = computed(() => {
   if (props.modelValue) {
-    return dayjs(props.modelValue)
+    return props.modelValue
   }
   else {
     return now
   }
 })
 const locale = useLocale()
-const yearMonth = ref(dayjs().format('YYYY.MM'))
+const yearMonth = ref(format(new Date(), 'yyyy.MM'))
 // 表头部分
 // 0-周日，1-周一...6-周六
-const fristDayofWeek = dayjs().startOf(CalendarPeriod.WEEK).day()
+const firstDayOfWeek = getDay(startOfWeek(new Date()))
 
 const weekDays = computed(() => {
   return weekMaping.map((item, index) => {
-    const day = (fristDayofWeek + index) % 7
+    const day = (firstDayOfWeek + index) % 7
     return {
       label: item,
       value: day,
@@ -62,26 +73,22 @@ const weekDays = computed(() => {
 const rows = computed(() => {
   let list: CalendarDateCell[] = []
   // 算出当前月是从周几开始
-  const fristDay = unref(date).startOf(CalendarPeriod.MONTH).day()
+  const firstDay = getDay(startOfMonth(unref(date)))
 
-  const lastDay = unref(date)
-    .subtract(1, CalendarPeriod.MONTH)
-    .endOf(CalendarPeriod.MONTH)
-    .date()
-
-  const preMonthDaysCount = fristDay - fristDayofWeek
+  const lastMonthLastDay = endOfMonth(subMonths(unref(date), 1))
+  const lastMonthDaysCount = firstDay - firstDayOfWeek
 
   const preMonthDays: CalendarDateCell[] = Array.from({
-    length: preMonthDaysCount,
+    length: lastMonthDaysCount,
   })
-    .map((_, idx) => lastDay - (preMonthDaysCount - idx - 1))
+    .map((_, idx) => getDate(lastMonthLastDay) - (lastMonthDaysCount - idx - 1))
     .map(item => ({
       day: item,
       isSelected: false,
       type: CalendarDateCellType.PREV_MONTH,
     }))
   // 算出当前月有多少天
-  const daysInMonth = dayjs().daysInMonth()
+  const daysInMonth = getDaysInMonth(unref(date))
   const currentMonthDays: CalendarDateCell[] = Array.from({
     length: daysInMonth,
   }).map((_, idx) => ({
@@ -108,30 +115,36 @@ const rows = computed(() => {
 })
 
 // 日期相关的方法
+const prevMonthDay = computed(() => {
+  const currentDate = unref(date)
+  return setDate(startOfMonth(subMonths(currentDate, 1)), 1)
+})
 
-const prevMonthDay = computed(() =>
-  unref(date).subtract(1, CalendarPeriod.MONTH).date(1),
-)
-const nextMonthDay = computed(() =>
-  unref(date).add(1, CalendarPeriod.MONTH).date(1),
-)
-const prevYearDay = computed(() =>
-  unref(date).subtract(1, CalendarPeriod.YEAR).date(1),
-)
-const nextYearDay = computed(() =>
-  unref(date).add(1, CalendarPeriod.YEAR).date(1),
-)
+const nextMonthDay = computed(() => {
+  const currentDate = unref(date)
+  return setDate(startOfMonth(addMonths(currentDate, 1)), 1)
+})
 
-function pickDay(newDate: dayjs.Dayjs) {
-  yearMonth.value = newDate.format('YYYY.MM')
+const prevYearDay = computed(() => {
+  const currentDate = unref(date)
+  return setDate(startOfMonth(subYears(currentDate, 1)), 1)
+})
+
+const nextYearDay = computed(() => {
+  const currentDate = unref(date)
+  return setDate(startOfMonth(addYears(currentDate, 1)), 1)
+})
+
+function pickDay(newDate: Date) {
+  yearMonth.value = format(newDate, 'yyyy.MM')
   // 这里可以添加其他需要更新的逻辑，比如触发父组件的输入事件等
-  emit('update:modelValue', newDate.toDate())
+  emit('update:modelValue', newDate)
 }
 
 function selectDate(type: CalendarDateCellTypeLiteral) {
   // 采用策略模式
   const dateMap: {
-    [key in CalendarDateCellTypeLiteral]: dayjs.Dayjs
+    [key in CalendarDateCellTypeLiteral]: Date
   } = {
     [CalendarDateCellType.PREV_MONTH]: prevMonthDay.value,
     [CalendarDateCellType.NEXT_MONTH]: nextMonthDay.value,
@@ -144,33 +157,30 @@ function selectDate(type: CalendarDateCellTypeLiteral) {
   pickDay(day)
 }
 
-function formatter(day: number, type: CalendarDateCellTypeLiteral) {
+function formatter(day: number, type: CalendarDateCellTypeLiteral): Date {
+  const currentDate = unref(date)
   switch (type) {
     case CalendarDateCellType.PREV_MONTH:
-      return date.value
-        .startOf(CalendarPeriod.MONTH)
-        .subtract(1, CalendarPeriod.MONTH)
-        .date(day)
+      return setDate(subMonths(startOfMonth(currentDate), 1), day)
     case CalendarDateCellType.NEXT_MONTH:
-      return date.value
-        .startOf(CalendarPeriod.MONTH)
-        .add(1, CalendarPeriod.MONTH)
-        .date(day)
+      return setDate(addMonths(startOfMonth(currentDate), 1), day)
     default:
-      return date.value.date(day)
+      return setDate(currentDate, day)
   }
 }
+
 function getCellClass({ day, type }: CalendarDateCell) {
   const clazz: string[] = [nsTable.m(type)]
   const tempDay = formatter(day, type)
-  if (tempDay.isSame(unref(selectDay), CalendarPeriod.DAY)) {
+  if (unref(selectDay) && isSameDay(tempDay, unref(selectDay))) {
     clazz.push(nsTable.is('selected', true))
   }
-  if (tempDay.isSame(now, CalendarPeriod.DAY)) {
+  if (isSameDay(tempDay, now)) {
     clazz.push(nsTable.is('today', true))
   }
   return clazz
 }
+
 function handlePick({ day, type }: CalendarDateCell) {
   const tempDay = formatter(day, type)
   selectDay.value = tempDay
@@ -193,10 +203,7 @@ function handlePick({ day, type }: CalendarDateCell) {
           </button>
           <JvButtonGroup rounded size="small" variant="tonal" justify="center" gap="2px" vertical>
             <JvButton
-              v-for="btn in actionsMapEntries"
-              :key="btn.key"
-              size="small"
-              variant="tonal"
+              v-for="btn in actionsMapEntries" :key="btn.key" size="small" variant="tonal"
               @click="() => selectDate(btn.key)"
             >
               {{ locale.t(btn.value) }}
@@ -214,14 +221,11 @@ function handlePick({ day, type }: CalendarDateCell) {
       <tbody :class="nsTable.e('tbody')">
         <tr v-for="(row, ix) in rows" :key="ix" :class="nsTable.e('row')">
           <td
-            v-for="cell in row.cells"
-            :key="cell?.day"
-            :class="[
+            v-for="cell in row.cells" :key="cell?.day" :class="[
               nsTable.e('cell'),
               nsTable.m(cell.type),
               ...getCellClass(cell),
-            ]"
-            @click="() => handlePick(cell)"
+            ]" @click="() => handlePick(cell)"
           >
             <slot name="cell" :cell="cell">
               {{ cell.day }}

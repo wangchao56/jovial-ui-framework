@@ -5,13 +5,12 @@ import type {
   JvButtonSlots,
 } from './JvButton'
 import { Loading } from '@components/internal-icon/index'
-import JvIcon from '@components/JvIcon/src/JvIcon.vue'
+import JvIcon from '@components/JvIcon'
 import { useTheme } from '@jienix/jovial-theme'
 import { createNamespace } from '@jienix/utils'
 import { computed, inject } from 'vue'
 import { jvButtonProps } from './JvButton'
 import { JvButtonGroupContextKey } from './JvButtonGroup'
-import '../style/jv-button.css'
 
 defineOptions({
   name: 'JvButton',
@@ -80,13 +79,8 @@ defineExpose<JvButtonExposed>({
 
 <template>
   <button
-    ref="rootRef"
-    v-bind="$attrs"
-    role="button"
-    :tabindex="(_disabled || _loading) ? -1 : 0"
-    :disabled="_disabled || _loading"
-    :aria-disabled="_disabled || _loading"
-    :class="[
+    ref="rootRef" v-bind="$attrs" role="button" :tabindex="(_disabled || _loading) ? -1 : 0"
+    :disabled="_disabled || _loading" :aria-disabled="_disabled || _loading" :class="[
       bem.b(),
       bem.m(finalProps.type),
       bem.m(finalProps.size),
@@ -99,16 +93,9 @@ defineExpose<JvButtonExposed>({
       bem.is('stacked', stacked),
       props.class,
       theme.themeClasses.value,
-    ]"
-    :style="buttonStyle"
-    :type="nativeType"
-    :autofocus="autofocus"
-    @click="emitClick($event)"
-    @mousedown="emitMouseDown($event)"
-    @keydown.prevent="emit('keydown', $event)"
-    @keyup.prevent="emit('keyup', $event)"
-    @focus="emit('focus', $event)"
-    @blur="emit('blur', $event)"
+    ]" :style="buttonStyle" :type="nativeType" :autofocus="autofocus" @click="emitClick($event)"
+    @mousedown="emitMouseDown($event)" @keydown.prevent="emit('keydown', $event)" @keyup.prevent="emit('keyup', $event)"
+    @focus="emit('focus', $event)" @blur="emit('blur', $event)"
   >
     <span v-if="$slots.prepend || prependIcon" :class="bem.e('prepend')">
       <!-- 自定义前置图标 -->

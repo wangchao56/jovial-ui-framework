@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType, Ref } from 'vue'
+import type { ExtractPropTypes, PropType, Ref, Slot } from 'vue'
 
 interface TimelineItem {
   /**
@@ -33,17 +33,27 @@ export const jvTimelineProps = {
 } as const
 
 export type JvTimelineProps = ExtractPropTypes<typeof jvTimelineProps>
-/**
- * 将 'click-item': (item: TimelineItem) => true, 转换为 (e:'clickItem',item:TimelineItem):void
- */
+
 export interface JvTimelineEmits {
+  /**
+   * 点击时间轴项
+   */
   (e: 'clickItem', item: TimelineItem): void
 }
 
 export interface JvTimelineSlots {
-  default?: () => any
-  item?: (props: { item: TimelineItem }) => any
-  dot?: (props: { item: TimelineItem }) => any
+  /**
+   * 默认插槽
+   */
+  default?: Slot
+  /**
+   * 时间轴项插槽
+   */
+  item?: Slot<{ item: TimelineItem }>
+  /**
+   * 时间轴点插槽
+   */
+  dot?: Slot<{ item: TimelineItem }>
 }
 
 export interface JvTimelineExpose {

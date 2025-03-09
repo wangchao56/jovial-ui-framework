@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import type { JvAlertEmits, JvAlertExpose } from './JvAlert.js'
-import JvButton from '@components/JvButton/src/JvButton.vue'
+import { JvButton } from '@components/JvButton'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jienix/utils'
 import { ref } from 'vue'
 import { jvAlertProps } from './JvAlert.js'
-import '../style/style.css'
 
-defineOptions({ name: 'JvAlert' })
-defineProps(jvAlertProps)
+defineOptions({ name: 'JvAlert', inheritAttrs: false })
+const { title, description, type, closable, closeText } = defineProps(jvAlertProps)
 const emit = defineEmits<JvAlertEmits>()
 const bem = createNamespace('alert')
 const visible = ref(true)
@@ -30,28 +29,17 @@ defineExpose<JvAlertExpose>({
 </script>
 
 <template>
-  <Transition
-    name="alert-fade"
-    @after-leave="afterLeave"
-  >
+  <Transition name="alert-fade" @after-leave="afterLeave">
     <div
-      v-show="visible"
-      role="alert"
-      :aria-label="title"
-      :aria-live="showIcon ? 'polite' : 'off'"
-      :class="[bem.b(), bem.m(type)]"
-      tabindex="0"
+      v-show="visible" role="alert" :aria-label="title" :aria-live="showIcon ? 'polite' : 'off'"
+      :class="[bem.b(), bem.m(type)]" tabindex="0"
     >
       <span v-if="showIcon" :aria-hidden="showIcon" :class="bem.e('icon')">
         <slot name="icon">
           <JvIcon :name="`$${type}`" />
         </slot>
       </span>
-      <hgroup
-        :class="bem.e('content')"
-        role="region"
-        :aria-label="title"
-      >
+      <hgroup :class="bem.e('content')" role="region" :aria-label="title">
         <slot name="title">
           <h4 :class="bem.em('content', 'title')">
             {{ title }}
@@ -64,13 +52,8 @@ defineExpose<JvAlertExpose>({
         </slot>
       </hgroup>
       <JvButton
-        v-if="closable"
-        :aria-label="closeText"
-        :aria-hidden="!closable"
-        variant="plain"
-        size="small"
-        :class="bem.e('close')"
-        @click.stop="close"
+        v-if="closable" :aria-label="closeText" :aria-hidden="!closable" variant="plain" size="small"
+        :class="bem.e('close')" @click.stop="close"
       >
         <template v-if="closeText" #default>
           {{ closeText }}

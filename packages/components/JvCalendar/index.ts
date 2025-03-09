@@ -1,5 +1,6 @@
 import { withInstall } from '@jienix/utils'
 import _JvCalendar from './src/JvCalendar.vue'
+import './style'
 
 const JvCalendar = withInstall(_JvCalendar)
 
@@ -7,7 +8,7 @@ export type {
   CalendarEmits,
   CalendarProps,
   CalendarSlots,
-} from './src/calendar'
+} from './src/JvCalendar'
 
 export default JvCalendar
 export type CalendarInstance = InstanceType<typeof JvCalendar>

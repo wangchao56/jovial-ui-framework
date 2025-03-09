@@ -32,7 +32,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "build:esm": "vite build --config vite.esm.config.mts"
   },
   "peerDependencies": {
     "vue": "^3.5.13"

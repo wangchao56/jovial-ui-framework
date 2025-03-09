@@ -1,14 +1,15 @@
 import { withInstall } from '@jienix/utils'
-import _checkbox from './src/checkbox.vue'
+import _JvCheckbox from './src/JvCheckbox.vue'
+import './style'
 
-const CheckBox = withInstall(_checkbox)
+const JvCheckbox = withInstall(_JvCheckbox)
 
-export * from './src/checkbox'
+export * from './src/JvCheckbox'
 
-export default CheckBox
+export default JvCheckbox
 
 declare module 'vue' {
   export interface GlobalComponents {
-    JvCheckBox: typeof CheckBox
+    JvCheckbox: typeof JvCheckbox
   }
 }

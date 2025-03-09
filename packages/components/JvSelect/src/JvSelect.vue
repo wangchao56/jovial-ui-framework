@@ -1,14 +1,3 @@
-/**
- * Select 组件实现了以下功能：
- * 1. 单选和多选模式
- * 2. 可清空选项
- * 3. 支持搜索过滤
- * 4. 支持选项分组
- * 5. 自定义选项内容
- * 6. 限制标签显示数量
- * 7. 完整的禁用状态
- */
-
 <script setup lang="ts">
 import type { JvSelectEmits, JvSelectSlots, SelectOption } from './JvSelect'
 import JvIcon from '@components/JvIcon'
@@ -16,9 +5,8 @@ import JvTag from '@components/JvTag'
 import { createNamespace } from '@jienix/utils'
 import { computed, nextTick, ref, watch } from 'vue'
 import { jvSelectProps } from './JvSelect'
-import '../style/style.css'
 
-defineOptions({ name: 'JvSelect' })
+defineOptions({ name: 'JvSelect', inheritAttrs: false })
 
 const props = defineProps(jvSelectProps)
 
@@ -167,24 +155,19 @@ watch(visible, (val) => {
 
 <template>
   <div
-    ref="selectRef"
-    :class="[
+    ref="selectRef" :class="[
       bem.b(),
       bem.is('disabled', disabled),
       bem.is('visible', visible),
       bem.is('clearable', clearable),
       bem.is('multiple', multiple),
-    ]"
-    @click="handleVisibleChange(!visible)"
+    ]" @click="handleVisibleChange(!visible)"
   >
     <!-- 选择框 -->
     <div :class="bem.e('selector')">
       <!-- 自定义选中值 -->
       <template v-if="$slots.value">
-        <slot
-          name="value"
-          :value="modelValue"
-        />
+        <slot name="value" :value="modelValue" />
       </template>
 
       <!-- 默认选中值展示 -->
@@ -192,10 +175,7 @@ watch(visible, (val) => {
         <!-- 多选标签 -->
         <template v-if="multiple && selectedLabels.length">
           <JvTag
-            v-for="(label, index) in displayTags"
-            :key="index"
-            :class="bem.e('tag')"
-            :closable="!disabled"
+            v-for="(label, index) in displayTags" :key="index" :class="bem.e('tag')" :closable="!disabled"
             @close="handleTagClose(index)"
           >
             {{ label }}
@@ -219,27 +199,20 @@ watch(visible, (val) => {
 
       <!-- 搜索输入框 -->
       <input
-        v-if="filterable"
-        v-model="keyword"
-        :class="bem.e('input')"
-        :placeholder="selectedLabels.length ? '' : placeholder"
-        :disabled="disabled"
-        @input="handleInput"
+        v-if="filterable" v-model="keyword" :class="bem.e('input')"
+        :placeholder="selectedLabels.length ? '' : placeholder" :disabled="disabled" @input="handleInput"
       >
     </div>
 
     <!-- 清空按钮 -->
     <JvIcon
-      v-if="clearable && !disabled && selectedLabels.length"
-      name="close-circle"
-      :class="bem.e('clear')"
+      v-if="clearable && !disabled && selectedLabels.length" name="close-circle" :class="bem.e('clear')"
       @click.stop="handleClear"
     />
 
     <!-- 箭头图标 -->
     <JvIcon
-      name="chevron-down"
-      :class="[
+      name="chevron-down" :class="[
         bem.e('arrow'),
         bem.is('reverse', visible),
       ]"
@@ -247,43 +220,31 @@ watch(visible, (val) => {
 
     <!-- 下拉面板 -->
     <div
-      v-show="visible"
-      ref="dropdownRef"
-      :class="bem.e('dropdown')"
+      v-show="visible" ref="dropdownRef" :class="bem.e('dropdown')"
       :style="{ width: dropdownWidth ? `${dropdownWidth}px` : '' }"
     >
       <!-- 选项列表 -->
       <template v-if="filteredOptions.length">
         <template v-for="[group, options] in groupedOptions">
           <!-- 分组标题 -->
-          <div
-            v-if="group"
-            :key="group"
-            :class="bem.e('group')"
-          >
+          <div v-if="group" :key="group" :class="bem.e('group')">
             {{ group }}
           </div>
 
           <!-- 选项 -->
           <div
-            v-for="option in options"
-            :key="option.value"
-            :class="[
+            v-for="option in options" :key="option.value" :class="[
               bem.e('option'),
               bem.is('disabled', option.disabled),
               bem.is('selected', multiple
                 ? (modelValue as (string | number)[]).includes(option.value)
                 : modelValue === option.value,
               ),
-            ]"
-            @click="handleOptionClick(option)"
+            ]" @click="handleOptionClick(option)"
           >
             <!-- 自定义选项内容 -->
             <template v-if="$slots.option">
-              <slot
-                name="option"
-                :option="option"
-              />
+              <slot name="option" :option="option" />
             </template>
 
             <!-- 默认选项内容 -->
@@ -292,8 +253,7 @@ watch(visible, (val) => {
                 {{ option.label }}
               </span>
               <JvIcon
-                v-if="multiple && (modelValue as (string | number)[]).includes(option.value)"
-                name="check"
+                v-if="multiple && (modelValue as (string | number)[]).includes(option.value)" name="check"
                 :class="bem.e('check')"
               />
             </template>

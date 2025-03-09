@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import type { JvSliderEmits } from './JvSlider'
 import { useTheme } from '@jienix/jovial-theme'
 import { createNamespace } from '@jienix/utils'
 import { computed, ref, useId, watch } from 'vue'
-import { jvSliderEmits, jvSliderProps } from './JvSlider'
-import '../style/style.css'
+import { jvSliderProps } from './JvSlider'
 
 const props = defineProps(jvSliderProps)
-const emit = defineEmits(jvSliderEmits)
+const emit = defineEmits<JvSliderEmits>()
 const theme = useTheme()
 
 const bem = createNamespace('slider')
@@ -73,15 +73,6 @@ function handleInputChange(event: Event) {
   emit('update:modelValue', value)
   emit('change', value)
 }
-
-// 处理步进按钮
-// function handleStep(increase: boolean) {
-//   const newVal = props.modelValue + (increase ? props.step : -props.step)
-//   if (newVal >= props.min && newVal <= props.max) {
-//     emit('update:modelValue', newVal)
-//     emit('change', newVal)
-//   }
-// }
 </script>
 
 <template>
@@ -97,60 +88,36 @@ function handleInputChange(event: Event) {
   >
     <div v-if="showInput" :class="bem.e('input-wrapper')">
       <input
-        v-model="inputValue"
-        :class="bem.e('number-input')"
-        type="number"
-        :min="min"
-        :max="max"
-        :step="step"
-        :disabled="disabled"
-        @change="handleInputChange"
+        v-model="inputValue" :class="bem.e('number-input')" type="number" :min="min" :max="max" :step="step"
+        :disabled="disabled" @change="handleInputChange"
       >
     </div>
 
     <div :class="bem.e('runway')">
-      <div
-        :class="bem.e('bar')"
-        :style="{ width: `${percentage}%` }"
-      />
+      <div :class="bem.e('bar')" :style="{ width: `${percentage}%` }" />
 
       <!-- 刻度点 -->
       <div
-        v-for="tick in ticks"
-        :key="tick"
-        :class="[
+        v-for="tick in ticks" :key="tick" :class="[
           bem.e('tick'),
           { 'is-active': modelValue >= tick },
-        ]"
-        :style="{
+        ]" :style="{
           left: `${((tick - min) / (max - min)) * 100}%`,
         }"
       >
-        <div
-          v-if="props.marks[tick]"
-          :class="bem.e('tick-label')"
-        >
+        <div v-if="props.marks[tick]" :class="bem.e('tick-label')">
           {{ props.marks[tick] }}
         </div>
       </div>
 
       <input
-        :class="bem.e('input')"
-        type="range"
-        :min="min"
-        :max="max"
-        :step="step"
-        :value="modelValue"
-        :disabled="disabled"
-        :list="listId"
-        @input="handleInput"
+        :class="bem.e('input')" type="range" :min="min" :max="max" :step="step" :value="modelValue"
+        :disabled="disabled" :list="listId" @input="handleInput"
       >
 
       <!-- tooltip -->
       <div
-        v-if="showTooltip"
-        :class="bem.e('tooltip')"
-        :style="{
+        v-if="showTooltip" :class="bem.e('tooltip')" :style="{
           left: `${percentage}%`,
         }"
       >
@@ -162,24 +129,14 @@ function handleInputChange(event: Event) {
 
     <!-- 刻度标记 -->
     <div v-if="list" :class="bem.e('marks')">
-      <slot
-        v-for="tick in ticks"
-        :key="tick"
-        name="mark"
-        :value="tick"
-      >
+      <slot v-for="tick in ticks" :key="tick" name="mark" :value="tick">
         {{ tick }}
       </slot>
     </div>
 
     <!-- 刻度列表 -->
     <datalist :id="listId" :class="bem.e('marks')">
-      <option
-        v-for="tick in ticks"
-        :key="tick"
-        :value="tick"
-        :label="getTickLabel(tick)"
-      />
+      <option v-for="tick in ticks" :key="tick" :value="tick" :label="getTickLabel(tick)" />
     </datalist>
   </div>
 </template>

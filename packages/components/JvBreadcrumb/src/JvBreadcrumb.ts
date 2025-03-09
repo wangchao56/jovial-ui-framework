@@ -10,7 +10,7 @@ import type { VNodeChild } from 'vue'
 完整的类型定义和文档
  */
 /** 面包屑项配置 */
-export interface BreadcrumbItem {
+export interface JvBreadcrumbItem {
   /** 标识 */
   key: string
   /** 文本 */
@@ -26,7 +26,7 @@ export interface BreadcrumbItem {
 export const jvBreadcrumbProps = {
   /** 面包屑项列表 */
   items: {
-    type: Array as PropType<BreadcrumbItem[]>,
+    type: Array as PropType<JvBreadcrumbItem[]>,
     default: () => [],
   },
   /** 分隔符 */
@@ -45,12 +45,12 @@ export interface JvBreadcrumbProps extends ExtractPropTypes<typeof jvBreadcrumbP
 
 export interface JvBreadcrumbEmits {
   /** 点击面包屑项时触发 */
-  (e: 'click', item: BreadcrumbItem): void
+  (e: 'click', item: JvBreadcrumbItem): void
 }
 
 export interface JvBreadcrumbSlots {
   /** 自定义面包屑项内容 */
-  item?: (props: { item: BreadcrumbItem }) => VNodeChild
+  item?: (props: { item: JvBreadcrumbItem }) => VNodeChild
   /** 自定义分隔符 */
   separator?: () => VNodeChild
 }

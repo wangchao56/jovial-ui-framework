@@ -1,31 +1,14 @@
 <script setup lang="ts">
-import type { JvStepsEmits, JvStepsProps, JvStepsSlots, StepItem } from './JvSteps'
+import type { JvStepsEmits, JvStepsSlots, StepItem } from './JvSteps'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jienix/utils'
 import { ref, watch } from 'vue'
-import '../style/style.css'
-/**
- * Steps 组件实现了以下功能：
- * 1. 水平和垂直两种布局
- * 2. 支持自定义图标
- * 3. 支持点击切换步骤
- * 4. 支持显示/隐藏序号和连接线
- * 5. 支持多种状态展示
- * 6. 支持自定义内容
- * 7. 完整的禁用状态
- */
+
+import { jvStepsProps } from './JvSteps'
 
 defineOptions({ name: 'JvSteps' })
 
-const props = withDefaults(defineProps<JvStepsProps>(), {
-  modelValue: 0,
-  items: () => [],
-  direction: 'horizontal',
-  clickable: false,
-  showIndex: true,
-  showLine: true,
-  disabled: false,
-})
+const props = defineProps(jvStepsProps)
 
 const emit = defineEmits<JvStepsEmits>()
 defineSlots<JvStepsSlots>()
@@ -79,26 +62,18 @@ watch(
     ]"
   >
     <div
-      v-for="(item, index) in items"
-      :key="index"
-      :class="[
+      v-for="(item, index) in items" :key="index" :class="[
         bem.e('item'),
         bem.is('clickable', clickable && !disabled && !item.disabled),
         bem.is('disabled', item.disabled),
         bem.m(getStepStatus(index)),
-      ]"
-      @click="handleStepClick(index, item)"
+      ]" @click="handleStepClick(index, item)"
     >
       <!-- 步骤图标/序号 -->
       <div :class="bem.e('icon')">
         <!-- 自定义图标 -->
         <template v-if="$slots.icon">
-          <slot
-            name="icon"
-            :item="item"
-            :index="index"
-            :active="index === currentStep"
-          />
+          <slot name="icon" :item="item" :index="index" :active="index === currentStep" />
         </template>
 
         <!-- 默认图标 -->
@@ -113,22 +88,14 @@ watch(
       </div>
 
       <!-- 连接线 -->
-      <div
-        v-if="showLine && index < items.length - 1"
-        :class="bem.e('line')"
-      />
+      <div v-if="showLine && index < items.length - 1" :class="bem.e('line')" />
 
       <!-- 内容区域 -->
       <div :class="bem.e('content')">
         <!-- 标题 -->
         <div :class="bem.e('title')">
           <template v-if="$slots.title">
-            <slot
-              name="title"
-              :item="item"
-              :index="index"
-              :active="index === currentStep"
-            />
+            <slot name="title" :item="item" :index="index" :active="index === currentStep" />
           </template>
           <template v-else>
             {{ item.title }}
@@ -136,17 +103,9 @@ watch(
         </div>
 
         <!-- 描述 -->
-        <div
-          v-if="item.description || $slots.description"
-          :class="bem.e('description')"
-        >
+        <div v-if="item.description || $slots.description" :class="bem.e('description')">
           <template v-if="$slots.description">
-            <slot
-              name="description"
-              :item="item"
-              :index="index"
-              :active="index === currentStep"
-            />
+            <slot name="description" :item="item" :index="index" :active="index === currentStep" />
           </template>
           <template v-else>
             {{ item.description }}

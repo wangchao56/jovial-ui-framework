@@ -1,6 +1,17 @@
 import type { Slot, SVGAttributes } from 'vue'
 
-type Position = 'top' | 'center' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top-center' | 'bottom-center'
+type Position =
+  | 'top'
+  | 'center'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'top-center'
+  | 'bottom-center'
 // 新增一个不包含 center 的类型
 export type PositionExcludeCenter = Exclude<Position, 'center'>
 export const jvProgressProps = {
@@ -28,8 +39,9 @@ export const jvProgressProps = {
   },
   // 是否显示文字
   showText: {
-    type: Boolean,
+    type: Boolean as PropType<boolean>,
     default: true,
+    required: false,
   },
   // 文字内部显示
   textInside: {
@@ -38,24 +50,9 @@ export const jvProgressProps = {
   },
 } as const
 
-export interface ProgressBaseProps {
-  /* 进度条宽度 */
-  width?: number
-  /* 进度值 0-100 */
-  percentage?: number
-  /* 进度条背景颜色 */
-  bgColor?: string
-  /* 进度条值颜色 */
-  valueColor?: string
-  /* 进度条宽度 */
-  strokeWidth?: number
-  /* 进度条圆角 */
-  strokeRadius?: number
-  /* 字体渲染格式 */
-  format?: (percentage: number) => string
-}
+export type ProgressBaseProps = ExtractPropTypes<typeof jvProgressProps>
 
-export interface LineProgressProps extends ProgressBaseProps {
+export interface LineProgressProps extends Partial<ProgressBaseProps> {
   type: 'line'
   /* 是否显示文字 */
   showText?: boolean
@@ -65,10 +62,9 @@ export interface LineProgressProps extends ProgressBaseProps {
   textPosition?: Position
   /* 大小 */
   size?: 'small' | 'medium' | 'large'
-
 }
 
-export interface CircleProgressProps extends ProgressBaseProps {
+export interface CircleProgressProps extends Partial<ProgressBaseProps> {
   /* 进度条类型 */
   type: 'circle'
   /* 进度条宽度 */
@@ -79,11 +75,13 @@ export interface CircleProgressProps extends ProgressBaseProps {
   showText?: boolean
   /* 进度条圆角 */
   strokeLinecap?: SVGAttributes['stroke-linecap']
+  /* 动画开启 */
   animation?: boolean
+  /* 动画时长 */
   duration?: number
 }
 
-export interface JvProgressProps {
+export interface JvProgressProps extends Partial<ProgressBaseProps> {
   /* 进度条类型 */
   type?: 'line' | 'circle'
   /* 进度值 0-100 */
@@ -125,13 +123,16 @@ export interface JvProgressEmits {
 }
 
 export interface JvProgressSlots {
-  default?: Slot<any>
+  /* 默认插槽 */
+  default?: Slot
+  /* 文字插槽 */
   text?: Slot<{
     percentage: number
   }>
 }
 
 export interface JvProgressExpose {
+  /* 进度值 */
   percentage: number
 }
 
@@ -148,4 +149,6 @@ interface JvProgressContext {
   resume: () => void
 }
 
-export const jvProgressContextKey: InjectionKey<JvProgressContext> = Symbol('jvProgressContextKey')
+export const jvProgressContextKey: InjectionKey<JvProgressContext> = Symbol.for(
+  'jvProgressContextKey',
+)

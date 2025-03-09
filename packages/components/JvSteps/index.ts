@@ -1,6 +1,6 @@
 import { withInstall } from '@jienix/utils'
 import _JvSteps from './src/JvSteps.vue'
-import './style/style.css'
+import './style'
 
 const JvSteps = withInstall(_JvSteps)
 

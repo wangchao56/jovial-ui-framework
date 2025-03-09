@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import type { JvDialogEmits, JvDialogSlots } from './JvDialog'
 import JvRenderVNodeContent from '@components/internal/render-vnode-content.setup'
-import JvButton from '@components/JvButton/src/JvButton.vue'
+import { JvButton } from '@components/JvButton'
 import JvSpace from '@components/JvSpace'
 import { createNamespace } from '@jienix/utils'
 import { useEventListener } from '@vueuse/core'
 import { jvDialogProps } from './JvDialog'
-import '../style/jv-dialog.css'
 
-defineOptions({ name: 'JvDialog' })
+defineOptions({ name: 'JvDialog', inheritAttrs: false })
 const props = defineProps(jvDialogProps)
 const emit = defineEmits<JvDialogEmits>()
 const slots = defineSlots<JvDialogSlots>()
@@ -75,11 +74,8 @@ const dialogId = `jv-dialog-${useId()}`
 
 <template>
   <dialog
-    ref="dialogRef" :class="bem.b()" role="dialog"
-    aria-modal="true"
-    :aria-label="title"
-    :aria-describedby="dialogId"
-    tabindex="0"
+    ref="dialogRef" :class="bem.b()" role="dialog" aria-modal="true" :aria-label="title"
+    :aria-describedby="dialogId" tabindex="0"
   >
     <header :class="bem.e('header')">
       <slot name="header">
@@ -87,11 +83,7 @@ const dialogId = `jv-dialog-${useId()}`
       </slot>
     </header>
     <div
-      :id="dialogId"
-      :class="bem.e('content')"
-      tabindex="0"
-      role="region"
-      aria-live="polite"
+      :id="dialogId" :class="bem.e('content')" tabindex="0" role="region" aria-live="polite"
       :aria-label="`${title} content`"
     >
       <JvRenderVNodeContent v-if="renderContent" :render="renderContent" />

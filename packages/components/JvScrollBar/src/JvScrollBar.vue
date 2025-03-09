@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { addResizeListener, createNamespace, removeResizeListener } from '@jienix/utils'
-
 import { computed, onMounted, ref, watch } from 'vue'
 import Bar from './bar.vue'
 import { type JvScrollBarEmits, jvScrollBarProps } from './JvScrollBar'
-import '../style/style.css'
 
 defineOptions({ name: 'JvScrollBar' })
 

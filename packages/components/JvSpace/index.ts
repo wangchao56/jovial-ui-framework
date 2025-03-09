@@ -1,6 +1,6 @@
 import { withInstall } from '@jienix/utils'
 import _JvSpace from './src/JvSpace.vue'
-import './style/jv-space.css'
+import './style'
 
 const JvSpace = withInstall(_JvSpace)
 

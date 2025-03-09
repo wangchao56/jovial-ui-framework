@@ -1,4 +1,4 @@
-import type { VNodeChild } from 'vue'
+import type { Slot, VNodeChild } from 'vue'
 /**
 支持多种标签页位置：顶部、右侧、底部、左侧
 支持多种标签页类型：线条、卡片、分段
@@ -60,20 +60,7 @@ export const jvTabsProps = {
   },
 } as const
 
-export interface JvTabsProps {
-  /** 当前激活的标签页 key */
-  modelValue?: string
-  /** 标签页列表 */
-  items?: TabPane[]
-  /** 标签页位置 */
-  position?: TabPosition
-  /** 标签页类型 */
-  type?: TabType
-  /** 是否可关闭标签页 */
-  closable?: boolean
-  /** 是否显示标签页添加按钮 */
-  addable?: boolean
-}
+export type JvTabsProps = Partial<ExtractPropTypes<typeof jvTabsProps>>
 
 export interface JvTabsEmits {
   /** 标签页切换时触发 */
@@ -88,6 +75,7 @@ export interface JvTabsEmits {
 
 export interface JvTabsSlots {
   /** 自定义标签页标题 */
-  label?: (props: { item: TabPane }) => VNodeChild
-  default?: (props: { item: TabPane }) => VNodeChild
+  label?: Slot<{ item: TabPane }>
+  /** 自定义标签页内容 */
+  default?: Slot<{ item: TabPane }>
 }

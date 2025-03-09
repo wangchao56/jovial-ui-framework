@@ -1,7 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { ref } from 'vue'
 import JvSteps from '../src/JvSteps.vue'
-
+/**
+ * Steps 组件实现了以下功能：
+ * 1. 水平和垂直两种布局
+ * 2. 支持自定义图标
+ * 3. 支持点击切换步骤
+ * 4. 支持显示/隐藏序号和连接线
+ * 5. 支持多种状态展示
+ * 6. 支持自定义内容
+ * 7. 完整的禁用状态
+ */
 const meta = {
   title: '导航组件/Steps',
   component: JvSteps,

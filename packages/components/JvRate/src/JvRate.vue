@@ -13,9 +13,8 @@ import type { JvRateEmits, JvRateProps, JvRateSlots } from './JvRate'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jienix/utils'
 import { computed, nextTick, onMounted, ref, useCssVars, watch } from 'vue'
-import '../style/style.css'
 
-defineOptions({ name: 'JvRate' })
+defineOptions({ name: 'JvRate', inheritAttrs: false })
 
 const props = withDefaults(defineProps<JvRateProps>(), {
   modelValue: 0,
@@ -33,13 +32,12 @@ const props = withDefaults(defineProps<JvRateProps>(), {
   showText: false,
   texts: () => ['极差', '失望', '一般', '满意', '惊喜'],
 })
-
 const emit = defineEmits<JvRateEmits>()
 defineSlots<JvRateSlots>()
 const bem = createNamespace('rate')
 
 // 当前值
-const currentValue = useModel(props, 'modelValue')
+const currentValue = defineModel<number>('modelValue', { required: true })
 // SVG容器引用
 const svgDefsRef = ref<HTMLElement | null>(null)
 // 鼠标悬停值
@@ -174,7 +172,7 @@ function getIcon(value: number, displayValue: number) {
     }
     else if (value - 0.5 <= displayValue) {
       // 半星
-      return props.halfIcon
+      return props.icon
     }
   }
   else {
@@ -215,20 +213,12 @@ defineExpose({
     <svg ref="svgDefsRef" width="0" height="0" style="position: absolute; visibility: hidden;" />
 
     <!-- 图标列表 -->
-    <TransitionGroup
-      :class="bem.e('icons')"
-      name="jv-rate-icon"
-      tag="div"
-    >
+    <TransitionGroup :class="bem.e('icons')" name="jv-rate-icon" tag="div">
       <div
-        v-for="n in max" :key="n" :class="bem.e('icon')" @mousemove="handleMousemove($event, n)" @mouseleave="handleMouseleave"
-        @click="handleClick(displayValue)"
+        v-for="n in max" :key="n" :class="bem.e('icon')" @mousemove="handleMousemove($event, n)"
+        @mouseleave="handleMouseleave" @click="handleClick(displayValue)"
       >
-        <JvIcon
-          :name="getIcon(n, displayValue)"
-          :size="iconSize"
-          :fill="getIconFill(n)"
-        />
+        <JvIcon :name="getIcon(n, displayValue)" :size="iconSize" :fill="getIconFill(n)" />
       </div>
     </TransitionGroup>
 

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { Breakpoint, JvColProps } from './type'
 import { computed } from 'vue'
-import '../style/jv-col.css'
 
 defineOptions({
   name: 'JvCol',

@@ -2,11 +2,9 @@
 import type { JvDrawerEmits, JvDrawerProps } from './JvDrawer'
 import JvOverlay from '@components/JvOverlay/src/JvOverlay.vue'
 import { createNamespace } from '@jienix/utils'
-import { type CSSProperties, ref } from 'vue'
+import { type CSSProperties, normalizeClass, ref } from 'vue'
 
-import '../style/style.css'
-
-defineOptions({ name: 'JvDrawer' })
+defineOptions({ name: 'JvDrawer', inheritAttrs: false })
 const props = withDefaults(defineProps<JvDrawerProps>(), {
   position: 'right',
   width: '30%',
@@ -53,26 +51,13 @@ const cssVars = computed<CSSProperties>(() => ({
 <template>
   <Teleport to="body" :disabled="!visibleOverlay">
     <JvOverlay
-      v-model="visibleOverlay"
-      :overlay-class="dr.b()"
-      :close-on-click-overlay="closeOnClickOverlay"
-      @opened="openDrawer"
-      @closed="closeDrawer"
+      v-model="visibleOverlay" :overlay-class="dr.b()" :close-on-click-overlay="closeOnClickOverlay"
+      @opened="openDrawer" @closed="closeDrawer"
     >
-      <Transition
-        name="drawer-slide"
-        @after-enter="afterEnter"
-        @after-leave="afterLeave"
-        @before-leave="beforeLeave"
-      >
+      <Transition name="drawer-slide" @after-enter="afterEnter" @after-leave="afterLeave" @before-leave="beforeLeave">
         <section
-          v-show="visibleDrawer"
-          :id="compId"
-          ref="drawerRef"
-          :style="cssVars"
-          :data-position="position"
-          :aria-labelledby="compId"
-          role="dialog"
+          v-show="visibleDrawer" :id="compId" ref="drawerRef" :style="cssVars" :data-position="position"
+          :aria-labelledby="compId" role="dialog"
           :class="[bem.b(), bem.m(position), bem.is('visible', visibleDrawer), bem.is('closable', closable)]"
           @click.stop
         >
@@ -85,14 +70,17 @@ const cssVars = computed<CSSProperties>(() => ({
           <footer v-if="$slots.footer" :class="[bem.e('footer')]">
             <slot name="footer" />
           </footer>
-          <JvButton v-if="closable" size="small" :class="[bem.e('close')]" variant="text" icon="$close" @click="clickClose" />
+          <JvButton
+            v-if="closable" size="small" :class="normalizeClass(bem.e('close'))" variant="text" icon="$close"
+            @click="clickClose"
+          />
         </section>
       </Transition>
     </JvOverlay>
   </Teleport>
 </template>
 
-<style  scoped>
+<style scoped>
 .drawer-slide-enter-active,
 .drawer-slide-leave-active {
   transition: transform 0.3s;

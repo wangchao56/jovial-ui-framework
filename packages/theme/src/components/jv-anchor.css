@@ -1,2 +1,35 @@
-@b anchor {
+.jv-anchor {
+  width: 100%;
+  z-index: 100;
+}
+
+.jv-anchor__wrapper {
+  padding: 16px 0;
+}
+
+.jv-anchor__link-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.jv-anchor__link {
+  padding: 4px 0 4px 16px;
+  color: #333;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.jv-anchor__link:hover {
+  color: #1890ff;
+}
+
+.jv-anchor__link--active {
+  color: #1890ff;
+  background-color: #e6f7ff;
+  border-right: 2px solid #1890ff;
+}
+
+.jv-anchor__link--sub {
+  padding-left: 32px;
 }

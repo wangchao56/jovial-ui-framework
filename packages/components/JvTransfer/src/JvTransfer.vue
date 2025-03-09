@@ -4,7 +4,6 @@ import { createNamespace } from '@jienix/utils'
 import { computed, ref } from 'vue'
 import JvInput from '../../JvInput'
 import { type JvTransferEmits, jvTransferProps } from './JvTransfer'
-import '../style/style.css'
 
 defineOptions({ name: 'JvTransfer' })
 const props = defineProps(jvTransferProps)
@@ -79,22 +78,16 @@ defineExpose({
       </div>
 
       <div v-if="filterable" :class="bem.e('filter')">
-        <JvInput
-          v-model="leftQuery"
-          :placeholder="filterPlaceholder"
-        />
+        <JvInput v-model="leftQuery" :placeholder="filterPlaceholder" />
       </div>
 
       <div :class="bem.e('body')">
         <ul :class="bem.e('list')">
           <li
-            v-for="item in filteredSourceData"
-            :key="item.key"
-            :class="[
+            v-for="item in filteredSourceData" :key="item.key" :class="[
               bem.e('item'),
               bem.is('disabled', item.disabled),
-            ]"
-            @click="!item.disabled && selectedSourceKeys.push(item.key)"
+            ]" @click="!item.disabled && selectedSourceKeys.push(item.key)"
           >
             {{ item.label }}
           </li>
@@ -108,16 +101,10 @@ defineExpose({
 
     <!-- 中间操作按钮 -->
     <div :class="bem.e('buttons')">
-      <JvButton
-        :disabled="selectedTargetKeys.length === 0 || disabled"
-        @click="transferToLeft"
-      >
+      <JvButton :disabled="selectedTargetKeys.length === 0 || disabled" @click="transferToLeft">
         ←
       </JvButton>
-      <JvButton
-        :disabled="selectedSourceKeys.length === 0 || disabled"
-        @click="transferToRight"
-      >
+      <JvButton :disabled="selectedSourceKeys.length === 0 || disabled" @click="transferToRight">
         →
       </JvButton>
     </div>
@@ -131,22 +118,16 @@ defineExpose({
       </div>
 
       <div v-if="filterable" :class="bem.e('filter')">
-        <JvInput
-          v-model="rightQuery"
-          :placeholder="filterPlaceholder"
-        />
+        <JvInput v-model="rightQuery" :placeholder="filterPlaceholder" />
       </div>
 
       <div :class="bem.e('body')">
         <ul :class="bem.e('list')">
           <li
-            v-for="item in filteredTargetData"
-            :key="item.key"
-            :class="[
+            v-for="item in filteredTargetData" :key="item.key" :class="[
               bem.e('item'),
               bem.is('disabled', item.disabled),
-            ]"
-            @click="!item.disabled && selectedTargetKeys.push(item.key)"
+            ]" @click="!item.disabled && selectedTargetKeys.push(item.key)"
           >
             {{ item.label }}
           </li>

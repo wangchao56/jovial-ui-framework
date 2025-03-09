@@ -1,5 +1,6 @@
 import { withInstall } from '@jienix/utils'
 import _JvDropdown from './src/JvDropdown.vue'
+import './style'
 
 const JvDropdown = withInstall(_JvDropdown)
 export * from './src/JvDropdown'

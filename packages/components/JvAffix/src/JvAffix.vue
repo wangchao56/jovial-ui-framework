@@ -4,11 +4,13 @@ import { useTheme } from '@jienix/jovial-theme'
 import { createNamespace } from '@jienix/utils'
 import { computed, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { jvAffixProps } from './JvAffix'
-import '../style/style.css'
 
-defineOptions({ name: 'JvAffix' })
-const props = defineProps(jvAffixProps)
+defineOptions({ name: 'JvAffix', inheritAttrs: false })
+
+const { zIndex, position, offset, bottomOffset, target } = defineProps(jvAffixProps)
+
 const emit = defineEmits<JvAffixEmits>()
+
 const bem = createNamespace('affix')
 
 const affixRef = useTemplateRef('affix')
@@ -23,14 +25,14 @@ const affixStyle = computed(() => {
 
   const style: Record<string, string> = {
     position: 'fixed',
-    zIndex: `${props.zIndex}`,
+    zIndex: `${zIndex}`,
   }
 
-  if (props.position === 'top') {
-    style.top = `${props.offset}px`
+  if (position === 'top') {
+    style.top = `${offset}px`
   }
   else {
-    style.bottom = `${props.bottomOffset}px`
+    style.bottom = `${bottomOffset}px`
   }
 
   if (affixRef.value) {
@@ -55,9 +57,9 @@ function update() {
   const affixRect = affixRef.value.getBoundingClientRect()
 
   // 如果 props.position 设置为 'top'
-  if (props.position === 'top') {
+  if (position === 'top') {
     // 判断 affixRef 是否需要固定
-    const isFixed = affixRect.top - (props.offset ?? 0) <= targetRect.top
+    const isFixed = affixRect.top - (offset ?? 0) <= targetRect.top
     // 如果固定状态发生了变化
     if (fixed.value !== isFixed) {
       fixed.value = isFixed
@@ -67,7 +69,7 @@ function update() {
   // 如果 props.position 不是 'top'
   else {
     // 判断 affixRef 是否需要固定
-    const isFixed = affixRect.bottom + (props.bottomOffset ?? 0) >= targetRect.bottom
+    const isFixed = affixRect.bottom + (bottomOffset ?? 0) >= targetRect.bottom
     // 如果固定状态发生了变化
     if (fixed.value !== isFixed) {
       fixed.value = isFixed
@@ -99,8 +101,8 @@ function onScroll() {
 // 初始化目标元素
 function initTarget() {
   // 判断props.target是否为函数，如果是则执行该函数，否则将scrollTarget.value设为window
-  scrollTarget.value = typeof props.target === 'function'
-    ? props.target()
+  scrollTarget.value = typeof target === 'function'
+    ? target()
     : window
 
   // 如果scrollTarget.value存在
@@ -122,7 +124,7 @@ function cleanup() {
   }
 }
 
-watch(() => props.target, () => {
+watch(() => target, () => {
   cleanup()
   initTarget()
 })
@@ -144,10 +146,7 @@ defineExpose({
 
 <template>
   <div ref="affix" :class="[bem.b(), theme.themeClasses.value]">
-    <div
-      :class="[bem.e('wrapper'), bem.is('fixed', fixed)]"
-      :style="affixStyle"
-    >
+    <div :class="[bem.e('wrapper'), bem.is('fixed', fixed)]" :style="affixStyle">
       <slot />
     </div>
   </div>

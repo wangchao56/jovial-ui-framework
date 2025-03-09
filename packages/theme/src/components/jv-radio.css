@@ -4,6 +4,8 @@
   cursor: pointer;
   align-items: center;
   user-select: none;
+  margin-right: 8px;
+  transition: all 0.3s;
 
   @e icon-wrapper {
     display: inline-flex;
@@ -17,7 +19,7 @@
     overflow: hidden;
 
     &:hover {
-      background-color: rgb(var(--jv-theme-primary) 0.1);
+      background-color: rgba(var(--jv-theme-primary), 0.1);
     }
 
     &:active {
@@ -31,7 +33,7 @@
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    transition: transform 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   @e input {
@@ -47,15 +49,17 @@
     outline: none;
 
     &:focus-visible + .jv-radio__icon-wrapper {
-      background-color: var(--jv-color-primary-light-9);
+      box-shadow: 0 0 0 2px rgba(var(--jv-theme-primary), 0.2);
+      background-color: rgba(var(--jv-theme-primary), 0.1);
     }
   }
 
   @e label {
-    margin-left: 4px;
+    margin-left: 8px;
     color: var(--jv-text-color-primary);
     font-size: var(--jv-font-size-base);
     transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    line-height: 1.5;
   }
 }
 
@@ -66,21 +70,21 @@
 
     @e icon-wrapper {
       cursor: not-allowed;
-      background-color: var(--jv-theme-color-error);
+      background-color: var(--jv-disabled-bg-color, rgba(0, 0, 0, 0.05));
+
+      &:hover {
+        background-color: var(--jv-disabled-bg-color, rgba(0, 0, 0, 0.05));
+      }
+
+      &:active {
+        transform: none;
+      }
     }
 
     @e icon {
       .jv-icon__svg {
-        color: rgb(118 114 114 / 77.2%);
-        background-color: rgb(118 114 114 / 77.2%) !important;
-
-        &:active {
-          transition: none;
-          transform: none;
-
-          /* 使用贝塞尔曲线实现震荡 */
-          animation: jv-radio-shake 0.4s cubic-bezier(0.36, 0, 0.66, -0.56) both;
-        }
+        color: var(--jv-text-color-disabled);
+        background-color: transparent !important;
       }
     }
 
@@ -89,6 +93,11 @@
 
       &:hover:not(:checked) {
         border-color: var(--jv-border-color);
+      }
+
+      &:focus-visible + .jv-radio__icon-wrapper {
+        box-shadow: none;
+        background-color: var(--jv-disabled-bg-color, rgba(0, 0, 0, 0.05));
       }
     }
 
@@ -102,15 +111,51 @@
     @e icon {
       .jv-icon__svg {
         color: rgb(var(--jv-theme-primary));
-        background-color: rgb(var(--jv-theme-primary));
+        animation: jv-radio-checked-animation 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
       }
+    }
+
+    @e label {
+      color: var(--jv-text-color-primary);
+      font-weight: 500;
+    }
+
+    &.is-disabled {
+      @e icon {
+        .jv-icon__svg {
+          color: var(--jv-text-color-disabled);
+          animation: none;
+        }
+      }
+
+      @e label {
+        color: var(--jv-text-color-disabled);
+        font-weight: normal;
+      }
+    }
+  }
+
+  &.is-focused:not(.is-disabled) {
+    @e icon-wrapper {
+      background-color: rgba(var(--jv-theme-primary), 0.1);
+      box-shadow: 0 0 0 2px rgba(var(--jv-theme-primary), 0.2);
     }
   }
 }
 
 @keyframes jv-radio-checked-animation {
-  to {
-    transform: translateX(0.25rem);
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 

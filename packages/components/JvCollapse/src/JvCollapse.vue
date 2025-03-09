@@ -4,7 +4,7 @@ import { createNamespace } from '@jienix/utils'
 import { provide, ref } from 'vue'
 import { collapseContextKey, type JvCollapseEmits, type JvCollapseProps } from './JvCollapse'
 
-defineOptions({ name: 'JvCollapse' })
+defineOptions({ name: 'JvCollapse', inheritAttrs: false })
 const props = withDefaults(defineProps<JvCollapseProps>(), {
   accordion: false,
 })

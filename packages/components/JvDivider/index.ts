@@ -1,5 +1,6 @@
 import { withInstall } from '@jienix/utils'
 import _JvDivider from './src/JvDivider.vue'
+import './style'
 
 const JvDivider = withInstall(_JvDivider)
 

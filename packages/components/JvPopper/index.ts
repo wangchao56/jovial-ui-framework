@@ -1,10 +1,10 @@
 import { withInstall } from '@jienix/utils'
-import _Popper from './src/popper.vue'
+import _JvPopper from './src/JvPopper.vue'
 import './style'
 
-const JvPopper = withInstall(_Popper)
+const JvPopper = withInstall(_JvPopper)
 
-export * from './src/popper'
+export * from './src/JvPopper'
 export default JvPopper
 export type JvPopperInstance = InstanceType<typeof JvPopper>
 

@@ -3,9 +3,8 @@ import { createNamespace } from '@jienix/utils'
 import dayjs from 'dayjs'
 import { computed, ref } from 'vue'
 import { type JvDataTimePickerEmits, jvDataTimePickerProps } from './JvDataTimePicker'
-import '../style/style.css'
 
-defineOptions({ name: 'JvDataTimePicker' })
+defineOptions({ name: 'JvDataTimePicker', inheritAttrs: false })
 const props = defineProps(jvDataTimePickerProps)
 const emit = defineEmits<JvDataTimePickerEmits>()
 const bem = createNamespace('dataTimePicker')
@@ -59,21 +58,11 @@ defineExpose({
     ]"
   >
     <input
-      ref="inputRef"
-      :class="bem.e('input')"
-      :value="formattedValue"
-      :placeholder="placeholder"
-      :disabled="disabled"
-      readonly
-      @focus="handleFocus"
-      @blur="handleBlur"
+      ref="inputRef" :class="bem.e('input')" :value="formattedValue" :placeholder="placeholder"
+      :disabled="disabled" readonly @focus="handleFocus" @blur="handleBlur"
     >
 
-    <div
-      v-if="clearable && formattedValue"
-      :class="bem.e('clear')"
-      @click="handleClear"
-    >
+    <div v-if="clearable && formattedValue" :class="bem.e('clear')" @click="handleClear">
       <slot name="clear-icon">
         <i class="jv-icon-close" />
       </slot>
@@ -85,10 +74,7 @@ defineExpose({
       </slot>
     </div>
 
-    <div
-      v-show="isVisible"
-      :class="bem.e('dropdown')"
-    >
+    <div v-show="isVisible" :class="bem.e('dropdown')">
       <!-- 日期时间选择面板将在这里实现 -->
     </div>
   </div>

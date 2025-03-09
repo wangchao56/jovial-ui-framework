@@ -1,5 +1,6 @@
 import { withInstall } from '@jienix/utils'
 import _breadcrumb from './src/JvBreadcrumb.vue'
+import './style'
 
 export * from './src/JvBreadcrumb'
 

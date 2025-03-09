@@ -3,9 +3,8 @@ import type { JvLoadingProps } from './JvLoading'
 import { createNamespace } from '@jienix/utils'
 import { computed, ref } from 'vue'
 import { jvLoadingEmits } from './JvLoading'
-import '../style/style.css'
 
-defineOptions({ name: 'JvLoading' })
+defineOptions({ name: 'JvLoading', inheritAttrs: false })
 
 const props = withDefaults(defineProps<JvLoadingProps>(), {
   size: 40,
@@ -50,24 +49,15 @@ function stopLoading() {
 
 <template>
   <div
-    :class="bem.b()"
-    :style="{
+    :class="bem.b()" :style="{
       '--jv-loading-size': `${props.size}px`,
       '--jv-loading-color': props.color,
       '--jv-loading-speed': `${props.speed}s`,
     }"
   >
-    <svg
-      viewBox="0 0 100 100"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <circle
-        v-for="(dot, index) in dots"
-        :key="index"
-        :cx="dot.x"
-        :cy="dot.y"
-        r="8"
-        :style="{
+        v-for="(dot, index) in dots" :key="index" :cx="dot.x" :cy="dot.y" r="8" :style="{
           animationDelay: `${dot.delay}s`,
         }"
       />

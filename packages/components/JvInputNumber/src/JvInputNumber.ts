@@ -1,23 +1,28 @@
 export const jvInputNumberProps = {
   modelValue: {
-    type: Number,
+    type: [Number, String] as PropType<number | string>,
     default: 0,
   },
   min: {
     type: Number,
-    default: 0,
+    default: -Infinity,
   },
   max: {
     type: Number,
-    default: 100,
+    default: Infinity,
   },
   step: {
     type: Number,
     default: 1,
   },
+  stepStrictly: {
+    type: Boolean,
+    default: false,
+  },
   precision: {
     type: Number,
-    default: 0,
+    validator: (val: number) =>
+      val >= 0 && val === Number.parseInt(val.toString(), 10),
   },
   disabled: {
     type: Boolean,
@@ -27,21 +32,56 @@ export const jvInputNumberProps = {
     type: Boolean,
     default: false,
   },
+  controls: {
+    type: Boolean,
+    default: true,
+  },
+  controlsPosition: {
+    type: String,
+    default: 'default',
+    validator: (val: string) => ['default', 'right'].includes(val),
+  },
+  name: {
+    type: String,
+    default: '',
+  },
+  id: {
+    type: String,
+    default: '',
+  },
   placeholder: {
     type: String,
     default: '',
   },
+  label: {
+    type: String,
+    default: '',
+  },
+  helperText: {
+    type: String,
+    default: '',
+  },
+  error: {
+    type: Boolean,
+    default: false,
+  },
+  errorText: {
+    type: String,
+    default: '',
+  },
+  success: {
+    type: Boolean,
+    default: false,
+  },
+  size: {
+    type: String,
+    default: 'default',
+    validator: (val: string) => ['small', 'default', 'large'].includes(val),
+  },
 } as const
-export interface JvInputNumberProps {
-  // 组件属性定义
-  modelValue: number
-  min: number
-  max: number
-  step: number
-  precision: number
-  disabled: boolean
-  readonly: boolean
-};
+
+export type JvInputNumberProps = ExtractPropTypes<typeof jvInputNumberProps>
+
 export interface JvInputNumberEmits {
   // 事件定义
   (e: 'update:modelValue', value: number): void

@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { createNamespace } from '@jienix/utils'
 import { jvCardEmits, jvCardProps } from './JvCard'
-import '../style'
 
-defineOptions({ name: 'JvCard' })
+defineOptions({ name: 'JvCard', inheritAttrs: false })
 defineProps(jvCardProps)
 const emit = defineEmits(jvCardEmits)
 const bem = createNamespace('card')
@@ -21,8 +20,7 @@ function handleClick(evt: MouseEvent) {
       bem.is('round', round),
       bem.e('wrapper'),
       bem.m(`shadow-${shadow}`),
-    ]"
-    @click="handleClick"
+    ]" @click="handleClick"
   >
     <!-- <main :class="[bem.e('wrapper-inner'), bem.em('wrapper-inner', `shadow-${shadow}`)]" /> -->
     <div v-if="$slots.header || title || subtitle" :class="bem.e('header')">
@@ -57,6 +55,3 @@ function handleClick(evt: MouseEvent) {
     </div>
   </div>
 </template>
-
-<style  scoped>
-</style>

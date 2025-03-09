@@ -1,31 +1,26 @@
 <script setup lang="ts">
-import type { JvSwitchEmits, JvSwitchProps } from './JvSwitch'
+import type { JvSwitchEmits } from './JvSwitch'
 import { useTheme } from '@jienix/jovial-theme'
 import { createNamespace } from '@jienix/utils'
 import { computed, ref, watch } from 'vue'
-import '../style/style.css'
+import { jvSwitchProps } from './JvSwitch'
 
 defineOptions({ name: 'JvSwitch' })
-const props = withDefaults(defineProps<JvSwitchProps>(), {
-  modelValue: false,
-  disabled: false,
-  size: 'default',
-  loading: false,
-})
+const { disabled, size, loading, manual } = defineProps(jvSwitchProps)
 const emit = defineEmits<JvSwitchEmits>()
 const bem = createNamespace('switch')
 const theme = useTheme()
 
 // 内部状态
-const innerValue = useModel(props, 'modelValue')
+const innerValue = defineModel<boolean>('modelValue', { required: true })
 // 内部loading状态
 const isLoading = ref(false)
 // 缓存点击时的目标值
 const pendingValue = ref<boolean | null>(null)
 
 // 监听外部loading变化
-watch(() => props.loading, (newLoading) => {
-  if (newLoading === true && props.manual) {
+watch(() => loading, (newLoading) => {
+  if (newLoading === true && manual) {
     isLoading.value = true
     pendingValue.value = !innerValue.value
     return
@@ -51,11 +46,11 @@ function updateValue() {
 }
 
 const events = computed(() => {
-  if (props.disabled) {
+  if (disabled) {
     return {}
   }
   // 非手动控制loading时,点击事件需要更新值
-  if (!props.manual) {
+  if (!manual) {
     return {
       click: updateValue,
     }
@@ -71,7 +66,7 @@ const events = computed(() => {
 
 // 计算不同尺寸下的视图框和按钮位置
 const sizeConfig = computed(() => {
-  switch (props.size) {
+  switch (size) {
     case 'large':
       return {
         viewBox: '0 0 50 24',
@@ -118,65 +113,37 @@ const currentButtonX = computed(() =>
 const switchClasses = computed(() => [
   bem.b(),
   bem.is('checked', innerValue.value),
-  bem.is('disabled', props.disabled),
+  bem.is('disabled', disabled),
   bem.is('loading', isLoading.value),
-  bem.m(props.size),
+  bem.m(size),
   theme.themeClasses.value,
 ])
 </script>
 
 <template>
   <div
-    :class="switchClasses"
-    role="switch"
-    :aria-checked="innerValue"
-    :aria-disabled="disabled || isLoading"
-    :tabindex="disabled || isLoading ? -1 : 0"
-    v-on="events"
+    :class="switchClasses" role="switch" :aria-checked="innerValue" :aria-disabled="disabled || isLoading"
+    :tabindex="disabled || isLoading ? -1 : 0" v-on="events"
   >
     <div :class="bem.e('core')">
-      <svg
-        :class="bem.e('svg')"
-        :viewBox="sizeConfig.viewBox"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg :class="bem.e('svg')" :viewBox="sizeConfig.viewBox" xmlns="http://www.w3.org/2000/svg">
         <rect
-          :class="bem.e('track')"
-          x="0"
-          y="0"
-          :rx="sizeConfig.radius"
-          :ry="sizeConfig.radius"
-          :width="sizeConfig.width"
-          :height="sizeConfig.height"
+          :class="bem.e('track')" x="0" y="0" :rx="sizeConfig.radius" :ry="sizeConfig.radius"
+          :width="sizeConfig.width" :height="sizeConfig.height"
         />
-        <circle
-          :class="bem.e('thumb')"
-          :cx="currentButtonX"
-          :cy="sizeConfig.buttonY"
-          :r="sizeConfig.buttonRadius"
-        />
+        <circle :class="bem.e('thumb')" :cx="currentButtonX" :cy="sizeConfig.buttonY" :r="sizeConfig.buttonRadius" />
         <!-- loading 动画 -->
         <circle
-          v-if="isLoading"
-          :class="bem.e('loading')"
-          :cx="sizeConfig.width - currentButtonX"
-          :cy="sizeConfig.buttonY"
-          :r="sizeConfig.buttonRadius * 0.75"
-          fill="none"
-          :stroke-width="sizeConfig.buttonRadius * 0.2"
-          :style="{
+          v-if="isLoading" :class="bem.e('loading')" :cx="sizeConfig.width - currentButtonX"
+          :cy="sizeConfig.buttonY" :r="sizeConfig.buttonRadius * 0.75" fill="none"
+          :stroke-width="sizeConfig.buttonRadius * 0.2" :style="{
             transformOrigin: `${sizeConfig.width - currentButtonX}px ${sizeConfig.buttonY}px`,
           }"
         />
         <circle
-          v-if="isLoading"
-          :class="bem.e('loading-inner')"
-          :cx="sizeConfig.width - currentButtonX"
-          :cy="sizeConfig.buttonY"
-          :r="sizeConfig.buttonRadius * 0.75"
-          fill="none"
-          :stroke-width="sizeConfig.buttonRadius * 0.2"
-          :style="{
+          v-if="isLoading" :class="bem.e('loading-inner')" :cx="sizeConfig.width - currentButtonX"
+          :cy="sizeConfig.buttonY" :r="sizeConfig.buttonRadius * 0.75" fill="none"
+          :stroke-width="sizeConfig.buttonRadius * 0.2" :style="{
             transformOrigin: `${sizeConfig.width - currentButtonX}px ${sizeConfig.buttonY}px`,
           }"
         />

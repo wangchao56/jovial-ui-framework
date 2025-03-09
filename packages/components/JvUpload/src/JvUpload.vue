@@ -1,13 +1,15 @@
 <script lang="ts">
+import type { JvUploadSlots } from './JvUpload'
 import { createNamespace } from '@jienix/utils'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, type SlotsType } from 'vue'
 import { jvUploadEmits, jvUploadProps } from './JvUpload'
-import '../style/style.css'
 
 export default defineComponent({
   name: 'JvUpload',
+  inheritAttrs: false,
   props: jvUploadProps,
   emits: jvUploadEmits,
+  slots: Object as SlotsType<JvUploadSlots>,
   setup() {
     const files = ref<File[]>([])
     const uploadProgress = ref<number | null>(null)
@@ -83,12 +85,7 @@ export default defineComponent({
 <template>
   <div :class="bem.b()" @dragover.prevent @drop.prevent="handleDrop">
     <input
-      v-show="false"
-      ref="fileInput"
-      type="file"
-      :multiple="multiple"
-      webkitdirectory
-      directory
+      v-show="false" ref="fileInput" type="file" :multiple="multiple" webkitdirectory directory
       @change="handleFileChange"
     >
     <button @click="triggerFileInput">

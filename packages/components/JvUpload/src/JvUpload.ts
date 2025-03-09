@@ -78,12 +78,11 @@ export const jvUploadProps = {
 export type JvUploadProps = Partial<ExtractPropTypes<typeof jvUploadProps>>
 
 export const jvUploadEmits = {
-  success: (value: (string | number)[]) => value,
-  error: (value: (string | number)[]) => value,
-  progress: (value: (string | number)[]) => value,
-  change: (value: (string | number)[]) => value,
+  success: (value: (string | number)[]) => Array.isArray(value),
+  error: (value: (string | number)[]) => Array.isArray(value),
+  progress: (value: (string | number)[]) => Array.isArray(value),
+  change: (value: (string | number)[]) => Array.isArray(value),
 }
-// export type JvUploadEmits = Object as EmitOptions<typeof jvUploadEmits>
 export interface JvUploadEmits {
   /** 上传成功 */
   (e: 'success', value: (string | number)[]): void
@@ -96,7 +95,10 @@ export interface JvUploadEmits {
 }
 
 export interface JvUploadSlots {
-  default: Slot
+  /** 自定义上传按钮 */
+  trigger?: Slot
+  /** 自定义上传列表 */
+  default?: Slot
 }
 
 export interface JvUploadExpose {

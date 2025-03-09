@@ -3,7 +3,7 @@ import { useTheme } from '@jienix/jovial-theme'
 import { createNamespace } from '@jienix/utils'
 import { computed } from 'vue'
 
-defineOptions({ name: 'JvLoadingBar' })
+defineOptions({ name: 'JvLoadingBar', inheritAttrs: false })
 
 const props = withDefaults(
   defineProps<{

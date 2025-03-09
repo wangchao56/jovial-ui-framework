@@ -3,7 +3,7 @@ import type { JvTimelineEmits } from './JvTimeline'
 import { createNamespace } from '@jienix/utils'
 import { jvTimelineProps } from './JvTimeline'
 
-defineOptions({ name: 'JvTimeline' })
+defineOptions({ name: 'JvTimeline', inheritAttrs: false })
 defineProps(jvTimelineProps)
 const emit = defineEmits<JvTimelineEmits>()
 const bem = createNamespace('timeline')

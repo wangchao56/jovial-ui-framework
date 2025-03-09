@@ -5,10 +5,9 @@ import { SizeOptions } from '@jienix/typings'
 import { createNamespace, isNumberExcludeNaN, isString } from '@jienix/utils'
 import { useDebounceFn } from '@vueuse/core'
 import { computed, nextTick, ref, watch } from 'vue'
-import { jvIconProps } from './icon'
-import './icon.css'
+import { jvIconProps } from './JvIcon'
 
-defineOptions({ name: 'JvIcon' })
+defineOptions({ name: 'JvIcon', inheritAttrs: false })
 const { color, size, name } = defineProps(jvIconProps)
 
 const bem = createNamespace('icon')
@@ -95,17 +94,9 @@ defineExpose({
 </script>
 
 <template>
-  <i
-    ref="iconRef"
-    :class="iconClass"
-    :style="iconStyle"
-  >
+  <i ref="iconRef" :class="iconClass" :style="iconStyle">
     <slot v-if="$slots.default" />
-    <Icon
-      v-else-if="show && name"
-      :icon="name"
-      :color="color"
-    />
+    <Icon v-else-if="show && name" :icon="name" :color="color" />
     <component :is="internalIconRender" v-else-if="internalIconRender" />
   </i>
 </template>

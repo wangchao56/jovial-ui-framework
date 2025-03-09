@@ -1,15 +1,13 @@
 <script setup lang="ts">
+import type { JvResultEmits, JvResultSlots } from './JvResult'
 import { createNamespace } from '@jienix/utils'
 import { jvResultProps } from './JvResult'
-import '../style/style.css'
 
-defineOptions({ name: 'JvResult' })
+defineOptions({ name: 'JvResult', inheritAttrs: false })
 
 defineProps(jvResultProps)
-defineEmits<{
-  click: [event: MouseEvent]
-}>()
-
+defineEmits<JvResultEmits>()
+defineSlots<JvResultSlots>()
 const bem = createNamespace('result')
 </script>
 

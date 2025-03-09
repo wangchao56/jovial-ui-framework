@@ -11,46 +11,30 @@
  * 8. 完整的禁用状态支持
  */
 
-import type { JvPaginationEmits, JvPaginationProps, JvPaginationSlots } from './JvPagination'
+import type { JvPaginationEmits, JvPaginationSlots } from './JvPagination'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jienix/utils'
 import { computed, ref, watch } from 'vue'
-// 暂时注释掉 Select 组件的引用，等 Select 组件完成后再启用
-// import JvSelect from '@components/JvSelect'
-import '../style/style.css'
+import { jvPaginationProps } from './JvPagination'
 
-defineOptions({ name: 'JvPagination' })
+defineOptions({ name: 'JvPagination', inheritAttrs: false })
 
-const props = withDefaults(defineProps<JvPaginationProps>(), {
-  modelValue: 1,
-  total: 0,
-  pageSize: 10,
-  pagerCount: 7,
-  showQuickJumper: false,
-  showSizeChanger: false,
-  pageSizeOptions: () => [10, 20, 50, 100],
-  showTotal: false,
-  disabled: false,
-  simple: false,
-})
+const { modelValue, total, pageSize, pagerCount, showQuickJumper, showTotal, disabled, simple } = defineProps(jvPaginationProps)
 
 const emit = defineEmits<JvPaginationEmits>()
 defineSlots<JvPaginationSlots>()
 const bem = createNamespace('pagination')
 
 // 当前页码
-const currentPage = ref(props.modelValue)
+const currentPage = ref(modelValue)
 // 跳转页码输入框
 const jumpPage = ref('')
 
-// eslint-disable-next-line unused-imports/no-unused-vars
-const pageSize = ref(props.pageSize)
 // 总页数
-const totalPages = computed(() => Math.ceil(props.total / props.pageSize))
+const totalPages = computed(() => Math.ceil(total / pageSize))
 
 // 显示的页码范围
 const pageRange = computed(() => {
-  const { pagerCount, simple } = props
   const current = currentPage.value
   const total = totalPages.value
 
@@ -71,8 +55,8 @@ const pageRange = computed(() => {
 
 // 当前显示的条目范围
 const itemRange = computed(() => {
-  const start = (currentPage.value - 1) * props.pageSize + 1
-  const end = Math.min(currentPage.value * props.pageSize, props.total)
+  const start = (currentPage.value - 1) * pageSize + 1
+  const end = Math.min(currentPage.value * pageSize, total)
   return [start, end] as [number, number]
 })
 
@@ -90,7 +74,7 @@ function handlePageChange(page: number) {
 
   currentPage.value = page
   emit('update:modelValue', page)
-  emit('change', page, props.pageSize, props.total)
+  emit('change', page, pageSize, total)
 }
 
 // 处理每页条数改变
@@ -98,7 +82,7 @@ function handlePageChange(page: number) {
 function handleSizeChange(size: number) {
   emit('update:pageSize', size)
   // 重新计算当前页码，确保不超出范围
-  const newTotal = Math.ceil(props.total / size)
+  const newTotal = Math.ceil(total / size)
   if (currentPage.value > newTotal) {
     handlePageChange(newTotal)
   }
@@ -115,7 +99,7 @@ function handleJump() {
 
 // 监听 modelValue 变化
 watch(
-  () => props.modelValue,
+  () => modelValue,
   (val) => {
     currentPage.value = val
   },
@@ -131,16 +115,9 @@ watch(
     ]"
   >
     <!-- 总数显示 -->
-    <div
-      v-if="showTotal"
-      :class="bem.e('total')"
-    >
+    <div v-if="showTotal" :class="bem.e('total')">
       <template v-if="$slots.total">
-        <slot
-          name="total"
-          :total="total"
-          :range="itemRange"
-        />
+        <slot name="total" :total="total" :range="itemRange" />
       </template>
       <template v-else>
         共 {{ total }} 条
@@ -165,8 +142,7 @@ watch(
       :class="[
         bem.e('prev'),
         bem.is('disabled', !showPrev),
-      ]"
-      @click="showPrev && handlePageChange(currentPage - 1)"
+      ]" @click="showPrev && handlePageChange(currentPage - 1)"
     >
       <template v-if="$slots.prev">
         <slot name="prev" />
@@ -178,20 +154,13 @@ watch(
 
     <!-- 页码 -->
     <div
-      v-for="page in pageRange"
-      :key="page"
-      :class="[
+      v-for="page in pageRange" :key="page" :class="[
         bem.e('page'),
         bem.is('active', page === currentPage),
-      ]"
-      @click="handlePageChange(page)"
+      ]" @click="handlePageChange(page)"
     >
       <template v-if="$slots.page">
-        <slot
-          name="page"
-          :page="page"
-          :active="page === currentPage"
-        />
+        <slot name="page" :page="page" :active="page === currentPage" />
       </template>
       <template v-else>
         {{ page }}
@@ -203,8 +172,7 @@ watch(
       :class="[
         bem.e('next'),
         bem.is('disabled', !showNext),
-      ]"
-      @click="showNext && handlePageChange(currentPage + 1)"
+      ]" @click="showNext && handlePageChange(currentPage + 1)"
     >
       <template v-if="$slots.next">
         <slot name="next" />
@@ -215,17 +183,9 @@ watch(
     </div>
 
     <!-- 快速跳转 -->
-    <div
-      v-if="showQuickJumper"
-      :class="bem.e('jumper')"
-    >
+    <div v-if="showQuickJumper" :class="bem.e('jumper')">
       跳至
-      <input
-        v-model="jumpPage"
-        type="text"
-        :disabled="disabled"
-        @keyup.enter="handleJump"
-      >
+      <input v-model="jumpPage" type="text" :disabled="disabled" @keyup.enter="handleJump">
       页
     </div>
   </div>

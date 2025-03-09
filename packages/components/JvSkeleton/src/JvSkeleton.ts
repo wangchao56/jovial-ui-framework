@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, Slot } from 'vue'
 
 export type SkeletonType = 'text' | 'avatar' | 'button' | 'image' | 'card' | 'list'
 
@@ -35,21 +35,21 @@ export const jvSkeletonProps = {
   },
 } as const
 
-export interface JvSkeletonProps {
-  type?: SkeletonType
-  loading?: boolean
-  rows?: number
-  animated?: boolean
-  width?: string | number
-  height?: string | number
-}
+export type JvSkeletonProps = Partial<ExtractPropTypes<typeof jvSkeletonProps>>
 
 export interface JvSkeletonEmits {
-  'update:loading': [value: boolean]
+  /**
+   * 更新 loading 状态
+   * @param {boolean} value - 新的 loading 状态
+   */
+  (e: 'update:loading', value: boolean): void
 }
 
 export interface JvSkeletonSlots {
-  default?: () => any
+  /**
+   * 默认插槽
+   */
+  default?: Slot
 }
 
 export interface JvSkeletonExpose {

@@ -1,25 +1,14 @@
 <script setup lang="ts">
-import type { JvCarouselEmits, JvCarouselProps, JvCarouselSlots } from './JvCarousel'
+import type { JvCarouselEmits, JvCarouselSlots } from './JvCarousel'
 import JvIcon from '@components/JvIcon'
 import { useLocale } from '@jienix/jovial-locale'
 import { createNamespace } from '@jienix/utils'
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import '../style/style.css'
+import { jvCarouselProps } from './JvCarousel'
 
-defineOptions({ name: 'JvCarousel' })
+defineOptions({ name: 'JvCarousel', inheritAttrs: false })
 
-const props = withDefaults(defineProps<JvCarouselProps>(), {
-  modelValue: 0,
-  autoplay: true,
-  interval: 3000,
-  direction: 'horizontal',
-  effect: 'slide',
-  indicatorPosition: 'inside',
-  arrow: true,
-  duration: 300,
-  loop: true,
-  pauseOnHover: true,
-})
+const props = defineProps(jvCarouselProps)
 const emit = defineEmits<JvCarouselEmits>()
 defineSlots<JvCarouselSlots>()
 const locale = useLocale()
@@ -156,44 +145,32 @@ defineExpose({
       bem.b(),
       bem.m(direction),
       bem.m(effect),
-    ]"
-    @mouseenter="handleMouseenter"
-    @mouseleave="handleMouseleave"
+    ]" @mouseenter="handleMouseenter" @mouseleave="handleMouseleave"
   >
     <!-- 轮播容器 -->
-    <div
-      :class="bem.e('container')"
-      :style="containerStyle"
-    >
+    <div :class="bem.e('container')" :style="containerStyle">
       <slot />
     </div>
 
     <!-- 指示器 -->
     <div
-      v-if="indicatorPosition !== 'none'"
-      :class="[
+      v-if="indicatorPosition !== 'none'" :class="[
         bem.e('indicators'),
         bem.em('indicators', indicatorPosition),
       ]"
     >
       <template v-if="$slots.indicator">
         <slot
-          v-for="(_, index) in items"
-          :key="index"
-          name="indicator"
-          :index="index"
+          v-for="(_, index) in items" :key="index" name="indicator" :index="index"
           :active="index === activeIndex"
         />
       </template>
       <template v-else>
         <div
-          v-for="(_, index) in items"
-          :key="index"
-          :class="[
+          v-for="(_, index) in items" :key="index" :class="[
             bem.e('indicator'),
             bem.is('active', index === activeIndex),
-          ]"
-          @click="goto(index)"
+          ]" @click="goto(index)"
         />
       </template>
     </div>
@@ -201,24 +178,13 @@ defineExpose({
     <!-- 箭头 -->
     <template v-if="arrow && items.length > 1">
       <template v-if="$slots.arrow">
-        <slot
-          :key="locale.t('arrow')"
-          name="arrow"
-          :prev="prev"
-          :next="next"
-        />
+        <slot :key="locale.t('arrow')" name="arrow" :prev="prev" :next="next" />
       </template>
       <template v-else>
-        <div
-          :class="[bem.e('arrow'), bem.em('arrow', 'prev')]"
-          @click="prev"
-        >
+        <div :class="[bem.e('arrow'), bem.em('arrow', 'prev')]" @click="prev">
           <JvIcon name="chevron-left" />
         </div>
-        <div
-          :class="[bem.e('arrow'), bem.em('arrow', 'next')]"
-          @click="next"
-        >
+        <div :class="[bem.e('arrow'), bem.em('arrow', 'next')]" @click="next">
           <JvIcon name="chevron-right" />
         </div>
       </template>

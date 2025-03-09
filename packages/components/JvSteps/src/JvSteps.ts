@@ -1,4 +1,4 @@
-import type { VNodeChild } from 'vue'
+import type { Slot } from 'vue'
 
 /** 步骤条方向 */
 export type StepsDirection = 'horizontal' | 'vertical'
@@ -28,12 +28,12 @@ export const jvStepsProps = {
   },
   /** 步骤项列表 */
   items: {
-    type: Array as () => StepItem[],
+    type: Array as PropType<StepItem[]>,
     default: () => [],
   },
   /** 步骤条方向 */
   direction: {
-    type: String as () => StepsDirection,
+    type: String as PropType<StepsDirection>,
     default: 'horizontal',
   },
   /** 是否启用点击切换 */
@@ -58,22 +58,7 @@ export const jvStepsProps = {
   },
 } as const
 
-export interface JvStepsProps {
-  /** 当前步骤 */
-  modelValue?: number
-  /** 步骤项列表 */
-  items?: StepItem[]
-  /** 步骤条方向 */
-  direction?: StepsDirection
-  /** 是否启用点击切换 */
-  clickable?: boolean
-  /** 是否显示序号 */
-  showIndex?: boolean
-  /** 是否显示连接线 */
-  showLine?: boolean
-  /** 是否禁用 */
-  disabled?: boolean
-}
+export type JvStepsProps = Partial<ExtractPropTypes<typeof jvStepsProps>>
 
 export interface JvStepsEmits {
   /** 当前步骤改变时触发 */
@@ -84,9 +69,9 @@ export interface JvStepsEmits {
 
 export interface JvStepsSlots {
   /** 自定义步骤标题 */
-  title?: (props: { item: StepItem, index: number, active: boolean }) => VNodeChild
+  title?: Slot<{ item: StepItem, index: number, active: boolean }>
   /** 自定义步骤描述 */
-  description?: (props: { item: StepItem, index: number, active: boolean }) => VNodeChild
+  description?: Slot<{ item: StepItem, index: number, active: boolean }>
   /** 自定义步骤图标 */
-  icon?: (props: { item: StepItem, index: number, active: boolean }) => VNodeChild
+  icon?: Slot<{ item: StepItem, index: number, active: boolean }>
 }

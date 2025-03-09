@@ -3,9 +3,8 @@ import { useTheme } from '@jienix/jovial-theme'
 import { createNamespace } from '@jienix/utils'
 import { ref } from 'vue'
 import JvLoadingBar from '../../JvLoading/src/JvLoadingBar.vue'
-import '../style/app.css'
 
-defineOptions({ name: 'JvApp' })
+defineOptions({ name: 'JvApp', inheritAttrs: false })
 withDefaults(defineProps<{
   theme?: string
 }>(), {
@@ -26,11 +25,8 @@ const loadingPercentage = ref(0)
     ]"
   >
     <JvLoadingBar
-      v-if="loading"
-      :percentage="loadingPercentage"
-      :type="theme.name.value === 'light' ? 'primary' : 'success'"
-      active
-      shadow
+      v-if="loading" :percentage="loadingPercentage"
+      :type="theme.name.value === 'light' ? 'primary' : 'success'" active shadow
     />
     <slot />
   </div>

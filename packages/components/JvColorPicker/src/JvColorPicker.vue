@@ -2,9 +2,8 @@
 import { createNamespace } from '@jienix/utils'
 import { ref } from 'vue'
 import { type JvColorPickerEmits, jvColorPickerProps } from './JvColorPicker'
-import '../style/style.css'
 
-defineOptions({ name: 'JvColorPicker' })
+defineOptions({ name: 'JvColorPicker', inheritAttrs: false })
 defineProps(jvColorPickerProps)
 const emit = defineEmits<JvColorPickerEmits>()
 const bem = createNamespace('colorPicker')
@@ -36,19 +35,10 @@ defineExpose({
 <template>
   <div :class="[bem.b(), { [bem.m('disabled')]: disabled }]">
     <div :class="bem.e('trigger')" @click="isOpen = !disabled && !isOpen">
-      <div
-        :class="bem.e('color-preview')"
-        :style="{ backgroundColor: modelValue }"
-      />
+      <div :class="bem.e('color-preview')" :style="{ backgroundColor: modelValue }" />
     </div>
     <div v-if="isOpen" :class="bem.e('dropdown')">
-      <input
-        ref="colorInput"
-        type="color"
-        :value="modelValue"
-        :class="bem.e('input')"
-        @input="handleColorChange"
-      >
+      <input ref="colorInput" type="color" :value="modelValue" :class="bem.e('input')" @input="handleColorChange">
     </div>
   </div>
 </template>

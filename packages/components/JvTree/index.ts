@@ -1,8 +1,6 @@
 import { withInstall } from '@jienix/utils'
-/**
- * tree 组件的设计规范
- */
 import _JvTree from './src/JvTree.vue'
+import './style'
 
 const JvTree = withInstall(_JvTree)
 

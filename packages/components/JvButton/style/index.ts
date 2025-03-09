@@ -1,2 +1,2 @@
-import './jv-button.css'
-import './jv-button-group.css'
+import '@jienix/jovial-theme/src/components/jv-button.css'
+import '@jienix/jovial-theme/src/components/jv-button-group.css'

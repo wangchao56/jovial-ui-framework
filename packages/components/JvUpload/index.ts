@@ -1,14 +1,15 @@
 import { withInstall } from '@jienix/utils'
-import _upload from './src/JvUpload.vue'
+import _JvUpload from './src/JvUpload.vue'
+import './style'
 
-const upload = withInstall(_upload)
+const JvUpload = withInstall(_JvUpload)
 
 export * from './src/JvUpload'
 
-export default upload
+export default JvUpload
 
 declare module 'vue' {
   export interface GlobalComponents {
-    JvUpload: typeof upload
+    JvUpload: typeof JvUpload
   }
 }

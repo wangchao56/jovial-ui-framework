@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import type { JvImageEmits } from './JvImage'
 import { createNamespace } from '@jienix/utils'
 import { computed, onMounted, ref } from 'vue'
-import { jvImageEmits, type JvImageProps } from './JvImage'
-import '../style/style.css'
+import { jvImageProps } from './JvImage'
 
-defineOptions({ name: 'JvImage' })
+defineOptions({ name: 'JvImage', inheritAttrs: false })
 
-const props = defineProps<JvImageProps>()
-const emit = defineEmits(jvImageEmits)
+const props = defineProps(jvImageProps)
+const emit = defineEmits<JvImageEmits>()
 const bem = createNamespace('image')
 
 const rootRef = ref<HTMLElement | null>(null)
@@ -111,21 +111,12 @@ defineExpose({
   <div ref="rootRef" :class="bem.b()" @click="handleClick">
     <picture v-show="!isError" ref="pictureRef">
       <source
-        v-for="(source, index) in sources"
-        :key="index"
-        :media="source.media"
-        :type="source.type"
-        :srcset="lazy ? undefined : source.src"
-        :data-src="lazy ? source.src : undefined"
+        v-for="(source, index) in sources" :key="index" :media="source.media" :type="source.type"
+        :srcset="lazy ? undefined : source.src" :data-src="lazy ? source.src : undefined"
       >
       <img
-        ref="imgRef"
-        :src="lazy ? placeholder : src"
-        :alt="alt"
-        :style="imageStyle"
-        :class="bem.e('inner')"
-        @load="handleLoad"
-        @error="handleError"
+        ref="imgRef" :src="lazy ? placeholder : src" :alt="alt" :style="imageStyle" :class="bem.e('inner')"
+        @load="handleLoad" @error="handleError"
       >
     </picture>
 

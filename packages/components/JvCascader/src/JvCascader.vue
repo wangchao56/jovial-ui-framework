@@ -3,9 +3,8 @@ import type { CascaderOption, JvCascaderEmits } from './JvCascader'
 import { createNamespace } from '@jienix/utils'
 import { ref, watch } from 'vue'
 import { jvCascaderProps } from './JvCascader'
-import '../style/style.css'
 
-defineOptions({ name: 'JvCascader' })
+defineOptions({ name: 'JvCascader', inheritAttrs: false })
 defineProps(jvCascaderProps)
 const emit = defineEmits<JvCascaderEmits>()
 
@@ -50,44 +49,25 @@ defineExpose({
 
 <template>
   <div :class="bem.b()">
-    <div
-      :class="bem.e('input')"
-      @click="visible = !disabled && !visible"
-    >
+    <div :class="bem.e('input')" @click="visible = !disabled && !visible">
       <input
-        v-model="inputValue"
-        :placeholder="placeholder"
-        :disabled="disabled"
-        :readonly="!filterable"
+        v-model="inputValue" :placeholder="placeholder" :disabled="disabled" :readonly="!filterable"
         :class="bem.e('input-inner')"
       >
     </div>
 
-    <div
-      v-show="visible"
-      :class="bem.e('dropdown')"
-    >
+    <div v-show="visible" :class="bem.e('dropdown')">
       <div :class="bem.e('panel')">
-        <div
-          v-for="(options, level) in activeOptions"
-          :key="level"
-          :class="bem.e('menu')"
-        >
+        <div v-for="(options, level) in activeOptions" :key="level" :class="bem.e('menu')">
           <div
-            v-for="option in options"
-            :key="option.value"
-            :class="[
+            v-for="option in options" :key="option.value" :class="[
               bem.e('node'),
               bem.is('disabled', option.disabled),
               bem.is('active', selectedOptions[level]?.value === option.value),
-            ]"
-            @click="!option.disabled && handleOptionClick(option, level)"
+            ]" @click="!option.disabled && handleOptionClick(option, level)"
           >
             {{ option.label }}
-            <span
-              v-if="option.children"
-              :class="bem.e('arrow')"
-            >
+            <span v-if="option.children" :class="bem.e('arrow')">
               >
             </span>
           </div>

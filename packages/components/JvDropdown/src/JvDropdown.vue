@@ -5,9 +5,8 @@ import type { JvDropdownEmits, JvDropdownProps } from './JvDropdown'
 import JvPopper from '@components/JvPopper'
 
 import { createNamespace } from '@jienix/utils'
-import '../style/style.css'
 
-defineOptions({ name: 'JvDropdown' })
+defineOptions({ name: 'JvDropdown', inheritAttrs: false })
 const props = withDefaults(defineProps<JvDropdownProps>(), {
   trigger: 'click',
   placement: 'bottom-start',

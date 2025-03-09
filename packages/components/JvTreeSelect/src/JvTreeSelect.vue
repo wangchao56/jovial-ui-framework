@@ -5,7 +5,7 @@ import JvSelect from '../../JvSelect'
 import JvTree from '../../JvTree'
 import { type JvTreeSelectEmits, jvTreeSelectProps } from './JvTreeSelect'
 
-defineOptions({ name: 'JvTreeSelect' })
+defineOptions({ name: 'JvTreeSelect', inheritAttrs: false })
 const props = defineProps(jvTreeSelectProps)
 defineEmits<JvTreeSelectEmits>()
 const bem = createNamespace('treeSelect')
@@ -45,18 +45,12 @@ defineExpose({
 <template>
   <div :class="bem.b()">
     <JvSelect
-      :model-value="selectedValue"
-      :disabled="disabled"
-      :clearable="clearable"
-      :placeholder="placeholder"
+      :model-value="selectedValue" :disabled="disabled" :clearable="clearable" :placeholder="placeholder"
       @clear="clear"
     >
       <template #dropdown>
         <JvTree
-          :data="data"
-          :value-key="valueKey"
-          :label-key="labelKey"
-          :children-key="childrenKey"
+          :data="data" :value-key="valueKey" :label-key="labelKey" :children-key="childrenKey"
           @node-click="handleTreeSelect"
         />
       </template>

@@ -10,7 +10,7 @@ import { getTextWidth, type JvEllipsisEmits } from './JvEllipsis'
 // 2. 优化样式
 // 3. 优化Tooltip的显示
 
-defineOptions({ name: 'JvEllipsis' })
+defineOptions({ name: 'JvEllipsis', inheritAttrs: false })
 
 const props = defineProps({
   text: {
@@ -127,8 +127,8 @@ onUnmounted(stop)
   <div ref="containerRef" :class="bem.b()" :style="containerStyle">
     <div ref="contentRef" class="content">
       <JvTooltip
-        v-if="ellipsised" class="more" :content="text" placement="top"
-        v-bind="tooltip" :popper-class="bem.e('popper')"
+        v-if="ellipsised" class="more" :content="text" placement="top" v-bind="tooltip"
+        :popper-class="bem.e('popper')"
       >
         <span ref="markRef">...</span>
       </JvTooltip>

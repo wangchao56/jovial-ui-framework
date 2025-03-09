@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { createNamespace, isArray, isNumber, isString } from '@jienix/utils'
 import { jvSpaceProps } from './JvSpace'
-import '../style/jv-space.css'
 
-defineOptions({ name: 'JvSpace' })
+defineOptions({ name: 'JvSpace', inheritAttrs: false })
 const props = defineProps(jvSpaceProps)
 const bem = createNamespace('space')
 
@@ -56,7 +55,7 @@ useCssVars((_ctx) => {
       bem.m(direction ?? 'horizontal'),
       bem.is('wrap', wrap),
       bem.is('inline', inline),
-      // 自定义类
+    // 自定义类
     ]"
   >
     <slot />

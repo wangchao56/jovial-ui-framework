@@ -2,9 +2,8 @@
 import type { JvEmptyEmits } from './JvEmpty'
 import { createNamespace } from '@jienix/utils'
 import { jvEmptyProps } from './JvEmpty'
-import '../style/style.css'
 
-defineOptions({ name: 'JvEmpty' })
+defineOptions({ name: 'JvEmpty', inheritAttrs: false })
 defineProps(jvEmptyProps)
 defineEmits<JvEmptyEmits>()
 const bem = createNamespace('empty')

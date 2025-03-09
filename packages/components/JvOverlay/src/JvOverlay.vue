@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import type { JvOverlayEmits, JvOverlayProps, JvOverlaySlots } from './JvOverlay'
+import type { JvOverlayEmits, JvOverlaySlots } from './JvOverlay'
 import { createNamespace } from '@jienix/utils'
-import '../style/style.css'
+import { jvOverlayProps } from './JvOverlay'
 
-defineOptions({ name: 'JvOverlay' })
-const props = withDefaults(defineProps<JvOverlayProps>(), {
-  lockScroll: true,
-  contained: false,
-  closeOnClickOverlay: true,
-})
+defineOptions({ name: 'JvOverlay', inheritAttrs: false })
+const { lockScroll, overlayStyle, overlayClass, closeOnClickOverlay } = defineProps(jvOverlayProps)
 const emit = defineEmits<JvOverlayEmits>()
 defineSlots<JvOverlaySlots>()
 const bem = createNamespace('overlay')
@@ -19,9 +15,9 @@ const bem = createNamespace('overlay')
  */
 const overlayRef = ref<HTMLDivElement>()
 const parentElement = ref<HTMLElement>()
-const visible = useModel(props, 'modelValue')
+const visible = defineModel<boolean>('modelValue', { required: true })
 function clickOverlay(_e: MouseEvent) {
-  if (!props.closeOnClickOverlay) {
+  if (!closeOnClickOverlay) {
     return
   }
   visible.value = false
@@ -30,7 +26,7 @@ function clickOverlay(_e: MouseEvent) {
 
 onMounted(() => {
   // 获取遮罩层的父元素 ,如果父元素的position：relative; 则遮罩层会相对于父元素定位
-  if (props.lockScroll) {
+  if (lockScroll) {
     document.body.style.overflow = 'hidden'
   }
   else {
@@ -68,12 +64,11 @@ function afterLeave() {
 </script>
 
 <template>
-  <Transition
-    name="overlay-fade"
-    @after-enter="afterEnter"
-    @after-leave="afterLeave"
-  >
-    <div v-if="visible" ref="overlayRef" :style="overlayStyle" :class="[bem.b(), overlayClass]" @click.stop="clickOverlay">
+  <Transition name="overlay-fade" @after-enter="afterEnter" @after-leave="afterLeave">
+    <div
+      v-if="visible" ref="overlayRef" :style="overlayStyle" :class="[bem.b(), overlayClass]"
+      @click.stop="clickOverlay"
+    >
       <slot />
     </div>
   </Transition>

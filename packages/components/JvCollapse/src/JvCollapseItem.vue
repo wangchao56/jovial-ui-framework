@@ -4,7 +4,7 @@ import { createNamespace } from '@jienix/utils'
 import { collapseContextKey } from './JvCollapse'
 import { jvCollapseItemEmits } from './JvCollapseItem'
 
-defineOptions({ name: 'JvCollapseItem' })
+defineOptions({ name: 'JvCollapseItem', inheritAttrs: false })
 const props = withDefaults(defineProps<JvCollapseItemProps>(), {
   disabled: false,
 })

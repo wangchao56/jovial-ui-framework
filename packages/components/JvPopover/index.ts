@@ -1,13 +1,14 @@
 import { withInstall } from '@jienix/utils'
-import _Popover from './src/popover.vue'
+import _JvPopover from './src/JvPopover.vue'
+import './style'
 
-const popover = withInstall(_Popover)
+const JvPopover = withInstall(_JvPopover)
 
-export * from './src/popover'
-export default popover
+export * from './src/JvPopover'
+export default JvPopover
 
 declare module 'vue' {
   export interface GlobalComponents {
-    JvPopover: typeof popover
+    JvPopover: typeof JvPopover
   }
 }

@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import type { JvRadioGroupEmits, JvRadioGroupProps } from './JvRadioGroup'
-import { createNamespace } from '@jienix/utils'
+import { createNamespace, getUid } from '@jienix/utils'
 import { computed, provide } from 'vue'
 import { radioGroupContextKey } from './JvRadioGroup'
 
 defineOptions({
   name: 'JvRadioGroup',
+  inheritAttrs: false,
 })
 const props = defineProps<JvRadioGroupProps>()
 const emit = defineEmits<JvRadioGroupEmits>()
 const bem = createNamespace('radio-group')
-const model = useModel(props, 'modelValue')
+const model = defineModel<string | number | boolean>('modelValue')
 // 给子组件提供一个name
-const radioName = computed(() => props.name || `radio-group--${useId()}`)
+const radioName = computed(() => props.name || `radio-group--${getUid()}`)
 
 function dispatch(event: 'change' | 'update:modelValue', args: string | number | boolean | undefined, valueType: string) {
   if (valueType === '[object Number]') {
@@ -47,9 +48,22 @@ provide(radioGroupContextKey, {
 </script>
 
 <template>
-  <fieldset :class="[bem.b(), { 'is-column': props.column, 'is-inline': props.inline }]" role="radiogroup">
-    <legend :class="bem.e('legend')">
-      请选择首选的联系方式：
+  <fieldset
+    :class="[
+      bem.b(),
+      {
+        'is-column': props.column,
+        'is-inline': props.inline,
+        'is-bordered': props.bordered,
+        'is-compact': props.compact,
+      },
+    ]"
+    role="radiogroup"
+  >
+    <legend v-if="props.legend || $slots.legend" :class="bem.e('legend')">
+      <slot name="legend">
+        {{ props.legend }}
+      </slot>
     </legend>
     <slot />
   </fieldset>

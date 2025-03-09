@@ -1,5 +1,5 @@
 import type { LocaleOptions } from '@jienix/jovial-locale'
-import type { App, VNode } from 'vue'
+import type { App } from 'vue'
 import {
   createDefaults,
   type DefaultsOptions,
@@ -16,7 +16,7 @@ import { getUid } from '@jienix/utils'
 export interface JovialOptions {
   aliases?: Record<string, any>
   // blueprint?: Blueprint
-  components?: Record<string, VNode & { install: (app: App) => void }>
+  components?: Record<string, any>
   // date?: DateOptions
   directives?: Record<string, any>
   defaults?: DefaultsOptions
@@ -60,7 +60,6 @@ export function createJovialUI(jovial: JovialOptions = {}) {
     app.provide(DefaultsSymbol, defaults)
     app.provide(ThemeSymbol, theme)
     app.provide(LocaleSymbol, locale) // 提供国际化实例
-
     getUid.reset()
   }
 
@@ -71,5 +70,3 @@ export function createJovialUI(jovial: JovialOptions = {}) {
     locale, // 导出国际化实例
   }
 }
-// export const version = __VUETIFY_VERSION__
-// createJovialUI.version = version

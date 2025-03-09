@@ -277,8 +277,7 @@ export default {
 
 <template>
   <div
-    class="jv-form-item"
-    :class="[
+    class="jv-form-item" :class="[
       {
         'jv-form-item--error': validateState === 'error',
         'jv-form-item--success': validateState === 'success',
@@ -289,30 +288,19 @@ export default {
     ]"
   >
     <!-- 标签 -->
-    <label
-      v-if="label || $slots.label"
-      class="jv-form-item__label"
-      :style="labelStyle"
-      :for="labelFor"
-    >
+    <label v-if="label || $slots.label" class="jv-form-item__label" :style="labelStyle" :for="labelFor">
       <slot name="label">{{ label }}</slot>
       <span v-if="!formContext?.hideRequiredAsterisk && isRequired" class="jv-form-item__required">*</span>
       <span v-if="formContext?.labelSuffix" class="jv-form-item__suffix">{{ formContext?.labelSuffix }}</span>
     </label>
 
     <!-- 内容 -->
-    <div
-      class="jv-form-item__content"
-      :style="contentStyle"
-    >
+    <div class="jv-form-item__content" :style="contentStyle">
       <slot />
 
       <!-- 错误信息 -->
       <transition name="jv-form-item-fade">
-        <div
-          v-if="validateState === 'error' && showError"
-          class="jv-form-item__error"
-        >
+        <div v-if="validateState === 'error' && showError" class="jv-form-item__error">
           {{ validateMessage }}
         </div>
       </transition>

@@ -4,6 +4,7 @@ import Container from './src/Container.vue'
 import Footer from './src/Footer.vue'
 import Header from './src/Header.vue'
 import Main from './src/Main.vue'
+import './style'
 
 export const JvContainer = withInstall(Container)
 export const JvHeader = withInstall(Header)

@@ -1,50 +1,43 @@
 import type { Slot } from 'vue'
 
 export const jvRadioGroupProps = {
+  /* 单选框组的值 */
   modelValue: {
-    type: [String, Number, Boolean],
+    type: [String, Number, Boolean] as PropType<string | number | boolean>,
     default: undefined,
   },
+  /* 是否禁用整个单选框组 */
   disabled: {
     type: Boolean,
     default: false,
   },
+  /* 单选框组的 name 属性 */
   name: String,
+  /* 是否为垂直布局 */
+  column: {
+    type: Boolean,
+    default: false,
+  },
+  /* 是否为内联布局 */
+  inline: {
+    type: Boolean,
+    default: false,
+  },
+  /* 单选框组的标题 */
+  legend: String,
+  /* 是否显示边框 */
+  bordered: {
+    type: Boolean,
+    default: false,
+  },
+  /* 是否使用紧凑模式 */
+  compact: {
+    type: Boolean,
+    default: false,
+  },
 } as const
 
-export interface JvRadioGroupProps {
-  /**
-   * 单选框组的值
-   * @type {string | number | boolean}
-   */
-  modelValue?: string | number | boolean
-
-  /**
-   * 是否禁用整个单选框组
-   * @default false
-   */
-  disabled?: boolean
-
-  /**
-   * 单选框组的 name 属性
-   * @description 用于表单提交时的标识
-   */
-  name?: string
-
-  /**
-   * 是否为垂直布局
-   * @default false
-   * @description 启用后单选框将垂直排列
-   */
-  column?: boolean
-
-  /**
-   * 是否为内联布局
-   * @default false
-   * @description 启用后单选框将水平排列且不换行
-   */
-  inline?: boolean
-}
+export type JvRadioGroupProps = ExtractPropTypes<typeof jvRadioGroupProps>
 
 export interface JvRadioGroupEmits {
   /**
@@ -62,9 +55,11 @@ export interface JvRadioGroupEmits {
 
 export interface JvRadioGroupSlots {
   /** 默认插槽，用于放置 Radio 组件 */
-  default: Slot<any>
+  default: Slot
   /** 标签插槽，用于自定义标签内容 */
-  label: Slot<any>
+  label: Slot
+  /** 标题插槽，用于自定义标题内容 */
+  legend: Slot
 }
 
 export interface JvRadioGroupExpose {
@@ -91,4 +86,5 @@ export interface JvRadioGroupContext {
 }
 
 /** Radio 组注入的 key */
-export const radioGroupContextKey: InjectionKey<JvRadioGroupContext> = Symbol.for('radioGroupContextKey')
+export const radioGroupContextKey: InjectionKey<JvRadioGroupContext>
+  = Symbol.for('radioGroupContextKey')

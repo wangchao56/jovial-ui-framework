@@ -1,3 +1,5 @@
+import type { Slot } from 'vue'
+
 export const jvTransferProps = {
   /** 选中值 */
   modelValue: {
@@ -40,24 +42,40 @@ export interface TransferItem {
 export type JvTransferProps = Partial<ExtractPropTypes<typeof jvTransferProps>>
 
 export interface JvTransferEmits {
+  /**
+   * 更新选中值
+   */
   (e: 'update:modelValue', value: (string | number)[]): void
+  /**
+   * 右侧改变时触发
+   */
   (e: 'changeRight', value: (string | number)[]): void
+  /**
+   * 左侧改变时触发
+   */
   (e: 'changeLeft', value: (string | number)[]): void
 }
 
 export interface JvTransferSlots {
   /** 自定义内容 */
-  'default'?: () => any
+  'default'?: Slot
   /** 左侧底部内容 */
-  'left-footer'?: () => any
+  'left-footer'?: Slot
   /** 右侧底部内容 */
-  'right-footer'?: () => any
+  'right-footer'?: Slot
   /** 左侧头部内容 */
-  'left-header'?: () => any
+  'left-header'?: Slot
   /** 右侧头部内容 */
-  'right-header'?: () => any
+  'right-header'?: Slot
 }
 
 export interface JvTransferExpose {
+  /**
+   * 根元素
+   */
+  root: Ref<HTMLElement>
+  /**
+   * 清除查询
+   */
   clearQuery: (direction: 'left' | 'right') => void
 }

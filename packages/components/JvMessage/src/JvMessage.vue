@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import type { JvMessageExpose, JvMessageProps } from './JvMessage'
 import RenderVnode from '@components/internal/RenderVnode'
-import JvButton from '@components/JvButton/src/JvButton.vue'
+import { JvButton } from '@components/JvButton'
 import JvIcon from '@components/JvIcon'
 import { useZIndex } from '@jienix/jovial-composables'
 import { createNamespace } from '@jienix/utils'
 import { useEventListener, useResizeObserver } from '@vueuse/core'
 import { v4 as uuid4 } from 'uuid'
 import { getPrevBottomOffset, messageInstances } from './method'
-import '../style/style.css'
 
-defineOptions({ name: 'JvMessage' })
+defineOptions({ name: 'JvMessage', inheritAttrs: false })
 const props = withDefaults(defineProps<JvMessageProps>(), {
   closable: false,
   visible: false,
@@ -115,23 +114,11 @@ const icons = {
 </script>
 
 <template>
-  <Transition
-    name="fade-up"
-    @after-leave="destoryComponent"
-  >
+  <Transition name="fade-up" @after-leave="destoryComponent">
     <div
-      v-if="visible"
-      :id="compId"
-      :key="compId"
-      ref="messageRef"
-      role="alert"
-      :class="[bem.b(), bem.m(type), bem.is('closable', closable)]"
-      :style="cssStyle"
-      aria-live="assertive"
-      aria-atomic="true"
-      aria-hidden="false"
-      @mouseenter="clearTimer"
-      @mouseleave="startTimer"
+      v-if="visible" :id="compId" :key="compId" ref="messageRef" role="alert"
+      :class="[bem.b(), bem.m(type), bem.is('closable', closable)]" :style="cssStyle" aria-live="assertive"
+      aria-atomic="true" aria-hidden="false" @mouseenter="clearTimer" @mouseleave="startTimer"
     >
       <JvIcon :class="bem.e('prepend')" :name="icons[type]" />
       <slot>

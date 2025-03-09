@@ -28,13 +28,16 @@ const isDisabled = computed(() => {
   return props.disabled || (radioGroupContext?.disabled ?? false)
 })
 
+// 添加焦点状态
+const isFocused = ref(false)
+
 watchPostEffect(() => {
   // 如果复组件存在
   if (radioGroupContext) {
     checked.value = radioGroupContext.modelValue?.value === props.value
   }
   else {
-    checked.value = model.value
+    checked.value = Boolean(model.value)
   }
 })
 
@@ -52,10 +55,38 @@ function handleChange(e: Event) {
     emit('change', target.value)
   }
 }
+
+// 处理焦点事件
+function handleFocus() {
+  isFocused.value = true
+  emit('focus')
+}
+
+// 处理失焦事件
+function handleBlur() {
+  isFocused.value = false
+  emit('blur')
+}
+
+// 处理键盘事件
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault()
+    inputRef.value?.click()
+  }
+}
 </script>
 
 <template>
-  <div :class="[bem.b(), bem.is('checked', checked), bem.is('disabled', isDisabled)]">
+  <div
+    :class="[
+      bem.b(),
+      bem.is('checked', checked),
+      bem.is('disabled', isDisabled),
+      bem.is('focused', isFocused),
+    ]"
+    @keydown="handleKeydown"
+  >
     <div :class="bem.e('icon-wrapper')">
       <JvIcon v-if="checked" name="$radio" :class="bem.e('icon')" :color="color" />
       <JvIcon v-else name="$radioOutline" :class="bem.e('icon')" :color="color" />
@@ -63,6 +94,8 @@ function handleChange(e: Event) {
         :id="id" ref="inputRef" :value="value" :checked="checked" role="radio" type="radio" :disabled="isDisabled"
         :name="inputName" :aria-checked="checked" :aria-disabled="isDisabled" :tabindex="isDisabled ? -1 : 0"
         :class="bem.e('input')" @change="handleChange"
+        @focus="handleFocus"
+        @blur="handleBlur"
       >
     </div>
 

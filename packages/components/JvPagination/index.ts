@@ -1,5 +1,6 @@
 import { withInstall } from '@jienix/utils'
 import _JvPagination from './src/JvPagination.vue'
+import './style'
 
 const JvPagination = withInstall(_JvPagination)
 

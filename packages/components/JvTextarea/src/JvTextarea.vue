@@ -4,9 +4,8 @@ import { createNamespace } from '@jienix/utils'
 import { templateRef, useResizeObserver } from '@vueuse/core'
 import { computed, nextTick, onMounted, useModel } from 'vue'
 import { jvTextareaProps } from './JvTextarea'
-import '../style/style.css'
 
-defineOptions({ name: 'JvTextarea' })
+defineOptions({ name: 'JvTextarea', inheritAttrs: false })
 const props = defineProps(jvTextareaProps)
 const emit = defineEmits<JvTextareaEmits>()
 const bem = createNamespace('textarea')
@@ -64,73 +63,14 @@ defineExpose({
 <template>
   <div :class="bem.b()">
     <textarea
-      :id="id"
-      ref="textareaRef"
-      v-model="internalValue"
-      :class="bem.e('textarea')"
-      :disabled="disabled"
-      :readonly="readonly"
-      :maxlength="maxlength"
-      :minlength="minlength"
-      :placeholder="placeholder"
-      :autofocus="autofocus"
-      :spellcheck="spellcheck"
-      :wrap="wrap"
-      :rows="rows"
-      :cols="cols"
-      :autocapitalize="autocapitalize"
-      :autocomplete="autocomplete"
-      :name="name"
-      :form="form"
-      :dir="dirname"
-      @input="handleInput"
-      @change="handleChange"
-      @blur="handleBlur"
-      @focus="handleFocus"
+      :id="id" ref="textareaRef" v-model="internalValue" :class="bem.e('textarea')" :disabled="disabled"
+      :readonly="readonly" :maxlength="maxlength" :minlength="minlength" :placeholder="placeholder"
+      :autofocus="autofocus" :spellcheck="spellcheck" :wrap="wrap" :rows="rows" :cols="cols"
+      :autocapitalize="autocapitalize" :autocomplete="autocomplete" :name="name" :form="form" :dir="dirname"
+      @input="handleInput" @change="handleChange" @blur="handleBlur" @focus="handleFocus"
     />
-    <span
-      v-if="showWordLimit && maxlength"
-      :class="bem.e('word-count')"
-    >
+    <span v-if="showWordLimit && maxlength" :class="bem.e('word-count')">
       {{ textLength }}/{{ maxlength }}
     </span>
   </div>
 </template>
-
-<style>
-.jv-textarea {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-}
-
-.jv-textarea__textarea {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #dcdfe6;
-  border-radius: 4px;
-  font-size: 14px;
-  line-height: 1.5;
-  box-sizing: border-box;
-  transition: border-color 0.2s;
-  resize: vertical;
-}
-
-.jv-textarea__textarea:focus {
-  outline: none;
-  border-color: #409eff;
-}
-
-.jv-textarea__textarea:disabled {
-  background-color: #f5f7fa;
-  cursor: not-allowed;
-}
-
-.jv-textarea__word-count {
-  position: absolute;
-  right: 10px;
-  bottom: 4px;
-  color: #909399;
-  font-size: 12px;
-}
-</style>

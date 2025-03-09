@@ -1,19 +1,12 @@
 <script setup lang="ts">
-import type { JvSplitEmits, JvSplitProps } from './JvSplit'
+import type { JvSplitEmits, JvSplitExpose } from './JvSplit'
 import { createNamespace, off, on } from '@jienix/utils'
 import { computed, ref } from 'vue'
-import '../style/style.css'
+import { jvSplitProps } from './JvSplit'
 
 defineOptions({ name: 'JvSplit' })
 
-const props = withDefaults(defineProps<JvSplitProps>(), {
-  direction: 'horizontal',
-  triggerSize: 3,
-  disabled: false,
-  defaultSize: 0.5,
-  min: 0,
-  max: 1,
-})
+const props = defineProps(jvSplitProps)
 const emit = defineEmits<JvSplitEmits>()
 const bem = createNamespace('split')
 
@@ -65,10 +58,28 @@ const triggerStyle = computed(() => {
       }
 })
 
+// 暴露方法
+function getSize(): string | number {
+  return mergedSize.value
+}
+
+function resetSize(): void {
+  uncontrolledSize.value = props.defaultSize
+  emit('update:size', props.defaultSize)
+}
+
+defineExpose<JvSplitExpose>({
+  getSize,
+  resetSize,
+})
+
 // 处理鼠标事件
 let offset = 0
 
 function handleMouseDown(e: MouseEvent): void {
+  if (props.disabled)
+    return
+
   e.preventDefault()
   isDragging.value = true
   emit('dragStart', e)
@@ -81,16 +92,18 @@ function handleMouseDown(e: MouseEvent): void {
       : rect.top - e.clientY
   }
 
-  const onMouseMove = (e: MouseEvent) => {
-    updateSize(e)
-    emit('dragMove', e)
+  const onMouseMove = (evt: Event) => {
+    const mouseEvt = evt as MouseEvent
+    updateSize(mouseEvt)
+    emit('dragMove', mouseEvt)
   }
 
-  const onMouseUp = (e: MouseEvent) => {
+  const onMouseUp = (evt: Event) => {
+    const mouseEvt = evt as MouseEvent
     off(document, 'mousemove', onMouseMove)
     off(document, 'mouseup', onMouseUp)
     isDragging.value = false
-    emit('dragEnd', e)
+    emit('dragEnd', mouseEvt)
     document.body.style.cursor = ''
   }
 
@@ -144,18 +157,14 @@ function updateSize(e: MouseEvent): void {
       { [bem.m('disabled')]: disabled },
     ]"
   >
-    <div
-      :class="[bem.e('pane-1'), pane1Class]"
-      :style="[firstPaneStyle, pane1Style]"
-    >
-      <slot name="pane-1" />
+    <div :class="[bem.e('pane-1'), paneOneClass]" :style="[firstPaneStyle, paneOneStyle]">
+      <slot name="paneOne">
+        <slot name="pane-1" />
+      </slot>
     </div>
 
     <div
-      v-if="!disabled"
-      ref="triggerRef"
-      :class="bem.e('trigger-wrapper')"
-      :style="triggerWrapperStyle"
+      v-if="!disabled" ref="triggerRef" :class="bem.e('trigger-wrapper')" :style="triggerWrapperStyle"
       @mousedown="handleMouseDown"
     >
       <slot name="trigger">
@@ -163,17 +172,15 @@ function updateSize(e: MouseEvent): void {
           :class="[
             bem.e('trigger'),
             { [bem.em('trigger', 'active')]: isDragging },
-          ]"
-          :style="triggerStyle"
+          ]" :style="triggerStyle"
         />
       </slot>
     </div>
 
-    <div
-      :class="[bem.e('pane-2'), pane2Class]"
-      :style="pane2Style"
-    >
-      <slot name="pane-2" />
+    <div :class="[bem.e('pane-2'), paneTwoClass]" :style="paneTwoStyle">
+      <slot name="paneTwo">
+        <slot name="pane-2" />
+      </slot>
     </div>
   </div>
 </template>

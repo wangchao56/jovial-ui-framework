@@ -1,14 +1,15 @@
 import { withInstall } from '@jienix/utils'
-import _input from './src/input.vue'
+import _JvInput from './src/JvInput.vue'
+import './style'
 
-const input = withInstall(_input)
+const JvInput = withInstall(_JvInput)
 
-export * from './src/input'
+export * from './src/JvInput'
 
-export default input
+export default JvInput
 
 declare module 'vue' {
   export interface GlobalComponents {
-    JvInput: typeof input
+    JvInput: typeof JvInput
   }
 }

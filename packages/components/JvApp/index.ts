@@ -1,5 +1,6 @@
 import { withInstall } from '@jienix/utils'
 import _JvApp from './src/JvApp.vue'
+import './style'
 
 const JvApp = withInstall(_JvApp)
 

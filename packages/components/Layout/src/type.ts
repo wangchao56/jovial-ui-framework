@@ -1,4 +1,4 @@
-import type { SpaceProps } from '@components/JvSpace'
+import type { JvSpaceProps } from '@components/JvSpace'
 
 export type ColSize = number | { span?: number, offset?: number }
 export type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
@@ -19,9 +19,9 @@ export interface JvRowProps {
   wrap?: boolean
 }
 export interface JvColSpaceProps extends JvColProps {
-  space?: SpaceProps['size']
-  spaceAlign?: SpaceProps['align']
-  spaceJustify?: SpaceProps['justify']
-  spaceDirection?: SpaceProps['direction']
-  spaceWrap?: SpaceProps['wrap']
+  space?: JvSpaceProps['size']
+  spaceAlign?: JvSpaceProps['align']
+  spaceJustify?: JvSpaceProps['justify']
+  spaceDirection?: JvSpaceProps['direction']
+  spaceWrap?: JvSpaceProps['wrap']
 }

@@ -1,28 +1,6 @@
-import type { VNodeChild } from 'vue'
+import type { PropType, Slot } from 'vue'
 
 /** 分页器配置 */
-export interface JvPaginationProps {
-  /** 当前页码 */
-  modelValue?: number
-  /** 总条目数 */
-  total?: number
-  /** 每页显示条目数 */
-  pageSize?: number
-  /** 页码按钮的数量 */
-  pagerCount?: number
-  /** 是否显示快速跳转 */
-  showQuickJumper?: boolean
-  /** 是否显示每页条数选择器 */
-  showSizeChanger?: boolean
-  /** 每页显示条目数选项列表 */
-  pageSizeOptions?: number[]
-  /** 是否显示总条目数 */
-  showTotal?: boolean
-  /** 是否禁用 */
-  disabled?: boolean
-  /** 是否显示较少的页码 */
-  simple?: boolean
-}
 
 export const jvPaginationProps = {
   /** 当前页码 */
@@ -57,7 +35,7 @@ export const jvPaginationProps = {
   },
   /** 每页显示条目数选项列表 */
   pageSizeOptions: {
-    type: Array as () => number[],
+    type: Array as PropType<number[]>,
     default: () => [10, 20, 50, 100],
   },
   /** 是否显示总条目数 */
@@ -76,6 +54,7 @@ export const jvPaginationProps = {
     default: false,
   },
 } as const
+export type JvPaginationProps = ExtractPropTypes<typeof jvPaginationProps>
 
 export interface JvPaginationEmits {
   /** 页码改变时触发 */
@@ -88,11 +67,11 @@ export interface JvPaginationEmits {
 
 export interface JvPaginationSlots {
   /** 自定义总数显示 */
-  total?: (props: { total: number, range: [number, number] }) => VNodeChild
+  total?: Slot<{ total: number, range: [number, number] }>
   /** 自定义上一页按钮 */
-  prev?: () => VNodeChild
+  prev?: Slot
   /** 自定义下一页按钮 */
-  next?: () => VNodeChild
+  next?: Slot
   /** 自定义页码 */
-  page?: (props: { page: number, active: boolean }) => VNodeChild
+  page?: Slot<{ page: number, active: boolean }>
 }

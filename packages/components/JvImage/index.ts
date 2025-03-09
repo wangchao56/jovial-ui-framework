@@ -1,8 +1,6 @@
 import { withInstall } from '@jienix/utils'
-/**
- * icon 组件的设计规范
- */
 import _JvImage from './src/JvImage.vue'
+import './style'
 
 const JvImage = withInstall(_JvImage)
 

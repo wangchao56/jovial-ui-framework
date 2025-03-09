@@ -4,9 +4,8 @@ import JvIcon from '@components/JvIcon/src/JvIcon.vue'
 import { createNamespace } from '@jienix/utils'
 import { ref } from 'vue'
 import { jvTagProps } from './JvTag'
-import '../style/style.css'
 
-defineOptions({ name: 'JvTag' })
+defineOptions({ name: 'JvTag', inheritAttrs: false })
 const props = defineProps(jvTagProps)
 const emit = defineEmits<JvTagEmits>()
 const bem = createNamespace('tag')
@@ -21,8 +20,7 @@ function handleClose(evt: MouseEvent) {
 <template>
   <Transition name="jv-tag">
     <span
-      v-if="visible"
-      :class="[
+      v-if="visible" :class="[
         bem.b(),
         bem.m(props.type),
         bem.m(props.size),

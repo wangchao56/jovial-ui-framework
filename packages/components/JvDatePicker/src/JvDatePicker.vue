@@ -4,7 +4,7 @@ import { createNamespace } from '@jienix/utils'
 import { ref } from 'vue'
 import { jvDatePickerProps } from './JvDatePicker'
 
-defineOptions({ name: 'JvDatePicker' })
+defineOptions({ name: 'JvDatePicker', inheritAttrs: false })
 defineProps(jvDatePickerProps)
 const emit = defineEmits<JvDatePickerEmits>()
 
@@ -34,59 +34,11 @@ function handleClear() {
 <template>
   <div :class="bem.b()">
     <input
-      ref="inputRef"
-      :class="bem.e('input')"
-      :value="modelValue"
-      :placeholder="placeholder"
-      :disabled="disabled"
+      ref="inputRef" :class="bem.e('input')" :value="modelValue" :placeholder="placeholder" :disabled="disabled"
       @input="handleChange"
     >
-    <span
-      v-if="clearable && modelValue"
-      :class="bem.e('clear')"
-      @click="handleClear"
-    >
+    <span v-if="clearable && modelValue" :class="bem.e('clear')" @click="handleClear">
       ×
     </span>
   </div>
 </template>
-
-<style lang="scss">
-.jv-datePicker {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-
-  &__input {
-    width: 100%;
-    height: 32px;
-    padding: 0 12px;
-    border: 1px solid #dcdfe6;
-    border-radius: 4px;
-    outline: none;
-    transition: border-color 0.2s;
-
-    &:focus {
-      border-color: #409eff;
-    }
-
-    &:disabled {
-      background-color: #f5f7fa;
-      cursor: not-allowed;
-    }
-  }
-
-  &__clear {
-    position: absolute;
-    top: 50%;
-    right: 8px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #c0c4cc;
-
-    &:hover {
-      color: #909399;
-    }
-  }
-}
-</style>

@@ -1,5 +1,6 @@
 import type { Size } from '@jienix/typings'
 import type { PropType, Slot } from 'vue'
+import type { RouteLocationRaw } from 'vue-router'
 
 export type AvatarShape = 'circle' | 'square'
 export type AvatarFit = 'fill' | 'contain' | 'cover' | 'none' | 'scale-down'
@@ -41,7 +42,8 @@ export const jvAvatarProps = {
   variant: {
     type: String as PropType<AvatarShape>,
     default: 'circle',
-    validator: (value: string) => ['circle', 'rounded', 'square'].includes(value),
+    validator: (value: string) =>
+      ['circle', 'rounded', 'square'].includes(value),
   },
   /** 头像颜色 */
   color: {
@@ -70,7 +72,7 @@ export const jvAvatarProps = {
   },
   /** 点击头像后的跳转链接 */
   to: {
-    type: [String, Object],
+    type: [String, Object] as PropType<RouteLocationRaw>,
     default: null,
   },
 } as const
@@ -84,7 +86,9 @@ export const jvAvatarEmits = {
 
 export interface JvAvatarEmits {
   /** 图片加载错误时触发 */
-  (e: 'error', evt: Event): void
+  (event: 'error', evt: Event): void
+  /** 点击头像 */
+  (event: 'click', evt: MouseEvent): void
 }
 
 export interface JvAvatarSlots {

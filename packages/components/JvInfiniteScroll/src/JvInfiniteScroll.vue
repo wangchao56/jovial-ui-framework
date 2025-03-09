@@ -4,7 +4,7 @@ import BScroll from '@better-scroll/core'
 import { createNamespace } from '@jienix/utils'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 
-defineOptions({ name: 'JvInfiniteScroll' })
+defineOptions({ name: 'JvInfiniteScroll', inheritAttrs: false })
 
 const props = withDefaults(defineProps<JvInfiniteScrollProps>(), {
   probeType: 3,

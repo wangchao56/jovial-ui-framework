@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import type { AnchorLinkItem, JvAnchorEmits } from './JvAnchor.js'
+import type { AnchorLinkItem, JvAnchorEmits } from './JvAnchor'
 import { createNamespace } from '@jienix/utils'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { jvAnchorProps } from './JvAnchor.js'
-import '../style/style.css'
+import { jvAnchorProps } from './JvAnchor'
 
-defineOptions({ name: 'JvAnchor' })
+defineOptions({ name: 'JvAnchor', inheritAttrs: false })
 
-const props = defineProps(jvAnchorProps)
+const { container, offsetTop, affix, targetOffset } = defineProps(jvAnchorProps)
 const emit = defineEmits<JvAnchorEmits>()
 const bem = createNamespace('anchor')
 
@@ -20,11 +19,11 @@ const scrollContainer = ref<Window | HTMLElement>()
 
 // 初始化滚动容器
 function initScrollContainer() {
-  if (props.container === 'window') {
+  if (container === 'window') {
     scrollContainer.value = window
   }
   else {
-    const el = document.querySelector(props.container)
+    const el = document.querySelector(container)
     if (el) {
       scrollContainer.value = el as HTMLElement
     }
@@ -37,7 +36,7 @@ function scrollTo(key: string) {
   if (target && scrollContainer.value) {
     const top = target.getBoundingClientRect().top
       + (scrollContainer.value instanceof Window ? window.pageYOffset : scrollContainer.value.scrollTop)
-      - props.targetOffset
+      - targetOffset
 
     if (scrollContainer.value instanceof Window) {
       window.scrollTo({ top, behavior: 'smooth' })
@@ -72,7 +71,7 @@ function checkActiveLink() {
     const target = document.querySelector(`[data-anchor="${link.key}"]`)
     if (target) {
       const { top } = target.getBoundingClientRect()
-      if (top <= props.targetOffset + 10 && top > -10) {
+      if (top <= targetOffset + 10 && top > -10) {
         if (activeKey.value !== link.key) {
           activeKey.value = link.key
           emit('update:activeKey', link.key)
@@ -110,8 +109,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div
-    :class="bem.b()"
-    :style="{
+    :class="bem.b()" :style="{
       position: affix ? 'fixed' : 'static',
       top: affix ? `${offsetTop}px` : 'auto',
     }"
@@ -123,21 +121,17 @@ onBeforeUnmount(() => {
             :class="[
               bem.e('link'),
               bem.is('active', activeKey === link.key),
-            ]"
-            @click="(e) => handleClick(e, link)"
+            ]" @click="(e) => handleClick(e, link)"
           >
             {{ link.title }}
           </div>
           <template v-if="link.children">
             <div
-              v-for="child in link.children"
-              :key="child.key"
-              :class="[
+              v-for="child in link.children" :key="child.key" :class="[
                 bem.e('link'),
                 bem.is('sub', true),
                 bem.is('active', activeKey === child.key),
-              ]"
-              @click="(e) => handleClick(e, child)"
+              ]" @click="(e) => handleClick(e, child)"
             >
               {{ child.title }}
             </div>
@@ -147,41 +141,3 @@ onBeforeUnmount(() => {
     </div>
   </div>
 </template>
-
-<style>
-.jv-anchor {
-  width: 100%;
-  z-index: 100;
-}
-
-.jv-anchor__wrapper {
-  padding: 16px 0;
-}
-
-.jv-anchor__link-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.jv-anchor__link {
-  padding: 4px 0 4px 16px;
-  color: #333;
-  line-height: 1.5;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.jv-anchor__link:hover {
-  color: #1890ff;
-}
-
-.jv-anchor__link--active {
-  color: #1890ff;
-  background-color: #e6f7ff;
-  border-right: 2px solid #1890ff;
-}
-
-.jv-anchor__link--sub {
-  padding-left: 32px;
-}
-</style>

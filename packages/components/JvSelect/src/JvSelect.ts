@@ -1,4 +1,4 @@
-import type { VNodeChild } from 'vue'
+import type { Slot } from 'vue'
 
 /** 选项配置 */
 export interface SelectOption {
@@ -15,7 +15,9 @@ export interface SelectOption {
 export const jvSelectProps = {
   /** 选中值 */
   modelValue: {
-    type: [String, Number, Array] as PropType<string | number | (string | number)[]>,
+    type: [String, Number, Array] as PropType<
+      string | number | (string | number)[]
+    >,
     default: '',
   },
   /** 选项列表 */
@@ -75,11 +77,11 @@ export interface JvSelectEmits {
 
 export interface JvSelectSlots {
   /** 自定义选项内容 */
-  option?: (props: { option: SelectOption }) => VNodeChild
+  option?: Slot<{ option: SelectOption }>
   /** 自定义选中值的显示内容 */
-  value?: (props: { value: string | number | (string | number)[] }) => VNodeChild
+  value?: Slot<{ value: string | number | (string | number)[] }>
   /** 无选项时的内容 */
-  empty?: () => VNodeChild
+  empty?: Slot
 }
 
 export interface JvSelectExpose {

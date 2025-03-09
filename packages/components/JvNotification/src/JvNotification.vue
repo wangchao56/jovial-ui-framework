@@ -1,33 +1,18 @@
 <script setup lang="ts">
-import type { JvNotificationEmits, JvNotificationExpose, JvNotificationProps } from './JvNotification'
-import JvButton from '@components/JvButton/src/JvButton.vue'
-import JvIcon from '@components/JvIcon/src/JvIcon.vue'
-import { Badge } from '@jienix/jovial-directives'
+import type { JvNotificationEmits, JvNotificationExpose } from './JvNotification'
+import { JvButton } from '@components/JvButton'
+import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jienix/utils'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
-import '../style/notification.css'
+import { jvNotificationProps } from './JvNotification'
 
-defineOptions({ name: 'JvNotification' })
-const props = withDefaults(defineProps<JvNotificationProps>(), {
-  position: 'top-right',
-  type: 'info',
-  duration: 4500,
-  showClose: true,
-  zIndex: 4500,
-  pauseOnHover: true,
-  offset: 0,
-  grouping: true,
-  repeatNum: 1,
-  dangerouslyUseHTMLString: false,
-})
+defineOptions({ name: 'JvNotification', inheritAttrs: false })
+const props = defineProps(jvNotificationProps)
 
 const emit = defineEmits<JvNotificationEmits>()
 
 const bem = createNamespace('notification')
-
-const vBadge = Badge
-
-const visible = useModel(props, 'visible')
+const visible = defineModel<boolean>('visible', { required: true })
 let timer: NodeJS.Timeout | null = null
 
 // 计算偏移
@@ -157,19 +142,9 @@ defineExpose<JvNotificationExpose>({
 
 <template>
   <Teleport :to="appendTo" :disabled="disabled">
-    <Transition
-      :name="`notification-${position}`"
-      @after-leave="afterLeave"
-      @after-enter="afterEnter"
-    >
+    <Transition :name="`notification-${position}`" @after-leave="afterLeave" @after-enter="afterEnter">
       <div
-        v-if="visible"
-        :id="id"
-        v-badge="badgeProps"
-        :class="classes"
-        :style="containerStyle"
-        role="alert"
-        @mouseenter="onMouseenter"
+        v-if="visible" :id="id" :class="classes" :style="containerStyle" role="alert" @mouseenter="onMouseenter"
         @mouseleave="onMouseleave"
       >
         <!-- 图标 -->
@@ -190,11 +165,7 @@ defineExpose<JvNotificationExpose>({
           <!-- 消息内容 -->
           <div :class="bem.e('body')">
             <slot>
-              <span
-                v-if="dangerouslyUseHTMLString"
-                :class="bem.em('body', 'message')"
-                v-html="message"
-              />
+              <span v-if="dangerouslyUseHTMLString" :class="bem.em('body', 'message')" v-html="message" />
               <span v-else :class="bem.em('body', 'message')">
                 {{ message }}
               </span>
@@ -203,13 +174,7 @@ defineExpose<JvNotificationExpose>({
         </div>
 
         <!-- 关闭按钮 -->
-        <JvButton
-          v-if="showClose"
-          :class="bem.e('close')"
-          icon="$close"
-          variant="text"
-          @click.stop="close"
-        />
+        <JvButton v-if="showClose" :class="bem.e('close')" icon="$close" variant="text" @click.stop="close" />
       </div>
     </Transition>
   </Teleport>

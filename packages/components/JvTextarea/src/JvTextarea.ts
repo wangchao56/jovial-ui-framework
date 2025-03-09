@@ -1,24 +1,44 @@
+import type { Slot } from 'vue'
+
 export const jvTextareaProps = {
+  /**
+   * 绑定值
+   */
   modelValue: {
     type: String,
     default: '',
   },
+  /**
+   * 占位符
+   */
   placeholder: {
     type: String,
     default: '',
   },
+  /**
+   * 是否禁用
+   */
   disabled: {
     type: Boolean,
     default: false,
   },
+  /**
+   * 是否只读
+   */
   readonly: {
     type: Boolean,
     default: false,
   },
+  /**
+   * 最大长度
+   */
   maxlength: {
     type: Number,
     default: 100,
   },
+  /**
+   * 最小长度
+   */
   minlength: {
     type: Number,
     default: 0,
@@ -30,10 +50,16 @@ export const jvTextareaProps = {
     type: String as PropType<'soft' | 'hard'>,
     default: 'soft',
   },
+  /**
+   * 行数
+   */
   rows: {
     type: Number,
     default: 2,
   },
+  /**
+   * 列数
+   */
   cols: {
     type: Number,
     default: 20,
@@ -42,7 +68,9 @@ export const jvTextareaProps = {
    * 是否自动大写
    */
   autocapitalize: {
-    type: String as PropType<'off' | 'on' | 'words' | 'sentences' | 'characters'>,
+    type: String as PropType<
+      'off' | 'on' | 'words' | 'sentences' | 'characters'
+    >,
     default: 'off',
   },
   /**
@@ -123,22 +151,48 @@ export const jvTextareaProps = {
     default: true,
   },
 } as const
-export type JvTextareaProps = ExtractPropTypes<typeof jvTextareaProps>
+export type JvTextareaProps = Partial<ExtractPropTypes<typeof jvTextareaProps>>
 export interface JvTextareaEmits {
-  // 事件定义
+  /**
+   * 更新绑定值
+   */
   (e: 'update:modelValue', value: string): void
+  /**
+   * 改变时触发
+   */
   (e: 'change', value: string): void
+  /**
+   * 输入时触发
+   */
   (e: 'input', event: Event): void
+  /**
+   * 失去焦点时触发
+   */
   (e: 'blur', event: FocusEvent): void
+  /**
+   * 聚焦时触发
+   */
   (e: 'focus', event: FocusEvent): void
+  /**
+   * 清除时触发
+   */
   (e: 'clear'): void
 }
 export interface JvTextareaSlots {
-  // 插槽定义
-  default?: () => any
+  /**
+   * 默认插槽
+   */
+  default?: Slot
+  /**
+   * 前缀插槽
+   */
+  prefix?: Slot
+  /**
+   * 后缀插槽
+   */
+  suffix?: Slot
 }
 export interface JvTextareaExpose {
-  // 暴露的方法和属性
   /**
    * 清除内容
    */

@@ -1,34 +1,42 @@
 import type { Slot } from 'vue'
 
 export const jvVideoProps = {
+  /** 视频源 */
   src: {
     type: String,
     required: true,
   },
+  /** 封面 */
   poster: {
     type: String,
     default: '',
   },
+  /** 宽度 */
   width: {
     type: [String, Number] as PropType<string | number>,
     default: '100%',
   },
+  /** 高度 */
   height: {
     type: [String, Number] as PropType<string | number>,
     default: 'auto',
   },
+  /** 自动播放 */
   autoplay: {
     type: Boolean,
     default: false,
   },
+  /** 是否显示控制栏 */
   controls: {
     type: Boolean,
     default: true,
   },
+  /** 是否循环播放 */
   loop: {
     type: Boolean,
     default: false,
   },
+  /** 是否静音 */
   muted: {
     type: Boolean,
     default: false,
