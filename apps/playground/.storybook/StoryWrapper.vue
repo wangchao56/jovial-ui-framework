@@ -1,5 +1,5 @@
 <script>
-import JvApp from '@jienix/jovial-components/src/JvApp/src/JvApp.vue'
+import JvApp from '@jienix/jovial-components/JvApp'
 
 export default {
   name: 'StoryWrapper',

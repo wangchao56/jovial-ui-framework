@@ -2,7 +2,6 @@
 import { createNamespace } from '@jienix/utils'
 import { computed, useSlots } from 'vue'
 import { containerContextKey, type ContainerProps } from './types'
-import '../style/jv-container.css'
 
 defineOptions({ name: 'JvContainer' })
 

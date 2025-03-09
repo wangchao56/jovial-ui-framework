@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { JvRadioEmits, JvRadioProps } from './JvRadio'
+import type { JvRadioEmits } from './JvRadio'
 import { createNamespace } from '@jienix/utils'
 import { computed } from 'vue'
+import { jvRadioProps } from './JvRadio'
 import { radioGroupContextKey } from './JvRadioGroup'
 
 defineOptions({
   name: 'JvRadio',
+  inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<JvRadioProps>(), {
-  modelValue: false,
-})
+const props = defineProps(jvRadioProps)
 const emit = defineEmits<JvRadioEmits>()
 const bem = createNamespace('radio')
 const id = computed(() => `radio-${props.value}`)
@@ -84,8 +84,7 @@ function handleKeydown(e: KeyboardEvent) {
       bem.is('checked', checked),
       bem.is('disabled', isDisabled),
       bem.is('focused', isFocused),
-    ]"
-    @keydown="handleKeydown"
+    ]" @keydown="handleKeydown"
   >
     <div :class="bem.e('icon-wrapper')">
       <JvIcon v-if="checked" name="$radio" :class="bem.e('icon')" :color="color" />
@@ -93,9 +92,7 @@ function handleKeydown(e: KeyboardEvent) {
       <input
         :id="id" ref="inputRef" :value="value" :checked="checked" role="radio" type="radio" :disabled="isDisabled"
         :name="inputName" :aria-checked="checked" :aria-disabled="isDisabled" :tabindex="isDisabled ? -1 : 0"
-        :class="bem.e('input')" @change="handleChange"
-        @focus="handleFocus"
-        @blur="handleBlur"
+        :class="bem.e('input')" @change="handleChange" @focus="handleFocus" @blur="handleBlur"
       >
     </div>
 

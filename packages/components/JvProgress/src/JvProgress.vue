@@ -2,26 +2,18 @@
 import JvIcon from '@components/JvIcon/src/JvIcon.vue'
 import { createNamespace, shades, toCSSValue } from '@jienix/utils'
 import { useCssVar } from '@vueuse/core'
-import { normalizeClass, normalizeStyle } from 'vue'
+import { computed, normalizeClass, normalizeStyle, provide, useAttrs, watch } from 'vue'
 import CircleProgress from './CircleProgress.vue'
-import { jvProgressContextKey, type JvProgressEmits, type JvProgressProps, type JvProgressSlots } from './JvProgress'
+import { jvProgressContextKey, type JvProgressEmits, type JvProgressSlots } from './JvProgress'
+import { jvProgressProps } from './JvProgress'
 import LineProgress from './LineProgress.vue'
-import '../style/style.css'
 
 defineOptions({ name: 'JvProgress' })
-const props = withDefaults(defineProps<JvProgressProps>(), {
-  percentage: 0,
-  type: 'line',
-  size: 'medium',
-  strokeWidth: 10,
-  showText: true,
-  textInside: false,
-  textPosition: 'top',
-  width: 350,
-})
+const props = defineProps(jvProgressProps)
 const emit = defineEmits<JvProgressEmits>()
 defineSlots<JvProgressSlots>()
-const percentage = useModel(props, 'percentage')
+const { textPosition, type, textInside, showText, width, strokeWidth, strokeRadius, bgColor, valueColor } = props
+const percentage = defineModel<number>('percentage', { required: true })
 const bem = createNamespace('progress')
 const attrs = useAttrs()
 // 2. 优化类名计算
@@ -63,7 +55,7 @@ watch(percentage, (value) => {
 }, { immediate: true })
 
 // 是否显示文字 只有在line类型且textInside才显示
-const showTextFlag = computed(() => props.showText && !props.textInside && props.type === 'line')
+const showTextFlag = computed(() => showText && !textInside && type === 'line')
 provide(jvProgressContextKey, {
   start: () => {
     // console.log('start')
@@ -85,51 +77,38 @@ const successColor = useCssVar('--jv-color-success-light', document.documentElem
   observe: true,
 })
 const cssVars = computed(() => ({
-  '--jv-progress-width': toCSSValue(props.width),
-  '--jv-progress-stroke-width': toCSSValue(props.strokeWidth),
-  '--jv-progress-radius': props.type === 'circle' ? '50%' : toCSSValue(props.strokeRadius),
-  '--jv-progress-bg-color': props.bgColor || '',
-  '--jv-progress-value-color': isEnd.value ? successColor.value : props.valueColor || '',
-  '--jv-progress-text-color': props.textInside ? shades.white : '',
+  '--jv-progress-width': toCSSValue(width),
+  '--jv-progress-stroke-width': toCSSValue(strokeWidth),
+  '--jv-progress-radius': type === 'circle' ? '50%' : toCSSValue(strokeRadius),
+  '--jv-progress-bg-color': bgColor || '',
+  '--jv-progress-value-color': isEnd.value ? successColor.value : valueColor || '',
+  '--jv-progress-text-color': textInside ? shades.white : '',
 }))
 
 const lineProps = computed(() => ({
   ...props,
-  valueColor: isEnd.value ? successColor.value : props.valueColor || '',
+  valueColor: isEnd.value ? successColor.value : valueColor || '',
 }))
 </script>
 
 <template>
   <div
-    role="progressbar"
-    :class="classes"
-    :style="normalizeStyle([attrs?.style, cssVars])"
-    :aria-valuenow="percentage"
-    :aria-valuemin="0"
-    :aria-valuemax="100"
+    role="progressbar" :class="classes" :style="normalizeStyle([attrs?.style, cssVars])" :aria-valuenow="percentage"
+    :aria-valuemin="0" :aria-valuemax="100"
   >
     <LineProgress
-      v-if="props.type === 'line'"
-      v-model="percentage"
-      :class="bem.em(props.type, 'inner')"
-      v-bind="lineProps"
-      :type="props.type"
+      v-if="type === 'line'" v-model="percentage" :class="bem.em(type, 'inner')" v-bind="lineProps"
+      :type="type"
     >
       <slot name="text" :percentage="percentage">
         {{ ` ${percentage}% ` }}
       </slot>
     </LineProgress>
-    <CircleProgress
-      v-else
-      v-model="percentage"
-      :class="bem.em(props.type, 'inner')"
-      v-bind="props"
-      :type="props.type"
-    />
-    <span v-if="showTextFlag" :class="[bem.em(`${props.type}-text`, props.textPosition), bem.e(`${props.type}-text`)] ">
+    <CircleProgress v-else v-model="percentage" :class="bem.em(type, 'inner')" v-bind="props" :type="type" />
+    <span v-if="showTextFlag" :class="[bem.em(`${type}-text`, textPosition), bem.e(`${type}-text`)] ">
       <slot name="text" :percentage="percentage">
         <template v-if="isEnd">
-          <JvIcon name="$success" :size="props.strokeWidth * 2" :color="successColor" />
+          <JvIcon name="$success" :size="strokeWidth * 2" :color="successColor" />
         </template>
         <template v-else>
           {{ ` ${percentage}% ` }}

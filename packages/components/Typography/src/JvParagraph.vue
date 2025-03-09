@@ -2,7 +2,6 @@
 import type { ParagraphProps } from './types'
 import { createNamespace } from '@jienix/utils'
 import { useTypography } from './composables'
-import '../style/jv-paragraph.css'
 
 defineOptions({
   name: 'JvParagraph',

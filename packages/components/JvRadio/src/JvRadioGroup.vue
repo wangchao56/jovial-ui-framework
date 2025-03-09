@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { JvRadioGroupEmits, JvRadioGroupProps } from './JvRadioGroup'
+import type { JvRadioGroupEmits } from './JvRadioGroup'
 import { createNamespace, getUid } from '@jienix/utils'
 import { computed, provide } from 'vue'
-import { radioGroupContextKey } from './JvRadioGroup'
+import { jvRadioGroupProps, radioGroupContextKey } from './JvRadioGroup'
 
 defineOptions({
   name: 'JvRadioGroup',
   inheritAttrs: false,
 })
-const props = defineProps<JvRadioGroupProps>()
+const props = defineProps(jvRadioGroupProps)
 const emit = defineEmits<JvRadioGroupEmits>()
 const bem = createNamespace('radio-group')
 const model = defineModel<string | number | boolean>('modelValue')
@@ -57,8 +57,7 @@ provide(radioGroupContextKey, {
         'is-bordered': props.bordered,
         'is-compact': props.compact,
       },
-    ]"
-    role="radiogroup"
+    ]" role="radiogroup"
   >
     <legend v-if="props.legend || $slots.legend" :class="bem.e('legend')">
       <slot name="legend">

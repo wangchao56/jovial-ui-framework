@@ -10,7 +10,7 @@ function getAbsolutePath(value: string): any {
   return dirname(require.resolve(join(value, 'package.json')))
 }
 const config: StorybookConfig = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  stories: ['../../../packages/components/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@storybook/addon-onboarding'),
@@ -27,8 +27,11 @@ const config: StorybookConfig = {
     }
     if (config.resolve) {
       config.resolve.alias = {
-        '@jienix/jovial-components': '@jienix/jovial-components',
-        '@components': '@jienix/jovial-components'
+        '@jienix/jovial-components': getAbsolutePath(
+          '@jienix/jovial-components'
+        ),
+        '@components': getAbsolutePath('@jienix/jovial-components'),
+        '@jienix/jovial-theme': getAbsolutePath('@jienix/jovial-theme')
       }
     }
     return config

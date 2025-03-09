@@ -7,7 +7,6 @@ import javascript from 'highlight.js/lib/languages/javascript'
 import typescript from 'highlight.js/lib/languages/typescript'
 import { onMounted, ref } from 'vue'
 import 'highlight.js/styles/github.css'
-import '../style/jv-code.css'
 
 defineOptions({
   name: 'JvCode',

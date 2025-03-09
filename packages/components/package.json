@@ -9,5 +9,8 @@
   "scripts": {
     "test": "vitest",
     "tsc": "vue-tsc -b"
+  },
+  "dependencies": {
+    "@jienix/jovial-theme": "workspace:*"
   }
 }

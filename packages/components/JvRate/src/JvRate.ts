@@ -1,5 +1,5 @@
 import type { JvIconProps } from '@components/JvIcon'
-import type { Slot } from 'vue'
+import type { ExtractPropTypes, Slot } from 'vue'
 
 export const jvRateProps = {
   /** 当前值 */

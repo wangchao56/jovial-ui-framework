@@ -1,21 +1,13 @@
 <script setup lang="ts">
-import type { JvTabsEmits, JvTabsProps, JvTabsSlots, TabPane } from './JvTabs'
+import type { JvTabsEmits, JvTabsSlots, TabPane } from './JvTabs'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jienix/utils'
 import { computed, ref, watch } from 'vue'
-import '../style/style.css'
+import { jvTabsProps } from './JvTabs'
 
-defineOptions({ name: 'JvTabs' })
+defineOptions({ name: 'JvTabs', inheritAttrs: false })
 
-const props = withDefaults(defineProps<JvTabsProps>(), {
-  modelValue: '',
-  items: () => [],
-  position: 'top',
-  type: 'line',
-  closable: false,
-  addable: false,
-})
-
+const props = defineProps(jvTabsProps)
 const emit = defineEmits<JvTabsEmits>()
 defineSlots<JvTabsSlots>()
 const bem = createNamespace('tabs')
@@ -110,37 +102,22 @@ watch(
 <template>
   <div :class="containerClass">
     <!-- 标签页导航 -->
-    <div
-      ref="navRef"
-      :class="bem.e('nav')"
-    >
+    <div ref="navRef" :class="bem.e('nav')">
       <div
-        v-for="item in items"
-        :key="item.key"
-        :class="[
+        v-for="item in items" :key="item.key" :class="[
           bem.e('tab'),
           bem.is('active', item.key === activeKey),
           bem.is('disabled', item.disabled),
-        ]"
-        :style="getTabStyle(item)"
-        :data-key="item.key"
-        @click="handleTabClick(item)"
+        ]" :style="getTabStyle(item)" :data-key="item.key" @click="handleTabClick(item)"
       >
         <!-- 自定义标签页标题 -->
         <template v-if="$slots.label">
-          <slot
-            name="label"
-            :item="item"
-          />
+          <slot name="label" :item="item" />
         </template>
 
         <!-- 默认标签页标题 -->
         <template v-else>
-          <JvIcon
-            v-if="item.icon"
-            :name="item.icon"
-            :class="bem.e('icon')"
-          />
+          <JvIcon v-if="item.icon" :name="item.icon" :class="bem.e('icon')" />
           <span :class="bem.e('label')">
             {{ item.label }}
           </span>
@@ -148,45 +125,25 @@ watch(
 
         <!-- 关闭按钮 -->
         <JvIcon
-          v-if="(closable || item.closable) && !item.disabled"
-          name="close"
-          :class="bem.e('close')"
+          v-if="(closable || item.closable) && !item.disabled" name="close" :class="bem.e('close')"
           @click="handleTabClose(item, $event)"
         />
       </div>
 
       <!-- 添加按钮 -->
-      <JvIcon
-        v-if="addable"
-        name="plus"
-        :class="bem.e('add')"
-        @click="handleAdd"
-      />
+      <JvIcon v-if="addable" name="plus" :class="bem.e('add')" @click="handleAdd" />
 
       <!-- 激活指示器 -->
-      <div
-        v-if="type === 'line'"
-        ref="indicatorRef"
-        :class="bem.e('indicator')"
-      />
+      <div v-if="type === 'line'" ref="indicatorRef" :class="bem.e('indicator')" />
     </div>
 
     <!-- 标签页内容 -->
     <div :class="bem.e('content')">
-      <template
-        v-for="item in items"
-        :key="item.key"
-      >
-        <div
-          v-show="item.key === activeKey"
-          :class="bem.e('pane')"
-        >
+      <template v-for="item in items" :key="item.key">
+        <div v-show="item.key === activeKey" :class="bem.e('pane')">
           <!-- 自定义内容 -->
           <template v-if="$slots.default">
-            <slot
-              name="default"
-              :item="item"
-            />
+            <slot name="default" :item="item" />
           </template>
 
           <!-- 默认内容 -->

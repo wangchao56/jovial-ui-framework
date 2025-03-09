@@ -3,7 +3,6 @@ import type { JvProgressSlots, LineProgressProps } from './JvProgress'
 import { createNamespace, grey, info, shades } from '@jienix/utils'
 import { useResizeObserver } from '@vueuse/core'
 import { defineSizeStyle } from './constants'
-import '../style/line-progress.css'
 
 defineOptions({
   name: 'JvLineProgress',

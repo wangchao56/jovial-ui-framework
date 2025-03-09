@@ -1,10 +1,9 @@
 import type { JvFormInstance } from '@components/JvForm'
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { JvButton } from '@components/JvButton'
-import JvCard from '@components/JvCard/src/JvCard.vue'
-import JvFormItem from '@components/JvForm/src/form-item.setup'
-import JvForm from '@components/JvForm/src/form.vue'
-import JvInput from '@components/JvInput/src/input.vue'
+import JvCard from '@components/JvCard'
+import { JvForm, JvFormItem } from '@components/JvForm'
+import JvInput from '@components/JvInput'
 
 const meta: Meta<typeof JvForm> = {
   title: '数据录入组件/JvForm',

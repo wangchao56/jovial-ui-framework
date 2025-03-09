@@ -60,7 +60,7 @@ export const jvTabsProps = {
   },
 } as const
 
-export type JvTabsProps = Partial<ExtractPropTypes<typeof jvTabsProps>>
+export type JvTabsProps = ExtractPropTypes<typeof jvTabsProps>
 
 export interface JvTabsEmits {
   /** 标签页切换时触发 */

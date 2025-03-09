@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { createNamespace } from '@jienix/utils'
 import { headerProps } from './types'
-import '../style/jv-header.css'
 
-defineOptions({ name: 'JvHeader' })
+defineOptions({ name: 'JvHeader', inheritAttrs: false })
 
 const props = defineProps(headerProps)
 const bem = createNamespace('header')

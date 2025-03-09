@@ -1,7 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { ref } from 'vue'
 import JvRate from '../src/JvRate.vue'
-
+/**
+ * Rate 组件实现了以下功能：
+ * 1. 基础评分功能
+ * 2. 支持半选模式
+ * 3. 自定义图标和颜色
+ * 4. 只读和禁用状态
+ * 5. 提示文字显示
+ * 6. 自定义间距和大小
+ * 7. 完整的类型定义
+ */
 const meta = {
   title: '数据录入组件/JvRate',
   component: JvRate,
@@ -158,7 +167,6 @@ export const CustomIcon: Story = {
     modelValue: 3,
     icon: 'mdi:cards-heart',
     voidIcon: 'mdi:cards-heart-outline',
-    halfIcon: 'mdi:heart-half-full',
     color: '#ff4081',
   },
   render: args => ({

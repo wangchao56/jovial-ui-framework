@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvIcon from '@components/JvIcon/src/JvIcon.vue'
-import JvInput from '@components/JvInput/src/input.vue'
+import JvIcon from '@components/JvIcon'
+import JvInput from '@components/JvInput'
 
 const meta: Meta = {
   title: '数据录入组件/JvInput',

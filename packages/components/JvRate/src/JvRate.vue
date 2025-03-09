@@ -1,37 +1,13 @@
 <script setup lang="ts">
-/**
- * Rate 组件实现了以下功能：
- * 1. 基础评分功能
- * 2. 支持半选模式
- * 3. 自定义图标和颜色
- * 4. 只读和禁用状态
- * 5. 提示文字显示
- * 6. 自定义间距和大小
- * 7. 完整的类型定义
- */
-import type { JvRateEmits, JvRateProps, JvRateSlots } from './JvRate'
+import type { JvRateEmits, JvRateSlots } from './JvRate'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jienix/utils'
 import { computed, nextTick, onMounted, ref, useCssVars, watch } from 'vue'
+import { jvRateProps } from './JvRate'
 
 defineOptions({ name: 'JvRate', inheritAttrs: false })
 
-const props = withDefaults(defineProps<JvRateProps>(), {
-  modelValue: 0,
-  max: 5,
-  allowHalf: false,
-  readonly: false,
-  disabled: false,
-  icon: '$star',
-  voidIcon: '$starOutline',
-  halfIcon: '$starHalfFull',
-  size: 20,
-  gap: 4,
-  color: '#fadb14',
-  voidColor: '#c0c4cc',
-  showText: false,
-  texts: () => ['极差', '失望', '一般', '满意', '惊喜'],
-})
+const props = defineProps(jvRateProps)
 const emit = defineEmits<JvRateEmits>()
 defineSlots<JvRateSlots>()
 const bem = createNamespace('rate')

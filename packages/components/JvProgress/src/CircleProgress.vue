@@ -2,10 +2,10 @@
 import type { CircleProgressProps } from './JvProgress'
 import { createNamespace, csstoNumber, toCSSValue } from '@jienix/utils'
 import { computed } from 'vue'
-import '../style/circle-progress.css'
 
 defineOptions({
   name: 'JvCircleProgress',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<CircleProgressProps>(), {
@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<CircleProgressProps>(), {
   strokeLinecap: 'round',
   format: (percentage: number) => `${percentage}%`,
 })
-const percentage = useModel(props, 'percentage')
+const percentage = defineModel<number>('percentage', { required: true })
 const ns = createNamespace('circle-progress')
 const center = computed(() => csstoNumber(props.width) / 2) // 计算圆心
 const radius = computed(() => (csstoNumber(props.width) - props.strokeWidth) / 2) // 计算圆的半径 60
@@ -41,44 +41,19 @@ const circleStyle = computed(() => ({
 </script>
 
 <template>
-  <svg
-    :width="toCSSValue(width)"
-    :height="toCSSValue(width)"
-    :viewBox="`0 0 ${width} ${width}`"
-    :class="ns.b()"
-  >
+  <svg :width="toCSSValue(width)" :height="toCSSValue(width)" :viewBox="`0 0 ${width} ${width}`" :class="ns.b()">
     <!-- 背景圆环 -->
     <circle
-      :cx="center"
-      :cy="center"
-      :r="radius"
-      :stroke="bgColor"
-      :stroke-width="strokeWidth"
-      fill="none"
+      :cx="center" :cy="center" :r="radius" :stroke="bgColor" :stroke-width="strokeWidth" fill="none"
       :class="ns.m('bg')"
     />
     <!-- 进度圆环 -->
     <circle
-      :cx="center"
-      :cy="center"
-      :r="radius"
-      :stroke="valueColor"
-      :stroke-width="strokeWidth"
-      :stroke-linecap="strokeLinecap"
-      fill="none"
-      :stroke-dasharray="circumference"
-      :stroke-dashoffset="dashOffset"
-      :class="ns.m('stroke')"
-      :style="circleStyle"
+      :cx="center" :cy="center" :r="radius" :stroke="valueColor" :stroke-width="strokeWidth"
+      :stroke-linecap="strokeLinecap" fill="none" :stroke-dasharray="circumference" :stroke-dashoffset="dashOffset"
+      :class="ns.m('stroke')" :style="circleStyle"
     />
-    <text
-      v-if="showText"
-      :x="center"
-      :y="center"
-      dominant-baseline="middle"
-      text-anchor="middle"
-      :class="ns.e('text')"
-    >
+    <text v-if="showText" :x="center" :y="center" dominant-baseline="middle" text-anchor="middle" :class="ns.e('text')">
       {{ format(percentage ?? 0) }}
     </text>
   </svg>
