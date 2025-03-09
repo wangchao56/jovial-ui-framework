@@ -1,23 +1,36 @@
+import type { ThemeOptions } from '@jienix/jovial-theme/src/theme'
 import type { App } from 'vue'
 import components from '@jienix/jovial-components'
 import * as directives from '@jienix/jovial-directives'
-import { createJovialUI } from 'jovial-ui'
+import { createJovialUI } from '../../../../packages/jovial-ui/src/framework'
 
-const defaultTheme = {
-  name: 'default',
-  dark: false,
-  color: {
-    primary: '#409EFF',
-    success: '#67C23A',
-    warning: '#E6A23C',
-    danger: '#F56C6C',
-  },
-  variables: {
-    'border-color': '#dcdfe6',
-    'border-color-light': '#e4e7ed',
-    'border-color-lighter': '#ebeef5',
-    'border-color-lightest': '#f2f6fc',
-    'border-color-dark': '#454d64',
+const defaultTheme: ThemeOptions = {
+  defaultTheme: 'light',
+  themes: {
+    light: {
+      dark: false,
+      colors: {
+        primary: '#409EFF',
+        background: '#FFFFFF',
+        surface: '#FFFFFF',
+        success: '#67C23A',
+        warning: '#E6A23C',
+        error: '#F56C6C',
+        info: '#909399',
+      },
+    },
+    dark: {
+      dark: true,
+      colors: {
+        primary: '#409EFF',
+        background: '#121212',
+        surface: '#121212',
+        success: '#67C23A',
+        warning: '#E6A23C',
+        error: '#F56C6C',
+        info: '#909399',
+      },
+    },
   },
 }
 

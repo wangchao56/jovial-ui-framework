@@ -1,0 +1,93 @@
+@b badge {
+  display: block;
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+
+  &::after {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: max-content;
+    height: max-content;
+    border-radius: 8px;
+    color: white;
+    line-height: 1;
+    text-align: center;
+    content: attr(data-count);
+    white-space: nowrap;
+    background-color: var(--jv-badge-color, red);
+    transform: translate(50%, -50%);
+  }
+
+  @when visible {
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+@m rounded {
+  &::after {
+    border-radius: 50%;
+  }
+}
+
+@m top-right {
+  &::after {
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+}
+
+@m top-left {
+  &::after {
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@m bottom-right {
+  &::after {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    transform: translate(50%, 50%);
+  }
+}
+
+@m bottom-left {
+  &::after {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    transform: translate(-50%, 50%);
+  }
+}
+
+@m small {
+  &::after {
+    padding: 2px;
+    font-size: 12px;
+    font-weight: var(--jv-font-weight-regular);
+  }
+}
+
+@m medium {
+  &::after {
+    padding: 4px;
+    font-size: 14px;
+    font-weight: var(--jv-font-weight-medium);
+  }
+}
+
+@m large {
+  &::after {
+    padding: 6px;
+    font-size: 16px;
+    font-weight: var(--jv-font-weight-bold);
+  }
+}

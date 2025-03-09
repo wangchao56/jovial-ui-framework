@@ -1,0 +1,26 @@
+@b radio-group {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-width: 0;
+  gap: 16px;
+  flex-flow: row wrap;
+
+  &.is-column {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &.is-inline {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  &__legend {
+    margin-bottom: 8px;
+    color: var(--jv-text-color-regular);
+    font-size: var(--jv-font-size-base);
+    font-weight: 500;
+  }
+}

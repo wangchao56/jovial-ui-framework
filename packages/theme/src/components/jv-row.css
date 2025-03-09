@@ -1,0 +1,75 @@
+@b row {
+  display: flex;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  transition: flex-wrap 0.3s ease;
+
+  &.is-wrap {
+    flex-wrap: wrap;
+  }
+
+  &.is-nowrap {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  @e overflow {
+    position: relative;
+
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 24px;
+      background: linear-gradient(to right, transparent, rgb(255 255 255 / 80%));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      content: '';
+      pointer-events: none;
+    }
+  }
+
+  @e nowrap {
+    @e overflow::after {
+      opacity: 1;
+    }
+  }
+
+  @e justify-start {
+    justify-content: flex-start;
+  }
+
+  @e justify-end {
+    justify-content: flex-end;
+  }
+
+  @e justify-center {
+    justify-content: center;
+  }
+
+  @e justify-space-around {
+    justify-content: space-around;
+  }
+
+  @e justify-space-between {
+    justify-content: space-between;
+  }
+
+  @e align-top {
+    align-items: flex-start;
+  }
+
+  @e align-middle {
+    align-items: center;
+  }
+
+  @e align-bottom {
+    align-items: flex-end;
+  }
+}

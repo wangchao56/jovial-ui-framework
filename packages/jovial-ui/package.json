@@ -40,7 +40,6 @@
   "devDependencies": {
     "@jienix/jovial-components": "workspace:*",
     "@jienix/jovial-directives": "workspace:*",
-    "@jienix/jovial-framework": "workspace:*",
     "@jienix/jovial-locale": "workspace:*",
     "@jienix/jovial-theme": "workspace:*",
     "@jienix/utils": "workspace:*"

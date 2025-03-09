@@ -43,16 +43,20 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.4",
     "@jienix/jovial-components": "workspace:*",
-    "@storybook/addon-a11y": "^8.5.8",
-    "@storybook/addon-essentials": "^8.5.8",
-    "@storybook/addon-interactions": "^8.5.8",
-    "@storybook/addon-onboarding": "^8.5.8",
-    "@storybook/blocks": "^8.5.8",
-    "@storybook/test": "^8.5.8",
-    "@storybook/vue3": "^8.5.8",
-    "@storybook/vue3-vite": "^8.5.8",
-    "jovial-ui": "workspace:*",
-    "storybook": "^8.5.8"
+    "@storybook/addon-a11y": "^8.6.4",
+    "@storybook/addon-essentials": "^8.6.4",
+    "@storybook/addon-interactions": "^8.6.4",
+    "@storybook/addon-onboarding": "^8.6.4",
+    "@storybook/blocks": "^8.6.4",
+    "@storybook/experimental-addon-test": "^8.6.4",
+    "@storybook/test": "^8.6.4",
+    "@storybook/vue3": "^8.6.4",
+    "@storybook/vue3-vite": "^8.6.4",
+    "@vitest/browser": "^3.0.8",
+    "@vitest/coverage-v8": "^3.0.8",
+    "playwright": "^1.51.0",
+    "storybook": "^8.6.4",
+    "vitest": "^3.0.8"
   },
   "publishConfig": {
     "access": "public"

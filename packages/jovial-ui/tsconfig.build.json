@@ -11,6 +11,6 @@
     "noUncheckedSideEffectImports": true
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.d.ts", "tests/**/*.tsx", "tests/**/*.vue"],
-  "exclude": ["node_modules", "dist", "build", "**/*.spec.ts", "**/*.test.ts", "**/*.stories.ts", "**/*.spec.tsx", "**/*.test.tsx", "**/*.stories.tsx"]
+  "exclude": ["node_modules", "dist", "build", "**/style/*", "**/*.spec.ts", "**/*.test.ts", "**/*.stories.ts", "**/*.spec.tsx", "**/*.test.tsx", "**/*.stories.tsx"]
 
 }

@@ -1,0 +1,126 @@
+:root {
+  --jv-notification-width: 330px;
+  --jv-notification-padding: 14px;
+  --jv-notification-radius: 8px;
+  --jv-notification-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  --jv-notification-border: 1px solid rgb(var(--jv-border-color));
+}
+
+@b notification {
+  display: flex;
+  position: fixed;
+  width: var(--jv-notification-width);
+  padding: var(--jv-notification-padding);
+  background: rgb(var(--jv-theme-surface));
+  border: var(--jv-notification-border);
+  border-radius: var(--jv-notification-radius);
+  box-shadow: var(--jv-notification-shadow);
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+  overflow: hidden;
+
+  @e content {
+    flex: 1;
+    margin-left: 16px;
+  }
+
+  @e title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  @e message {
+    margin: 6px 0 0;
+    color: rgb(var(--jv-theme-on-surface-variant));
+    font-size: 14px;
+    text-align: justify;
+  }
+
+  @e close {
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    color: rgb(var(--jv-theme-on-surface-variant));
+    cursor: pointer;
+
+    &:hover {
+      color: rgb(var(--jv-theme-on-surface));
+    }
+  }
+
+  @e icon {
+    font-size: 24px;
+  }
+
+  @m success {
+    background: rgb(var(--jv-theme-success) 0.1);
+    border-color: rgb(var(--jv-theme-success));
+
+    .notification__icon {
+      color: rgb(var(--jv-theme-success));
+    }
+  }
+
+  @m warning {
+    background: rgb(var(--jv-theme-warning) 0.1);
+    border-color: rgb(var(--jv-theme-warning));
+
+    .notification__icon {
+      color: rgb(var(--jv-theme-warning));
+    }
+  }
+
+  @m info {
+    background: rgb(var(--jv-theme-info) 0.1);
+    border-color: rgb(var(--jv-theme-info));
+
+    .notification__icon {
+      color: rgb(var(--jv-theme-info));
+    }
+  }
+
+  @m error {
+    background: rgb(var(--jv-theme-error) 0.1);
+    border-color: rgb(var(--jv-theme-error));
+
+    .notification__icon {
+      color: rgb(var(--jv-theme-error));
+    }
+  }
+
+  /* 位置变体 */
+  @m top-right {
+    top: 16px;
+    right: 16px;
+  }
+
+  @m top-left {
+    top: 16px;
+    left: 16px;
+  }
+
+  @m bottom-right {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  @m bottom-left {
+    bottom: 16px;
+    left: 16px;
+  }
+
+  /* 动画状态 */
+  @m fade-enter-from,
+  @m fade-leave-to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  @m fade-enter-to,
+  @m fade-leave-from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

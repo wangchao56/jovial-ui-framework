@@ -5,7 +5,6 @@ import './style'
 const JvAffix = withInstall(_JvAffix)
 
 export * from './src/JvAffix'
-export default JvAffix
 export type JvJvAffixInstance = InstanceType<typeof JvAffix>
 export type {
   JvAffixEmits,
@@ -18,3 +17,4 @@ declare module 'vue' {
     JvAffix: typeof JvAffix
   }
 }
+export default JvAffix

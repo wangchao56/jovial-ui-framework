@@ -1,109 +1,154 @@
-<script setup lang="ts">
-import type { JvAvatarEmits } from './JvAvatar'
-import JvIcon from '@components/JvIcon'
-import { createNamespace } from '@jienix/utils'
-import { computed, ref } from 'vue'
+<!-- jovial-ui/components/JvAvatar.vue -->
+<script setup>
+import { computed, defineEmits, defineProps, ref } from 'vue'
 import { jvAvatarProps } from './JvAvatar'
-import '../style/style.css'
-
-defineOptions({ name: 'JvAvatar' })
 
 const props = defineProps(jvAvatarProps)
-const emit = defineEmits<JvAvatarEmits>()
-const bem = createNamespace('avatar')
 
-const rootRef = ref<HTMLElement | null>(null)
-const hasLoadError = ref(false)
+const emit = defineEmits(['click', 'error'])
+const imgError = ref(false)
 
-// 计算样式
-const avatarStyle = computed(() => {
-  const style: Record<string, string> = {}
+const initials = computed(() => {
+  if (!props.text)
+    return ''
 
-  if (typeof props.size === 'number') {
-    style.width = `${props.size}px`
-    style.height = `${props.size}px`
-    style.lineHeight = `${props.size}px`
-    style.fontSize = `${Math.floor(props.size / 2)}px`
-  }
-
-  if (props.bgColor) {
-    style.backgroundColor = props.bgColor
-  }
-
-  if (props.color) {
-    style.color = props.color
-  }
-
-  return style
+  return props.text
+    .split(' ')
+    .map(word => word.charAt(0))
+    .join('')
+    .toUpperCase()
+    .substring(0, 2)
 })
 
-// 计算图标大小
-const iconSize = computed(() => {
-  if (props.iconSize)
-    return props.iconSize
-  if (typeof props.size === 'number') {
-    return Math.floor(props.size * 0.6)
-  }
-  return ''
-})
-
-// 处理图片加载错误
-function handleError(evt: Event) {
-  hasLoadError.value = true
-  emit('error', evt)
+function onImageError(event) {
+  imgError.value = true
+  emit('error', event)
 }
 
-// 获取显示的文字
-function getDisplayText() {
-  if (hasLoadError.value && props.fallbackText) {
-    return props.fallbackText
-  }
-  if (props.text) {
-    return props.text.charAt(0).toUpperCase()
-  }
-  return ''
+function handleClick(event) {
+  emit('click', event)
 }
-
-defineExpose({
-  root: rootRef,
-})
 </script>
 
 <template>
   <div
-    ref="rootRef"
-    :class="[
-      bem.b(),
-      bem.m(typeof size === 'number' ? '' : size),
-      bem.m(shape),
-      bem.is('bordered', bordered),
-    ]"
-    :style="avatarStyle"
+    class="jv-avatar" :class="[
+      `jv-avatar--${size}`,
+      `jv-avatar--${variant}`,
+      {
+        'jv-avatar--bordered': bordered,
+        'jv-avatar--clickable': clickable || to,
+      },
+    ]" :style="{
+      backgroundColor: bgColor,
+      color: textColor,
+      width: customSize ? `${customSize}px` : null,
+      height: customSize ? `${customSize}px` : null,
+      fontSize: customSize ? `${customSize * 0.4}px` : null,
+    }" @click="handleClick"
   >
-    <template v-if="$slots.default">
+    <img v-if="src" :src="src" :alt="alt" class="jv-avatar__image" @error="onImageError">
+
+    <span v-else-if="$slots.default" class="jv-avatar__content">
       <slot />
-    </template>
-    <template v-else-if="src && !hasLoadError">
-      <img
-        :src="src"
-        :style="{ objectFit: fit }"
-        @error="handleError"
-      >
-    </template>
-    <template v-else-if="icon || $slots.icon">
-      <slot name="icon">
-        <JvIcon
-          v-if="icon"
-          :name="icon"
-          :size="iconSize"
-          :color="iconColor"
-        />
-      </slot>
-    </template>
-    <template v-else>
-      <span :class="bem.e('text')">
-        {{ getDisplayText() }}
-      </span>
-    </template>
+    </span>
+
+    <span v-else-if="text" class="jv-avatar__text">
+      {{ initials }}
+    </span>
+
+    <span v-else-if="icon" class="jv-avatar__icon">
+      <i class="jv-icon" :class="icon" />
+    </span>
   </div>
 </template>
+
+<style>
+.jv-avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--jv-primary);
+  color: var(--jv-on-primary);
+  font-family: var(--jv-font-family);
+  font-weight: var(--jv-font-weight-medium);
+  user-select: none;
+}
+
+/* 尺寸变体 */
+.jv-avatar--small {
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+}
+
+.jv-avatar--medium {
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.jv-avatar--large {
+  width: 48px;
+  height: 48px;
+  font-size: 20px;
+}
+
+.jv-avatar--xlarge {
+  width: 64px;
+  height: 64px;
+  font-size: 24px;
+}
+
+/* 形状变体 */
+.jv-avatar--circle {
+  border-radius: 50%;
+}
+
+.jv-avatar--rounded {
+  border-radius: var(--jv-radius-medium);
+}
+
+.jv-avatar--square {
+  border-radius: 0;
+}
+
+.jv-avatar--bordered {
+  border: 2px solid var(--jv-background);
+}
+
+.jv-avatar--clickable {
+  cursor: pointer;
+  transition:
+    transform var(--jv-transition-fast) var(--jv-easing-standard),
+    box-shadow var(--jv-transition-fast) var(--jv-easing-standard);
+}
+
+.jv-avatar--clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--jv-shadow-2);
+}
+
+.jv-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.jv-avatar__content,
+.jv-avatar__text,
+.jv-avatar__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.jv-avatar__icon {
+  font-size: 1.2em;
+}
+</style>

@@ -1,11 +1,21 @@
-import type { TooltipProps, TriggerKeys } from '@/components/JvTooltip'
+import type {
+  TooltipProps,
+  TriggerKeys,
+} from '@jienix/jovial-components/JvTooltip'
 
 import type { Placement } from '@popperjs/core'
-import JvTooltip from '@/components/JvTooltip/src/JvTooltip.vue'
-import { findComponentParent } from '@/composables/directiveComponent'
+import JvTooltip from '@jienix/jovial-components/JvTooltip'
+import { findComponentParent } from '@jienix/jovial-composables/src/directiveComponent'
 import { isObject } from '@jienix/utils'
 // Types
-import { type ComponentInternalInstance, type ConcreteComponent, type Directive, type DirectiveBinding, mergeProps, render } from 'vue'
+import {
+  type ComponentInternalInstance,
+  type ConcreteComponent,
+  type Directive,
+  type DirectiveBinding,
+  mergeProps,
+  render,
+} from 'vue'
 
 type TooltipBinding = string | Partial<TooltipProps>
 // 提取 TooltipProps 的 placement 类型
@@ -37,9 +47,13 @@ function mountTooltipComponent(
         ? findComponentParent(vnode, binding.instance!.$)?.provides
         : vnode.ctx?.provides) ?? binding.instance!.$.provides
 
-    const node = h(concreteComponent, mergeProps(_props, value, {
-      activator: el,
-    }), children)
+    const node = h(
+      concreteComponent,
+      mergeProps(_props, value, {
+        activator: el,
+      }),
+      children,
+    )
     // 将组件的 appContext 和 provides 合并到节点中
     node.appContext = Object.assign(
       Object.create(null),
@@ -50,7 +64,12 @@ function mountTooltipComponent(
   }
 }
 
-export const Tooltip: Directive<TooltipElement, TooltipBinding, TriggerKeys, Placement> = {
+export const Tooltip: Directive<
+  TooltipElement,
+  TooltipBinding,
+  TriggerKeys,
+  Placement
+> = {
   mounted: mountTooltipComponent(JvTooltip, {
     // JvTooltip 的 默认props参数
     trigger: 'hover',

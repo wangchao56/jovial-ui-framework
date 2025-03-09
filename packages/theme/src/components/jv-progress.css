@@ -1,0 +1,126 @@
+@b progress {
+  --jv-progress-stroke-width: 10px;
+  --jv-progress-radius: 10px;
+  --jv-progress-width: 100%;
+  --jv-progress-bg-color: #f5f5f5;
+  --jv-progress-value-color: #409eff;
+  --jv-progress-text-color: #222;
+  --jv-progress-text-size: 14px;
+  --jv-progress-text-font-weight: 400;
+
+  /* 字体偏移 */
+  --jv-progress-text-offset: 8px;
+
+  /* 位置 */
+  --jv-progress-text-position: top;
+  --jv-progress-text-inside: false;
+
+  display: flex;
+  position: relative;
+  width: var(--jv-progress-width);
+  justify-content: center;
+  align-items: center;
+
+  @e line {
+    &--right {
+      justify-content: space-between;
+
+      @e line-text {
+        @m right {
+          margin-left: var(--jv-progress-text-offset);
+        }
+      }
+    }
+
+    &--left {
+      justify-content: flex-start;
+      flex-direction: row-reverse;
+
+      @e line-text {
+        @m left {
+          margin-right: var(--jv-progress-text-offset);
+        }
+      }
+    }
+
+    &--top {
+      justify-content: flex-start;
+      flex-direction: column-reverse;
+
+      @e line-text {
+        @m top {
+          margin-bottom: var(--jv-progress-text-offset);
+        }
+      }
+    }
+
+    &--bottom {
+      justify-content: flex-start;
+      flex-direction: column;
+
+      @e line-text {
+        @m bottom {
+          margin-top: var(--jv-progress-text-offset);
+        }
+      }
+    }
+
+    &--top-left {
+      justify-content: flex-start;
+      flex-direction: column-reverse;
+      align-items: flex-start;
+
+      @e line-text {
+        @m top-left {
+          margin-left: var(--jv-progress-text-offset);
+        }
+      }
+    }
+
+    &--top-right {
+      justify-content: flex-start;
+      flex-direction: column-reverse;
+      align-items: flex-end;
+
+      @e line-text {
+        @m top-right {
+          margin-right: var(--jv-progress-text-offset);
+        }
+      }
+    }
+
+    &--bottom-left {
+      justify-content: flex-start;
+      flex-direction: column;
+      align-items: flex-start;
+
+      @e line-text {
+        @m bottom-left {
+          margin-left: var(--jv-progress-text-offset);
+        }
+      }
+    }
+
+    &--bottom-right {
+      justify-content: flex-start;
+      flex-direction: column;
+      align-items: flex-end;
+
+      @e line-text {
+        @m bottom-right {
+          margin-right: var(--jv-progress-text-offset);
+        }
+      }
+    }
+
+    @e line-text {
+      color: var(--jv-progress-text-color);
+      font-size: var(--jv-progress-font-size);
+      font-weight: var(--jv-progress-font-weight);
+      text-align: center;
+
+      /* 不换行 */
+      white-space: nowrap;
+    }
+  }
+}

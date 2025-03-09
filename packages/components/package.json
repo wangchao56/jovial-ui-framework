@@ -9,12 +9,5 @@
   "scripts": {
     "test": "vitest",
     "tsc": "vue-tsc -b"
-  },
-  "dependencies": {
-    "@jienix/jovial-composables": "workspace:*",
-    "@jienix/jovial-directives": "workspace:*",
-    "@jienix/jovial-locale": "workspace:*",
-    "@jienix/jovial-theme": "workspace:*",
-    "@jienix/utils": "workspace:*"
   }
 }

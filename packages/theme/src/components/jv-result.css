@@ -1,0 +1,53 @@
+.jv-result {
+  padding: 48px 32px;
+  text-align: center;
+}
+
+.jv-result__icon {
+  margin-bottom: 24px;
+}
+
+.jv-result__icon-inner {
+  font-size: 72px;
+  line-height: 1;
+}
+
+.jv-result__title {
+  margin-bottom: 16px;
+  color: var(--jv-text-color);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.jv-result__subtitle {
+  margin-bottom: 24px;
+  color: var(--jv-text-color-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.jv-result__content {
+  margin-bottom: 24px;
+}
+
+.jv-result__extra {
+  margin-top: 32px;
+}
+
+/* 状态颜色 */
+.jv-icon-success {
+  color: var(--jv-success-color);
+}
+
+.jv-icon-error {
+  color: var(--jv-error-color);
+}
+
+.jv-icon-info {
+  color: var(--jv-info-color);
+}
+
+.jv-icon-warning {
+  color: var(--jv-warning-color);
+}

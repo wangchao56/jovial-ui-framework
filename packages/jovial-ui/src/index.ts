@@ -1,18 +1,16 @@
-import type { App, Plugin } from 'vue'
-import components from './components'
-import { createJovialUI } from './framework'
+import type { JovialOptions } from './framework'
+import * as components from '@jienix/jovial-components'
+import * as composables from '@jienix/jovial-composables'
+import * as directives from '@jienix/jovial-directives'
+import { createJovialUI as _createJovialUI } from './framework'
 
-// console.log(components)
-// 全局安装
-const install: Plugin = function (app: App) {
-  // 判断是否安装
-  if (install?.installed)
-    return
-  // 全局注册组件
-  components.forEach((component) => {
-    app.use(component)
+console.log(components)
+function createJovialUI(options: JovialOptions) {
+  return _createJovialUI({
+    components,
+    directives,
+    ...options,
   })
-  install.installed = true
 }
-export { components, createJovialUI }
-export default install
+
+export { components, composables, createJovialUI, directives }

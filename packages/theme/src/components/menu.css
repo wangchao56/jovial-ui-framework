@@ -1,0 +1,206 @@
+@import url('@jienix/jovial-theme/src/common/elevation.css');
+
+:root {
+  /* 菜单基础变量 */
+  --jv-menu-width: 240px;
+  --jv-menu-collapsed-width: 64px;
+  --jv-menu-item-height: 40px;
+  --jv-menu-horizontal-height: 48px;
+  --jv-menu-padding: 12px;
+  --jv-menu-border-radius: 6px;
+  --jv-menu-font-size: 14px;
+  --jv-menu-icon-size: 20px;
+  --jv-menu-transition-duration: 0.2s;
+
+  /* 颜色变量 */
+  --jv-menu-bg: #fff;
+  --jv-menu-hover-bg: rgb(0 0 0 / 4%);
+  --jv-menu-active-bg: rgb(0 0 0 / 8%);
+  --jv-menu-text-color: #1f2937;
+  --jv-menu-secondary-text: #6b7280;
+}
+
+@b menu {
+  display: flex;
+  position: relative;
+  width: var(--jv-menu-width);
+  height: 100%;
+  background: var(--jv-menu-bg);
+  color: var(--jv-menu-text-color);
+  font-size: var(--jv-menu-font-size);
+  transition: width var(--jv-menu-transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
+  flex-direction: column;
+  border-right: 1px solid rgb(var(--jv-border-color));
+
+  /* 重置ul,li样式 */
+  menu,
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @e content {
+    width: 100%;
+    margin: 0;
+    padding: 8px 0;
+    list-style: none;
+    overflow: hidden auto;
+  }
+
+  @e item {
+    display: flex;
+    position: relative;
+    height: var(--jv-menu-item-height);
+    padding: 0 var(--jv-menu-padding);
+    cursor: pointer;
+    transition: all var(--jv-menu-transition-duration);
+    align-items: center;
+    user-select: none;
+
+    &:hover {
+      background: var(--jv-menu-hover-bg);
+    }
+  }
+
+  @e item-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--jv-menu-icon-size);
+    height: var(--jv-menu-icon-size);
+    margin-right: 12px;
+    color: var(--jv-menu-secondary-text);
+  }
+
+  @e item-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @e submenu {
+    @e title {
+      display: flex;
+      height: var(--jv-menu-item-height);
+      padding: 0 var(--jv-menu-padding);
+      cursor: pointer;
+      transition: all var(--jv-menu-transition-duration);
+      align-items: center;
+
+      &:hover {
+        background: var(--jv-menu-hover-bg);
+      }
+    }
+
+    @e arrow {
+      margin-left: auto;
+      transition: transform var(--jv-menu-transition-duration);
+    }
+
+    @e items {
+      height: 0;
+      overflow: hidden;
+      transition: height var(--jv-menu-transition-duration);
+    }
+
+    @m open {
+      & > .Menu__items {
+        height: auto;
+      }
+
+      & > .Menu__title .Menu__arrow {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  @m horizontal {
+    flex-direction: row;
+    width: 100%;
+    height: var(--jv-menu-horizontal-height);
+    border-right: none;
+    border-bottom: 1px solid rgb(var(--jv-border-color));
+  }
+
+  @m collapsed {
+    width: var(--jv-menu-collapsed-width);
+
+    .menu__label,
+    .menu__arrow {
+      display: none;
+    }
+
+    .menu__item-icon {
+      margin-right: 0;
+    }
+
+    .menu__item,
+    .submenu__title {
+      padding: 0;
+      justify-content: center;
+    }
+  }
+
+  @m dark {
+    background: rgb(var(--jv-theme-surface-dark));
+    color: rgb(var(--jv-theme-on-surface-dark));
+    border-color: rgb(var(--jv-border-color-dark) 0.12);
+
+    .Menu__item:hover {
+      background: rgb(var(--jv-theme-primary) var(--jv-variant-hover-opacity));
+    }
+
+    .Menu__item--selected {
+      background: rgb(var(--jv-theme-primary) var(--jv-variant-active-opacity));
+    }
+  }
+}
+
+@b submenu {
+  @m selected {
+    background: rgb(var(--jv-theme-primary) var(--jv-variant-opacity));
+    color: rgb(var(--jv-theme-primary));
+    font-weight: 500;
+  }
+}
+
+@b menu-group {
+  @e label {
+    height: var(--jv-menu-item-height);
+    padding: 0 var(--jv-menu-padding);
+  }
+
+  @e content {
+    padding: 0 var(--jv-menu-padding);
+  }
+}
+
+/* 无障碍支持 */
+.jv-menu:focus-visible {
+  outline: 2px solid rgb(var(--jv-theme-primary));
+  outline-offset: -2px;
+}
+
+.jv-menu[role='menuitem']:focus-visible::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background-color: rgb(var(--jv-theme-primary));
+}
+
+/* 动画效果 */
+.jv-menu-slide-enter-active,
+.jv-menu-slide-leave-active {
+  transition: height var(--jv-menu-transition-duration);
+  overflow: hidden;
+}
+
+.jv-menu-slide-enter-from,
+.jv-menu-slide-leave-to {
+  height: 0 !important;
+}

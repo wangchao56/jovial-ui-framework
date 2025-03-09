@@ -1,0 +1,175 @@
+@define-mixin input-size $height {
+  --jv-input-height: $(height);
+
+  height: var(--jv-input-height);
+}
+
+@b input {
+  --jv-input-height: 36px;
+  --jv-input-toggle-width: 24px;
+
+  display: inline-flex;
+  position: relative;
+  width: 100%;
+  align-items: center;
+  box-sizing: border-box;
+
+  @e wrapper {
+    display: inline-flex;
+    position: relative;
+    padding-right: 5px;
+    padding-left: 5px;
+    border: 1px solid #ccc;
+    box-shadow:
+      1px 0 0 0 #ccc inset,
+      0 1px 0 0 #ccc inset,
+      0 -1px 0 0 #ccc inset;
+    transition: all 0.3s;
+    box-sizing: border-box;
+    flex: 1;
+    align-items: center;
+
+    &:focus-within {
+      border-color: #409eff;
+
+      --jv-input-shadow-color: rgb(64 158 255 / 20%);
+
+      outline: 0;
+      box-shadow: 0 0 0 2px var(--jv-input-shadow-color);
+    }
+
+    &:has(.jv-input__toggle) > .jv-input__clear {
+      right: var(--jv-input-toggle-width);
+    }
+  }
+
+  @e inner {
+    height: var(--jv-input-height);
+    padding: 0;
+    padding: 0 8px;
+    border: 0;
+    border: none;
+    font-size: medium;
+    flex: 1;
+    outline: none;
+    box-sizing: border-box;
+    background-color: transparent;
+
+    &::placeholder {
+      color: #c0c4cc;
+      font-size: 14px;
+    }
+  }
+
+  @e suffix {
+    display: inline-flex;
+    margin-right: 5px;
+  }
+
+  @e prefix {
+    display: inline-flex;
+    margin-left: 5px;
+  }
+
+  @e toggle {
+    display: inline-flex;
+    width: var(--jv-input-toggle-width);
+    height: 100%;
+    cursor: pointer;
+    transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      & > .jv-icon {
+        color: #909399 !important;
+      }
+    }
+
+    & > .jv-icon {
+      color: #c0c4cc !important;
+    }
+  }
+
+  @e icon {
+  }
+
+  @e clear {
+    display: inline-flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    margin-right: 5px;
+    cursor: pointer;
+    z-index: 1;
+    transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      & > .jv-icon {
+        color: #1b1c1c !important;
+      }
+    }
+
+    & > .jv-icon {
+      color: #c0c4cc !important;
+    }
+  }
+
+  @m disabled {
+    cursor: not-allowed;
+
+    & > .jv-input__wrapper {
+      background-color: #f5f7fa;
+      border-color: #e4e7ed;
+      color: #c0c4cc;
+      cursor: not-allowed;
+    }
+  }
+
+  @m x-large {
+    @mixin input-size 52px;
+  }
+
+  @m large {
+    @mixin input-size 40px;
+  }
+
+  @m small {
+    @mixin input-size 28px;
+  }
+
+  @m tiny {
+    @mixin input-size 24px;
+  }
+
+  @m medium {
+    @mixin input-size 36px;
+  }
+
+  @b input-group {
+    @e append {
+      display: inline-flex;
+      padding: 0 10px;
+      border: 1px solid #ccc;
+      box-shadow:
+        0 0 0 1px #ccc inset,
+        0 1px 0 0 #ccc inset,
+        0 -1px 0 0 #ccc inset;
+      line-height: var(--jv-input-height);
+    }
+
+    @e prepend {
+      display: inline-flex;
+      padding: 0 10px;
+      border: 1px solid #ccc;
+      box-shadow:
+        1px 0 0 0 #ccc inset,
+        0 1px 0 0 #ccc inset,
+        0 -1px 0 0 #ccc inset;
+      line-height: var(--jv-input-height);
+    }
+  }
+}

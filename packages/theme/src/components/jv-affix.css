@@ -1,0 +1,11 @@
+@b affix {
+  width: fit-content;
+
+  @e wrapper {
+    width: inherit;
+  }
+
+  @when fixed {
+    position: fixed;
+  }
+}

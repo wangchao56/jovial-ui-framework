@@ -5,53 +5,56 @@ export type AvatarShape = 'circle' | 'square'
 export type AvatarFit = 'fill' | 'contain' | 'cover' | 'none' | 'scale-down'
 
 export const jvAvatarProps = {
-  /** 头像大小 */
-  size: {
-    type: [String, Number] as PropType<Size | number>,
-    default: 'medium',
-  },
-  /** 头像形状 */
-  shape: {
-    type: String as PropType<AvatarShape>,
-    default: 'circle',
-  },
-  /** 图片源地址 */
+  /** 头像图片地址 */
   src: {
     type: String,
     default: '',
   },
-  /** 图片适应容器的方式 */
-  fit: {
-    type: String as PropType<AvatarFit>,
-    default: 'cover',
-  },
-  /** 图标名称 */
-  icon: {
+  /** 头像图片的替代文本 */
+  alt: {
     type: String,
-    default: '',
+    default: 'avatar',
   },
-  /** 图标大小 */
-  iconSize: {
-    type: [String, Number] as PropType<string | number>,
-    default: '',
-  },
-  /** 图标颜色 */
-  iconColor: {
-    type: String,
-    default: '',
-  },
-  /** 文字内容 */
+  /** 头像文字 */
   text: {
     type: String,
     default: '',
   },
-  /** 背景颜色 */
+  /** 头像图标 */
+  icon: {
+    type: String,
+    default: '',
+  },
+  /** 头像尺寸 */
+  size: {
+    type: String as PropType<Size>,
+    default: 'medium',
+    validator: (value: string) =>
+      ['small', 'medium', 'large', 'xlarge', 'custom'].includes(value),
+  },
+  /** 自定义头像尺寸 */
+  customSize: {
+    type: Number,
+    default: null,
+  },
+  /** 头像形状 */
+  variant: {
+    type: String as PropType<AvatarShape>,
+    default: 'circle',
+    validator: (value: string) => ['circle', 'rounded', 'square'].includes(value),
+  },
+  /** 头像颜色 */
+  color: {
+    type: String,
+    default: '',
+  },
+  /** 头像背景颜色 */
   bgColor: {
     type: String,
     default: '',
   },
-  /** 文字颜色 */
-  color: {
+  /** 头像文字颜色 */
+  textColor: {
     type: String,
     default: '',
   },
@@ -60,10 +63,15 @@ export const jvAvatarProps = {
     type: Boolean,
     default: false,
   },
-  /** 加载失败时的文字 */
-  fallbackText: {
-    type: String,
-    default: '',
+  /** 是否可点击 */
+  clickable: {
+    type: Boolean,
+    default: false,
+  },
+  /** 点击头像后的跳转链接 */
+  to: {
+    type: [String, Object],
+    default: null,
   },
 } as const
 

@@ -9,7 +9,6 @@ const JvListItem = withInstall(_JvListItem)
 const JvListGroup = withInstall(_JvListGroup)
 export * from './src/JvList'
 export * from './src/types'
-export default JvList
 export type JvJvListInstance = InstanceType<typeof JvList>
 declare module 'vue' {
   export interface GlobalComponents {
@@ -19,4 +18,4 @@ declare module 'vue' {
   }
 }
 
-export { JvListGroup, JvListItem }
+export { JvList, JvListGroup, JvListItem }

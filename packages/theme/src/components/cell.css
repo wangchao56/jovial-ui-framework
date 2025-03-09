@@ -1,0 +1,49 @@
+@b table__cell {
+  position: relative;
+  padding: 12px;
+  font-weight: 500;
+  z-index: 1;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: transparent;
+
+  /* 可复制 */
+  user-select: text;
+
+  @when fixed {
+    position: sticky;
+    padding: 0;
+    box-shadow:
+      0 3px 9px 0 rgb(0 0 0 / 10%),
+      3px 3px 9px 0 rgb(0 0 0 / 10%);
+    z-index: 999;
+    background-color: #fff !important;
+  }
+
+  @e shadow:where(.is-fixed) {
+    padding: 16px;
+  }
+
+  @m fixed-left {
+    left: 0 !important;
+  }
+
+  @m fixed-right {
+    right: 0 !important;
+  }
+
+  @m align-left {
+    text-align: left;
+  }
+
+  @m align-center {
+    text-align: center;
+  }
+
+  @m align-right {
+    text-align: right;
+  }
+}
