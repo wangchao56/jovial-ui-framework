@@ -1,0 +1,114 @@
+/* JvScrollbar 基础样式 */
+.jv-scrollbar {
+  --jv-scrollbar-width: 6px;
+  --jv-scrollbar-height: 6px;
+  --jv-scrollbar-thumb-color: rgba(144, 147, 153, 0.3);
+  --jv-scrollbar-thumb-hover-color: rgba(144, 147, 153, 0.5);
+  --jv-scrollbar-track-color: transparent;
+  
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+/* 滚动容器 */
+.jv-scrollbar__wrap {
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+
+/* 隐藏原生滚动条 */
+.jv-scrollbar__wrap::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* 内容容器 */
+.jv-scrollbar__view {
+  position: relative;
+}
+
+/* 滚动条轨道 */
+.jv-scrollbar__bar {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  z-index: 1;
+  border-radius: calc(var(--jv-scrollbar-width) / 2);
+  background-color: var(--jv-scrollbar-track-color);
+  opacity: 0;
+  transition: opacity 0.12s ease-out;
+}
+
+.jv-scrollbar:hover .jv-scrollbar__bar,
+.jv-scrollbar--active .jv-scrollbar__bar {
+  opacity: 1;
+}
+
+/* 水平滚动条 */
+.jv-scrollbar__bar.is-horizontal {
+  height: var(--jv-scrollbar-height);
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+}
+
+/* 垂直滚动条 */
+.jv-scrollbar__bar.is-vertical {
+  width: var(--jv-scrollbar-width);
+  top: 2px;
+  bottom: 2px;
+  right: 2px;
+}
+
+/* 滚动条滑块 */
+.jv-scrollbar__thumb {
+  position: relative;
+  display: block;
+  width: 0;
+  height: 0;
+  cursor: pointer;
+  border-radius: inherit;
+  background-color: var(--jv-scrollbar-thumb-color);
+  transition: background-color 0.3s;
+}
+
+.jv-scrollbar__thumb:hover {
+  background-color: var(--jv-scrollbar-thumb-hover-color);
+}
+
+.jv-scrollbar__bar.is-horizontal .jv-scrollbar__thumb {
+  height: 100%;
+}
+
+.jv-scrollbar__bar.is-vertical .jv-scrollbar__thumb {
+  width: 100%;
+}
+
+/* 禁用状态 */
+.jv-scrollbar.is-disabled {
+  cursor: not-allowed;
+}
+
+.jv-scrollbar.is-disabled .jv-scrollbar__bar,
+.jv-scrollbar.is-disabled .jv-scrollbar__thumb {
+  display: none;
+}
+
+/* 自动隐藏模式 */
+.jv-scrollbar--auto-hide .jv-scrollbar__bar {
+  opacity: 0;
+}
+
+.jv-scrollbar--auto-hide:hover .jv-scrollbar__bar,
+.jv-scrollbar--auto-hide.jv-scrollbar--active .jv-scrollbar__bar {
+  opacity: 1;
+}
+
+/* 暗色主题 */
+.jv-scrollbar--dark {
+  --jv-scrollbar-thumb-color: rgba(255, 255, 255, 0.3);
+  --jv-scrollbar-thumb-hover-color: rgba(255, 255, 255, 0.5);
+}

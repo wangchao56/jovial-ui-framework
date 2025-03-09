@@ -1,7 +1,7 @@
 import type { Variant } from '@jienix/typings'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvButton from '@components/JvButton/src/JvButton.vue'
-import JvSpace from '@components/JvSpace/src/JvSpace.vue'
+import { JvButton } from '@components/JvButton'
+import JvSpace from '@components/JvSpace'
 import { expect, fn, within } from '@storybook/test'
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
@@ -109,7 +109,14 @@ export const VariantButton: Story = {
   render: args => ({
     components: { JvButton, JvSpace },
     setup() {
-      const variantOptions: Variant[] = ['text', 'plain', 'tonal', 'elevated', 'outlined', 'flat']
+      const variantOptions: Variant[] = [
+        'text',
+        'plain',
+        'tonal',
+        'elevated',
+        'outlined',
+        'flat',
+      ]
 
       return { args, variantOptions }
     },
@@ -126,8 +133,7 @@ export const VariantButton: Story = {
 // More on interaction testing: https://storybook.js.org/docs/writing-tests/interaction-testing
 
 export const TestButton: Story = {
-  args: {
-  },
+  args: {},
   render: args => ({
     components: { JvButton },
     setup() {

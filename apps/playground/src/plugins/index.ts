@@ -1,6 +1,6 @@
 import type { ThemeOptions } from '@jienix/jovial-theme/src/theme'
 import type { App } from 'vue'
-import components from '@jienix/jovial-components'
+import * as components from '@jienix/jovial-components'
 import * as directives from '@jienix/jovial-directives'
 import { createJovialUI } from '../../../../packages/jovial-ui/src/framework'
 

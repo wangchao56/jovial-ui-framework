@@ -1,0 +1,113 @@
+/* JvLoadingBar 基础样式 */
+.jv-loading-bar {
+  --jv-loading-bar-height: 2px;
+  --jv-loading-bar-color: var(--jv-color-primary, #409eff);
+  --jv-loading-bar-bg-color: transparent;
+  --jv-loading-bar-z-index: 9999;
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--jv-loading-bar-height);
+  background-color: var(--jv-loading-bar-bg-color);
+  z-index: var(--jv-loading-bar-z-index);
+  pointer-events: none;
+}
+
+/* 进度条 */
+.jv-loading-bar__inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background-color: var(--jv-loading-bar-color);
+  transition: width 0.2s linear;
+}
+
+/* 加载中状态 */
+.jv-loading-bar--loading .jv-loading-bar__inner {
+  animation: jv-loading-bar-stripes 1s linear infinite;
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 40px 40px;
+}
+
+@keyframes jv-loading-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+/* 完成状态 */
+.jv-loading-bar--success .jv-loading-bar__inner {
+  background-color: var(--jv-color-success, #67c23a);
+  transition: width 0.3s ease-out;
+}
+
+/* 错误状态 */
+.jv-loading-bar--error .jv-loading-bar__inner {
+  background-color: var(--jv-color-danger, #f56c6c);
+  transition: width 0.3s ease-out;
+}
+
+/* 警告状态 */
+.jv-loading-bar--warning .jv-loading-bar__inner {
+  background-color: var(--jv-color-warning, #e6a23c);
+  transition: width 0.3s ease-out;
+}
+
+/* 不确定状态 - 无法确定进度时的动画效果 */
+.jv-loading-bar--indeterminate .jv-loading-bar__inner {
+  width: 100%;
+  transform: translateX(-100%);
+  animation: jv-loading-bar-indeterminate 2s infinite linear;
+}
+
+@keyframes jv-loading-bar-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  60% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* 淡入淡出效果 */
+.jv-loading-bar--fade-enter-active,
+.jv-loading-bar--fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.jv-loading-bar--fade-enter-from,
+.jv-loading-bar--fade-leave-to {
+  opacity: 0;
+}
+
+/* 尺寸变体 */
+.jv-loading-bar--small {
+  --jv-loading-bar-height: 1px;
+}
+
+.jv-loading-bar--medium {
+  --jv-loading-bar-height: 2px;
+}
+
+.jv-loading-bar--large {
+  --jv-loading-bar-height: 3px;
+}
