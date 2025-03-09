@@ -22,15 +22,12 @@ export default defineConfig({
     },
   },
   css: {
-    postcss: '../../postcss.config.js',
-  },
-  optimizeDeps: {
-    include: ['@vicons/material'], // 显式列出需要优化的依赖
+    postcss: '../../postcss.config.js'
   },
   server: {
     watch: {
       usePolling: true,
-      interval: 1000, // 1秒
-    },
-  },
+      interval: 1000 // 1秒
+    }
+  }
 })

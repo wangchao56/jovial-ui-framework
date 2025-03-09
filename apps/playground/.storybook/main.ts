@@ -22,9 +22,6 @@ const config: StorybookConfig = {
     options: {}
   },
   viteFinal: async (config) => {
-    config.css = {
-      postcss: '../../../postcss.config.js'
-    }
     if (config.resolve) {
       config.resolve.alias = {
         '@jienix/jovial-components': getAbsolutePath(
