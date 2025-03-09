@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { JvAlertEmits, JvAlertExpose } from './JvAlert.js'
+import type { JvAlertEmits, JvAlertExpose } from './JvAlert'
 import { JvButton } from '@components/JvButton'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jienix/utils'
 import { ref } from 'vue'
-import { jvAlertProps } from './JvAlert.js'
+import { jvAlertProps } from './JvAlert'
 
 defineOptions({ name: 'JvAlert', inheritAttrs: false })
 const { title, description, type, closable, closeText } = defineProps(jvAlertProps)
