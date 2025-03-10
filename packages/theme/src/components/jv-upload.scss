@@ -1,0 +1,14 @@
+@use '../mixins/bem' as *;
+
+@include b(file-upload) {
+  padding: 20px;
+  border: 2px dashed #ccc;
+  text-align: center;
+
+  span {
+    display: block;
+    margin: 10px 0;
+    color: #007bff;
+    cursor: pointer;
+  }
+}

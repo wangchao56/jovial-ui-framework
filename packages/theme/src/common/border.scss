@@ -1,0 +1,153 @@
+/* 使用CSS变量以便于主题定制 */
+:root {
+  /* 边框宽度 */
+  --jv-border-width-none: 0;
+  --jv-border-width-thin: 1px;
+  --jv-border-width-medium: 2px;
+  --jv-border-width-thick: 4px;
+
+  /* 边框颜色 */
+  --jv-border-color: #dcdfe6;
+  --jv-border-color-light: #e4e7ed;
+  --jv-border-color-lighter: #ebeef5;
+  --jv-border-color-dark: #d4d7de;
+  --jv-border-color-darker: #cdd0d6;
+
+  /* 边框样式 */
+  --jv-border-style: solid;
+  --jv-border-base: var(--jv-border-width-thin) var(--jv-border-style) var(--jv-border-color);
+}
+
+/* 基础边框 */
+.border {
+  border: var(--jv-border-base);
+}
+
+.border-0 {
+  border: var(--jv-border-width-none);
+}
+
+.border-thin {
+  border-width: var(--jv-border-width-thin);
+}
+
+.border-medium {
+  border-width: var(--jv-border-width-medium);
+}
+
+.border-thick {
+  border-width: var(--jv-border-width-thick);
+}
+
+/* 边框颜色变体 */
+.border-light {
+  border-color: var(--jv-border-color-light);
+}
+
+.border-lighter {
+  border-color: var(--jv-border-color-lighter);
+}
+
+.border-dark {
+  border-color: var(--jv-border-color-dark);
+}
+
+.border-darker {
+  border-color: var(--jv-border-color-darker);
+}
+
+/* 单边边框 */
+.border-t {
+  border-top: var(--jv-border-base);
+}
+
+.border-r {
+  border-right: var(--jv-border-base);
+}
+
+.border-b {
+  border-bottom: var(--jv-border-base);
+}
+
+.border-l {
+  border-left: var(--jv-border-base);
+}
+
+/* 单边边框宽度 */
+.border-t-0 {
+  border-top-width: var(--jv-border-width-none);
+}
+
+.border-r-0 {
+  border-right-width: var(--jv-border-width-none);
+}
+
+.border-b-0 {
+  border-bottom-width: var(--jv-border-width-none);
+}
+
+.border-l-0 {
+  border-left-width: var(--jv-border-width-none);
+}
+
+/* 边框样式 */
+.border-solid {
+  border-style: solid;
+}
+
+.border-dashed {
+  border-style: dashed;
+}
+
+.border-dotted {
+  border-style: dotted;
+}
+
+.border-double {
+  border-style: double;
+}
+
+.border-hidden {
+  border-style: hidden;
+}
+
+.border-none {
+  border-style: none;
+}
+
+/* Mixins */
+@mixin border-base {
+  border: var(--jv-border-base);
+}
+
+@mixin border-light {
+  border-color: var(--jv-border-color-light);
+}
+
+@mixin border-lighter {
+  border-color: var(--jv-border-color-lighter);
+}
+
+@mixin border-dark {
+  border-color: var(--jv-border-color-dark);
+}
+
+@mixin border-darker {
+  border-color: var(--jv-border-color-darker);
+}
+
+@mixin border-t {
+  border-top: var(--jv-border-base);
+}
+
+@mixin border-r {
+  border-right: var(--jv-border-base);
+}
+
+@mixin border-b {
+  border-bottom: var(--jv-border-base);
+}
+
+@mixin border-l {
+  border-left: var(--jv-border-base);
+}

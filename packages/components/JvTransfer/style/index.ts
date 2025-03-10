@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-transfer.css'
+import '@jienix/jovial-theme/src/components/jv-transfer.scss'

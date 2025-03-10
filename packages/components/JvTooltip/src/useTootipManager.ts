@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { debounce } from 'lodash-es'
+import { debounce } from '@jienix/utils'
 import { ref, shallowReactive } from 'vue'
 import { getTriggerHandlers, type TooltipProps, type TriggerKeys } from './tooltip'
 
@@ -46,27 +46,27 @@ export function onDebounceToggleHandler(options: DebounceToggleHandlerOptions): 
   const toggleDebounce = debounce(toggleHandler, isOpen.value ? unref(closeDelay) || 250 : unref(openDelay) || 0)
   const openFinal = () => {
     isOpen.value = true
-    closeDebounce.cancel()
+    closeDebounce.clear()
     openDebounce()
   }
 
   const closeFinal = () => {
     isOpen.value = false
-    openDebounce.cancel()
+    openDebounce.clear()
     closeDebounce()
   }
 
   const toggleFinal = () => {
     isOpen.value = !isOpen.value
-    openDebounce.cancel()
-    closeDebounce.cancel()
+    openDebounce.clear()
+    closeDebounce.clear()
     toggleDebounce()
   }
   // 卸载时取消防抖
   const cleanup = () => {
-    openDebounce.cancel()
-    closeDebounce.cancel()
-    toggleDebounce.cancel()
+    openDebounce.clear()
+    closeDebounce.clear()
+    toggleDebounce.clear()
   }
 
   return {

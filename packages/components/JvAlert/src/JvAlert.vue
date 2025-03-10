@@ -1,79 +1,123 @@
 <script setup lang="ts">
-import type { JvAlertEmits, JvAlertExpose } from './JvAlert'
-import { JvButton } from '@components/JvButton'
 import JvIcon from '@components/JvIcon'
+import { JvText } from '@components/Typography'
+import { useTheme } from '@jienix/jovial-theme'
 import { createNamespace } from '@jienix/utils'
-import { ref } from 'vue'
-import { jvAlertProps } from './JvAlert'
+import { computed } from 'vue'
+import { type JvAlertEmits, jvAlertProps, type JvAlertSlots } from './JvAlert'
 
-defineOptions({ name: 'JvAlert', inheritAttrs: false })
-const { title, description, type, closable, closeText } = defineProps(jvAlertProps)
+defineOptions({
+  name: 'JvAlert',
+  inheritAttrs: false,
+})
+const { type, showIcon, icon, variant } = defineProps(jvAlertProps)
 const emit = defineEmits<JvAlertEmits>()
+defineSlots<JvAlertSlots>()
 const bem = createNamespace('alert')
-const visible = ref(true)
+const theme = useTheme()
+const visible = defineModel<boolean>('visible', {
+  default: true,
+})
 
-function close() {
+const defaultIcon = computed(() => {
+  switch (type) {
+    case 'success':
+      if (variant === 'outlined')
+        return '$successOutline'
+      return '$success'
+    case 'warning':
+      if (variant === 'outlined')
+        return '$warningOutline'
+      return '$warning'
+    case 'error':
+      if (variant === 'outlined')
+        return '$errorOutline'
+      return '$error'
+    case 'info':
+      if (variant === 'outlined')
+        return '$infoOutline'
+      return '$info'
+    default:
+      if (variant === 'outlined')
+        return '$infoOutline'
+      return '$info'
+  }
+})
+
+// 如果没有提供图标，使用默认图标
+const iconToShow = computed(() => {
+  return icon || (showIcon ? defaultIcon.value : null)
+})
+
+function onClose(e: MouseEvent) {
+  e.stopPropagation()
+  emit('update:visible', false)
+  // 内部控制
   visible.value = false
 }
 
-function afterLeave() {
-  emit('closed')
+function onAfterLeave() {
+  // 外部控制 关闭通知
+  emit('close')
 }
-
-defineExpose<JvAlertExpose>({
-  close,
-  open() {
-    visible.value = true
-  },
-})
 </script>
 
 <template>
-  <Transition name="alert-fade" @after-leave="afterLeave">
+  <Transition name="jv-alert-fade" @after-leave="onAfterLeave">
     <div
-      v-show="visible" role="alert" :aria-label="title" :aria-live="showIcon ? 'polite' : 'off'"
-      :class="[bem.b(), bem.m(type)]" tabindex="0"
+      v-if="visible" :class="[
+        bem.b(),
+        bem.m(type),
+        theme.themeClasses.value,
+        {
+          'jv-alert--outlined': variant === 'outlined',
+          'jv-alert--filled': variant === 'filled',
+          'jv-alert--border-left': variant === 'border-left',
+          'jv-alert--dense': dense,
+        },
+      ]" role="alert" :aria-label="message"
     >
-      <span v-if="showIcon" :aria-hidden="showIcon" :class="bem.e('icon')">
-        <slot name="icon">
-          <JvIcon :name="`$${type}`" />
-        </slot>
-      </span>
-      <hgroup :class="bem.e('content')" role="region" :aria-label="title">
-        <slot name="title">
-          <h4 :class="bem.em('content', 'title')">
-            {{ title }}
-          </h4>
-        </slot>
-        <slot name="description">
-          <p :class="bem.em('content', 'description')">
-            {{ description }}
-          </p>
-        </slot>
-      </hgroup>
-      <JvButton
-        v-if="closable" :aria-label="closeText" :aria-hidden="!closable" variant="plain" size="small"
-        :class="bem.e('close')" @click.stop="close"
-      >
-        <template v-if="closeText" #default>
-          {{ closeText }}
-        </template>
-        <template v-else #default>
-          <JvIcon name="$close" />
-        </template>
-      </JvButton>
+      <slot>
+        <div v-if="iconToShow || $slots.icon" :class="bem.e('icon')">
+          <slot name="icon">
+            <JvIcon v-if="iconToShow" :name="defaultIcon" />
+          </slot>
+        </div>
+
+        <div :class="bem.e('content')">
+          <div v-if="title || $slots.title" :class="bem.e('title')" :aria-label="title">
+            <slot name="title">
+              {{ title }}
+            </slot>
+          </div>
+          <div :class="bem.e('message')" :aria-label="message">
+            <slot name="message">
+              {{ message }}
+            </slot>
+          </div>
+        </div>
+
+        <div v-if="dismissible" :class="bem.e('close')" :aria-label="closeText" @click="onClose">
+          <slot name="close">
+            <JvText v-if="closeText">
+              {{ closeText }}
+            </JvText>
+            <JvIcon v-else name="$close" />
+          </slot>
+        </div>
+      </slot>
     </div>
   </Transition>
 </template>
 
-<style lang="css" scoped>
-.alert-fade-enter-active,
-.alert-fade-leave-active {
+<!-- <style lang="css" scoped>
+.jv-alert-fade-enter-active,
+.jv-alert-fade-leave-active {
   transition: opacity 0.3s;
 }
 
-.alert-fade-enter-from,
-.alert-fade-leave-to {
+.jv-alert-fade-enter-from,
+.jv-alert-fade-leave-to {
   opacity: 0;
 }
-</style>
+</style> -->

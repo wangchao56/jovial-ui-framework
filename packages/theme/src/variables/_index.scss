@@ -1,0 +1,89 @@
+// 颜色系统
+:root {
+  // 主题色
+  --jv-theme-primary: #1976d2;
+  --jv-theme-primary-rgb: 25, 118, 210;
+  --jv-theme-primary-light: #42a5f5;
+  --jv-theme-primary-dark: #1565c0;
+
+  // 表面
+  --jv-theme-surface: #ffffff;
+  --jv-theme-surface-variant: #f5f5f5;
+  --jv-theme-surface-disabled: #fafafa;
+
+  // 文字
+  --jv-theme-on-surface: rgba(0, 0, 0, 0.87);
+  --jv-theme-on-surface-medium: rgba(0, 0, 0, 0.6);
+  --jv-theme-on-surface-disabled: rgba(0, 0, 0, 0.38);
+
+  // 边框
+  --jv-theme-border: rgba(0, 0, 0, 0.12);
+
+  // 状态色
+  --jv-theme-error: #d32f2f;
+  --jv-theme-error-rgb: 211, 47, 47;
+  --jv-theme-warning: #ed6c02;
+  --jv-theme-warning-rgb: 237, 108, 2;
+  --jv-theme-success: #2e7d32;
+  --jv-theme-success-rgb: 46, 125, 50;
+  --jv-theme-info: #0288d1;
+  --jv-theme-info-rgb: 2, 136, 209;
+
+  // 字体
+  --jv-font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  --jv-font-size-xs: 12px;
+  --jv-font-size-sm: 14px;
+  --jv-font-size-md: 16px;
+  --jv-font-size-lg: 18px;
+  --jv-font-size-xl: 20px;
+
+  // 圆角
+  --jv-radius-small: 4px;
+  --jv-radius-medium: 8px;
+  --jv-radius-large: 12px;
+
+  // 间距
+  --jv-spacing-xs: 4px;
+  --jv-spacing-sm: 8px;
+  --jv-spacing-md: 16px;
+  --jv-spacing-lg: 24px;
+  --jv-spacing-xl: 32px;
+
+  // 阴影
+  --jv-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --jv-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --jv-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+  // 动画
+  --jv-transition-duration: 0.2s;
+  --jv-transition-timing: ease-in-out;
+  --jv-easing-standard: ease-in-out;
+  --jv-transition-normal: 0.3s;
+  --jv-transition-fast: 0.1s;
+}
+
+// 暗色主题
+@media (prefers-color-scheme: dark) {
+  :root {
+    // 主题色保持不变，因为它们是品牌色
+
+    // 表面
+    --jv-theme-surface: #121212;
+    --jv-theme-surface-variant: #1e1e1e;
+    --jv-theme-surface-disabled: #2c2c2c;
+
+    // 文字
+    --jv-theme-on-surface: rgba(255, 255, 255, 0.87);
+    --jv-theme-on-surface-medium: rgba(255, 255, 255, 0.6);
+    --jv-theme-on-surface-disabled: rgba(255, 255, 255, 0.38);
+
+    // 边框
+    --jv-theme-border: rgba(255, 255, 255, 0.12);
+
+    // 阴影
+    --jv-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --jv-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    --jv-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  }
+}

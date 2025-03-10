@@ -1,0 +1,73 @@
+@use '../mixins/bem' as *;
+
+@include b(rate) {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0;
+  vertical-align: middle;
+
+  /* 图标列表 */
+  @include e(icons) {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--jv-rate-gap, 4px);
+    margin: 0;
+    padding: 0;
+  }
+
+  /* 图标项 */
+  @include e(icon) {
+    position: relative;
+    width: max-content;
+    height: max-content;
+    cursor: pointer;
+    transition: transform 0.15s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  /* 半选图标 */
+  @include e(half) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    overflow: hidden;
+  }
+
+  /* 提示文字 */
+  @include e(text) {
+    margin-left: 8px;
+    color: var(--jv-text-color-secondary);
+    font-size: 14px;
+  }
+
+  /* 只读状态 */
+  @include when(readonly) {
+    @include e(icon) {
+      cursor: default;
+
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+
+  /* 禁用状态 */
+  @include when(disabled) {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    @include e(icon) {
+      cursor: not-allowed;
+
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,158 @@
+@use '../mixins/bem' as *;
+
+@include b(text) {
+  color: var(--jv-text-color);
+  font-size: var(--jv-text-font-size);
+  font-weight: var(--jv-font-weight);
+  line-height: inherit;
+  text-align: var(--jv-typography-text-align);
+  text-decoration: var(--jv-typography-text-decoration);
+
+  /* 继承父元素的行高 */
+  transition: color 0.2s;
+  hanging-punctuation: first allow-end;
+  text-spacing: trim-auto;
+  writing-mode: var(--jv-typography-writing-mode);
+  text-orientation: var(--jv-typography-text-orientation);
+  line-break: var(--jv-typography-line-break);
+  letter-spacing: var(--jv-letter-spacing);
+  text-decoration-color: var(--jv-typography-text-decoration-color);
+  text-decoration-style: var(--jv-typography-text-decoration-style);
+  text-wrap: var(--jv-text-wrap);
+  hyphens: var(--jv-hyphens);
+  font-family: var(--jv-font-family);
+  font-style: var(--jv-typography-font-style);
+
+  @include m(default) {
+    color: rgb(var(--jv-theme-on-background));
+  }
+
+  @include m(primary) {
+    color: rgb(var(--jv-theme-primary));
+  }
+
+  @include m(secondary) {
+    color: rgba(var(--jv-theme-secondary), 0.45);
+  }
+
+  @include m(success) {
+    color: rgb(var(--jv-theme-success));
+  }
+
+  @include m(warning) {
+    color: rgb(var(--jv-theme-warning));
+  }
+
+  @include m(error) {
+    color: rgb(var(--jv-theme-error));
+  }
+
+  @include m(text) {
+    margin: 0;
+  }
+
+  @include m(strong) {
+    font-weight: 600;
+  }
+
+  @include m(italic) {
+    font-style: italic;
+  }
+
+  @include m(underline) {
+    text-decoration: underline;
+  }
+
+  @include m(small) {
+    font-size: 0.8em;
+  }
+
+  @include m(code) {
+    font-family: var(--jv-font-family-code);
+    font-feature-settings: 'calt' off;
+  }
+
+  @include m(mark) {
+    background-color: var(--jv-color);
+    color: var(--jv-color-text-inverted);
+  }
+
+  @include m(del) {
+    text-decoration: line-through;
+  }
+
+  @include m(ins) {
+    text-decoration: underline;
+  }
+
+  @include m(sub) {
+    vertical-align: sub;
+  }
+
+  @include m(sup) {
+    vertical-align: super;
+  }
+
+  @include m(ruby) {
+    font-family: var(--jv-font-family-ruby);
+  }
+
+  @include m(rp) {
+    font-family: var(--jv-font-family-rp);
+  }
+
+  @include m(rt) {
+    font-family: var(--jv-font-family-rt);
+  }
+
+  @include m(bdo) {
+    direction: rtl;
+  }
+
+  @include m(wbr) {
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  @include m(br) {
+    margin: 0;
+  }
+
+  @include m(kbd) {
+    --border-secondary: #696969;
+
+    margin: 0 0.2em;
+    padding: 0.125rem 0.3125rem;
+
+    /* 样式 按钮 */
+    border: 2px solid var(--border-secondary);
+    border-radius: 0.25rem;
+    box-shadow: var(--border-secondary);
+    box-shadow: inset 0 -2px 0 0 var(--border-secondary);
+    font-size: 0.8em;
+    font-size: 0.825rem;
+    font-family: var(--jv-font-family-code);
+  }
+
+  @include m(truncate) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @include m(balance) {
+    text-wrap: balance;
+  }
+
+  @include m(hyphenate) {
+    hyphens: auto;
+  }
+}
+
+.text-horizontal {
+  writing-mode: horizontal-tb;
+}
+
+.text-vertical {
+  writing-mode: vertical-rl;
+}

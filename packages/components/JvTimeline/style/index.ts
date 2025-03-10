@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-timeline.css'
+import '@jienix/jovial-theme/src/components/jv-timeline.scss'

@@ -332,12 +332,12 @@ export default {
 }
 
 .jv-form-item__required {
-  color: red;
   margin-left: 4px;
+  color: red;
 }
 
 .jv-form-item__error {
-  font-size: 12px;
   margin-top: 4px;
+  font-size: 12px;
 }
 </style>

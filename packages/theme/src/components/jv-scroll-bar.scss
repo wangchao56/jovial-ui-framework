@@ -1,0 +1,55 @@
+.jv-scrollBar {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.jv-scrollBar__wrap {
+  height: 100%;
+  overflow: auto;
+}
+
+.jv-scrollBar__wrap--hidden-default {
+  scrollbar-width: none;
+}
+
+.jv-scrollBar__wrap--hidden-default::-webkit-scrollbar {
+  display: none;
+}
+
+.jv-scrollBar__thumb {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  background-color: rgb(144 147 153 / 30%);
+}
+
+.jv-scrollBar__thumb:hover {
+  background-color: rgb(144 147 153 / 50%);
+}
+
+.jv-scrollBar__bar {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.jv-scrollBar__bar.is-vertical {
+  top: 2px;
+  width: 6px;
+}
+
+.jv-scrollBar__bar.is-horizontal {
+  left: 2px;
+  height: 6px;
+}
+
+.jv-scrollBar__bar.is-active {
+  opacity: 1;
+}

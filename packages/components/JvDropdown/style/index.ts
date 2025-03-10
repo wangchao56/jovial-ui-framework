@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-dropdown.css'
+import '@jienix/jovial-theme/src/components/jv-dropdown.scss'

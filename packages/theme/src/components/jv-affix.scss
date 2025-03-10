@@ -1,0 +1,13 @@
+@use '../mixins/bem' as *;
+
+@include b(affix) {
+  width: fit-content;
+
+  @include e(wrapper) {
+    width: inherit;
+  }
+
+  @include when(fixed) {
+    position: fixed;
+  }
+}

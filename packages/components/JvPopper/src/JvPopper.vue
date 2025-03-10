@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type { PopperEmits, PopperExpose, PopperSlots } from './JvPopper'
 import { useZIndex } from '@jienix/jovial-composables'
-import { createNamespace } from '@jienix/utils'
+import { createNamespace, isObject } from '@jienix/utils'
 import { createPopper, type Instance, type Options, type PositioningStrategy } from '@popperjs/core'
 import { onClickOutside, type OnClickOutsideOptions } from '@vueuse/core'
-import { isObject } from 'lodash-es'
 import { computed, onMounted, onUnmounted, ref, unref, watch } from 'vue'
 import { popperProps } from './JvPopper'
 

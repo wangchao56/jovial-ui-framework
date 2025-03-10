@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-grid.css'
+import '@jienix/jovial-theme/src/components/jv-grid.scss'

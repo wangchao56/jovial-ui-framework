@@ -1,0 +1,286 @@
+/* 使用CSS变量以便于主题定制
+这个文件包含以下特性：
+  变量系统：
+  字体大小
+  字体粗细
+  行高
+  文本颜色
+实用类：
+  字体大小类（.text-xs 到 .text-3xl）
+  字体粗细类（.font-light 到 .font-bold）
+  行高类（.leading-none 到 .leading-loose）
+  文本颜色类
+  文本对齐类
+  文本装饰类
+  文本转换类
+  文本换行和溢出类
+Mixins：
+  文本颜色 mixins
+  基础字体 mixin
+  文本截断 mixin
+*/
+:root {
+  /* 字体家族 */
+  --jv-font-family-sans: system-ui, -apple-system, 'Segoe UI', roboto, 'Helvetica Neue', arial, sans-serif;
+  --jv-font-family-serif: georgia, cambria, 'Times New Roman', times, serif;
+  --jv-font-family-mono:
+    ui-monospace, sfmono-regular, menlo, monaco, consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  /* 字体大小（基准16px，比例1.125） */
+  --jv-font-size-xs: 0.75rem; /* 12px */
+  --jv-font-size-sm: 0.875rem; /* 14px */
+  --jv-font-size-base: 1rem; /* 16px */
+  --jv-font-size-lg: 1.125rem; /* 18px */
+  --jv-font-size-xl: 1.25rem; /* 20px */
+  --jv-font-size-2xl: 1.5rem; /* 24px */
+  --jv-font-size-3xl: 1.875rem; /* 30px */
+
+  /* 字体粗细 */
+  --jv-font-weight-thin: 100;
+  --jv-font-weight-light: 300;
+  --jv-font-weight-regular: 400;
+  --jv-font-weight-medium: 500;
+  --jv-font-weight-semibold: 600;
+  --jv-font-weight-bold: 700;
+  --jv-font-weight-black: 900;
+
+  /* 行高 */
+  --jv-line-height-none: 1;
+  --jv-line-height-tight: 1.25;
+  --jv-line-height-normal: 1.5;
+  --jv-line-height-relaxed: 1.75;
+  --jv-line-height-loose: 2;
+
+  /* 字间距 */
+  --jv-letter-spacing-tighter: -0.05em;
+  --jv-letter-spacing-tight: -0.025em;
+  --jv-letter-spacing-normal: 0em;
+  --jv-letter-spacing-wide: 0.025em;
+  --jv-letter-spacing-wider: 0.05em;
+
+  /* 字体颜色 */
+  --jv-text-color-primary: #303133;
+  --jv-text-color-regular: #606266;
+  --jv-text-color-secondary: #909399;
+  --jv-text-color-placeholder: #a8abb2;
+  --jv-text-color-disabled: #c0c4cc;
+}
+
+/* 字体大小 */
+.text-xs {
+  font-size: var(--jv-font-size-xs);
+}
+
+.text-sm {
+  font-size: var(--jv-font-size-sm);
+}
+
+.text-base {
+  font-size: var(--jv-font-size-base);
+}
+
+.text-lg {
+  font-size: var(--jv-font-size-lg);
+}
+
+.text-xl {
+  font-size: var(--jv-font-size-xl);
+}
+
+.text-2xl {
+  font-size: var(--jv-font-size-2xl);
+}
+
+.text-3xl {
+  font-size: var(--jv-font-size-3xl);
+}
+
+/* 字体粗细 */
+.font-light {
+  font-weight: var(--jv-font-weight-light);
+}
+
+.font-regular {
+  font-weight: var(--jv-font-weight-regular);
+}
+
+.font-medium {
+  font-weight: var(--jv-font-weight-medium);
+}
+
+.font-semibold {
+  font-weight: var(--jv-font-weight-semibold);
+}
+
+.font-bold {
+  font-weight: var(--jv-font-weight-bold);
+}
+
+/* 行高 */
+.leading-none {
+  line-height: var(--jv-line-height-none);
+}
+
+.leading-tight {
+  line-height: var(--jv-line-height-tight);
+}
+
+.leading-normal {
+  line-height: var(--jv-line-height-normal);
+}
+
+.leading-relaxed {
+  line-height: var(--jv-line-height-relaxed);
+}
+
+.leading-loose {
+  line-height: var(--jv-line-height-loose);
+}
+
+/* 文本颜色 */
+.text-primary {
+  color: rgb(var(--jv-theme-on-primary));
+}
+
+.text-regular {
+  color: var(--jv-text-color-regular);
+}
+
+.text-secondary {
+  color: rgb(var(--jv-theme-on-secondary));
+}
+
+/* 优化后的文本颜色（关联主题系统） */
+.text-success {
+  color: rgb(var(--jv-theme-on-success));
+}
+
+.text-warning {
+  color: rgb(var(--jv-theme-on-warning));
+}
+
+.text-error {
+  color: rgb(var(--jv-theme-on-error));
+}
+
+.text-placeholder {
+  color: var(--jv-text-color-placeholder);
+}
+
+.text-disabled {
+  color: var(--jv-text-color-disabled);
+}
+
+/* 文本对齐 */
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+/* 文本装饰 */
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-line-through {
+  text-decoration: line-through;
+}
+
+.text-no-decoration {
+  text-decoration: none;
+}
+
+/* 文本转换 */
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+/* 文本换行 */
+.text-wrap {
+  white-space: normal;
+}
+
+.text-nowrap {
+  white-space: nowrap;
+}
+
+.text-break {
+  word-break: break-word;
+}
+
+/* 文本溢出 */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+}
+
+/* Mixins */
+@mixin text-primary {
+  color: rgb(var(--jv-theme-on-primary));
+}
+
+@mixin text-regular {
+  color: rgb(var(--jv-theme-on-background));
+}
+
+@mixin text-secondary {
+  color: rgb(var(--jv-theme-on-secondary));
+}
+
+@mixin font-base {
+  font-size: var(--jv-font-size-base);
+  line-height: var(--jv-line-height-normal);
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 交互文本 */
+.jv-interactive {
+  cursor: text;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--jv-text-color-primary);
+    text-decoration: underline;
+    text-decoration-thickness: 0.05em;
+  }
+
+  &:active {
+    color: var(--jv-text-color-regular);
+  }
+
+  /* 聚焦状态 */
+  &:focus-visible {
+    outline: 2px solid var(--jv-color-primary);
+    outline-offset: 0.2em;
+    border-radius: 2px;
+  }
+}

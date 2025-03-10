@@ -1,0 +1,67 @@
+@use '../mixins/bem' as *;
+
+$directions: rtl, ltr, ttb, btt;
+
+@include b(drawer) {
+  --jv-drawer-duration: 0.3s;
+  --jv-drawer-delay: -0.23361453601557428ms;
+  display: inline-grid;
+  position: absolute;
+  inset: 0 auto auto;
+  width: var(--jv-drawer-width);
+  height: var(--jv-drawer-height);
+  padding: 16px;
+  box-shadow: var(--jv-shadow);
+  z-index: 4000;
+  box-sizing: border-box;
+  max-height: 100vh;
+  max-height: 100%;
+  background-color: var(--jv-color-white);
+  overflow: hidden;
+  grid-template-areas: 'header  close' ' body close' 'footer close';
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr;
+  gap: 16px;
+
+  @include e(header) {
+    grid-area: header;
+  }
+
+  @include e(body) {
+    grid-area: body;
+    overflow: auto;
+  }
+
+  @include e(footer) {
+    grid-area: footer;
+  }
+
+  @include e(close) {
+    grid-area: close;
+    place-self: start end;
+  }
+
+  @include m(left) {
+    left: 0;
+  }
+
+  @include m(right) {
+    right: 0;
+  }
+
+  @include m(top) {
+    inset: 0 0 auto;
+    width: 100vw;
+    height: var(--jv-drawer-width, 30%) !important;
+  }
+
+  @include m(bottom) {
+    inset: auto 0 0;
+    width: 100vw;
+    height: var(--jv-drawer-width, 30%) !important;
+  }
+
+  @include when(visible) {
+    display: inline-grid;
+  }
+}

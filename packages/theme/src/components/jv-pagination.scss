@@ -1,0 +1,144 @@
+@use '../mixins/bem' as *;
+@mixin common {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  margin: 0 4px;
+  padding: 0 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background: var(--jv-hover-color);
+    color: var(--jv-color-primary);
+  }
+
+  .is-active {
+    background: var(--jv-color-primary);
+    color: var(--jv-color-white);
+
+    &:hover {
+      background: var(--jv-color-primary);
+      color: var(--jv-color-white);
+    }
+  }
+
+  .is-disabled {
+    color: var(--jv-text-color-disabled);
+    cursor: not-allowed;
+
+    &:hover {
+      background: none;
+      color: var(--jv-text-color-disabled);
+    }
+  }
+}
+
+@include b(pagination) {
+  display: flex;
+  height: 32px;
+  margin: 0 4px;
+  padding: 0 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+
+  /* 总数显示 */
+  @include e(total) {
+    margin-right: 16px;
+    color: var(--jv-text-color-secondary);
+  }
+
+  /* 每页条数选择器 */
+  @include e(size-changer) {
+    width: 110px;
+    margin-right: 16px;
+  }
+
+  /* 页码按钮基础样式 */
+  @include e(prev) {
+    @include common;
+  }
+
+  @include e(next) {
+    @include common;
+  }
+
+  @include e(page) {
+    @include common;
+  }
+
+  &:hover {
+    background: var(--jv-hover-color);
+    color: var(--jv-color-primary);
+  }
+
+  @include when(active) {
+    background: var(--jv-color-primary);
+    color: var(--jv-color-white);
+
+    &:hover {
+      background: var(--jv-color-primary);
+      color: var(--jv-color-white);
+    }
+  }
+
+  @include when(disabled) {
+    color: var(--jv-text-color-disabled);
+    cursor: not-allowed;
+
+    &:hover {
+      background: none;
+      color: var(--jv-text-color-disabled);
+    }
+  }
+
+  /* 快速跳转 */
+  @include e(jumper) {
+    margin-left: 16px;
+
+    input {
+      width: 50px;
+      height: 32px;
+      margin: 0 8px;
+      padding: 0 8px;
+      border: 1px solid var(--jv-border-color);
+      border-radius: 4px;
+      text-align: center;
+
+      &:focus {
+        outline: none;
+        border-color: var(--jv-color-primary);
+      }
+
+      &:disabled {
+        background: var(--jv-disabled-bg-color);
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  /* 禁用状态 */
+  @include when(disabled) {
+    cursor: not-allowed;
+
+    .jv-pagination__total,
+    .jv-pagination__jumper {
+      color: var(--jv-text-color-disabled);
+    }
+  }
+
+  /* 简单模式 */
+  @include when(simple) {
+    .jv-pagination__page {
+      margin: 0 8px;
+    }
+  }
+}

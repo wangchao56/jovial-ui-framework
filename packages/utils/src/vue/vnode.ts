@@ -1,7 +1,6 @@
 import type { VNodeArrayChildren, VNodeChild } from 'vue'
-import isArray from 'lodash-es/isArray'
-import isFunction from 'lodash-es/isFunction'
 import { isVNode } from 'vue'
+import { isArray, isFunction } from '../common'
 // Start of Selection
 /**
  * 确保只有一个子节点。
@@ -23,7 +22,9 @@ export function ensureOnlyChild(children: VNodeArrayChildren | undefined) {
  * @param slots - 插槽
  * @returns 第一个子节点
  */
-export function getSlotsFirstChild(slots: () => VNodeArrayChildren | undefined): VNodeChild {
+export function getSlotsFirstChild(
+  slots: () => VNodeArrayChildren | undefined,
+): VNodeChild {
   const [firstChild] = isFunction(slots) ? (slots() as VNodeArrayChildren) : []
   return firstChild
 }
@@ -35,7 +36,8 @@ export function getSlotsFirstChild(slots: () => VNodeArrayChildren | undefined):
  */
 export function isTextNode(vnode: MaybeRefOrGetter<VNodeChild>) {
   const _vnode = unref(vnode)
-  if (!isVNode(_vnode)) { // 如果不是vnode，则返回false
+  if (!isVNode(_vnode)) {
+    // 如果不是vnode，则返回false
     return false
   }
 

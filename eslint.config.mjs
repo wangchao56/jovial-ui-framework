@@ -10,6 +10,7 @@ export default antfu({
     '*.css',
     '**/*.css/**',
     '*.jpg',
+    '*.md',
     '*.spec.tsx',
     '**/*.jpg/**',
     'build',

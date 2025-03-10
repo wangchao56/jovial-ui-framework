@@ -88,7 +88,7 @@ function getType(value: any): string {
  *
  *
  */
-function isArray(value: any): boolean {
+function isArray(value: any): value is (...args: any[]) => any {
   return Array.isArray(value)
 }
 

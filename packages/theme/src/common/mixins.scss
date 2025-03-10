@@ -1,0 +1,94 @@
+/* 基础布局混合 */
+@mixin flex-center($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 字体文本相关设置 */
+@mixin font(
+  $size: var(--jv-font-size-base),
+  $weight: var(--jv-font-weight-normal),
+  $line-height: var(--jv-line-height-base)
+) {
+  color: $color;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $line-height;
+  @content;
+}
+
+/* 栅格系统混合 */
+@mixin grid-layout($columns: 3, $gap: var(--jv-space-md)) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+/* 间距混合 */
+@mixin space-x($size: var(--jv-space-sm)) {
+  & > * + * {
+    margin-left: $size;
+  }
+}
+
+@mixin space-y($size: var(--jv-space-sm)) {
+  & > * + * {
+    margin-top: $size;
+  }
+}
+
+/* 响应式断点 */
+@mixin respond-to($breakpoint) {
+  @media (min-width: var(--jv-breakpoint-#{$breakpoint})) {
+    @content;
+  }
+}
+
+/* 栅格系统混合 */
+@mixin grid-col($cols: 12, $gutter: var(--jv-grid-gutter)) {
+  display: grid;
+  grid-template-columns: repeat($cols, 1fr);
+  gap: $gutter;
+}
+
+/* 定位混合 */
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 暗黑模式适配 */
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    :root[data-theme='dark'] & {
+      @content;
+    }
+  }
+}
+
+/* 滚动条混合 */
+@mixin custom-scrollbar($width: 6px) {
+  &::-webkit-scrollbar {
+    width: $width;
+    background-color: var(--jv-scrollbar-track);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--jv-scrollbar-thumb);
+    border-radius: calc($width / 2);
+  }
+}

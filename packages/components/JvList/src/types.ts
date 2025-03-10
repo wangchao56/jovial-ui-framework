@@ -1,4 +1,8 @@
+import type { JvAvatarProps } from '@components/JvAvatar/src/JvAvatar'
+import type { JvIconProps } from '@components/JvIcon/src/JvIcon'
+import type { JvImageProps } from '@components/JvImage/src/JvImage'
 import type { ExtractPropTypes, PropType, Slot, SlotsType } from 'vue'
+import type { JvListItemProps } from './JvListItem'
 
 /**
  * 提取插槽的参数类型
@@ -14,7 +18,7 @@ export type ExtractSlotsType<T extends {} = Record<string, Slot>> = SlotsType<{
   [K in keyof T]: ExtractSlotParams<T[K]>
 }>
 // 首先定义 rounded 的类型
-type RoundedType = boolean | string | number | 'rounded' | 'rounded-sm' | 'rounded-lg' | 'rounded-xl' | 'rounded-pill' | 'rounded-circle' | 'rounded-shaped'
+export type RoundedType = boolean | string | number | 'rounded' | 'rounded-sm' | 'rounded-lg' | 'rounded-xl' | 'rounded-pill' | 'rounded-circle' | 'rounded-shaped'
 
 // 基础属性接口
 interface BaseItem {
@@ -74,118 +78,6 @@ export interface SubHeaderType extends BaseItem {
 // 联合类型
 export type ListItem = ListItemType | DividerType | SubHeaderType | ListGroupType
 
-// Props 类型定义
-export const jvListItemProps = {
-  /** 标题 */
-  title: {
-    type: String,
-    default: '',
-  },
-  /** 副标题 */
-  subtitle: {
-    type: String,
-    default: '',
-  },
-  /** 描述文本 */
-  description: {
-    type: String,
-    default: '',
-  },
-  /** 根元素标签 */
-  tag: {
-    type: String,
-    default: 'li',
-  },
-  /** 根元素类名 */
-  class: String,
-  /** 激活状态 */
-  active: {
-    type: Boolean,
-    default: false,
-  },
-  /** 激活状态下的背景色 */
-  activeColor: String,
-  /** 非激活状态下的背景色 */
-  inactiveColor: String,
-  /** 是否可悬浮 */
-  hoverable: {
-    type: Boolean,
-    default: false,
-  },
-  /** 是否显示分割线 */
-  showDivider: {
-    type: Boolean,
-    default: false,
-  },
-  /** 是否为链接 */
-  link: {
-    type: Boolean,
-    default: false,
-  },
-  /** 链接地址 */
-  href: String,
-  /** 前置头像 */
-  prependAvatar: String,
-  /** 前置图标 */
-  prependIcon: String,
-  /** 后置图标 */
-  appendIcon: String,
-  /** 圆角设置 */
-  rounded: {
-    type: [Boolean, String, Number] as PropType<RoundedType>,
-    default: false,
-    validator: (value: boolean | string | number) => {
-      if (typeof value === 'boolean')
-        return true
-      if (typeof value === 'string') {
-        return ['rounded', 'rounded-sm', 'rounded-lg', 'rounded-xl', 'rounded-pill', 'rounded-circle', 'rounded-shaped'].includes(value)
-      }
-      if (typeof value === 'number') {
-        return value >= 0
-      }
-      return false
-    },
-  },
-  /** 是否有子节点 */
-  hasChildren: {
-    type: Boolean,
-    default: false,
-  },
-  /** 是否禁用 */
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  /** 是否选中 */
-  selected: {
-    type: Boolean,
-    default: false,
-  },
-  /** 是否可点击 */
-  clickable: {
-    type: Boolean,
-    default: false,
-  },
-  /** 是否可以展开 */
-  expandable: {
-    type: Boolean,
-    default: false,
-  },
-  /** 是否展开 */
-  expanded: {
-    type: Boolean,
-    default: false,
-  },
-  /** 元数据 */
-  metaRaw: {
-    type: Object as PropType<ListItem | ListGroupType>,
-    default: () => ({}),
-  },
-} as const
-
-// Props 类型
-export type JvListItemProps = ExtractPropTypes<typeof jvListItemProps>
-
 export interface EmitOptions {
   key: string
   isActive: boolean
@@ -198,59 +90,34 @@ export interface EmitOptions {
   // expand: (key: string, expanded: boolean) => boolean
 }
 
-// Emits 定义
-export const jvListItemEmits = {
-  'click': (e: MouseEvent | KeyboardEvent, options: EmitOptions) => e && options,
-  'select': (options: EmitOptions) => options,
-  'expand': (options: EmitOptions) => options,
-  'update:expanded': (value: boolean) => typeof value === 'boolean',
-} as const
-
-// Emits 类型
-export interface JvListItemEmits {
-  (e: 'click', event: MouseEvent | KeyboardEvent, options: EmitOptions): void
-  (e: 'select', options: EmitOptions): void
-  (e: 'expand', options: EmitOptions): void
-  (e: 'update:expanded', value: boolean): void
-}
-
-// Slots 类型
-export interface JvListItemSlots {
-  default?: Slot
-  title?: Slot
-  subtitle?: Slot
-  description?: Slot
-  prepend?: Slot
-  append?: Slot
-  expand?: Slot
-}
-
-export type JvListItemSlotsType = ExtractSlotsType<JvListItemSlots>
-
-// 组件暴露的方法
-export interface JvListItemExpose {
-  /** 是否激活 */
-  isActive: boolean | undefined
-  /** 选择 */
-  select: (selected: boolean, e: Event) => void
-}
-
 export interface JvListItemTitleProps {
-  tag: string
   title: string
 }
 
 export interface JvListItemSubtitleProps {
-  tag: string
   subtitle?: string
 }
 
+export interface JvListItemPrependProps {
+  type: 'avatar' | 'icon' | 'image'
+  icon?: string | JvIconProps
+  avatar?: string | JvAvatarProps
+  image?: string | JvImageProps
+}
+
 export interface JvListItemActionProps {
-  tag: string
-  actions?: string[]
+  icon?: string | JvIconProps
+}
+
+export interface JvListItemActionEmits {
+  (e: 'click'): void
 }
 
 export interface JvListItemTitleSlots {
+  default: Slot
+}
+
+export interface JvListItemPrependSlots {
   default: Slot
 }
 
@@ -264,6 +131,7 @@ export const jvListGroupProps = {
     type: String,
     default: 'chevron-right',
   },
+  /** 折叠图标 */
   collapseIcon: {
     type: String,
     default: 'chevron-down',
@@ -273,17 +141,7 @@ export const jvListGroupProps = {
   /** 是否展开 */
   expanded: Boolean,
   /** 列表数据 */
-  items: {
-    type: Array as PropType<ListItem[]>,
-    default: () => [],
-  },
-  /** 是否有子节点 */
-  hasChildren: {
-    type: Boolean,
-    default: false,
-  },
-  /** 原数据 */
-  metaRaw: {
+  item: {
     type: Object as PropType<ListGroupType>,
     default: () => ({}),
   },
@@ -294,3 +152,9 @@ export const jvListGroupEmits = {
 } as const
 
 export type JvListGroupProps = ExtractPropTypes<typeof jvListGroupProps>
+
+export interface JvListItemContentSlots {
+  title: Slot
+  subtitle: Slot
+  description: Slot
+}

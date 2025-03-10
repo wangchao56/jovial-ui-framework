@@ -6,7 +6,6 @@ import { createNamespace } from '@jienix/utils'
 import { computed, provide } from 'vue'
 import JvMenuChildren from './components/JvMenuChildren.vue'
 import { JvMenuContextKey } from './JvMenu'
-import '../style/menu.css'
 
 defineOptions({ name: 'JvMenu' })
 

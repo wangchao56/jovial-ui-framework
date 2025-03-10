@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { internalIcons } from '@components/internal-icon'
 import { Icon } from '@iconify/vue'
 import { SizeOptions } from '@jienix/typings'
 import { createNamespace, isNumberExcludeNaN, isString } from '@jienix/utils'
 import { useDebounceFn } from '@vueuse/core'
 import { computed, nextTick, ref, watch } from 'vue'
-import { jvIconProps } from './JvIcon'
+import { icons, jvIconProps } from './JvIcon'
 
 defineOptions({ name: 'JvIcon', inheritAttrs: false })
 const { color, size, name } = defineProps(jvIconProps)
@@ -24,7 +23,22 @@ const iconStyle = computed(() => {
   const result = {} as Record<string, string>
 
   if (color) {
-    result.color = color
+    switch (color) {
+      case 'success':
+        result.color = 'rgb(var(--jv-theme-success))'
+        break
+      case 'warning':
+        result.color = 'rgb(var(--jv-theme-warning))'
+        break
+      case 'error':
+        result.color = 'rgb(var(--jv-theme-error))'
+        break
+      case 'info':
+        result.color = 'rgb(var(--jv-theme-info))'
+        break
+      default:
+        result.color = color
+    }
   }
 
   if (size || isNumberExcludeNaN(size)) {
@@ -40,10 +54,10 @@ const iconStyle = computed(() => {
 
 const show = computed(() => name && !String(name).startsWith('$'))
 
-const internalIconRender = computed(() => {
+const internalIconVnode = computed(() => {
   if (name && String(name).startsWith('$')) {
-    const iconName = name as keyof typeof internalIcons
-    return internalIcons[iconName]
+    const iconName = name as keyof typeof icons
+    return icons[iconName]
   }
   return null
 })
@@ -97,7 +111,7 @@ defineExpose({
   <i ref="iconRef" :class="iconClass" :style="iconStyle">
     <slot v-if="$slots.default" />
     <Icon v-else-if="show && name" :icon="name" :color="color" />
-    <component :is="internalIconRender" v-else-if="internalIconRender" />
+    <component :is="internalIconVnode" v-else-if="internalIconVnode" />
   </i>
 </template>
 

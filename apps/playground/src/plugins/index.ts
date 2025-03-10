@@ -11,8 +11,8 @@ const defaultTheme: ThemeOptions = {
       dark: false,
       colors: {
         primary: '#409EFF',
-        background: '#FFFFFF',
-        surface: '#FFFFFF',
+        background: '#F5f5f5',
+        surface: '#121212',
         success: '#67C23A',
         warning: '#E6A23C',
         error: '#F56C6C',

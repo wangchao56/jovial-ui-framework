@@ -1,0 +1,15 @@
+@use '../mixins/bem' as *;
+
+@include b(color-picker) {
+  --jv-color-picker-bg: #f0f0f0;
+  --jv-color-picker-border: #dcdfe6;
+  --jv-color-picker-text: #303133;
+  --jv-color-picker-hover: #e4e7ed;
+  --jv-color-picker-active: #409eff;
+
+  @include e(header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

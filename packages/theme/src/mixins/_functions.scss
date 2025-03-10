@@ -1,0 +1,64 @@
+// 颜色函数
+@function lighten-color($color, $amount) {
+  @return mix(white, $color, $amount);
+}
+
+@function darken-color($color, $amount) {
+  @return mix(black, $color, $amount);
+}
+
+// 计算 rem
+@function rem($size) {
+  $rem-size: $size / 16px;
+  @return #{$rem-size}rem;
+}
+
+// 计算 em
+@function em($size, $context: 16px) {
+  $em-size: $size / $context;
+  @return #{$em-size}em;
+}
+
+// z-index 管理
+$z-indexes: (
+  modal: 1000,
+  overlay: 900,
+  dropdown: 800,
+  header: 700,
+  footer: 600,
+);
+
+@function z($key) {
+  @return map-get($z-indexes, $key);
+}
+
+// 主题色变体
+@function theme-variant($color, $type: 'light') {
+  @if $type == 'light' {
+    @return lighten-color($color, 20%);
+  } @else if $type == 'dark' {
+    @return darken-color($color, 20%);
+  } @else {
+    @return $color;
+  }
+}
+
+// 计算对比色
+@function contrast-color($color) {
+  $r: red($color);
+  $g: green($color);
+  $b: blue($color);
+  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+
+  @return if($yiq >= 128, #000, #fff);
+}
+
+// 计算宽度百分比
+@function fluid-width($target, $container) {
+  @return percentage($target / $container);
+}
+
+// 计算长宽比
+@function aspect-ratio($width, $height) {
+  @return percentage($height / $width);
+}

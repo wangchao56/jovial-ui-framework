@@ -1,0 +1,147 @@
+@use '../mixins/bem' as *;
+
+@include b(table) {
+  position: relative;
+  width: 100%;
+  background-color: var(--jv-surface);
+  border-radius: var(--jv-radius-medium);
+  overflow: hidden;
+
+  @include e(header) {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: var(--jv-spacing-md);
+    background-color: var(--jv-surface);
+    border-bottom: 1px solid var(--jv-border);
+
+    @include e(title) {
+      font-size: var(--jv-font-size-lg);
+      font-weight: 600;
+      color: var(--jv-on-surface);
+    }
+  }
+
+  @include e(body) {
+    position: relative;
+    width: 100%;
+  }
+
+  @include e(row) {
+    display: flex;
+    align-items: center;
+    padding: var(--jv-spacing-sm) var(--jv-spacing-md);
+    border-bottom: 1px solid var(--jv-border);
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: var(--jv-surface-variant);
+    }
+
+    @include when(selected) {
+      background-color: rgba(var(--jv-primary-rgb), 0.08);
+    }
+
+    @include when(clickable) {
+      cursor: pointer;
+    }
+  }
+
+  @include e(cell) {
+    flex: 1;
+    padding: var(--jv-spacing-xs) var(--jv-spacing-sm);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @include when(fixed) {
+      position: sticky;
+      background-color: var(--jv-surface);
+      z-index: 1;
+
+      &.left {
+        left: 0;
+      }
+
+      &.right {
+        right: 0;
+      }
+    }
+  }
+
+  @include e(footer) {
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--jv-spacing-md);
+    background-color: var(--jv-surface);
+    border-top: 1px solid var(--jv-border);
+  }
+
+  // 空状态
+  @include e(empty) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--jv-spacing-xl);
+    color: var(--jv-on-surface-medium);
+
+    @include e(icon) {
+      font-size: 48px;
+      margin-bottom: var(--jv-spacing-md);
+    }
+
+    @include e(text) {
+      font-size: var(--jv-font-size-md);
+    }
+  }
+
+  // 加载状态
+  @include e(loading) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 3;
+  }
+
+  // 排序
+  @include e(sort) {
+    display: inline-flex;
+    flex-direction: column;
+    margin-left: var(--jv-spacing-xs);
+    color: var(--jv-on-surface-medium);
+
+    &.active {
+      color: var(--jv-primary);
+    }
+  }
+
+  // 尺寸变体
+  @include m(small) {
+    @include e(row) {
+      padding: var(--jv-spacing-xs) var(--jv-spacing-sm);
+    }
+
+    @include e(cell) {
+      padding: var(--jv-spacing-xs) var(--jv-spacing-xs);
+      font-size: var(--jv-font-size-sm);
+    }
+  }
+
+  @include m(large) {
+    @include e(row) {
+      padding: var(--jv-spacing-md) var(--jv-spacing-lg);
+    }
+
+    @include e(cell) {
+      padding: var(--jv-spacing-sm) var(--jv-spacing-md);
+      font-size: var(--jv-font-size-lg);
+    }
+  }
+}

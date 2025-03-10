@@ -1,0 +1,9 @@
+@use '../mixins/bem' as *;
+
+@include b(collapse) {
+  --jv-collapse-bg-color: #6edaf5ad;
+
+  /* background-color: var(--jv-collapse-bg-color); */
+  padding: var(--jv-font-size-large);
+  border: 1px solid var(--jv-color-border-light);
+}

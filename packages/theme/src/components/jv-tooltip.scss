@@ -1,0 +1,15 @@
+@use '../mixins/bem' as *;
+
+@include b(tooltip) {
+  display: inline-block;
+  position: relative;
+  width: max-content;
+  cursor: pointer;
+  overflow: hidden;
+
+  @include e(trigger) {
+    display: inline-block;
+    overflow: hidden;
+    width: inherit;
+  }
+}

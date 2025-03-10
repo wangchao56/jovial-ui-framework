@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-slider.css'
+import '@jienix/jovial-theme/src/components/jv-slider.scss'

@@ -1,0 +1,7 @@
+@use '../mixins/bem' as *;
+
+@include b(ellipsis) {
+  @include e(content) {
+    display: block;
+  }
+}

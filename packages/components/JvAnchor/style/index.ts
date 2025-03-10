@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-anchor.css'
+import '@jienix/jovial-theme/src/components/jv-anchor.scss'

@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-divider.css'
+import '@jienix/jovial-theme/src/components/jv-divider.scss'

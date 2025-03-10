@@ -1,0 +1,58 @@
+@use '../mixins/bem' as *;
+
+@include b(message) {
+  --jv-message-padding: 8px;
+  --jv-message-icon-size: 16px;
+  --jv-message-close-size: 16px;
+  --jv-message-border-color: var(--jv-color-text-primary);
+  --jv-message-bg-color: var(--jv-color-text-primary);
+  --jv-message-text-color: var(--jv-color-text-primary);
+  --jv-transition-duration: 0.3s;
+
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  border: 1px solid var(--jv-message-border-color);
+  border-radius: 4px;
+  color: var(--jv-message-text-color);
+
+  /* inset: 0 auto auto auto; */
+  z-index: 9999;
+  transition:
+    top var(--jv-transition-duration),
+    opacity var(--jv-transition-duration),
+    transform var(--jv-transition-duration);
+  transform: translate(-50%, 0);
+  align-items: center;
+  background-color: var(--jv-message-bg-color);
+
+  @include e(prepend) {
+    padding: 8px 16px;
+  }
+
+  @include e(append--icon) {
+    color: var(--jv-message-text-color) !important;
+  }
+
+  @include e(content) {
+    padding: 8px 16px;
+    padding-left: 0;
+    flex: 1;
+    font-size: 14px;
+    line-height: 20px;
+
+    /* 文本超出隐藏 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @each $type in info, success, warning, danger {
+    @include m($type) {
+      --jv-message-border-color: var(--jv-color-$(type));
+      --jv-message-bg-color: var(--jv-color-$(type)-light-7);
+      --jv-message-text-color: var(--jv-color-$(type));
+    }
+  }
+}

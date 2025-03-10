@@ -43,6 +43,13 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.4",
     "@jienix/jovial-components": "workspace:*",
+    "@jienix/jovial-composables": "workspace:*",
+    "@jienix/jovial-directives": "workspace:*",
+    "@jienix/jovial-locale": "workspace:*",
+    "@jienix/jovial-theme": "workspace:*",
+    "@jienix/jovial-ui": "workspace:*",
+    "@jienix/typings": "workspace:*",
+    "@jienix/utils": "workspace:*",
     "@storybook/addon-a11y": "^8.6.4",
     "@storybook/addon-essentials": "^8.6.4",
     "@storybook/addon-interactions": "^8.6.4",

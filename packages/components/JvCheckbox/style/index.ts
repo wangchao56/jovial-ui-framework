@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-checkbox.css'
+import '@jienix/jovial-theme/src/components/jv-checkbox.scss'

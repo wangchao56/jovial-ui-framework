@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-tag.css'
+import '@jienix/jovial-theme/src/components/jv-tag.scss'

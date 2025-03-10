@@ -20,9 +20,6 @@ module.exports = {
     ],
     // 允许空源
     'no-empty-source': null,
-    // 禁用 at-rule 描述符检查
-    'at-rule-descriptor-no-unknown': null,
-    'at-rule-descriptor-value-no-unknown': null,
     // 允许未知的 at 规则
     'at-rule-no-unknown': [
       true,
@@ -135,22 +132,9 @@ module.exports = {
     'comment-empty-line-before': 'always',
 
     // 其他
-    'no-duplicate-selectors': true,
+    'no-duplicate-selectors': false,
     'no-invalid-double-slash-comments': true,
     'declaration-no-important': null,
-    'declaration-property-value-no-unknown': [
-      true,
-      {
-        ignoreProperties: {
-          'text-justify': ['inter-ideograph'],
-        },
-      },
-      {
-        ignoreProperties: {
-          '/^/': 'v-bind\\(.*\\)',
-        },
-      },
-    ],
     'selector-class-pattern': null,
     'custom-property-pattern': null,
     'number-max-precision': null,
@@ -163,5 +147,9 @@ module.exports = {
         ignoreKeywords: ['/v-bind\\(.*?\\)/'],
       },
     ],
+    // 移除不兼容的规则
+    'declaration-property-value-no-unknown': null,
+    'at-rule-descriptor-no-unknown': null,
+    'at-rule-descriptor-value-no-unknown': null,
   },
 }

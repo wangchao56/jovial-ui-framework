@@ -1,3 +1,3 @@
-import './list-item.css'
-import './list-group.css'
-import './list.css'
+import '@jienix/jovial-theme/src/components/jv-list.scss'
+import '@jienix/jovial-theme/src/components/jv-list-item.scss'
+import '@jienix/jovial-theme/src/components/jv-list-group.scss'

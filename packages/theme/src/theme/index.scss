@@ -1,0 +1,28 @@
+/* 引入其他 CSS 文件 */
+@use './dark';
+@use './font-link';
+@use './font';
+@use './light';
+
+html {
+  font-family: Roboto, sans-serif !important;
+  font-size: 16px;
+  line-height: 1.5;
+
+  /* color-scheme: dark; */
+
+  /* background-color: var(--theme-color-background) !important; */
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --jv-theme-primary-100: #1d9c25;
+}
+
+/* 根据系统切换 */
+@media (prefers-color-scheme: dark) {
+  [data-theme='dark'] {
+    color-scheme: dark;
+  }
+}

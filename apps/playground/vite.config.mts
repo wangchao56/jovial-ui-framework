@@ -1,9 +1,11 @@
+import path from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { visualizer } from 'rollup-plugin-visualizer'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
 import Inspector from 'vite-plugin-vue-inspector'
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -18,16 +20,17 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@components': '../../packages/components',
+      '@components': path.resolve(__dirname, '../../packages/components'),
+      '@jienix/jovial-theme': path.resolve(__dirname, '../../packages/theme'),
     },
-  },
-  css: {
-    postcss: '../../postcss.config.js'
   },
   server: {
     watch: {
       usePolling: true,
-      interval: 1000 // 1秒
-    }
-  }
+      interval: 1000, // 1秒
+    },
+  },
+  css: {
+    postcss: '../../postcss.config.js',
+  },
 })

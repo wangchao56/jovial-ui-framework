@@ -1,0 +1,115 @@
+:root {
+  /* 变体基础变量 */
+  --jv-variant-opacity: 0.08;
+  --jv-variant-hover-opacity: 0.12;
+  --jv-variant-active-opacity: 0.16;
+  --jv-variant-outline-width: 1px;
+  --jv-variant-disabled-opacity: 0.38;
+}
+
+/* 基础变体类 */
+.variant-elevated {
+  box-shadow: var(--jv-shadow-sm);
+  color: rgb(var(--jv-theme-on-surface));
+  background-color: rgb(var(--jv-theme-surface));
+
+  &:hover {
+    box-shadow: var(--jv-shadow-md);
+  }
+
+  &:active {
+    box-shadow: var(--jv-shadow-lg);
+  }
+}
+
+.variant-flat {
+  box-shadow: none;
+  color: rgb(var(--jv-theme-on-surface));
+  background-color: rgb(var(--jv-theme-surface));
+}
+
+.variant-tonal {
+  background-color: rgb(var(--jv-theme-primary) var(--jv-variant-opacity));
+  color: rgb(var(--jv-theme-primary));
+
+  &:hover {
+    background-color: rgb(var(--jv-theme-primary) var(--jv-variant-hover-opacity));
+  }
+
+  &:active {
+    background-color: rgb(var(--jv-theme-primary) var(--jv-variant-active-opacity));
+  }
+}
+
+.variant-outlined {
+  background-color: transparent;
+  border: var(--jv-variant-outline-width) solid currentcolor;
+  color: rgb(var(--jv-theme-primary));
+
+  &:hover {
+    background-color: rgb(var(--jv-theme-primary) var(--jv-variant-opacity));
+  }
+
+  &:active {
+    background-color: rgb(var(--jv-theme-primary) var(--jv-variant-hover-opacity));
+  }
+}
+
+.variant-text {
+  background-color: transparent;
+  color: rgb(var(--jv-theme-primary));
+
+  &:hover {
+    background-color: rgb(var(--jv-theme-primary) var(--jv-variant-opacity));
+  }
+
+  &:active {
+    background-color: rgb(var(--jv-theme-primary) var(--jv-variant-hover-opacity));
+  }
+}
+
+.variant-plain {
+  opacity: var(--jv-variant-opacity);
+  color: rgb(var(--jv-theme-on-surface));
+  background-color: transparent;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+/* 禁用状态 */
+.variant-disabled {
+  opacity: var(--jv-variant-disabled-opacity);
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Mixins */
+@mixin variant-elevated {
+  box-shadow: var(--jv-shadow-sm);
+  color: rgb(var(--jv-theme-on-surface));
+  background-color: rgb(var(--jv-theme-surface));
+}
+
+@mixin variant-tonal {
+  background-color: rgb(var(--jv-theme-primary) var(--jv-variant-opacity));
+  color: rgb(var(--jv-theme-primary));
+}
+
+@mixin variant-outlined {
+  background-color: transparent;
+  border: var(--jv-variant-outline-width) solid currentcolor;
+  color: rgb(var(--jv-theme-primary));
+}
+
+@mixin variant-text {
+  background-color: transparent;
+  color: rgb(var(--jv-theme-primary));
+}
+
+@mixin variant-hover {
+  &:hover {
+    background-color: rgb(var(--jv-theme-primary) var(--jv-variant-opacity));
+  }
+}

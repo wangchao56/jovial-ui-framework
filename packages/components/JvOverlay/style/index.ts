@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-overlay.css'
+import '@jienix/jovial-theme/src/components/jv-overlay.scss'

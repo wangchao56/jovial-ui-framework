@@ -1313,7 +1313,7 @@ function hasOwnProperty$1(obj, key) {
 function getType(value) {
   return Object.prototype.toString.call(value);
 }
-function isArray$1(value) {
+function isArray(value) {
   return Array.isArray(value);
 }
 function isNull(value) {
@@ -1341,7 +1341,7 @@ function isString(value) {
   return getType(value) === "[object String]";
 }
 function isEmpty(value) {
-  if (isArray$1(value) || isString(value)) {
+  if (isArray(value) || isString(value)) {
     return value.length === 0;
   }
   if (isNumberExcludeNaN(value)) {
@@ -1570,6 +1570,12 @@ function on(element, event, handler) {
 function off(element, event, handler) {
   element.removeEventListener(event, handler);
 }
+function isElement(element) {
+  if (element == null) {
+    return false;
+  }
+  return typeof element === "object" && element.nodeType === 1 && typeof element.nodeName === "string";
+}
 function getCurrentInstance(name, message) {
   const vm = vue.getCurrentInstance();
   if (!vm) {
@@ -1605,6 +1611,18 @@ function injectSelf(key, vm = getCurrentInstance("injectSelf")) {
     return provides[key];
   }
   return void 0;
+}
+function get(obj, path, defaultValue) {
+  if (obj == null)
+    return defaultValue;
+  const keys2 = Array.isArray(path) ? path : path.split(".");
+  let result = obj;
+  for (const key of keys2) {
+    if (result == null || typeof result !== "object")
+      return defaultValue;
+    result = result[key];
+  }
+  return result === void 0 ? defaultValue : result;
 }
 function propsFactory(props, source) {
   return (defaults) => {
@@ -1697,7 +1715,6 @@ function composeRefs(...refs) {
     });
   };
 }
-var isArray = Array.isArray;
 function ensureOnlyChild(children) {
   if (!isArray(children) || children.length > 1) {
     throw new Error("expect to receive a single Vue element child");
@@ -1705,7 +1722,7 @@ function ensureOnlyChild(children) {
   return children[0];
 }
 function getSlotsFirstChild(slots) {
-  const [firstChild] = isFunction(slots) ? slots() : [];
+  const [firstChild] = isFunction$1(slots) ? slots() : [];
   return firstChild;
 }
 function isTextNode(vnode) {
@@ -1808,6 +1825,7 @@ exports.flipCorner = flipCorner;
 exports.flipSide = flipSide;
 exports.focusChild = focusChild;
 exports.focusableChildren = focusableChildren;
+exports.get = get;
 exports.getAxis = getAxis;
 exports.getCSSRule = getCSSRule;
 exports.getComponentName = getComponentName;
@@ -1835,12 +1853,13 @@ exports.includes = includes;
 exports.indigo = indigo;
 exports.info = info;
 exports.injectSelf = injectSelf;
-exports.isArray = isArray$1;
+exports.isArray = isArray;
 exports.isBoolean = isBoolean;
 exports.isClickInsideElement = isClickInsideElement;
 exports.isComposingIgnoreKey = isComposingIgnoreKey;
 exports.isCssColor = isCssColor;
 exports.isDate = isDate;
+exports.isElement = isElement;
 exports.isEmpty = isEmpty;
 exports.isEmptyObject = isEmptyObject;
 exports.isFunction = isFunction$1;

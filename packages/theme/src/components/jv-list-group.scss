@@ -1,0 +1,78 @@
+@use '../mixins/bem' as *;
+
+@include b(list-group) {
+  position: relative;
+
+  @include e(header) {
+    display: flex;
+    align-items: center;
+    padding: var(--jv-spacing-small) var(--jv-spacing-medium);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: var(--jv-color-bg-hover);
+    }
+  }
+
+  @include e(icon) {
+    margin-right: var(--jv-spacing-small);
+    color: var(--jv-color-text-secondary);
+    transition: transform 0.3s ease;
+    transform: rotate(90deg);
+
+    /* 默认旋转  */
+    &.is-expanded:not(.is-custom) {
+      transform: rotate(0deg);
+    }
+
+    /* 自定义图标不旋转 */
+    &.is-custom {
+      transform: none;
+    }
+  }
+
+  @include e(title) {
+    color: inherit;
+    font-size: var(--jv-font-size-base);
+    font-weight: var(--jv-font-weight-medium);
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @include e(content) {
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
+  }
+
+  /* 嵌套缩进 */
+  .jv-list-children {
+    padding-left: var(--jv-list-group-indent, 24px);
+  }
+}
+
+/* 动画相关 */
+.jv-expand-enter-active,
+.jv-expand-leave-active {
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.jv-expand-enter-from,
+.jv-expand-leave-to {
+  height: 0;
+  opacity: 0;
+}
+
+/* 禁用状态 */
+.jv-list-group--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+
+  .jv-list-group__header {
+    cursor: not-allowed;
+  }
+}

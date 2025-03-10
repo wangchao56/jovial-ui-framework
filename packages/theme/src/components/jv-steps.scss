@@ -1,0 +1,215 @@
+@use '../mixins/bem' as *;
+
+@include b(steps) {
+  display: flex;
+  width: 100%;
+
+  /* 水平布局 */
+  @include m(horizontal) {
+    flex-direction: row;
+
+    @include e(item) {
+      flex: 1;
+      padding-bottom: 20px;
+
+      &:last-child {
+        flex: none;
+      }
+    }
+
+    @include e(line) {
+      top: 16px;
+      right: -50%;
+      left: 50%;
+      height: 1px;
+    }
+  }
+
+  /* 垂直布局 */
+  @include m(vertical) {
+    flex-direction: column;
+
+    @include e(item) {
+      display: flex;
+      padding: 0 0 20px 20px;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+
+    @include e(line) {
+      top: 28px;
+      bottom: 0;
+      left: 16px;
+      width: 1px;
+    }
+
+    @include e(content) {
+      flex: 1;
+      padding-left: 12px;
+    }
+  }
+
+  /* 步骤项 */
+  @include e(item) {
+    position: relative;
+    white-space: nowrap;
+
+    /* 等待状态 */
+    @include m(wait) {
+      @include e(icon) {
+        background: var(--jv-color-white);
+        color: var(--jv-text-color-secondary);
+        border-color: var(--jv-border-color);
+      }
+
+      @include e(title) {
+        color: var(--jv-text-color-secondary);
+      }
+
+      @include e(description) {
+        color: var(--jv-text-color-secondary);
+      }
+
+      @include e(line) {
+        background: var(--jv-border-color);
+      }
+    }
+
+    /* 进行中状态 */
+    @include m(process) {
+      @include e(icon) {
+        background: var(--jv-color-primary);
+        color: var(--jv-color-white);
+        border-color: var(--jv-color-primary);
+      }
+
+      @include e(title) {
+        color: var(--jv-text-color);
+        font-weight: 500;
+      }
+
+      @include e(description) {
+        color: var(--jv-text-color);
+      }
+
+      @include e(line) {
+        background: var(--jv-border-color);
+      }
+    }
+
+    /* 完成状态 */
+    @include m(finish) {
+      @include e(icon) {
+        background: var(--jv-color-white);
+        color: var(--jv-color-primary);
+        border-color: var(--jv-color-primary);
+      }
+
+      @include e(title) {
+        color: var(--jv-text-color);
+      }
+
+      @include e(description) {
+        color: var(--jv-text-color-secondary);
+      }
+
+      @include e(line) {
+        background: var(--jv-color-primary);
+      }
+    }
+
+    /* 错误状态 */
+    @include m(error) {
+      @include e(icon) {
+        background: var(--jv-color-danger);
+        color: var(--jv-color-white);
+        border-color: var(--jv-color-danger);
+      }
+
+      @include e(title) {
+        color: var(--jv-color-danger);
+      }
+
+      @include e(description) {
+        color: var(--jv-color-danger);
+      }
+
+      @include e(line) {
+        background: var(--jv-border-color);
+      }
+    }
+
+    @include when(clickable) {
+      cursor: pointer;
+
+      &:hover {
+        @include e(title) {
+          color: var(--jv-color-primary);
+        }
+      }
+    }
+
+    @include when(disabled) {
+      cursor: not-allowed;
+
+      @include e(icon) {
+        background: var(--jv-disabled-bg-color);
+        color: var(--jv-text-color-disabled);
+        border-color: var(--jv-border-color);
+      }
+
+      @include e(description) {
+        color: var(--jv-text-color-disabled);
+      }
+    }
+  }
+
+  /* 图标 */
+  @include e(icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+    border: 1px solid var(--jv-border-color);
+    border-radius: 50%;
+    font-size: 16px;
+    transition: all 0.3s;
+  }
+
+  /* 连接线 */
+  @include e(line) {
+    position: absolute;
+    background: var(--jv-border-color);
+    transition: all 0.3s;
+  }
+
+  /* 内容区域 */
+  @include e(content) {
+    padding-top: 8px;
+    text-align: center;
+  }
+
+  /* 标题 */
+  @include e(title) {
+    font-size: 14px;
+    line-height: 1.5;
+    transition: color 0.3s;
+  }
+
+  /* 描述 */
+  @include e(description) {
+    margin-top: 4px;
+    color: var(--jv-text-color-secondary);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* 禁用状态 */
+  @include when(disabled) {
+    cursor: not-allowed;
+  }
+}

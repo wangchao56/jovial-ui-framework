@@ -11,6 +11,7 @@
     "tsc": "vue-tsc -b"
   },
   "dependencies": {
-    "@jienix/jovial-theme": "workspace:*"
+    "@jienix/jovial-theme": "workspace:*",
+    "@jienix/utils": "workspace:*"
   }
 }

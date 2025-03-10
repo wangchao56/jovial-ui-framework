@@ -1,0 +1,87 @@
+@use '../mixins/bem' as *;
+
+@include b(avatar) {
+  display: inline-flex;
+  position: relative;
+  color: rgb(var(--jv-theme-on-primary));
+  font-weight: var(--jv-font-weight-medium);
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: rgb(var(--jv-theme-primary));
+  font-family: var(--jv-font-family);
+  user-select: none;
+
+  /* 尺寸变体 */
+  @include m(small) {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  @include m(medium) {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  @include m(large) {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  @include m(xlarge) {
+    width: 64px;
+    height: 64px;
+    font-size: 24px;
+  }
+
+  /* 形状变体 */
+  @include m(circle) {
+    border-radius: 50%;
+  }
+
+  @include m(rounded) {
+    border-radius: var(--jv-radius-medium);
+  }
+
+  @include m(square) {
+    border-radius: 0;
+  }
+
+  @include m(bordered) {
+    border: 2px solid rgb(var(--jv-theme-background));
+  }
+
+  @include m(clickable) {
+    cursor: pointer;
+    transition:
+      transform var(--jv-transition-fast) var(--jv-easing-standard),
+      box-shadow var(--jv-transition-fast) var(--jv-easing-standard);
+
+    &:hover {
+      box-shadow: var(--jv-shadow-2);
+      transform: translateY(-2px);
+    }
+  }
+
+  @include e(image) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @include e((content, text, icon)) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  @include e(icon) {
+    font-size: 1.2em;
+  }
+}

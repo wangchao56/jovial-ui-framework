@@ -1,0 +1,163 @@
+@use '../mixins/bem' as *;
+
+@include b(input-number) {
+  position: relative;
+  width: 100%;
+  font-family: var(--jv-font-family);
+  color: var(--jv-on-surface);
+
+  @include e(label) {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--jv-on-surface-medium);
+    font-size: var(--jv-font-size-sm);
+  }
+
+  @include e(wrapper) {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    border: 1px solid var(--jv-border);
+    border-radius: var(--jv-radius-medium);
+    overflow: hidden;
+    transition: all 0.2s;
+
+    &:hover {
+      border-color: var(--jv-primary);
+    }
+
+    &:focus-within {
+      border-color: var(--jv-primary);
+      box-shadow: 0 0 0 2px rgba(var(--jv-primary-rgb), 0.2);
+    }
+  }
+
+  @include when(disabled) {
+    @include e(wrapper) {
+      background-color: var(--jv-surface-disabled);
+      border-color: var(--jv-border);
+      color: var(--jv-on-surface-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  @include when(error) {
+    @include e(wrapper) {
+      border-color: var(--jv-error);
+
+      &:focus-within {
+        box-shadow: 0 0 0 2px rgba(var(--jv-error-rgb), 0.2);
+      }
+    }
+  }
+
+  @include when(success) {
+    @include e(wrapper) {
+      border-color: var(--jv-success);
+
+      &:focus-within {
+        box-shadow: 0 0 0 2px rgba(var(--jv-success-rgb), 0.2);
+      }
+    }
+  }
+
+  @include e(decrease) {
+    display: flex;
+    width: 32px;
+    height: 100%;
+    padding: 0;
+    border: none;
+    color: var(--jv-on-surface);
+    cursor: pointer;
+    transition: all 0.2s;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--jv-surface-variant);
+
+    &:hover {
+      background-color: var(--jv-hover);
+    }
+
+    &:disabled {
+      background-color: var(--jv-surface-disabled);
+      color: var(--jv-on-surface-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  @include e(input) {
+    flex: 1;
+    height: 100%;
+    padding: 0 8px;
+    border: none;
+    background-color: var(--jv-surface);
+    color: var(--jv-on-surface);
+    font-size: var(--jv-font-size-md);
+    text-align: center;
+    outline: none;
+
+    &:disabled {
+      background-color: var(--jv-surface-disabled);
+      color: var(--jv-on-surface-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  @include e(helper-text) {
+    margin-top: 4px;
+    color: var(--jv-on-surface-medium);
+    font-size: var(--jv-font-size-xs);
+  }
+
+  @include e(error-text) {
+    margin-top: 4px;
+    color: var(--jv-error);
+    font-size: var(--jv-font-size-xs);
+  }
+
+  /* 尺寸变体 */
+  @include m(small) {
+    @include e(wrapper) {
+      height: 32px;
+    }
+
+    @include e(input) {
+      font-size: var(--jv-font-size-sm);
+    }
+
+    @include e(decrease) {
+      width: 28px;
+    }
+
+    @include e(increase) {
+      width: 28px;
+    }
+  }
+
+  @include m(large) {
+    @include e(wrapper) {
+      height: 48px;
+    }
+
+    @include e(input) {
+      font-size: var(--jv-font-size-lg);
+    }
+
+    @include e(decrease) {
+      width: 36px;
+    }
+
+    @include e(increase) {
+      width: 36px;
+    }
+  }
+
+  @include m(disabled) {
+    @include e(wrapper) {
+      background-color: var(--jv-surface-disabled);
+      border-color: var(--jv-border);
+      color: var(--jv-on-surface-disabled);
+    }
+  }
+}

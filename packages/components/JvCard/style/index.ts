@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-card.css'
+import '@jienix/jovial-theme/src/components/jv-card.scss'

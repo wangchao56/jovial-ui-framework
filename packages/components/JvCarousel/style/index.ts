@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-carousel.css'
+import '@jienix/jovial-theme/src/components/jv-carousel.scss'

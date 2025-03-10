@@ -1,0 +1,27 @@
+[data-theme='light'] {
+  /* 基础颜色 */
+  --jv-theme-background: #f5f5f5;
+  --jv-theme-surface: #fff;
+  --jv-theme-primary: #6200ee;
+  --jv-theme-secondary: #03dac4;
+  --jv-theme-success: #00c853;
+  --jv-theme-warning: #ffd600;
+  --jv-theme-error: #d50000;
+  --jv-theme-info: #2196f3;
+
+  /* 前景色（文字颜色） */
+  --jv-theme-on-background: #000;
+  --jv-theme-on-surface: #000;
+  --jv-theme-on-primary: #fff;
+  --jv-theme-on-secondary: #000;
+  --jv-theme-on-success: #fff;
+  --jv-theme-on-warning: #000;
+  --jv-theme-on-error: #fff;
+  --jv-theme-on-info: #fff;
+
+  /* 变体颜色 */
+  --jv-theme-primary-light: #7c4dff;
+  --jv-theme-primary-dark: #4a148c;
+  --jv-theme-secondary-light: #64ffda;
+  --jv-theme-secondary-dark: #00bfa5;
+}

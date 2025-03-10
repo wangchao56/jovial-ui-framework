@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-switch.css'
+import '@jienix/jovial-theme/src/components/jv-switch.scss'

@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-space.css'
+import '@jienix/jovial-theme/src/components/jv-space.scss'

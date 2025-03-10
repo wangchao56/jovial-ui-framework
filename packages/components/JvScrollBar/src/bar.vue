@@ -4,7 +4,7 @@ import { createNamespace } from '@jienix/utils'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { jvBarProps } from './bar'
 
-defineOptions({ name: 'JvBar' })
+defineOptions({ name: 'JvBar', inheritAttrs: false })
 
 const props = defineProps(jvBarProps)
 

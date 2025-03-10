@@ -13,12 +13,10 @@
     "noUncheckedSideEffectImports": true
   },
   "include": [
-    "**/*.ts",
-    "**/*.d.ts",
-    "**/*.tsx",
-    "**/*.vue",
-    "**/*.css",
-    "./**/*.css",
+    "./**/*.ts",
+    "./**/*.d.ts",
+    "./**/*.tsx",
+    "./**/*.vue",
     "auto-imports.d.ts"
   ]
 }

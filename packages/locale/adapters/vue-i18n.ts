@@ -21,6 +21,10 @@ interface VueI18nAdapterParams {
  * @returns 响应式引用
  */
 function useProvided<T>(props: any, prop: string, provided: Ref<T>) {
+  if (!provided || typeof prop !== 'string') {
+    throw new Error('Invalid parameters provided to useProvided')
+  }
+
   const internal = useModel(props, prop)
   internal.value = props[prop] ?? provided.value
 
@@ -28,7 +32,7 @@ function useProvided<T>(props: any, prop: string, provided: Ref<T>) {
     if (props[prop] == null) {
       internal.value = v
     }
-  })
+  }, { immediate: true }) // 添加immediate选项确保初始值同步
 
   return internal as Ref<T>
 }
@@ -98,17 +102,48 @@ function createProvideFunction(data: {
  * 6. 支持数字格式化
  */
 export function createVueI18nAdapter({ i18n, useI18n }: VueI18nAdapterParams): LocaleInstance {
+  if (!i18n || !useI18n) {
+    throw new Error('i18n instance and useI18n function are required')
+  }
+
   const current = i18n.global.locale
   const fallback = i18n.global.fallbackLocale as Ref<any>
   const messages = i18n.global.messages
 
-  return {
+  // 添加错误处理
+  if (!current || !fallback || !messages) {
+    throw new Error('Invalid i18n configuration')
+  }
+
+  const instance: LocaleInstance = {
     name: 'vue-i18n',
     current,
     fallback,
     messages,
-    t: ((key: string, ...params: unknown[]) => i18n.global.t(key, params)) as LocaleInstance['t'],
-    n: i18n.global.n as LocaleInstance['n'],
+    t: ((key: string, ...params: unknown[]) => {
+      if (typeof key !== 'string') {
+        throw new TypeError('Translation key must be a string')
+      }
+      return i18n.global.t(key, params)
+    }) as LocaleInstance['t'],
+    n: ((value: number, options?: Intl.NumberFormatOptions) => {
+      if (typeof value !== 'number') {
+        throw new TypeError('Value must be a number')
+      }
+      return i18n.global.n(value, options)
+    }) as LocaleInstance['n'],
     provide: createProvideFunction({ current, fallback, messages, useI18n }),
   }
+
+  return instance
+}
+
+// 添加类型保护函数
+export function isVueI18nInstance(i18n: any): i18n is I18n<any, {}, {}, string, false> {
+  return i18n
+    && typeof i18n === 'object'
+    && 'global' in i18n
+    && 'locale' in i18n.global
+    && 'fallbackLocale' in i18n.global
+    && 'messages' in i18n.global
 }

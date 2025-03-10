@@ -1,0 +1,33 @@
+[data-theme='dark'] {
+  /* 基础颜色 */
+  --jv-theme-background: #121212;
+  --jv-theme-surface: #1e1e1e;
+  --jv-theme-primary: #bb86fc;
+  --jv-theme-secondary: #03dac4;
+  --jv-theme-success: #00e676;
+  --jv-theme-warning: #ffd600;
+  --jv-theme-error: #cf6679;
+  --jv-theme-info: #64b5f6;
+
+  /* 前景色（文字颜色） */
+  --jv-theme-on-background: #fff;
+  --jv-theme-on-surface: #fff;
+  --jv-theme-on-primary: #000;
+  --jv-theme-on-secondary: #000;
+  --jv-theme-on-success: #000;
+  --jv-theme-on-warning: #000;
+  --jv-theme-on-error: #000;
+  --jv-theme-on-info: #000;
+
+  /* 变体颜色 */
+  --jv-theme-primary-light: #e1bee7;
+  --jv-theme-primary-dark: #7b1fa2;
+  --jv-theme-secondary-light: #1de9b6;
+  --jv-theme-secondary-dark: #00bfa5;
+
+  /* 暗色主题特有的一些调整 */
+  color-scheme: dark;
+
+  --jv-theme-shadow: 0 2px 8px rgb(0 0 0 / 50%);
+  --jv-theme-overlay: rgb(255 255 255 / 10%);
+}

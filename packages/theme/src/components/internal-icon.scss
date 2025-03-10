@@ -1,0 +1,11 @@
+// 内部图标样式
+.jv-internal-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+}

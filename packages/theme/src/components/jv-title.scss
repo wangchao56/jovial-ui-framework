@@ -1,0 +1,65 @@
+@use '../mixins/bem' as *;
+
+@include b(title) {
+  --jv-title-line-height: 1.3;
+  --jv-title-spacing: 1.2em;
+
+  margin: var(--jv-title-spacing) 0;
+  color: var(--jv-text-color-primary);
+  font-weight: 700;
+  line-height: var(--jv-title-line-height);
+
+  /* 等级 */
+  @include m(level-1) {
+    font-size: var(--jv-font-size-3xl);
+    letter-spacing: -0.02em;
+  }
+
+  @include m(level-2) {
+    font-size: var(--jv-font-size-2xl);
+  }
+
+  @include m(level-3) {
+    font-size: var(--jv-font-size-xl);
+  }
+
+  @include m(level-4) {
+    font-size: var(--jv-font-size-lg);
+  }
+
+  @include m(level-5) {
+    font-size: var(--jv-font-size-md);
+  }
+
+  @include m(level-6) {
+    font-size: var(--jv-font-size-sm);
+  }
+
+  @include m(sr-only) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  /* 直排模式 */
+  &[data-writing-mode='vertical'] {
+    padding: 0.8em 0;
+    line-height: 2;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+
+  @include m(horizontal) {
+    writing-mode: horizontal-tb;
+  }
+
+  @include m(vertical) {
+    writing-mode: vertical-rl;
+  }
+}

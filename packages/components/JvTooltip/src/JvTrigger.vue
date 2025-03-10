@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { JvTooltipTriggerProps } from './trigger'
 import JvText from '@components/Typography/src/JvText.vue'
-import { isString } from '@jienix/utils'
-import isElement from 'lodash-es/isElement'
+import { isElement, isString } from '@jienix/utils'
 import { isVNode, type VNode, type VNodeChild } from 'vue'
 import JvFragmentWrapper from './fragment-wrapper'
 import { setupTriggerEventsAndApplyEffect } from './useTootipManager'
@@ -74,9 +73,3 @@ onBeforeUnmount(() => {
     </template>
   </JvFragmentWrapper>
 </template>
-
-<style>
-.jv-tooltip__trigger {
-  cursor: pointer;
-}
-</style>

@@ -1,0 +1,319 @@
+@use '../mixins/bem' as *;
+
+@supports selector(:focus-visible) {
+  .jv-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@supports selector(:focus-visible) {
+  .jv-button::after {
+    pointer-events: none;
+    border: 2px solid currentcolor;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+}
+
+@include b(button) {
+  /* 按钮大小 */
+  --jv-btn-size: 14px;
+
+  /* 按钮高度 */
+  --jv-btn-height: 36px;
+
+  /* 文本颜色 */
+  --jv-btn-color: var(--jv-theme-on-surface);
+
+  /* 背景颜色 */
+  --jv-btn-bgcolor: var(--jv-theme-surface);
+
+  /* 边框颜色 */
+  --jv-btn-border-color: var(--jv-theme-on-surface);
+
+  /* 禁用状态文本颜色 */
+  --jv-btn-disabled-color: var(--jv-theme-on-surface);
+
+  /* 禁用状态背景颜色 */
+  --jv-btn-disabled-bg: var(--jv-theme-on-surface);
+
+  /* 按钮圆角 */
+  --jv-btn-border-radius: 4px;
+
+  /* 按钮宽度 */
+  --jv-btn-width: fit-content;
+
+  display: inline-grid;
+  position: relative;
+  width: var(--jv-btn-width);
+  height: var(--jv-btn-height);
+  border: 0;
+  border-radius: var(--jv-btn-border-radius);
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  cursor: pointer;
+  grid-template-areas: 'prepend content append';
+  grid-template-columns: max-content 1fr max-content;
+  align-items: center;
+  letter-spacing: 0.0892857em;
+  max-width: 100%;
+  text-indent: 0.0892857em;
+  text-transform: uppercase;
+  transition-property: box-shadow, transform, opacity, background;
+  transition-duration: 0.28s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  vertical-align: middle;
+  flex-shrink: 0;
+  outline: none;
+  box-sizing: border-box;
+  column-gap: 4px;
+  background-color: rgba(var(--jv-btn-bgcolor), 1);
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--jv-btn-border-color);
+  }
+
+  @include e(content) {
+    border-radius: inherit;
+    color: inherit;
+    font-size: 1rem;
+    line-height: 1.25;
+    text-align: center;
+    grid-area: content;
+    flex-direction: column;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  @include e(prepend) {
+    grid-area: prepend;
+    justify-self: start;
+    border-radius: inherit;
+    color: inherit;
+  }
+
+  @include e(append) {
+    grid-area: append;
+    justify-self: end;
+    border-radius: inherit;
+    color: inherit;
+  }
+
+  @include m(tiny) {
+    --jv-btn-size: 0.625rem;
+    --jv-btn-height: 20px;
+
+    padding: 0 15px;
+
+    & > .button__content {
+      font-size: var(--jv-btn-size) !important;
+      line-height: calc(var(--jv-btn-size) + 3px);
+    }
+  }
+
+  @include m(small) {
+    --jv-btn-size: 0.75rem;
+    --jv-btn-height: 28px;
+
+    padding: 0 18px;
+
+    & > .button__content {
+      font-size: var(--jv-btn-size) !important;
+      line-height: calc(var(--jv-btn-size) + 3px);
+    }
+  }
+
+  @include m(medium) {
+    --jv-btn-size: 0.875rem;
+    --jv-btn-height: 36px;
+
+    padding: 0 20px;
+
+    & > .button__content {
+      font-size: var(--jv-btn-size) !important;
+      line-height: calc(var(--jv-btn-size) + 3px);
+    }
+  }
+
+  @include m(large) {
+    --jv-btn-size: 1rem;
+    --jv-btn-height: 44px;
+
+    padding: 0 22px;
+
+    & > .button__content {
+      font-size: var(--jv-btn-size);
+      line-height: calc(var(--jv-btn-size) + 3px);
+    }
+  }
+
+  @include m(x-large) {
+    --jv-btn-size: 1.125rem;
+    --jv-btn-height: 52px;
+
+    height: var(--jv-btn-height);
+    padding: 0 25px;
+
+    & > .button__content {
+      font-size: var(--jv-btn-size) !important;
+      line-height: calc(var(--jv-btn-size) + 3px);
+    }
+  }
+
+  @include m(primary) {
+    /* 主色 */
+    --jv-btn-color: var(--jv-theme-on-primary);
+    --jv-btn-bgcolor: var(--jv-theme-primary);
+  }
+
+  @include m(success) {
+    --jv-btn-color: var(--jv-theme-on-success);
+    --jv-btn-bgcolor: var(--jv-theme-success);
+  }
+
+  @include m(warning) {
+    --jv-btn-color: var(--jv-theme-on-warning);
+    --jv-btn-bgcolor: var(--jv-theme-warning);
+  }
+
+  @include m(error) {
+    --jv-btn-color: var(--jv-theme-on-error);
+    --jv-btn-bgcolor: var(--jv-theme-error);
+  }
+
+  @include m(info) {
+    --jv-btn-color: var(--jv-theme-on-info);
+    --jv-btn-bgcolor: var(--jv-theme-info);
+  }
+
+  /* 变体 */
+  @include m(text) {
+    /* 文本变体
+      描述:移除背景颜色和阴影
+    */
+    background-color: transparent;
+    color: rgba(var(--jv-btn-color), 1);
+
+    &:hover {
+      background-color: rgba(var(--jv-btn-bgcolor), 0.04);
+    }
+  }
+
+  @include m(plain) {
+    /* 朴素变体
+      描述:移除背景颜色并且在未悬停时降低透明度
+    */
+    background-color: transparent;
+
+    /* 朴素变体的颜色 变亮 */
+    color: rgba(var(--jv-btn-color), 0.6);
+
+    &:hover {
+      color: rgba(var(--jv-btn-color), 1);
+    }
+  }
+
+  @include m(flat) {
+    /* 平面变体
+      描述:移除按钮的阴影效果
+    */
+    box-shadow: none;
+  }
+
+  @include m(tonal) {
+    /* 色调变体
+      描述:按钮的背景颜色被设为文字颜色的高透明度版本
+    */
+    background-color: rgba(var(--jv-btn-color), 0.04);
+  }
+
+  @include m(outlined) {
+    /* 轮廓变体
+      描述:
+      1. 按钮有边框
+      2. 按钮有阴影
+    */
+    border: thin solid currentcolor;
+    background-color: transparent;
+    color: rgb(var(--jv-theme-primary));
+  }
+
+  @include m(elevated) {
+    /* 提升变体
+      描述:使用按钮的阴影强调
+    */
+    background-color: rgb(var(--jv-btn-bgcolor));
+    box-shadow:
+      0 3px 1px -2px rgb(0 0 0 / 20%),
+      0 2px 2px 0 rgb(0 0 0 / 14%),
+      0 1px 5px 0 rgb(0 0 0 / 12%);
+    color: rgb(var(--jv-btn-color));
+  }
+
+  /* 禁用状态 */
+  @include when(disabled) {
+    opacity: 0.6;
+    color: rgb(var(--jv-btn-disabled-color), 0.6);
+    background-color: rgb(var(--jv-btn-disabled-bg), 0.6);
+    border-color: transparent;
+    cursor: not-allowed;
+
+    & > .jv-button__content {
+      cursor: not-allowed;
+    }
+
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+    }
+  }
+
+  @include when(rounded) {
+    border-radius: 20px;
+  }
+
+  @include when(block) {
+    display: block grid;
+    width: 100%;
+  }
+
+  @include when(dashed) {
+    border-width: 2px;
+    border-style: dashed;
+    background-color: transparent !important;
+    box-shadow: none;
+  }
+
+  /* 加载状态 */
+  @include when(loading) {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+
+    & > .jv-button__content {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    & > .jv-button__loader {
+      grid-area: content;
+      justify-self: center;
+    }
+  }
+
+  & > .jv-button__icon {
+    color: black;
+  }
+}

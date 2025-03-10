@@ -1,7 +1,7 @@
 import { withInstall } from '@jienix/utils'
-import _JvList from './src/JvList.setup'
-import _JvListGroup from './src/JvListGroup.setup'
-import _JvListItem from './src/JvListItem.setup'
+import _JvList from './src/JvList.vue'
+import _JvListGroup from './src/JvListGroup.vue'
+import _JvListItem from './src/JvListItem.vue'
 import './style'
 
 const JvList = withInstall(_JvList)

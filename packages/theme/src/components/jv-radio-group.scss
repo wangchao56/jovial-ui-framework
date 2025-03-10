@@ -1,0 +1,85 @@
+@use '../mixins/bem' as *;
+
+@include b(radio-group) {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-width: 0;
+  gap: 16px;
+  flex-flow: row wrap;
+
+  &.is-column {
+    flex-direction: column;
+    gap: 12px;
+
+    .jv-radio {
+      margin-right: 0;
+      margin-bottom: 8px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &.is-inline {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+
+    /* 隐藏滚动条但保留功能 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    .jv-radio {
+      flex-shrink: 0;
+    }
+  }
+
+  @include e(legend) {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 0;
+    padding-bottom: 8px;
+    color: var(--jv-text-color-primary);
+    font-size: var(--jv-font-size-medium, 14px);
+    font-weight: 500;
+    border-bottom: 1px solid var(--jv-border-color-light, rgb(0 0 0 / 10%));
+  }
+
+  /* 添加边框样式 */
+  &.is-bordered {
+    padding: 16px;
+    border: 1px solid var(--jv-border-color, #dcdfe6);
+    border-radius: var(--jv-border-radius-base, 4px);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
+    background-color: var(--jv-bg-color, #fff);
+
+    @include e(legend) {
+      margin: -16px -16px 16px;
+      padding: 8px 16px;
+      border-bottom: 1px solid var(--jv-border-color, #dcdfe6);
+      background-color: var(--jv-bg-color-light, #f5f7fa);
+      border-radius: var(--jv-border-radius-base, 4px) var(--jv-border-radius-base, 4px) 0 0;
+    }
+  }
+
+  /* 紧凑模式 */
+  &.is-compact {
+    gap: 8px;
+
+    &.is-column {
+      gap: 4px;
+
+      .jv-radio {
+        margin-bottom: 4px;
+      }
+    }
+  }
+}

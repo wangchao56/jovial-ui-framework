@@ -1,0 +1,227 @@
+@use '../mixins/bem' as *;
+
+@include b(slider) {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 32px;
+  align-items: center;
+
+  &.is-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    @include e(bar) {
+      background-color: rgb(var(--jv-theme-on-surface) 0.26);
+    }
+
+    @include e(runway) {
+      background-color: rgb(var(--jv-theme-on-surface) 0.12);
+    }
+  }
+
+  @include e(runway) {
+    position: relative;
+    height: 4px;
+    border-radius: 4px;
+    transition: 0.2s;
+    flex: 1;
+    background-color: rgb(var(--jv-theme-on-surface) 0.12);
+
+    &:hover {
+      @include e(bar) {
+        height: 6px;
+      }
+    }
+  }
+
+  @include e(bar) {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    transform: translateY(-50%);
+    background-color: rgb(var(--jv-theme-primary));
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      right: -7px;
+      width: 14px;
+      height: 14px;
+      background: rgb(var(--jv-theme-background));
+      border: 2px solid rgb(var(--jv-theme-primary));
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
+      transition: 0.2s;
+      transform: translateY(-50%);
+      content: '';
+    }
+  }
+
+  @include e(input) {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1;
+    transform: translateY(-50%);
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &:hover + .jv-slider__bar::after {
+      background: rgb(var(--jv-theme-background));
+      box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
+      transform: translateY(-50%) scale(1.2);
+    }
+
+    &:active + .jv-slider__bar::after {
+      background: rgb(var(--jv-theme-background));
+      transform: translateY(-50%) scale(1.4);
+    }
+  }
+
+  @include e(value) {
+    margin-left: 12px;
+    min-width: 40px;
+    color: rgb(var(--jv-theme-on-surface));
+    font-size: 14px;
+    user-select: none;
+  }
+
+  &.is-vertical {
+    width: 32px;
+    height: 300px;
+
+    @include e(runway) {
+      width: 4px;
+      height: 100%;
+    }
+
+    @include e(bar) {
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      height: var(--percentage);
+      transform: translateX(-50%);
+    }
+
+    @include e(stop) {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @include e(tick) {
+      top: auto;
+      left: 100%;
+      margin-left: 2px;
+      transform: translateY(50%);
+    }
+
+    @include e(tick-label) {
+      top: 50%;
+      left: 100%;
+      margin-left: 10px;
+      transform: translateY(-50%);
+    }
+  }
+
+  @include e(input-wrapper) {
+    width: 60px;
+    margin-right: 16px;
+  }
+
+  @include e(number-input) {
+    width: 100%;
+    height: 32px;
+    padding: 0 8px;
+    border: 1px solid rgb(var(--jv-theme-on-surface) 0.12);
+    border-radius: 4px;
+
+    &:focus {
+      border-color: rgb(var(--jv-theme-primary));
+      outline: none;
+    }
+
+    &:disabled {
+      background-color: rgb(var(--jv-theme-on-surface) 0.06);
+      cursor: not-allowed;
+    }
+  }
+
+  @include e(stop) {
+    position: absolute;
+    top: 50%;
+    width: 4px;
+    height: 4px;
+    margin-top: -2px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(var(--jv-theme-on-surface) 0.3);
+  }
+
+  @include e(tooltip) {
+    position: absolute;
+    top: -30px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: rgb(var(--jv-theme-on-primary));
+    font-size: 12px;
+    transform: translateX(-50%);
+    background-color: rgb(var(--jv-theme-primary));
+    white-space: nowrap;
+
+    &::after {
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      border: 4px solid transparent;
+      transform: translateX(-50%);
+      content: '';
+      border-top-color: rgb(var(--jv-theme-primary));
+    }
+  }
+
+  @include e(marks) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 8px;
+    color: rgb(var(--jv-theme-on-surface) 0.7);
+    font-size: 12px;
+  }
+
+  @include e(tick) {
+    position: absolute;
+    top: 100%;
+    width: 2px;
+    height: 6px;
+    margin-top: 2px;
+    transition: 0.2s;
+    transform: translateX(-50%);
+    background-color: rgb(var(--jv-theme-on-surface) 0.3);
+
+    &.is-active {
+      background-color: rgb(var(--jv-theme-primary));
+    }
+  }
+
+  @include e(tick-label) {
+    position: absolute;
+    top: 100%;
+    margin-top: 10px;
+    color: rgb(var(--jv-theme-on-surface));
+    font-size: 12px;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+}

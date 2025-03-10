@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-tree.css'
+import '@jienix/jovial-theme/src/components/jv-tree.scss'

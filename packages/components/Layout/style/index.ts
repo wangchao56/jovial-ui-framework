@@ -1,3 +1,3 @@
-import '@jienix/jovial-theme/src/components/jv-layout.css'
-import '@jienix/jovial-theme/src/components/jv-col.css'
-import '@jienix/jovial-theme/src/components/jv-row.css'
+import '@jienix/jovial-theme/src/components/jv-layout.scss'
+import '@jienix/jovial-theme/src/components/jv-col.scss'
+import '@jienix/jovial-theme/src/components/jv-row.scss'

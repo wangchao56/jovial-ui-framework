@@ -1,0 +1,12 @@
+@use '../mixins/bem' as *;
+
+@include b(circle-progress) {
+  display: inline-block;
+  width: var(--jv-progress-width);
+  height: var(--jv-progress-width);
+  border-radius: var(--jv-progress-radius);
+
+  circle {
+    transition: stroke-dashoffset 0.6s ease;
+  }
+}

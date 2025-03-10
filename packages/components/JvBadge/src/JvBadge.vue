@@ -2,7 +2,6 @@
 import { createNamespace } from '@jienix/utils'
 import { computed } from 'vue'
 import { jvBadgeEmits, jvBadgeProps } from './JvBadge'
-import '../style/style.css'
 
 defineOptions({ name: 'JvBadge' })
 const props = defineProps(jvBadgeProps)

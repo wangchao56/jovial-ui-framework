@@ -4,7 +4,6 @@ import type {
   JvButtonExposed,
   JvButtonSlots,
 } from './JvButton'
-import { Loading } from '@components/internal-icon/index'
 import JvIcon from '@components/JvIcon'
 import { useTheme } from '@jienix/jovial-theme'
 import { createNamespace } from '@jienix/utils'
@@ -105,9 +104,7 @@ defineExpose<JvButtonExposed>({
     </span>
 
     <span v-if="loading" :class="bem.e('loader')">
-      <JvIcon :size="size" :color="color">
-        <Loading />
-      </JvIcon>
+      <JvIcon :size="size" :color="color" name="$loading" />
     </span>
 
     <span v-if="$slots.default || icon" :class="bem.e('content')">

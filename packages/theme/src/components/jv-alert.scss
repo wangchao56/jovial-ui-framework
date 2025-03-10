@@ -1,0 +1,172 @@
+@use '../mixins/bem' as *;
+
+// 警告框类型混合
+@mixin alert-type($type) {
+  --jv-alert-background-color: rgba(var(--jv-theme-#{$type}), 0.1);
+  --jv-alert-color: rgb(var(--jv-theme-#{$type}));
+  --jv-alert-border-color: rgb(var(--jv-theme-#{$type}));
+  --jv-alert-icon-color: rgb(var(--jv-theme-#{$type}));
+  @content;
+}
+
+@include b(alert) {
+  // 基础变量
+  --jv-alert-background-color: rgba(var(--jv-theme-info), 0.1);
+  --jv-alert-color: rgb(var(--jv-theme-on-surface));
+  --jv-alert-border-color: transparent;
+  --jv-alert-icon-color: rgb(var(--jv-theme-info));
+
+  // 间距变量
+  --jv-alert-padding: var(--jv-spacing-sm) var(--jv-spacing-md);
+  --jv-alert-margin-bottom: var(--jv-spacing-md);
+  --jv-alert-border-radius: var(--jv-radius-small);
+  --jv-alert-border-width: 1px;
+  --jv-alert-border-left-width: 4px;
+
+  // 字体变量
+  --jv-alert-title-font-size: var(--jv-font-size-md);
+  --jv-alert-title-font-weight: var(--jv-font-weight-medium);
+  --jv-alert-title-margin-bottom: var(--jv-spacing-xs);
+  --jv-alert-message-font-size: var(--jv-font-size-sm);
+  --jv-alert-icon-font-size: 1.5rem;
+  --jv-alert-icon-margin-right: var(--jv-spacing-sm);
+  --jv-alert-close-margin-left: var(--jv-spacing-sm);
+
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  padding: var(--jv-alert-padding);
+  margin-bottom: var(--jv-alert-margin-bottom);
+  border-radius: var(--jv-alert-border-radius);
+  border: var(--jv-alert-border-width) solid var(--jv-alert-border-color);
+  background-color: var(--jv-alert-background-color);
+  color: var(--jv-alert-color);
+  font-family: var(--jv-font-family);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all var(--jv-transition-normal) var(--jv-easing-standard);
+
+  // 紧凑模式
+  &--dense {
+    padding: var(--jv-spacing-xs) var(--jv-spacing-sm);
+    --jv-alert-icon-font-size: 1.25rem;
+    --jv-alert-title-font-size: var(--jv-font-size-sm);
+    --jv-alert-message-font-size: var(--jv-font-size-xs);
+    --jv-alert-title-margin-bottom: var(--jv-spacing-2xs);
+  }
+
+  // 类型样式
+  @each $type in (info, success, warning, error) {
+    &--#{$type} {
+      @include alert-type($type);
+
+      // 默认样式 - 轻量背景
+      background-color: var(--jv-alert-background-color);
+      color: var(--jv-alert-color);
+      border-color: transparent;
+
+      .jv-alert__icon {
+        color: var(--jv-alert-icon-color);
+      }
+
+      // 填充样式
+      &.jv-alert--filled {
+        background-color: var(--jv-alert-border-color);
+        color: #fff;
+
+        .jv-alert__icon,
+        .jv-alert__close {
+          color: #fff;
+        }
+      }
+
+      // 轮廓样式
+      &.jv-alert--outlined {
+        background-color: transparent;
+        border-color: var(--jv-alert-border-color);
+      }
+
+      // 左边框样式
+      &.jv-alert--border-left {
+        border-left-width: var(--jv-alert-border-left-width);
+        border-left-color: var(--jv-alert-border-color);
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-radius: 0;
+      }
+    }
+  }
+
+  // 图标
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: var(--jv-alert-icon-margin-right);
+    font-size: var(--jv-alert-icon-font-size);
+    color: var(--jv-alert-icon-color);
+    flex-shrink: 0;
+  }
+
+  // 内容区域
+  &__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  // 标题
+  &__title {
+    font-size: var(--jv-alert-title-font-size);
+    font-weight: var(--jv-alert-title-font-weight);
+    margin-bottom: var(--jv-alert-title-margin-bottom);
+    line-height: 1.4;
+  }
+
+  // 消息
+  &__message {
+    font-size: var(--jv-alert-message-font-size);
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+
+  // 关闭按钮
+  &__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: var(--jv-alert-close-margin-left);
+    opacity: 0.7;
+    transition: opacity var(--jv-transition-fast) var(--jv-easing-standard);
+    flex-shrink: 0;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// 动画效果
+.jv-alert-fade-enter-active,
+.jv-alert-fade-leave-active {
+  transition:
+    opacity var(--jv-transition-normal) var(--jv-easing-standard),
+    transform var(--jv-transition-normal) var(--jv-easing-standard),
+    max-height var(--jv-transition-normal) var(--jv-easing-standard),
+    margin var(--jv-transition-normal) var(--jv-easing-standard);
+  max-height: 300px;
+  overflow: hidden;
+}
+
+.jv-alert-fade-enter-from,
+.jv-alert-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+  max-height: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}

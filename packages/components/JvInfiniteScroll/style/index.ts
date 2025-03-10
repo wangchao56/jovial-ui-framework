@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-infinite-scroll.css'
+import '@jienix/jovial-theme/src/components/jv-infinite-scroll.scss'

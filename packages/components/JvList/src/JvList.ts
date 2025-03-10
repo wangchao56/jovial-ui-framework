@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, InjectionKey, PropType, Slot } from 'vue'
+import type { ExtractPropTypes, InjectionKey, PropType, Slot, ToRefs } from 'vue'
 import type { ListItem, ListItemType } from './types'
 
 export const jvListProps = {
@@ -112,12 +112,6 @@ export const jvListProps = {
     description: '行数',
     required: false,
   },
-  // variant: {
-  //   type: String,
-  //   default: 'text',
-  //   description: '变体',
-  //   required: false,
-  // },
   expandIcon: {
     type: String,
     default: 'chevron-right',
@@ -160,9 +154,7 @@ export interface JvListExpose {}
 export const JvListContextKey: InjectionKey<{
   handleClickListItem: (val: ListItemType) => void
   handleSelectListItem: (val: ListItemType) => void
-  isExpanded: (key: string) => boolean
-  toggleExpand: (key: string) => void
   indent: number
-  props: Readonly<JvListPropsType>
-  level: number
+  items: ListItem[]
+  props: ToRefs<JvListPropsType>
 }> = Symbol('JvListContextKey')

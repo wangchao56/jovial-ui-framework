@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import Loading from '@components/internal-icon/Loading'
-import Switcher from '@components/internal-icon/Switcher'
 import JvCheckbox from '@components/JvCheckbox'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jienix/utils'
@@ -60,10 +58,8 @@ function handleCheckboxChange(_checked: boolean) {
         ]"
         @click="() => emit('toggle', node)"
       >
-        <JvIcon color="gray" size="24">
-          <Switcher v-if="!loading" />
-          <Loading v-else />
-        </JvIcon>
+        <JvIcon v-if="!loading" color="gray" size="24" name="$chevronRight" />
+        <JvIcon v-else color="gray" size="24" name="$loading" />
       </span>
       <!-- select-icon -->
       <!-- <span v-if="selectable" :class="bem.e('select-icon')"></span> -->

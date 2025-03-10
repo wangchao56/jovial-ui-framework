@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-drawer.css'
+import '@jienix/jovial-theme/src/components/jv-drawer.scss'

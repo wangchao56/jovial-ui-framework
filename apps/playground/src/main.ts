@@ -1,7 +1,7 @@
-import App from '@/App.vue'
 import { createApp } from 'vue'
+import App from './App.vue'
 import Jovial from './plugins'
-import '@jienix/jovial-theme/src/index.css'
+import '@jienix/jovial-theme/src/index.scss'
 
 const app = createApp(App)
 app.use(Jovial)

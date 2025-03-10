@@ -1,0 +1,17 @@
+export declare function toCamelCase(str: string): string;
+export declare function toJson(data: any): string;
+export declare function isObject(thing: any): boolean;
+export declare function isEmptyObject(thing: any): boolean;
+export declare function hasOwnProperty(obj: any, key: string): boolean;
+declare function isArray(value: any): value is (...args: any[]) => any;
+declare function isNull(value: any): boolean;
+declare function isBoolean(value: any): boolean;
+declare function isDate(value: any): boolean;
+declare function isFunction(value: any): boolean;
+declare function isNumber(value: any): boolean;
+declare function isNumberExcludeNaN(value: any): boolean;
+declare function isRegExp(value: any): boolean;
+declare function isString(value: any): boolean;
+declare function isEmpty(value: any): boolean;
+declare function isUndefined(value: any): boolean;
+export { isArray, isBoolean, isDate, isEmpty, isFunction, isNull, isNumber, isNumberExcludeNaN, isRegExp, isString, isUndefined, };

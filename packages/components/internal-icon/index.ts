@@ -1,45 +1,30 @@
-import type { App } from 'vue'
-import AlertOutline from './AlertOutline'
-import AlienOutline from './AlienOutline'
-import ArrowUpBold from './ArrowUpBold.vue'
-import CheckOutline from './CheckOutline'
-import ChevronLeft from './ChevronLeft.vue'
-import ChevronRight from './ChevronRight.vue'
-import IconCloseThick from './close-thick'
-import IconEyeOff from './IconEyeOff'
-import IconEyeOn from './IconEyeOn'
-import InfoOutline from './InfoOutline'
-import Loading from './Loading'
-import Radio from './Radio'
-import RadioOutline from './RadioOutline'
-import Star from './Star.vue'
-import StarHalfFull from './StarHalfFull.vue'
-import StarOutline from './StarOutline.vue'
-import Switcher from './Switcher'
-
-export { AlertOutline, AlienOutline, CheckOutline, IconCloseThick, IconEyeOff, IconEyeOn, InfoOutline, Loading, Star, StarOutline, Switcher }
-export const internalIcons = {
-  $close: IconCloseThick,
-  $eyeOn: IconEyeOn,
-  $eyeOff: IconEyeOff,
-  $loading: Loading,
-  $success: CheckOutline,
-  $error: AlienOutline,
-  $info: InfoOutline,
-  $warning: AlertOutline,
-  $switcher: Switcher,
-  $star: Star,
-  $starOutline: StarOutline,
-  $starHalfFull: StarHalfFull,
-  $radio: Radio,
-  $radioOutline: RadioOutline,
-  $chevronLeft: ChevronLeft,
-  $chevronRight: ChevronRight,
-  $arrowUpBold: ArrowUpBold,
-}
-export default {
-  install(app: App) {
-    const components = [AlertOutline, AlienOutline, CheckOutline, IconCloseThick, IconEyeOff, IconEyeOn, InfoOutline, Loading, Star, StarOutline, Switcher, Radio, RadioOutline, ChevronLeft, ChevronRight, ArrowUpBold]
-    components.forEach(component => app.component(component.name ?? '', component))
-  },
-}
+export { default as MdiAlarmCheck } from './MdiAlarmCheck.vue'
+export { default as MdiAlertCircle } from './MdiAlertCircle.vue'
+export { default as MdiAlertCircleOutline } from './MdiAlertCircleOutline.vue'
+export { default as MdiAlertDecagram } from './MdiAlertDecagram.vue'
+export { default as MdiAlertDecagramOutline } from './MdiAlertDecagramOutline.vue'
+export { default as MdiCalendarMonth } from './MdiCalendarMonth.vue'
+export { default as MdiCheckboxBlankOutline } from './MdiCheckboxBlankOutline.vue'
+export { default as MdiCheckboxIntermediate } from './MdiCheckboxIntermediate.vue'
+export { default as MdiCheckboxMarked } from './MdiCheckboxMarked.vue'
+export { default as MdiCheckDecagram } from './MdiCheckDecagram.vue'
+export { default as MdiCheckDecagramOutline } from './MdiCheckDecagramOutline.vue'
+export { default as MdiChevronLeft } from './MdiChevronLeft.vue'
+export { default as MdiChevronRight } from './MdiChevronRight.vue'
+export { default as MdiClose } from './MdiClose.vue'
+export { default as MdiErrorDecagram } from './MdiErrorDecagram.vue'
+export { default as MdiErrorDecagramOutline } from './MdiErrorDecagramOutline.vue'
+export { default as MdiEye } from './MdiEye.vue'
+export { default as MdiEyeOff } from './MdiEyeOff.vue'
+export { default as MdiEyeOffOutline } from './MdiEyeOffOutline.vue'
+export { default as MdiEyeOutline } from './MdiEyeOutline.vue'
+export { default as MdiInfoDecagram } from './MdiInfoDecagram.vue'
+export { default as MdiInfoDecagramOutline } from './MdiInfoDecagramOutline.vue'
+export { default as MdiInformation } from './MdiInformation.vue'
+export { default as MdiInformationOutline } from './MdiInformationOutline.vue'
+export { default as MdiLoading } from './MdiLoading.vue'
+export { default as MdiRadioboxBlank } from './MdiRadioboxBlank.vue'
+export { default as MdiRadioboxMarked } from './MdiRadioboxMarked.vue'
+export { default as MdiStar } from './MdiStar.vue'
+export { default as MdiStarHalfFull } from './MdiStarHalfFull.vue'
+export { default as MdiStarOutline } from './MdiStarOutline.vue'

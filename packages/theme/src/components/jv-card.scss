@@ -1,0 +1,85 @@
+@use '../mixins/bem' as *;
+
+@include b(card) {
+  --jv-card-padding: 16px;
+
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background-color: var(--jv-card-bg, #fff);
+  overflow: hidden;
+  color: var(--jv-text-color-primary, #303133);
+  transition: all 0.3s;
+
+  &.is-border {
+    border: var(--jv-border-solid);
+  }
+
+  &.is-round {
+    border-radius: 8px;
+  }
+
+  @include e(header) {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--jv-border-color, #dcdfe6);
+    box-sizing: border-box;
+  }
+
+  @include e(title-group) {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  @include e(title) {
+    margin: 0;
+    color: var(--jv-text-color-primary, #303133);
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  @include e(subtitle) {
+    margin: 0;
+    color: var(--jv-text-color-secondary, #909399);
+    font-size: 14px;
+  }
+
+  @include e(body) {
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  @include e(footer) {
+    padding: 20px;
+    border-top: 1px solid var(--jv-border-color, #dcdfe6);
+  }
+
+  @include e(actions) {
+    display: flex;
+    padding: 12px 20px;
+    border-top: 1px solid var(--jv-border-color, #dcdfe6);
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    box-sizing: border-box;
+  }
+
+  @include e(cover) {
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  @include m(shadow-always) {
+    box-shadow: var(--jv-shadow-light, 0 2px 12px 0 rgb(0 0 0 / 10%));
+  }
+
+  @include m(shadow-hover) {
+    &:hover {
+      box-shadow: var(--jv-shadow-drak, 0 2px 12px 0 rgb(0 0 0 / 10%));
+    }
+  }
+}

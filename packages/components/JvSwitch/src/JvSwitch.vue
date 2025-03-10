@@ -5,7 +5,7 @@ import { createNamespace } from '@jienix/utils'
 import { computed, ref, watch } from 'vue'
 import { jvSwitchProps } from './JvSwitch'
 
-defineOptions({ name: 'JvSwitch' })
+defineOptions({ name: 'JvSwitch', inheritAttrs: false })
 const { disabled, size, loading, manual } = defineProps(jvSwitchProps)
 const emit = defineEmits<JvSwitchEmits>()
 const bem = createNamespace('switch')

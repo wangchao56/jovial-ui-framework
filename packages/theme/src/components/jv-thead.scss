@@ -1,0 +1,80 @@
+@use '../mixins/bem' as *;
+
+@include b(table__thead) {
+  background-color: #fafafa;
+
+  /* 隐藏滚动条 */
+  overflow-x: hidden;
+
+  @include e(container) {
+    position: static;
+    width: 100%;
+    box-shadow: 0 3px 9px 0 rgb(0 0 0 / 10%);
+    z-index: 99;
+
+    /* overflow: hidden; */
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  @include e(scroll) {
+    position: static;
+    width: inherit;
+    height: fit-content;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    /* 隐藏滚动条 */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  th.jv-table__cell {
+    vertical-align: bottom;
+    border: 1px solid #f0f0f0;
+    font-weight: 600;
+    user-select: text;
+  }
+
+  & > .jv-table__row {
+    /* 第一个cell和最后一个cell的padding-left和padding-right为0 */
+
+    & > th.jv-table__cell:last-child {
+      padding-right: 0;
+      border-right: none;
+    }
+  }
+
+  /* 只有一行时 */
+
+  & > .jv-table__row:only-child {
+    border: none;
+
+    & > th.jv-table__cell {
+      position: relative;
+
+      &::after {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 1px;
+        height: 1.6em;
+        transform: translateY(-50%);
+        content: '';
+        background-color: #f0f0f0;
+        inset-inline-end: 0;
+      }
+    }
+  }
+
+  /* 多行时 */
+  & > .jv-table__row:has(.jv-table__row:not(:only-child)) {
+    border: none;
+
+    & > th.jv-table__cell {
+      font-weight: 600;
+      text-align: center;
+    }
+  }
+}

@@ -1,6 +1,5 @@
 import { withInstall } from '@jienix/utils'
 import _JvMenu from './src/JvMenu.vue'
-import './style/style.css'
 
 const JvMenu = withInstall(_JvMenu)
 

@@ -1,0 +1,71 @@
+@use '../mixins/bem' as *;
+
+@include b(loading) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--jv-primary-color, #1890ff);
+
+  @include e(stop-btn) {
+    padding: 4px 12px;
+    background: transparent;
+    border: 1px solid var(--jv-primary-color, #1890ff);
+    border-radius: 4px;
+    color: var(--jv-primary-color, #1890ff);
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background: var(--jv-primary-color, #1890ff);
+      color: white;
+    }
+  }
+}
+
+.loading-svg {
+  transform-origin: center;
+  animation: rotate 2s linear infinite;
+}
+
+.loading-circle {
+  opacity: 0.3;
+}
+
+.loading-path {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.loading-dot {
+  animation: scale 1s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes scale {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.6);
+  }
+}

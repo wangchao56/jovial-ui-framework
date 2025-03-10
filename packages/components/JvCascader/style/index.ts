@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-cascader.css'
+import '@jienix/jovial-theme/src/components/jv-cascader.scss'

@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-time-picker.css'
+import '@jienix/jovial-theme/src/components/jv-time-picker.scss'

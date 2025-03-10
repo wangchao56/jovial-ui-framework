@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-popover.css'
+import '@jienix/jovial-theme/src/components/jv-popover.scss'

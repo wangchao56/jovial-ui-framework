@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-rate.css'
+import '@jienix/jovial-theme/src/components/jv-rate.scss'

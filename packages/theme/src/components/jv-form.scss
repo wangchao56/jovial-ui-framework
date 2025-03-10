@@ -1,0 +1,7 @@
+@use '../mixins/bem' as *;
+
+@include b(form) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--jv-form-gap);
+}

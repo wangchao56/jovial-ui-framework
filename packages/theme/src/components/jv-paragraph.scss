@@ -1,0 +1,173 @@
+@use '../mixins/bem' as *;
+
+@include b(paragraph) {
+  --jv-paragraph-indent: 2em;
+  --jv-paragraph-spacing: 0.8em;
+  --jv-cjk-line-spacing: 1.8;
+  --jv-western-line-spacing: 1.6;
+  --jv-justify-min-width: 35ch;
+  --jv-max-line-width: 80ch;
+  --jv-hanging-indent: -2em;
+  --jv-list-style: '•';
+
+  margin: var(--jv-paragraph-spacing) 0;
+  padding: 0 1em;
+  line-height: var(--jv-cjk-line-spacing);
+  transition: color 0.2s;
+  text-spacing: ideograph-alpha ideograph-numeric;
+  hyphens: auto;
+  max-inline-size: var(--jv-max-line-width);
+  overflow: hidden;
+
+  @include m(indent) {
+    text-indent: var(--jv-paragraph-indent);
+  }
+
+  @include m(justified) {
+    text-align: justify;
+    text-justify: inter-ideograph;
+
+    &:not([lang^='zh']) {
+      text-justify: inter-word;
+    }
+
+    @media (width <= 768px) {
+      text-align-last: left;
+    }
+  }
+
+  @include m(vertical) {
+    padding: 0 0.8em;
+    line-height: 2;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+
+    &.indent {
+      text-indent: 3em;
+    }
+  }
+
+  @include m(hanging) {
+    padding-inline-start: calc(var(--jv-paragraph-indent) * -1);
+    text-indent: var(--jv-hanging-indent);
+  }
+
+  @include m(page-break) {
+    break-inside: avoid;
+    orphans: 3;
+    widows: 3;
+  }
+}
+
+/* 中文排版优化 */
+[lang^='zh'] .jv-paragraph {
+  line-height: var(--jv-cjk-line-spacing);
+  text-justify: inter-ideograph;
+}
+
+/* 西文排版优化 */
+[lang^='en'] .jv-paragraph {
+  line-height: var(--jv-western-line-spacing);
+  text-justify: inter-word;
+}
+
+/* 引用块样式 */
+.jv-paragraph blockquote {
+  --jv-blockquote-indent: 2em;
+  --jv-blockquote-color: var(--jv-text-color-secondary);
+
+  margin: 1.5em var(--jv-blockquote-indent);
+  padding-left: 1em;
+  border-left: 0.4em solid var(--jv-blockquote-color);
+  font-style: italic;
+  color: var(--jv-blockquote-color);
+
+  &::before {
+    margin-right: 0.2em;
+    font-size: 1.8em;
+    content: '“';
+    vertical-align: -0.4em;
+  }
+
+  &::after {
+    margin-left: 0.2em;
+    font-size: 1.8em;
+    content: '”';
+    vertical-align: -0.4em;
+  }
+}
+
+/* 预格式化文本 排除class为jv-code-content的元素 */
+.jv-paragraph pre:not(.jv-code-content) {
+  --jv-pre-bg: rgba(var(--jv-theme-on-background), 0.05);
+
+  padding: 1.5em;
+  background: var(--jv-pre-bg);
+  border-radius: 0.4em;
+  font-family: var(--jv-font-family-mono);
+  tab-size: 4;
+  overflow-x: auto;
+
+  @media (prefers-color-scheme: dark) {
+    --jv-pre-bg: rgb(255 255 255 / 8%);
+  }
+}
+
+/* 列表样式 */
+.jv-paragraph ul,
+.jv-paragraph ol {
+  --jv-list-indent: 1.5em;
+  --jv-list-marker-color: var(--jv-text-color-secondary);
+
+  margin: 0.8em 0;
+  padding-left: var(--jv-list-indent);
+
+  li {
+    margin: 0.4em 0;
+    line-height: 1.6;
+
+    &::marker {
+      color: var(--jv-list-marker-color);
+      font-weight: 500;
+    }
+  }
+}
+
+/* 无序列表符号 */
+.jv-paragraph ul {
+  list-style-type: circle;
+}
+/* 定义自定义的计数器样式 jv-decimal，继承自标准的十进制系统，并添加 '. ' 作为后缀 */
+@counter-style jv-decimal {
+  system: extends decimal;
+  suffix: '. ';
+}
+/* 有序列表数字样式 */
+.jv-paragraph ol {
+  list-style-type: jk-decimal;
+}
+
+/* 响应式处理 */
+@media (width <= 768px) {
+  .jv-paragraph blockquote {
+    --jv-blockquote-indent: 1em;
+
+    margin: 1em 0;
+  }
+
+  /* 响应式处理 */
+  @media (width <= 768px) {
+    .jv-paragraph {
+      --jv-paragraph-indent: 1.5em;
+      --jv-paragraph-spacing: 0.6em;
+    }
+  }
+}
+
+.paragraph-horizontal {
+  writing-mode: horizontal-tb;
+}
+
+.paragraph-vertical {
+  writing-mode: vertical-rl;
+}

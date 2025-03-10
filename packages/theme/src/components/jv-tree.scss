@@ -1,0 +1,127 @@
+/* JvTree 基础样式 */
+.jv-tree {
+  --jv-tree-node-height: 30px;
+  --jv-tree-node-padding: 8px;
+  --jv-tree-node-indent: 16px;
+  --jv-tree-node-hover-bg: rgb(0 0 0 / 4%);
+  --jv-tree-node-selected-bg: rgb(0 0 0 / 8%);
+  --jv-tree-node-selected-color: var(--jv-color-primary);
+  --jv-tree-icon-color: var(--jv-color-text-secondary);
+  --jv-tree-expand-icon-size: 16px;
+
+  width: 100%;
+  color: var(--jv-color-text-primary);
+  font-size: 14px;
+}
+
+/* 树节点容器 */
+.jv-tree__node {
+  display: flex;
+  position: relative;
+  height: var(--jv-tree-node-height);
+  padding: 0 var(--jv-tree-node-padding);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  align-items: center;
+}
+
+.jv-tree__node:hover {
+  background-color: var(--jv-tree-node-hover-bg);
+}
+
+/* 选中状态 */
+.jv-tree__node--selected {
+  background-color: var(--jv-tree-node-selected-bg);
+  color: var(--jv-tree-node-selected-color);
+}
+
+/* 展开/折叠图标 */
+.jv-tree__expand-icon {
+  margin-right: 4px;
+  color: var(--jv-tree-icon-color);
+  font-size: var(--jv-tree-expand-icon-size);
+  transition: transform 0.2s;
+}
+
+.jv-tree__expand-icon--expanded {
+  transform: rotate(90deg);
+}
+
+/* 节点内容 */
+.jv-tree__node-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 节点图标 */
+.jv-tree__node-icon {
+  margin-right: 4px;
+  color: var(--jv-tree-icon-color);
+  font-size: 16px;
+}
+
+/* 节点标签 */
+.jv-tree__node-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 子节点容器 */
+.jv-tree__children {
+  padding-left: var(--jv-tree-node-indent);
+}
+
+/* 加载状态 */
+.jv-tree__node--loading .jv-tree__expand-icon {
+  animation: jv-tree-loading-rotate 1s linear infinite;
+}
+
+@keyframes jv-tree-loading-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 禁用状态 */
+.jv-tree__node--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 拖拽相关样式 */
+.jv-tree__node--dragging {
+  opacity: 0.5;
+}
+
+.jv-tree__node--drop-before {
+  border-top: 2px solid var(--jv-color-primary);
+}
+
+.jv-tree__node--drop-after {
+  border-bottom: 2px solid var(--jv-color-primary);
+}
+
+.jv-tree__node--drop-inner {
+  background-color: rgba(var(--jv-color-primary-rgb), 0.1);
+}
+
+/* 复选框样式 */
+.jv-tree__checkbox {
+  margin-right: 4px;
+}
+
+/* 过滤高亮 */
+.jv-tree__node-label--highlight {
+  color: var(--jv-color-primary);
+  font-weight: bold;
+}

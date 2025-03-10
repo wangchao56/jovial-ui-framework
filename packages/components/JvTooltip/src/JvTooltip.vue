@@ -13,7 +13,7 @@ import JvTooltipRoot from './root.vue'
 import { createTooltipModifiers, mapTooltipToPopperProps } from './tooltip-utils'
 import { onDebounceToggleHandler } from './useTootipManager'
 
-defineOptions({ name: 'JvTooltip' })
+defineOptions({ name: 'JvTooltip', inheritAttrs: false })
 const props = withDefaults(defineProps<TooltipProps>(), {
   trigger: 'hover',
   content: '',
@@ -36,7 +36,6 @@ const containerManager = useContainerManager()
 const container = containerManager.getContainer({
   namespace: 'tooltip-container',
 })
-const appendTo = computed(() => `#${container.element.id}`)
 // 这种结构可使每个属性都具有响应性?
 const { activator, openDelay, closeDelay, content, trigger, disableAnimation } = toRefs(props) // 解构activator 并使用toRefs的作用是 当activator变化时，会触发响应式更新
 
@@ -62,6 +61,9 @@ const popperProps = computed(() => mapTooltipToPopperProps({
   manual: true,
   dataPopper: `tooltip-${tootipId}`,
   style: popperStyle.value,
+  appendTo: `#${container.element.id}`,
+  transition: 'jv-tooltip-fade',
+  modelValue: isOpen.value,
 }))
 
 // 打开
@@ -156,15 +158,12 @@ defineExpose<TooltipExpose>({
     <JvTooltipTrigger v-bind="triggerProps">
       <slot />
     </JvTooltipTrigger>
-    <JvPopper
-      ref="JvpopperRef"
-      manual
-      :append-to="appendTo"
-      v-bind="popperProps"
-      v-on="popperEvents"
-    >
+    <JvPopper ref="JvpopperRef" v-bind="popperProps" v-on="popperEvents">
       <template #default>
-        <JvTooltipContent :render-content="renderContent" :trigger="trigger" :open-final="openFinal" :close-final="closeFinal" />
+        <JvTooltipContent
+          :render-content="renderContent" :trigger="trigger" :open-final="openFinal"
+          :close-final="closeFinal"
+        />
       </template>
     </JvPopper>
   </JvTooltipRoot>

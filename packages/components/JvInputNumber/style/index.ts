@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-input-number.css'
+import '@jienix/jovial-theme/src/components/jv-input-number.scss'

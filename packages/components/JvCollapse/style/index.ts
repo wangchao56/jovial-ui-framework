@@ -1,2 +1,2 @@
-import '@jienix/jovial-theme/src/components/jv-collapse.css'
-import '@jienix/jovial-theme/src/components/jv-collapse-item.css'
+import '@jienix/jovial-theme/src/components/jv-collapse.scss'
+import '@jienix/jovial-theme/src/components/jv-collapse-item.scss'

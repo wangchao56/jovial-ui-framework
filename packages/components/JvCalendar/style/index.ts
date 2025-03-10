@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-calendar.css'
+import '@jienix/jovial-theme/src/components/jv-calendar.scss'

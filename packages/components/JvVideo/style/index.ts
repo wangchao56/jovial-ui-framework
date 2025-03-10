@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-video.css'
+import '@jienix/jovial-theme/src/components/jv-video.scss'

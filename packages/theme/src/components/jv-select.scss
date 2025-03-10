@@ -1,0 +1,10 @@
+@use '../mixins/bem' as *;
+
+@include b(select) {
+  display: inline-flex;
+  position: relative;
+  width: 100%;
+  min-width: 150px;
+  box-sizing: border-box;
+  vertical-align: middle;
+}

@@ -1,9 +1,13 @@
 {
   "name": "@jienix/jovial-theme",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
+  "description": " Jovial theme for PrismJS",
+  "author": " Jienix <Jienix <524710692@qq.com>",
   "license": "ISC",
   "keywords": [],
-  "main": "index.js"
+  "main": "index.js",
+  "scripts": {
+    "build": "postcss src/index.scss -o dist/index.css",
+    "watch": "postcss src/index.scss -o dist/index.css --watch"
+  }
 }

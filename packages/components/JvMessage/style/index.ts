@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-message.css'
+import '@jienix/jovial-theme/src/components/jv-message.scss'

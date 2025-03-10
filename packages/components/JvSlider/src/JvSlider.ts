@@ -1,4 +1,4 @@
-import type { Slot } from 'vue'
+import type { PropType, Slot } from 'vue'
 
 export const jvSliderProps = {
   /**
@@ -47,7 +47,7 @@ export const jvSliderProps = {
    * 方向
    */
   orientation: {
-    type: String,
+    type: String as PropType<'horizontal' | 'vertical'>,
     default: 'horizontal',
     validator: (val: string) => ['horizontal', 'vertical'].includes(val),
   },

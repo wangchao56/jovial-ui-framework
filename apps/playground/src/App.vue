@@ -1,13 +1,31 @@
 <script setup lang="ts">
-import { JvApp } from 'jovial-ui'
 import { ref } from 'vue'
 
 const themeName = ref('light')
+
+const visible = ref(true)
+const visible2 = ref(true)
+const visible3 = ref(true)
+
+function handleClick() {
+  visible.value = !visible.value
+  visible2.value = !visible2.value
+  visible3.value = !visible3.value
+}
 </script>
 
 <template>
   <JvApp :theme="themeName">
-    <RouterView />
+    <JvButton type="primary" @click="handleClick">
+      按钮
+    </JvButton>
+    <JvAlert v-model:visible="visible" type="success" variant="filled" title="成功" dismissible message="这是一个成功提示" />
+    <JvAlert v-model:visible="visible2" variant="outlined" type="success" title="成功" dismissible message="这是一个成功提示" />
+    <JvAlert type="success" title="成功" dismissible message="这是一个成功提示" variant="outlined" />
+    <JvAlert type="warning" title="警告" dismissible message="这是一个警告提示" variant="outlined" />
+    <JvAlert type="error" title="错误" dismissible message="这是一个错误提示" variant="outlined" />
+    <JvAlert type="info" title="信息" dismissible message="这是一个信息提示" variant="outlined" />
+    <JvAlert type="info" title="信息" dismissible message="这是一个信息提示" variant="filled" />
   </JvApp>
 </template>
 

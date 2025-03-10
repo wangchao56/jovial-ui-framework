@@ -1,1 +1,1 @@
-import '@jienix/jovial-theme/src/components/jv-color-picker.css'
+import '@jienix/jovial-theme/src/components/jv-color-picker.scss'

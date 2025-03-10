@@ -2,7 +2,7 @@
 import type { RGB, XYZ } from '../colorUtils'
 
 // Utilities
-import { clamp } from '../../helpers'
+import { clamp } from '../helpers'
 
 // For converting XYZ to sRGB
 const srgbForwardMatrix = [

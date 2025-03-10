@@ -1,0 +1,44 @@
+@use '../mixins/bem' as *;
+
+@include b(split) {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  @include m(horizontal) {
+    flex-direction: row;
+  }
+
+  @include m(vertical) {
+    flex-direction: column;
+  }
+
+  @include e(pane-1) {
+    overflow: hidden;
+  }
+
+  @include e(pane-2) {
+    flex: 1;
+  }
+
+  @include e(trigger-wrapper) {
+    position: relative;
+    flex-shrink: 0;
+    background-color: transparent;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: var(--jv-split-trigger-hover-color);
+    }
+  }
+
+  @include e(trigger) {
+    position: absolute;
+    background-color: var(--jv-split-trigger-color);
+    transition: background-color 0.2s;
+
+    &--active {
+      background-color: var(--jv-split-trigger-active-color);
+    }
+  }
+}

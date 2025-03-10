@@ -130,9 +130,9 @@ defineExpose<JvFormExpose>({
 
 .jv-form--top .jv-form-item__label {
   display: block;
-  text-align: left;
   margin-bottom: 8px;
   padding: 0;
+  text-align: left;
 }
 
 .jv-form--top .jv-form-item__content {

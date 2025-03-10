@@ -29,10 +29,37 @@ export function attachedRoot(node: Node): null | Document | ShadowRoot {
   return root as Document | ShadowRoot
 }
 
-export function on(element: Element | Document | Window, event: string, handler: EventListener): void {
+export function on(
+  element: Element | Document | Window,
+  event: string,
+  handler: EventListener,
+): void {
   element.addEventListener(event, handler)
 }
 
-export function off(element: Element | Document | Window, event: string, handler: EventListener): void {
+export function off(
+  element: Element | Document | Window,
+  event: string,
+  handler: EventListener,
+): void {
   element.removeEventListener(event, handler)
+}
+
+/**
+ * 检查给定的对象是否为 DOM 元素。
+ *
+ * @param element - 需要检查的对象。
+ * @returns 如果对象是 DOM 元素则返回 true，否则返回 false。
+ */
+export function isElement(element: any): element is Element {
+  if (element == null) {
+    return false
+  }
+
+  // 检查是否为 DOM 元素的一种常见方式
+  return (
+    typeof element === 'object'
+    && element.nodeType === 1 // nodeType 为 1 表示是元素节点
+    && typeof element.nodeName === 'string'
+  )
 }
