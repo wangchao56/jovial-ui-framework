@@ -1,68 +1,158 @@
 @use '../mixins/bem' as *;
+@use '../common/layout' as *;
 
 @include b(switch) {
-  --jv-switch-width: 40px;
-  --jv-switch-height: 20px;
-  --jv-switch-thumb-size: 16px;
-  --jv-theme-background: 255, 255, 255;
-  --jv-theme-primary: 255, 255, 255;
-  --jv-theme-on-primary: 0, 0, 0;
+  --jv-switch-bg-color: rgba(var(--jv-theme-primary), 0.2);
+  --jv-switch-thumb-bg-color: rgb(var(--jv-theme-primary));
+  --jv-switch-thumb-border-color: rgb(var(--jv-theme-on-surface));
+  --jv-switch-thumb-shadow-color: rgb(var(--jv-theme-on-surface));
+  --jv-switch-track-bg-color: rgb(var(--jv-theme-on-surface));
+  --jv-switch-track-border-color: rgb(var(--jv-theme-on-surface));
+  --jv-switch-track-shadow-color: rgb(var(--jv-theme-on-surface));
 
-  display: inline-flex;
+  --jv-switch-thumb--checked-color: rgb(var(--jv-theme-primary));
+  --jv-switch-thumb--checked-bg-color: rgb(var(--jv-theme-primary));
+
+  // 宽度
+  --jv-switch-track-width: 48px;
+  --jv-switch-track-height: 24px;
+  --jv-switch-thumb-width: 20px;
+  --jv-switch-thumb-height: 20px;
+
+  //字体
+  --jv-switch-thumb-font-size: var(--jv-font-size-md);
+
   position: relative;
-  width: var(--jv-switch-width);
-  height: var(--jv-switch-height);
-  cursor: pointer;
+  display: inline-flex;
   align-items: center;
+  cursor: pointer;
   user-select: none;
+  margin: var(--jv-spacing-1) 0;
+  min-width: fit-content;
+  min-height: fit-content;
 
-  @include e(core) {
-    width: var(--jv-switch-width);
-    height: var(--jv-switch-height);
-    user-select: inherit;
-    border-radius: calc(var(--jv-switch-height) / 2);
-    border-width: thin;
-    border-style: solid;
-    border-color: #f0f0f0;
+  @include e(input) {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    appearance: none;
   }
 
   @include e(track) {
-    background: rgb(var(--jv-theme-background));
-    border-radius: calc(var(--jv-switch-height) / 2);
-    transition: background-color 0.3s;
-    fill: rgb(var(--jv-theme-background));
-    stroke: rgb(var(--jv-theme-background));
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    width: var(--jv-switch-track-width);
+    height: var(--jv-switch-track-height);
+    border-radius: var(--jv-radius-full);
+    background-color: var(--jv-switch-track-bg-color);
+    box-shadow: var(--jv-shadow-1);
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--jv-radius-full);
+      background-color: var(--jv-switch-track-bg-color);
+      box-shadow: var(--jv-shadow-1);
+    }
   }
 
   @include e(thumb) {
+    box-sizing: border-box;
+    @include center;
     position: absolute;
+    top: 2px;
     left: 2px;
-    width: var(--jv-switch-thumb-size);
-    height: var(--jv-switch-thumb-size);
-    background: rgb(var(--jv-theme-primary));
-    fill: rgb(var(--jv-theme-primary));
-    border-radius: 50%;
-    transition: transform 0.3s;
+    width: var(--jv-switch-thumb-width);
+    height: var(--jv-switch-thumb-height);
+    border-radius: var(--jv-radius-full);
+    background-color: var(--jv-switch-thumb-bg-color);
+    box-shadow: var(--jv-shadow-1);
+    transition:
+      transform var(--jv-transition-normal) var(--jv-easing-standard),
+      background-color var(--jv-transition-normal) var(--jv-easing-standard);
+  }
+
+  @include e(label) {
+    margin-left: var(--jv-spacing-3);
+    font-size: var(--jv-font-size-md);
+    color: var(--jv-switch-thumb-bg-color);
+  }
+
+  @include m(tiny) {
+    --jv-switch-track-width: 24px;
+    --jv-switch-track-height: 16px;
+    --jv-switch-thumb-width: 12px;
+    --jv-switch-thumb-height: 12px;
+  }
+
+  @include m(small) {
+    --jv-switch-track-width: 32px;
+    --jv-switch-track-height: 20px;
+    --jv-switch-thumb-width: 16px;
+    --jv-switch-thumb-height: 16px;
+  }
+
+  @include m(medium) {
+    --jv-switch-track-width: 48px;
+    --jv-switch-track-height: 24px;
+    --jv-switch-thumb-width: 20px;
+    --jv-switch-thumb-height: 20px;
+  }
+
+  @include m(large) {
+    --jv-switch-track-width: 56px;
+    --jv-switch-track-height: 28px;
+    --jv-switch-thumb-width: 24px;
+    --jv-switch-thumb-height: 24px;
+  }
+
+  @include m(x-large) {
+    --jv-switch-track-width: 64px;
+    --jv-switch-track-height: 32px;
+    --jv-switch-thumb-width: 28px;
+    --jv-switch-thumb-height: 28px;
   }
 
   @include when(checked) {
-    .jv-switch__track {
-      background: rgb(var(--jv-theme-primary));
-      fill: rgb(var(--jv-theme-primary));
-    }
-
+    --jv-switch-bg-color: rgb(var(--jv-theme-primary));
+    --jv-switch-thumb-bg-color: #fff;
+    --jv-switch-thumb-border-color: rgb(var(--jv-theme-on-surface));
+    --jv-switch-thumb-shadow-color: rgb(var(--jv-theme-on-surface));
+    --jv-switch-track-bg-color: rgb(var(--jv-theme-primary));
+    --jv-switch-track-border-color: rgb(var(--jv-theme-primary));
     .jv-switch__thumb {
-      background: rgb(var(--jv-theme-on-primary));
-      fill: rgb(var(--jv-theme-on-primary));
+      transform: translateX(calc(var(--jv-switch-track-width) - var(--jv-switch-thumb-width) - 4px));
+    }
+    .jv-switch__track {
+      background-color: rgb(var(--jv-theme-primary));
     }
   }
 
   @include when(disabled) {
-    opacity: var(--jv-disabled-opacity);
     cursor: not-allowed;
+    opacity: 0.6;
   }
 
   @include when(loading) {
-    cursor: progress;
+    cursor: wait;
+    .jv-switch__loading-icon {
+      width: var(--jv-switch-thumb-width);
+      height: var(--jv-switch-thumb-height);
+      font-size: var(--jv-switch-thumb-font-size);
+    }
+  }
+}
+
+@keyframes jv-switch-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

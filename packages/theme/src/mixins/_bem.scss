@@ -1,5 +1,6 @@
 // BEM 支持
 @use '../variables' as *;
+@use './functions' as *;
 $namespace: 'jv'; // 命名空间
 $element-separator: '__'; // 元素分隔符
 $modifier-separator: '--'; // 修饰符分隔符

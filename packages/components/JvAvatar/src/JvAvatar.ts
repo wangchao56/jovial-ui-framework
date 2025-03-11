@@ -4,6 +4,7 @@ import type { RouteLocationRaw } from 'vue-router'
 
 export type AvatarShape = 'circle' | 'square'
 export type AvatarFit = 'fill' | 'contain' | 'cover' | 'none' | 'scale-down'
+export const avatarSizes = ['tiny', 'small', 'medium', 'large', 'x-large'] as const
 
 export const jvAvatarProps = {
   /** 头像图片地址 */
@@ -31,15 +32,22 @@ export const jvAvatarProps = {
     type: String as PropType<Size>,
     default: 'medium',
     validator: (value: string) =>
-      ['small', 'medium', 'large', 'xlarge', 'custom'].includes(value),
+      avatarSizes.includes(value as Size),
   },
-  /** 自定义头像尺寸 */
+  /** 头像尺寸 */
   customSize: {
     type: Number,
-    default: null,
+    default: 40,
+  },
+  /** 图片适应方式 */
+  fit: {
+    type: String as PropType<AvatarFit>,
+    default: 'cover',
+    validator: (value: string) =>
+      ['fill', 'contain', 'cover', 'none', 'scale-down'].includes(value),
   },
   /** 头像形状 */
-  variant: {
+  shape: {
     type: String as PropType<AvatarShape>,
     default: 'circle',
     validator: (value: string) =>
@@ -69,6 +77,11 @@ export const jvAvatarProps = {
   clickable: {
     type: Boolean,
     default: false,
+  },
+  /** 图片加载失败时显示的文本 */
+  fallbackText: {
+    type: String,
+    default: '',
   },
   /** 点击头像后的跳转链接 */
   to: {

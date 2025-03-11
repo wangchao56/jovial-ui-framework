@@ -49,6 +49,12 @@ export const jvIconProps = {
   name: {
     type: String,
   },
+  /** 图标类名 */
+  class: {
+    type: String,
+    default: '',
+    required: false,
+  },
 } as const
 
 export type JvIconProps = ExtractPropTypes<typeof jvIconProps>

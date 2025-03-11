@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import type { JvAvatarEmits } from './JvAvatar'
+import type { Size } from '@jienix/typings'
+import type { JvAvatarEmits, JvAvatarSlots } from './JvAvatar'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jienix/utils'
 import { computed, defineEmits, ref } from 'vue'
-import { jvAvatarProps } from './JvAvatar'
+import { avatarSizes, jvAvatarProps } from './JvAvatar'
 
 defineOptions({ name: 'JvAvatar', inheritAttrs: false })
-const { src, alt, text, icon, size, variant, bordered, clickable } = defineProps(jvAvatarProps)
+const { src, alt, text, icon, size, shape, bordered, clickable, fit, bgColor, color, customSize } = defineProps(jvAvatarProps)
 
 const emit = defineEmits<JvAvatarEmits>()
+defineSlots<JvAvatarSlots>()
 const bem = createNamespace('avatar')
 const imgError = ref(false)
 
@@ -32,14 +34,29 @@ function onImageError(event: Event) {
 function handleClick(event: MouseEvent) {
   emit('click', event)
 }
+
+const innerSize = computed(() => {
+  if (avatarSizes.includes(size as Size))
+    return size
+  return 'medium'
+})
+
+useCssVars(() => {
+  return {
+    'jv-avatar-bg-color': bgColor,
+    'jv-avatar-color': color,
+    'jv-avatar-size': `${customSize}px`,
+  }
+})
 </script>
 
 <template>
   <div
     :class="[
       bem.b(),
-      bem.m(size),
-      bem.m(variant),
+      bem.m(innerSize),
+      bem.m(shape),
+      bem.m(fit),
       {
         'jv-avatar--bordered': bordered,
         'jv-avatar--clickable': clickable || to,
@@ -56,8 +73,14 @@ function handleClick(event: MouseEvent) {
       {{ initials }}
     </span>
 
-    <span v-else-if="icon" :class="bem.e('icon')">
-      <JvIcon :name="icon" />
+    <span v-else-if="icon || $slots.icon" :class="bem.e('icon')">
+      <slot name="icon">
+        <JvIcon :name="icon" />
+      </slot>
+    </span>
+
+    <span v-else-if="fallbackText" :class="bem.e('fallback-text')">
+      {{ fallbackText }}
     </span>
   </div>
 </template>

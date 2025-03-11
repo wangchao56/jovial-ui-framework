@@ -7,7 +7,7 @@ import { computed, nextTick, ref, watch } from 'vue'
 import { icons, jvIconProps } from './JvIcon'
 
 defineOptions({ name: 'JvIcon', inheritAttrs: false })
-const { color, size, name } = defineProps(jvIconProps)
+const { color, size, name, class: className } = defineProps(jvIconProps)
 
 const bem = createNamespace('icon')
 const iconRef = ref<HTMLElement | null>(null)
@@ -108,7 +108,7 @@ defineExpose({
 </script>
 
 <template>
-  <i ref="iconRef" :class="iconClass" :style="iconStyle">
+  <i ref="iconRef" :class="[iconClass, className]" :style="iconStyle">
     <slot v-if="$slots.default" />
     <Icon v-else-if="show && name" :icon="name" :color="color" />
     <component :is="internalIconVnode" v-else-if="internalIconVnode" />

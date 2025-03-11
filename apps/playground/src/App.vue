@@ -12,13 +12,15 @@ function handleClick() {
   visible2.value = !visible2.value
   visible3.value = !visible3.value
 }
+const loading = ref(true)
+setTimeout(() => {
+  loading.value = false
+}, 3000)
 </script>
 
 <template>
-  <JvApp :theme="themeName">
-    <JvButton type="primary" @click="handleClick">
-      按钮
-    </JvButton>
+  <JvApp :theme="themeName" @change="handleClick">
+    <JvSwitch v-model="visible" size="large" />
     <JvAlert v-model:visible="visible" type="success" variant="filled" title="成功" dismissible message="这是一个成功提示" />
     <JvAlert v-model:visible="visible2" variant="outlined" type="success" title="成功" dismissible message="这是一个成功提示" />
     <JvAlert type="success" title="成功" dismissible message="这是一个成功提示" variant="outlined" />

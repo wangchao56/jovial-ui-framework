@@ -30,7 +30,8 @@
     "publish": "node scripts/publish/publish.js",
     "publish:beta": "node scripts/publish/publish-beta.js",
     "lint:style": "stylelint \"packages/**/*.{css,vue,scss}\"",
-    "lint:style:fix": "stylelint \"packages/**/*.{css,vue,scss}\" --fix"
+    "lint:style:fix": "stylelint \"packages/**/*.{css,vue,scss}\" --fix",
+    "push": "git push github develop && git push origin develop"
   },
   "dependencies": {
     "@better-scroll/core": "^2.5.1",

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvAvatar from '@components/JvAvatar/src/JvAvatar.vue'
-import JvIcon from '@components/JvIcon/src/JvIcon.vue'
+import JvAvatar from '@components/JvAvatar'
+import JvIcon from '@components/JvIcon'
+import { userEvent, within } from '@storybook/test'
 
 // 配置 Meta 数据
 const meta = {
@@ -22,19 +23,17 @@ const meta = {
       },
       description: '头像大小，支持预设值或数字',
       table: {
-        type: { summary: 'string | number' },
+        type: { summary: 'string | number | Size' },
         defaultValue: { summary: 'medium' },
       },
     },
-    shape: {
-      control: {
-        type: 'select',
-        options: ['circle', 'square'],
-      },
-      description: '头像形状',
+    customSize: {
+      control: 'number',
+      description: '自定义头像尺寸',
       table: {
-        type: { summary: 'circle | square' },
-        defaultValue: { summary: 'circle' },
+        type: { summary: 'number' },
+        defaultValue: { summary: '0' },
+        control: 'number',
       },
     },
     src: {
@@ -44,15 +43,12 @@ const meta = {
         type: { summary: 'string' },
       },
     },
-    fit: {
-      control: {
-        type: 'select',
-        options: ['fill', 'contain', 'cover', 'none', 'scale-down'],
-      },
-      description: '图片适应方式',
+    shape: {
+      control: 'select',
+      options: ['circle', 'rounded', 'square'],
+      description: '头像形状',
       table: {
         type: { summary: 'string' },
-        defaultValue: { summary: 'cover' },
       },
     },
     icon: {
@@ -77,6 +73,13 @@ const meta = {
         defaultValue: { summary: 'false' },
       },
     },
+  },
+  args: {
+    size: 'medium',
+    shape: 'circle',
+    src: 'https://picsum.photos/id/237/200/300',
+    icon: 'mdi:account',
+    text: 'User',
   },
 } satisfies Meta<typeof JvAvatar>
 
@@ -104,18 +107,19 @@ export const Sizes: Story = {
     template: `
       <div style="display: flex; gap: 16px; align-items: center;">
         <JvAvatar size="tiny" src="https://picsum.photos/id/23/200/300" />
-        <jv-avatar size="small" src="https://picsum.photos/id/23/200/300" />
-        <jv-avatar size="medium" src="https://picsum.photos/id/23/200/300" />
-        <jv-avatar size="large" src="https://picsum.photos/id/23/200/300" />
-        <jv-avatar size="x-large" src="https://picsum.photos/id/23/200/300" />
-        <jv-avatar :size="80" src="https://picsum.photos/id/23/200/300" />
+        <JvAvatar size="small" src="https://picsum.photos/id/23/200/300" />
+        <JvAvatar size="medium" src="https://picsum.photos/id/23/200/300" />
+        <JvAvatar size="large" src="https://picsum.photos/id/23/200/300" />
+        <JvAvatar size="x-large" src="https://picsum.photos/id/23/200/300" />
+        <JvAvatar :custom-size="80" src="https://picsum.photos/id/23/200/300" />
       </div>
     `,
   }),
   parameters: {
     docs: {
       description: {
-        story: '头像支持 tiny、small、medium、large、x-large 五种预设尺寸，也可以传入数字自定义大小。',
+        story:
+          '头像支持 tiny、small、medium、large、x-large 五种预设尺寸，也可以传入数字自定义大小。',
       },
     },
   },
@@ -127,11 +131,18 @@ export const Shapes: Story = {
     components: { JvAvatar },
     template: `
       <div style="display: flex; gap: 16px;">
-        <jv-avatar shape="circle" src="https://picsum.photos/id/23/200/300" />
-        <jv-avatar shape="square" src="https://picsum.photos/id/23/200/300" />
+        <JvAvatar shape="circle" src="https://picsum.photos/id/23/200/300" />
+        <JvAvatar shape="square" src="https://picsum.photos/id/23/200/300" />
       </div>
     `,
   }),
+  parameters: {
+    docs: {
+      description: {
+        story: '头像支持圆形、方形两种形状。',
+      },
+    },
+  },
 }
 
 // 展示类型
@@ -141,16 +152,23 @@ export const Types: Story = {
     template: `
       <div style="display: flex; gap: 16px;">
         <jv-avatar src="https://picsum.photos/id/23/200/300" />
-        <jv-avatar icon="user" />
+        <jv-avatar icon="mdi:account" />
         <jv-avatar text="User" />
         <jv-avatar>
           <template #icon>
-            <jv-icon name="star" />
+            <jv-icon name="$star" />
           </template>
         </jv-avatar>
       </div>
     `,
   }),
+  parameters: {
+    docs: {
+      description: {
+        story: '头像支持图片、图标、文字三种展示类型。',
+      },
+    },
+  },
 }
 
 // 带边框
@@ -160,13 +178,19 @@ export const Bordered: Story = {
     template: `
       <div style="display: flex; gap: 16px; background: #f5f5f5; padding: 16px;">
         <jv-avatar src="https://picsum.photos/id/23/200/300" bordered />
-        <jv-avatar icon="user" bordered />
+        <jv-avatar icon="mdi:account" bordered />
         <jv-avatar text="User" bordered />
       </div>
     `,
   }),
+  parameters: {
+    docs: {
+      description: {
+        story: '头像支持圆形、方形两种形状。',
+      },
+    },
+  },
 }
-
 // 自定义样式
 export const CustomStyle: Story = {
   render: () => ({
@@ -179,9 +203,9 @@ export const CustomStyle: Story = {
           color="#ffffff"
         />
         <jv-avatar
-          icon="star"
+          icon="$star"
           bg-color="#4CAF50"
-          icon-color="#ffffff"
+          color="#ffffff"
         />
         <jv-avatar
           :size="60"
@@ -193,10 +217,21 @@ export const CustomStyle: Story = {
       </div>
     `,
   }),
+  parameters: {
+    docs: {
+      description: {
+        story: '头像支持自定义背景颜色和文字颜色。',
+      },
+    },
+  },
 }
 
 // 错误处理
 export const ErrorHandling: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await userEvent.click(canvas.getByRole('button', { name: /count is 0/i }))
+  },
   render: () => ({
     components: { JvAvatar },
     template: `
@@ -208,12 +243,14 @@ export const ErrorHandling: Story = {
         />
       </div>
     `,
-    methods: {
-      // handleError(e: Event) {
-      //   // action('click')(/* your parameters */)
-      // },
-    },
   }),
+  parameters: {
+    docs: {
+      description: {
+        story: '图片加载失败时，显示备用文本。',
+      },
+    },
+  },
 }
 
 // 适应方式
@@ -233,4 +270,11 @@ export const FitModes: Story = {
       </div>
     `,
   }),
+  parameters: {
+    docs: {
+      description: {
+        story: '图片适应方式',
+      },
+    },
+  },
 }
