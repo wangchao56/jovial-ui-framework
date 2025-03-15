@@ -1,8 +1,10 @@
 import { withInstall } from '@jienix/utils'
 import _JvLoading from './src/JvLoading.vue'
+import JvLoadingBar from './src/JvLoadingBar.vue'
 import './style'
 
 const JvLoading = withInstall(_JvLoading)
+JvLoading.Bar = JvLoadingBar
 
 export * from './src/JvLoading'
 export default JvLoading

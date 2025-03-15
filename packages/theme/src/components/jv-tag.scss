@@ -1,29 +1,45 @@
 @use '../mixins/bem' as *;
+
 @mixin type-style($type) {
-  background-color: rgba(var(--jv-theme-background), 1); /* 使用 $(type) 的 10% 作为背景颜色 */
-  color: rgba(var(--jv-theme-#{$type}), 1); /* 使用 $(type) 作为文字颜色 */
-  border-color: rgba(var(--jv-theme-#{$type})); /* 使用 $(type) 的 20% 作为边框颜色 */
+  --jv-tag-bgcolor: rgba(var(--jv-theme-background), 1); /* 使用 $(type) 的 10% 作为背景颜色 */
+  --jv-tag-color: rgba(var(--jv-theme-#{$type}), 1); /* 使用 $(type) 作为文字颜色 */
+  --jv-tag-border-color: rgba(var(--jv-theme-#{$type}), 80%); /* 使用 $(type) 的 20% 作为边框颜色 */
   @content;
 }
 
+$type-options: ('primary', 'success', 'warning', 'error', 'info');
+$size-options: ('tiny', 'small', 'medium', 'large', 'x-large');
 @include b(tag) {
+  --jv-tag-color: rgba(var(--jv-theme-on-surface), 1);
+  --jv-tag-bgcolor: rgba(var(--jv-theme-surface), 1);
+  --jv-tag-border-color: rgba(var(--jv-theme-on-surface), 80%);
   --jv-tag-height: 32px;
   --jv-tag-font-size: 14px;
   --jv-tag-border-radius: 4px;
   --jv-tag-padding: 0 10px;
   --jv-tag-white-space: nowrap;
-
+  --jv-tag-margin: 0;
+  --jv-tag-line-height: 1.5;
   display: inline-flex;
   height: var(--jv-tag-height);
-  margin: 0;
+  margin: var(--jv-tag-margin);
   padding: var(--jv-tag-padding);
   border-radius: var(--jv-tag-border-radius);
   font-size: var(--jv-tag-font-size);
+  line-height: var(--jv-tag-line-height);
   font-weight: var(--jv-font-weight-medium);
   align-items: center;
   white-space: var(--jv-tag-white-space);
-  border-width: thin;
+  border-width: 2px;
   border-style: solid;
+  border-color: var(--jv-tag-border-color);
+  background-color: var(--jv-tag-bgcolor);
+  color: var(--jv-tag-color);
+
+  @include e(icon) {
+    margin-right: 8px;
+    font-size: 16px;
+  }
 
   @include e(close) {
     margin-left: 8px;
@@ -35,51 +51,64 @@
     }
   }
 
-  @include m(primary) {
-    @include type-style(primary);
+  // 类型
+  @each $type in $type-options {
+    @include m($type) {
+      @include type-style($type);
+    }
   }
 
-  @include m(success) {
-    @include type-style(success);
+  // 变体
+  @include m(outlined) {
+    --jv-tag-bgcolor: transparent;
   }
 
-  @include m(warning) {
-    @include type-style(warning);
+  @include m(filled) {
+    background-color: var(--jv-tag-color);
+    .jv-tag__label {
+      color: lighten(#fff, 10%);
+    }
   }
 
-  @include m(danger) {
-    @include type-style(danger);
-  }
-
-  @include m(error) {
-    @include type-style(error);
-  }
-
-  @include m(info) {
-    @include type-style(info);
+  // 大小
+  @include m(tiny) {
+    --jv-tag-height: 20px;
+    --jv-tag-font-size: 12px;
+    --jv-tag-padding: 0 8px;
   }
 
   @include m(small) {
-    height: 24px;
-    padding: 0 8px;
-    font-size: 12px;
-
     --jv-tag-height: 24px;
     --jv-tag-font-size: 12px;
     --jv-tag-padding: 0 8px;
   }
 
-  @include m(large) {
-    height: 40px;
-    padding: 0 12px;
-    font-size: 16px;
+  @include m(medium) {
+    --jv-tag-height: 32px;
+    --jv-tag-font-size: 14px;
+    --jv-tag-padding: 0 10px;
+  }
 
+  @include m(large) {
     --jv-tag-height: 40px;
     --jv-tag-font-size: 16px;
     --jv-tag-padding: 0 12px;
   }
 
-  @include when(rounded) {
-    border-radius: 999px;
+  @include m(x-large) {
+    --jv-tag-height: 48px;
+    --jv-tag-font-size: 18px;
+    --jv-tag-padding: 0 14px;
   }
+
+  @include when(rounded) {
+    --jv-tag-border-radius: 999px;
+  }
+}
+.jv-tag-leave-active {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.jv-tag-leave-to {
+  opacity: 0;
 }

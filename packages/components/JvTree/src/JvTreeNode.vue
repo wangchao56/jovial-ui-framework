@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import JvCheckbox from '@components/JvCheckbox'
 import JvIcon from '@components/JvIcon'
-import { createNamespace } from '@jienix/utils'
+import { consoleWarn, createNamespace } from '@jienix/utils'
 import { computed } from 'vue'
 import { treeNodeEmits, treeNodeProps } from './tree'
 import JvTreeNodeContent from './tree-node-content'
@@ -20,11 +20,11 @@ const loading = computed(() => props.loadingKeys.has(props.node.key))
 const isSelected = computed(() => props.selectedKeys.includes(props.node.key))
 function handleSelect() {
   if (!props.selectable) {
-    console.warn('Node is not selectable.') // 添加日志记录
+    consoleWarn('Node is not selectable.') // 添加日志记录
     return
   }
   if (props.node.disabled) {
-    console.warn('Node is disabled and cannot be selected.') // 添加日志记录
+    consoleWarn('Node is disabled and cannot be selected.') // 添加日志记录
     return
   }
   emit('select', props.node)
@@ -44,10 +44,7 @@ function handleCheckboxChange(_checked: boolean) {
       bem.is('disabled', node.disabled),
     ]"
   >
-    <div
-      :class="[bem.e('content')]"
-      :style="{ paddingLeft: `${node.level * 24}px` }"
-    >
+    <div :class="[bem.e('content')]" :style="{ paddingLeft: `${node.level * 24}px` }">
       <span
         :class="[
           bem.e('expand-icon'),
@@ -55,8 +52,7 @@ function handleCheckboxChange(_checked: boolean) {
           {
             expanded: expanded && !node.isLeaf,
           },
-        ]"
-        @click="() => emit('toggle', node)"
+        ]" @click="() => emit('toggle', node)"
       >
         <JvIcon v-if="!loading" color="gray" size="24" name="$chevronRight" />
         <JvIcon v-else color="gray" size="24" name="$loading" />
@@ -65,14 +61,13 @@ function handleCheckboxChange(_checked: boolean) {
       <!-- <span v-if="selectable" :class="bem.e('select-icon')"></span> -->
       <!-- 前缀 -->
       <JvCheckbox
-        v-if="showCheckbox"
-        :model-value="props.checked"
-        :disabled="disabled"
-        :indeterminate="indeterminate"
+        v-if="showCheckbox" :model-value="props.checked" :disabled="disabled" :indeterminate="indeterminate"
         @change="handleCheckboxChange"
       />
       <!-- label渲染 -->
-      <span :class="[bem.e('label')]" @click="handleSelect"><JvTreeNodeContent :node="props.node" /></span>
+      <span :class="[bem.e('label')]" @click="handleSelect">
+        <JvTreeNodeContent :node="props.node" />
+      </span>
 
       <!-- 后缀 -->
       <slot name="suffix" />

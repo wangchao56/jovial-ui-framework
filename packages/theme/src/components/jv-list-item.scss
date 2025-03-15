@@ -1,95 +1,133 @@
 @use '../mixins/bem' as *;
 
 @include b(list-item) {
+  --jv-list-item-padding: 12px 16px;
+  --jv-list-item-color: var(--jv-color-text-primary);
+  --jv-list-item-bg-color: #fff;
+  --jv-list-item-min-height: 48px;
+  --jv-list-item-border-radius: 0;
+  --jv-list-item-transition: background-color 0.15s ease;
+
   display: flex;
   position: relative;
-  padding: var(--jv-spacing-small) var(--jv-spacing-medium) !important;
-  font-size: var(--jv-font-size-base);
-  transition: all 0.3s;
+  padding: var(--jv-list-item-padding);
+  min-height: var(--jv-list-item-min-height);
+  font-size: 1rem;
+  transition: var(--jv-list-item-transition);
   justify-content: flex-start;
   align-items: center;
+  box-sizing: border-box;
+  border-radius: var(--jv-list-item-border-radius);
+  color: var(--jv-list-item-color);
+  background-color: var(--jv-list-item-bg-color);
+  cursor: default;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 
   &.is-clickable {
     cursor: pointer;
   }
 
   &.is-hoverable:hover {
-    background-color: var(--jv-color-bg-hover);
+    background-color: var(--jv-color-bg-hover, rgba(0, 0, 0, 0.04));
   }
 
   &.is-selected {
-    background-color: var(--jv-color-primary-light-9);
+    background-color: var(--jv-color-primary-light-9, rgba(33, 150, 243, 0.08));
   }
 
   &.is-active {
     color: var(--jv-color-primary);
-    background-color: var(--jv-color-primary-light-9);
+    background-color: var(--jv-color-primary-light-9, rgba(33, 150, 243, 0.08));
   }
 
   &.is-disabled {
-    color: var(--jv-color-text-disabled);
+    color: var(--jv-color-text-disabled, rgba(0, 0, 0, 0.38));
     cursor: not-allowed;
-    background-color: var(--jv-color-bg-disabled);
+    pointer-events: none;
   }
 
   @include e(prepend) {
     display: flex;
     align-items: center;
-    margin-right: var(--jv-spacing-small);
+    margin-right: 16px;
+    color: var(--jv-color-text-secondary);
   }
 
   @include e(append) {
     display: flex;
     align-items: center;
-    margin-left: var(--jv-spacing-small);
+    margin-left: 16px;
+    color: var(--jv-color-text-secondary);
   }
 
   @include e(content) {
     flex: 1;
     min-width: 0;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
   }
 
   @include e(title) {
-    font-size: var(--jv-font-size-base);
-    font-weight: var(--jv-font-weight-medium);
+    font-size: 1rem;
+    font-weight: 400;
     line-height: 1.5;
+    letter-spacing: 0.00938em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 100%;
   }
 
   @include e(subtitle) {
-    margin-top: var(--jv-spacing-xs);
-    color: var(--jv-color-text-secondary);
-    font-size: var(--jv-font-size-sm);
-    line-height: 1.5;
+    margin-top: 4px;
+    color: var(--jv-color-text-secondary, rgba(0, 0, 0, 0.6));
+    font-size: 0.875rem;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
   }
 
   @include e(description) {
-    margin-top: var(--jv-spacing-xs);
-    color: var(--jv-color-text-secondary);
-    font-size: var(--jv-font-size-sm);
-    line-height: 1.5;
+    margin-top: 4px;
+    color: var(--jv-color-text-secondary, rgba(0, 0, 0, 0.6));
+    font-size: 0.75rem;
+    line-height: 1.66;
+    letter-spacing: 0.03333em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
   }
 
   @include e(avatar) {
     width: 40px;
     height: 40px;
-    margin-right: var(--jv-spacing-small);
+    margin-right: 16px;
     border-radius: 50%;
+    background-color: var(--jv-color-bg-secondary, #e0e0e0);
+    color: var(--jv-color-text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 
   @include e(icon) {
-    color: var(--jv-color-text-secondary);
-    font-size: var(--jv-font-size-lg);
+    color: var(--jv-color-text-secondary, rgba(0, 0, 0, 0.54));
+    font-size: 24px;
   }
 
   @include e(expand-icon) {
     display: flex;
     margin-right: 8px;
-    color: var(--jv-color-text-secondary);
-    font-size: 12px;
+    color: var(--jv-color-text-secondary, rgba(0, 0, 0, 0.54));
+    font-size: 24px;
     transition: transform 0.3s;
     align-items: center;
 

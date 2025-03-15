@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { JvListItemActionEmits, JvListItemActionProps } from './types'
-import JvIcon, { type JvIconProps } from '@components/JvIcon'
+import JvIcon from '@components/JvIcon'
 
 defineOptions({
   name: 'JvListItemAction',
@@ -14,7 +14,7 @@ function handleClick() {
   emit('click')
 }
 
-const iconProps = computed<JvIconProps>(() => {
+const iconProps = computed(() => {
   if (typeof icon === 'string') {
     return { name: icon }
   }

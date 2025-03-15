@@ -2,8 +2,13 @@ import type { JvAvatarProps } from '@components/JvAvatar/src/JvAvatar'
 import type { JvIconProps } from '@components/JvIcon/src/JvIcon'
 import type { JvImageProps } from '@components/JvImage/src/JvImage'
 import type { ExtractPropTypes, PropType, Slot, SlotsType } from 'vue'
-import type { JvListItemProps } from './JvListItem'
 
+export enum JvListType {
+  ITEM = 'item',
+  GROUP = 'group',
+  DIVIDER = 'divider',
+  SUBHEADER = 'subheader',
+}
 /**
  * 提取插槽的参数类型
  * 如果是带参数的插槽，返回参数类型
@@ -18,7 +23,17 @@ export type ExtractSlotsType<T extends {} = Record<string, Slot>> = SlotsType<{
   [K in keyof T]: ExtractSlotParams<T[K]>
 }>
 // 首先定义 rounded 的类型
-export type RoundedType = boolean | string | number | 'rounded' | 'rounded-sm' | 'rounded-lg' | 'rounded-xl' | 'rounded-pill' | 'rounded-circle' | 'rounded-shaped'
+export type RoundedType =
+  | boolean
+  | string
+  | number
+  | 'rounded'
+  | 'rounded-sm'
+  | 'rounded-lg'
+  | 'rounded-xl'
+  | 'rounded-pill'
+  | 'rounded-circle'
+  | 'rounded-shaped'
 
 // 基础属性接口
 interface BaseItem {
@@ -26,8 +41,6 @@ interface BaseItem {
   key: string
   /** 禁用状态 */
   disabled?: boolean
-  /** props属性 */
-  props?: JvListItemProps
 }
 
 // 普通列表项
@@ -62,8 +75,6 @@ export interface DividerType extends BaseItem {
   vertical?: boolean
   /** 是否虚线 */
   dashed?: boolean
-  /** 分割线文本 */
-  text?: string
 }
 // 子标题
 export interface SubHeaderType extends BaseItem {
@@ -76,19 +87,11 @@ export interface SubHeaderType extends BaseItem {
   inset?: boolean
 }
 // 联合类型
-export type ListItem = ListItemType | DividerType | SubHeaderType | ListGroupType
-
-export interface EmitOptions {
-  key: string
-  isActive: boolean
-  isSelected: boolean
-  isClickable: boolean
-  isHoverable: boolean
-  isDisabled: boolean
-  isExpanded: boolean
-  // select: (val: ListItemType) =>  boolean
-  // expand: (key: string, expanded: boolean) => boolean
-}
+export type ListItem =
+  | ListItemType
+  | DividerType
+  | SubHeaderType
+  | ListGroupType
 
 export interface JvListItemTitleProps {
   title: string
@@ -99,7 +102,7 @@ export interface JvListItemSubtitleProps {
 }
 
 export interface JvListItemPrependProps {
-  type: 'avatar' | 'icon' | 'image'
+  type?: 'avatar' | 'icon' | 'image'
   icon?: string | JvIconProps
   avatar?: string | JvAvatarProps
   image?: string | JvImageProps
@@ -129,21 +132,19 @@ export const jvListGroupProps = {
   /** 展开图标 */
   expandIcon: {
     type: String,
-    default: 'chevron-right',
+    default: '$chevronDown',
   },
   /** 折叠图标 */
   collapseIcon: {
     type: String,
-    default: 'chevron-down',
+    default: '$chevronRight',
   },
   /** 标题 */
   title: String,
-  /** 是否展开 */
-  expanded: Boolean,
   /** 列表数据 */
-  item: {
-    type: Object as PropType<ListGroupType>,
-    default: () => ({}),
+  children: {
+    type: Array as PropType<ListItem[]>,
+    default: () => [],
   },
 } as const
 

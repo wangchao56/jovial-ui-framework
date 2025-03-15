@@ -5,6 +5,7 @@ import { useTypography } from './composables'
 
 defineOptions({
   name: 'JvText',
+  inheritAttrs: true,
 })
 
 const props = withDefaults(defineProps<TextProps>(), {
@@ -12,6 +13,7 @@ const props = withDefaults(defineProps<TextProps>(), {
   variant: 'text',
   type: 'default',
   align: 'start',
+  text: '',
 })
 const bem = createNamespace('text')
 const { styleComputed, classComputed } = useTypography(props)
@@ -22,22 +24,23 @@ const Tag = props.variant === 'text' ? 'span' : props.variant
   <span
     :class="[
       bem.b(),
-      bem.m(props.type),
+      bem.m(type),
       {
-        [bem.m(props.variant)]: props.variant !== 'text',
+        [bem.m(variant)]: variant !== 'text',
       },
-    ]"
-    role="text"
+    ]" :role="variant === 'text' ? 'text' : undefined"
   >
     <Tag
-      v-if="variant !== 'text'"
-      :class="[
+      v-if="variant !== 'text'" :class="[
         classComputed,
-      ]"
-      :style="styleComputed"
+      ]" :style="styleComputed"
     >
-      <slot />
+      <slot>
+        {{ text }}
+      </slot>
     </Tag>
-    <slot v-else />
+    <slot v-else>
+      {{ text }}
+    </slot>
   </span>
 </template>

@@ -32,7 +32,10 @@
   }
 
   @include m(secondary) {
-    color: rgba(var(--jv-theme-secondary), 0.45);
+    color: rgba(var(--jv-theme-info), 0.6);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
   }
 
   @include m(success) {
@@ -47,6 +50,13 @@
     color: rgb(var(--jv-theme-error));
   }
 
+  @include m(info) {
+    color: rgb(var(--jv-theme-info));
+  }
+
+  @include m(disabled) {
+    color: rgb(var(--jv-theme-disabled));
+  }
   @include m(text) {
     margin: 0;
   }

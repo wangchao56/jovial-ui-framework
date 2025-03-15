@@ -1,7 +1,7 @@
-import type { Size } from '@jienix/typings'
-import type { PropType } from 'vue'
-
+import type { Size, Type } from '@jienix/typings'
 import * as internalIcons from '@components/internal-icon'
+
+import { normalizeClass, type PropType } from 'vue'
 
 export const icons = {
   $close: internalIcons.MdiClose, // 关闭
@@ -22,6 +22,7 @@ export const icons = {
   $alarmCheck: internalIcons.MdiAlarmCheck, // 闹钟
   $chevronLeft: internalIcons.MdiChevronLeft, // 左箭头
   $chevronRight: internalIcons.MdiChevronRight, // 右箭头
+  $chevronDown: internalIcons.MdiChevronDown, // 下箭头
   $radioBoxBlank: internalIcons.MdiRadioboxBlank, // 空单选框
   $radioBoxMarked: internalIcons.MdiRadioboxMarked, // 勾选单选框
   $success: internalIcons.MdiCheckDecagram, // 成功
@@ -32,9 +33,18 @@ export const icons = {
   $errorOutline: internalIcons.MdiErrorDecagramOutline, // 错误轮廓
   $info: internalIcons.MdiInfoDecagram, // 信息
   $infoOutline: internalIcons.MdiInfoDecagramOutline, // 信息轮廓
+  $arrowLeft: internalIcons.MdiArrowLeft,
+  $arrowRight: internalIcons.MdiArrowRight,
+  $arrowSplitH: internalIcons.MdiArrowSplitHorizontal,
+  $arrowSplitV: internalIcons.MdiArrowSplitVertical,
 }
 
 export const jvIconProps = {
+  /** 类型 */
+  type: {
+    type: String as PropType<Type>,
+    default: 'default',
+  },
   /** 图标大小 */
   size: {
     type: [String, Number] as PropType<Size | string | number>,
@@ -51,8 +61,8 @@ export const jvIconProps = {
   },
   /** 图标类名 */
   class: {
-    type: String,
-    default: '',
+    type: [String, Array] as PropType<string | string[]>,
+    default: () => normalizeClass([]),
     required: false,
   },
 } as const

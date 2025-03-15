@@ -293,51 +293,23 @@ onMounted(() => {
 
 <template>
   <div :class="bem.b()">
-    <JvVirtualScroll
-      v-if="props.virtualScroll && flattenTree.length"
-      :items="flattenTree"
-      :remain="8"
-      :size="35"
-    >
+    <JvVirtualScroll v-if="props.virtualScroll && flattenTree.length" :items="flattenTree" :remain="8" :size="35">
       <template #default="{ node: _node }">
         <JvTreeNode
-          :key="_node.label"
-          :node="_node"
-          :label="_node.label"
-          :is-leaf="_node.isLeaf"
-          :level="_node.level"
-          :raw-node="_node.rawNode"
-          :expanded="isExpanded(_node)"
-          :loading-keys="loadingKeysRef"
-          :selected-keys="selectedKeysRef"
-          :show-checkbox="props.showCheckbox"
-          :checked="isChecked(_node)"
-          :disabled="isDisabled(_node)"
-          :indeterminate="isIndeterminate(_node)"
-          @toggle="toggleNode"
-          @select="selectNode"
-          @check="checkNode"
+          :key="_node.label" :node="_node" :label="_node.label" :is-leaf="_node.isLeaf" :level="_node.level"
+          :raw-node="_node.rawNode" :expanded="isExpanded(_node)" :loading-keys="loadingKeysRef"
+          :selected-keys="selectedKeysRef" :show-checkbox="props.showCheckbox" :checked="isChecked(_node)"
+          :disabled="isDisabled(_node)" :indeterminate="isIndeterminate(_node)" @toggle="toggleNode"
+          @select="selectNode" @check="checkNode"
         />
       </template>
     </JvVirtualScroll>
     <template v-else>
       <JvTreeNode
-        v-for="node in flattenTree"
-        :key="node.key"
-        :node="node"
-        :label="node.label"
-        :is-leaf="node.isLeaf"
-        :level="node.level"
-        :raw-node="node.rawNode"
-        :expanded="isExpanded(node)"
-        :loading-keys="loadingKeysRef"
-        :selected-keys="selectedKeysRef"
-        :show-checkbox="props.showCheckbox"
-        :checked="isChecked(node)"
-        :disabled="isDisabled(node)"
-        :indeterminate="isIndeterminate(node)"
-        @toggle="toggleNode"
-        @select="selectNode"
+        v-for="node in flattenTree" :key="node.key" :node="node" :label="node.label" :is-leaf="node.isLeaf"
+        :level="node.level" :raw-node="node.rawNode" :expanded="isExpanded(node)" :loading-keys="loadingKeysRef"
+        :selected-keys="selectedKeysRef" :show-checkbox="props.showCheckbox" :checked="isChecked(node)"
+        :disabled="isDisabled(node)" :indeterminate="isIndeterminate(node)" @toggle="toggleNode" @select="selectNode"
         @check="checkNode"
       />
     </template>

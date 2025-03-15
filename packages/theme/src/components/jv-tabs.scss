@@ -1,30 +1,80 @@
 @use '../mixins/bem' as *;
+@use '../common/layout' as *;
 
 @include b(tabs) {
+  --tab-height: 40px;
+  --tab-padding: 16px;
+  --indicator-size: 2px;
+  --transition-duration: 0.3s;
+
   display: flex;
+  width: 100%;
 
   /* 标签页位置 */
   &--top {
     flex-direction: column;
+
+    .jv-tabs__nav-item__indicator {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: var(--indicator-size);
+    }
   }
 
   &--bottom {
     flex-direction: column-reverse;
+
+    .jv-tabs__nav-item__indicator {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--indicator-size);
+    }
   }
 
   &--left {
     flex-direction: row;
-
     .jv-tabs__nav {
       flex-direction: column;
+    }
+
+    .jv-tabs__nav-list {
+      flex-direction: column;
+      border-right: 1px solid var(--jv-theme-border);
+    }
+
+    .jv-tabs__nav-item__indicator {
+      top: 0;
+      right: 0;
+      width: var(--indicator-size);
+      height: 100%;
+    }
+
+    .jv-tabs__content {
+      flex: 1;
+      border-left: none;
     }
   }
 
   &--right {
     flex-direction: row-reverse;
 
-    .jv-tabs__nav {
+    .jv-tabs__nav-list {
       flex-direction: column;
+      border-left: 1px solid var(--jv-theme-border);
+    }
+
+    .jv-tabs__nav-item__indicator {
+      top: 0;
+      left: 0;
+      width: var(--indicator-size);
+      height: 100%;
+    }
+
+    .jv-tabs__content {
+      flex: 1;
+      border-right: none;
     }
   }
 
@@ -32,129 +82,134 @@
   @include e(nav) {
     display: flex;
     position: relative;
-    border-bottom: 1px solid var(--jv-border-color);
+    justify-content: space-between;
+    background-color: var(--jv-theme-bg);
   }
 
-  /* 标签页 */
-  @include e(tab) {
+  @include e(nav-list) {
+    flex: 1;
     display: flex;
-    height: 40px;
-    padding: 0 20px;
-    cursor: pointer;
-    transition: all 0.3s;
+    justify-content: flex-start;
     align-items: center;
+  }
 
-    &:hover {
-      color: var(--jv-color-primary);
+  @include e(nav-item) {
+    box-sizing: border-box;
+    position: relative;
+    min-width: 100px;
+    height: var(--tab-height);
+    padding: 0 var(--tab-padding);
+    cursor: pointer;
+    transition: all var(--transition-duration);
+    @include center;
+
+    @include e(icon) {
+      margin-right: 8px;
+      font-size: 16px;
+    }
+
+    @include e(label) {
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @include e(close) {
+      margin-left: 8px;
+      opacity: 0;
+      font-size: 12px;
+      transition: all var(--transition-duration);
+
+      &:hover {
+        color: var(--jv-theme-danger);
+        transform: scale(1.2);
+      }
     }
 
     @include when(active) {
-      color: var(--jv-color-primary);
+      color: rgb(var(--jv-theme-primary));
+      font-weight: 500;
+
+      .jv-tabs__nav-item__indicator {
+        position: absolute;
+        background: rgb(var(--jv-theme-primary));
+        transition: all var(--transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    }
+
+    &:hover {
+      color: rgb(var(--jv-theme-primary));
+
+      .jv-tabs__close {
+        opacity: 1;
+      }
     }
 
     @include when(disabled) {
-      color: var(--jv-text-color-disabled);
       cursor: not-allowed;
-
-      &:hover {
-        color: var(--jv-text-color-disabled);
-      }
+      color: var(--jv-theme-disabled);
+      pointer-events: none;
     }
   }
 
-  /* 图标 */
-  @include e(icon) {
-    margin-right: 8px;
-    font-size: 16px;
-  }
-
-  /* 标签文本 */
-  @include e(label) {
-    font-size: 14px;
-  }
-
-  /* 关闭按钮 */
-  @include e(close) {
-    margin-left: 8px;
-    opacity: 0;
-    font-size: 12px;
-    transition: opacity 0.3s;
-
-    &:hover {
-      color: var(--jv-color-danger);
-    }
-  }
-
-  /* 添加按钮 */
-  @include e(add) {
-    margin-left: 8px;
-    font-size: 14px;
-    cursor: pointer;
-
-    &:hover {
-      color: var(--jv-color-primary);
-    }
-  }
-
-  /* 激活指示器 */
-  @include e(indicator) {
-    position: absolute;
-    bottom: 0;
-    height: 2px;
-    background: var(--jv-color-primary);
-    transition: all 0.3s;
-  }
-
-  /* 内容区域 */
-  @include e(content) {
-    flex: 1;
-    padding: 16px;
-  }
-
-  /* 标签页面板 */
-  @include e(pane) {
-    display: none;
-
-    &[data-active='true'] {
-      display: block;
-    }
-  }
-
-  /* 卡片类型 */
-  &--card {
-    .jv-tabs__nav {
+  @include m(line) {
+    .jv-tabs__nav-item {
       border: none;
-    }
-
-    .jv-tabs__tab {
-      margin-right: 4px;
-      background: var(--jv-bg-color);
-      border: 1px solid var(--jv-border-color);
-      border-radius: 4px 4px 0 0;
-      border-bottom: none;
-
-      @include when(active) {
-        background: var(--jv-color-white);
-        border-color: var(--jv-color-primary);
-      }
+      border-radius: 0;
     }
   }
 
-  /* 分段类型 */
-  &--segment {
-    .jv-tabs__nav {
+  @include m(card) {
+    border: 1px solid var(--jv-theme-border);
+
+    .jv-tabs__nav-list {
+      gap: 2px;
       padding: 4px;
-      background: var(--jv-bg-color);
-      border: none;
-      border-radius: 4px;
     }
 
-    .jv-tabs__tab {
-      border-radius: 4px;
+    .jv-tabs__nav-item {
+      border: 1px solid var(--jv-theme-border);
+      border-radius: var(--jv-rounded-sm) var(--jv-rounded-sm) 0 0;
+      background-color: var(--jv-theme-bg-hover);
 
       @include when(active) {
-        background: var(--jv-color-white);
+        background-color: #fff;
+        border-bottom-color: transparent;
+        z-index: 1;
       }
     }
+  }
+
+  @include m(segment) {
+    .jv-tabs__nav-list {
+      display: inline-flex;
+      background-color: var(--jv-theme-bg-hover);
+      border-radius: var(--jv-rounded-md);
+      gap: 4px;
+    }
+
+    .jv-tabs__nav-item {
+      border: none;
+      border-radius: var(--jv-rounded-sm);
+      background-color: transparent;
+
+      @include when(active) {
+        background-color: #fff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+
+  /* 标签页内容 */
+
+  @include e(panel) {
+    flex: 1;
+    border-left: none;
+  }
+
+  @include e(panel-content) {
+    padding: 16px;
+    background-color: #fff;
   }
 }

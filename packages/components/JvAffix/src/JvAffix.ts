@@ -6,11 +6,6 @@ export const jvAffixProps = {
     type: Number,
     default: 0,
   },
-  /** 距离窗口底部的偏移量 */
-  bottomOffset: {
-    type: Number,
-    default: 0,
-  },
   /** 固定的位置，可选值为 top、bottom */
   position: {
     type: String as PropType<'top' | 'bottom'>,

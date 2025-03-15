@@ -90,6 +90,7 @@ defineExpose<JvButtonExposed>({
       bem.is('disabled', _disabled),
       bem.is('block', block),
       bem.is('stacked', stacked),
+      bem.is('icon-button', icon),
       props.class,
       theme.themeClasses.value,
     ]" :style="buttonStyle" :type="nativeType" :autofocus="autofocus" @click="emitClick($event)"
@@ -98,7 +99,7 @@ defineExpose<JvButtonExposed>({
   >
     <span v-if="$slots.prepend || prependIcon" :class="bem.e('prepend')">
       <!-- 自定义前置图标 -->
-      <JvIcon v-if="prependIcon" :color="color" :size="size" :name="prependIcon" />
+      <JvIcon v-if="prependIcon" :color="color" :size="size" :name="prependIcon" :type="type" />
       <!-- 自定义前置内容 -->
       <slot v-else name="prepend" />
     </span>
@@ -109,12 +110,12 @@ defineExpose<JvButtonExposed>({
 
     <span v-if="$slots.default || icon" :class="bem.e('content')">
       <!-- 图标插槽 -->
-      <JvIcon v-if="icon" :size="size" :color="color" :name="icon" />
+      <JvIcon v-if="icon" :size="size" :color="color" :name="icon" :type="type" />
       <!-- 默认插槽 -->
       <slot v-else-if="$slots.default" />
     </span>
     <span v-if="$slots.append || appendIcon" :class="bem.e('append')">
-      <JvIcon v-if="appendIcon" :size="size" :color="color" :name="appendIcon" />
+      <JvIcon v-if="appendIcon" :size="size" :color="color" :name="appendIcon" :type="type" />
       <slot v-else name="append" />
     </span>
   </button>

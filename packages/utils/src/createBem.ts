@@ -78,22 +78,15 @@ function createBEM(prefixName: string) {
     is,
   }
 }
-
+export type BemRecord = ReturnType<typeof createBEM>
 /**
  *
  * @param namespace   命名空间
  * @returns            返回一个对象，对象中包含b、e、m、be、em、bm、bem方法
  */
-export function createNamespace(namespace: string): ReturnType<typeof createBEM> {
+export function createNamespace(
+  namespace: string,
+): BemRecord {
   const prefixName = `jv-${namespace}`
-
   return createBEM(prefixName)
 }
-
-// const bem = createNamespace("button");
-// console.log(bem.b());
-// console.log(bem.e("icon"));
-// console.log(bem.m("loading"));
-// console.log(bem.be("icon", "icon"));
-// console.log(bem.em("icon", "success"));
-// console.log(bem.is("loading", ""));

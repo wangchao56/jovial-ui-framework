@@ -1,20 +1,20 @@
 import { withInstall } from '@jienix/utils'
-import _JvBackTop from './src/JvBackTop.vue'
+import _JvBacktop from './src/JvBacktop.vue'
 import './style'
 
-const JvBackTop = withInstall(_JvBackTop)
+const JvBacktop = withInstall(_JvBacktop)
 
-export * from './src/JvBackTop'
-export default JvBackTop
-export type JvJvBackTopInstance = InstanceType<typeof JvBackTop>
+export * from './src/JvBacktop'
+export default JvBacktop
+export type JvJvBacktopInstance = InstanceType<typeof JvBacktop>
 export type {
-  JvBackTopEmits,
-  JvBackTopExpose,
-  JvBackTopProps,
-  JvBackTopSlots,
-} from './src/JvBackTop'
+  JvBacktopEmits,
+  JvBacktopExpose,
+  JvBacktopProps,
+  JvBacktopSlots,
+} from './src/JvBacktop'
 declare module 'vue' {
   export interface GlobalComponents {
-    JvBackTop: typeof JvBackTop
+    JvBacktop: typeof JvBacktop
   }
 }

@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import type { ListItem } from './types'
 import JvIcon from '@components/JvIcon'
 import { createNamespace } from '@jienix/utils'
+import { computed, inject, normalizeClass } from 'vue'
+import { type JvListContext, JvListContextKey } from './JvList'
 import JvListChildren from './JvListChildren.vue'
-import { jvListGroupEmits, jvListGroupProps } from './types'
+import { jvListGroupProps } from './types'
 
 defineOptions({
   name: 'JvListGroup',
@@ -11,23 +12,34 @@ defineOptions({
 })
 
 const props = defineProps(jvListGroupProps)
-const emit = defineEmits(jvListGroupEmits)
 
 const bem = createNamespace('list-group')
+const { props: listProps, ...listContext } = inject(JvListContextKey, null) as JvListContext
+const instance = getCurrentInstance()
+const instanceKey = instance?.vnode.key as string
 
-const isExpanded = ref(props.expanded)
-
-watch(() => props.expanded, (val) => {
-  isExpanded.value = val
+// 使用 expandedKeys 来控制展开状态
+const isExpanded = computed(() => {
+  return listContext?.expandedKeys.value.includes(instanceKey) || false
 })
 
 function toggleExpand() {
-  isExpanded.value = !isExpanded.value
-  emit('update:expanded', isExpanded.value)
+  if (!listContext) {
+    return
+  }
+  const index = listContext.expandedKeys.value.indexOf(instanceKey)
+  if (index === -1) {
+    listContext.onExpanded(instanceKey, true)
+  }
+  else {
+    listContext.onExpanded(instanceKey, false)
+  }
 }
 
-const children = computed<ListItem[]>(() => {
-  return props.item.children || []
+const activeIcon = computed(() => {
+  const collapseIcon = unref(listProps.collapseIcon) || props.collapseIcon
+  const expandIcon = unref(listProps.expandIcon) || props.expandIcon
+  return isExpanded.value ? collapseIcon : expandIcon
 })
 </script>
 
@@ -38,48 +50,15 @@ const children = computed<ListItem[]>(() => {
         {{ props.title }}
       </div>
       <div :class="bem.e('action')">
-        <JvIcon
-          :icon="isExpanded ? props.collapseIcon : props.expandIcon"
-          :class="[bem.e('icon'), { 'is-expanded': isExpanded }]"
-        />
+        <JvIcon :name="activeIcon" :class="normalizeClass([bem.e('icon'), { 'is-expanded': isExpanded }])" />
       </div>
     </div>
     <div v-show="isExpanded" :class="bem.e('children')">
-      <ul>
-        <JvListChildren v-for="child in children" :key="child.key" :item="child" :level="1" :type="child.type" />
+      <ul :class="bem.e('children-list')">
+        <slot>
+          <JvListChildren v-for="child in children" :key="child.key" :item="child" :level="1" :type="child.type" />
+        </slot>
       </ul>
     </div>
   </li>
 </template>
-
-<style lang="scss">
-.jv-list-group {
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 16px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: rgb(0 0 0 / 4%);
-    }
-  }
-
-  &__title {
-    font-weight: 500;
-  }
-
-  &__icon {
-    transition: transform 0.3s ease;
-
-    &.is-expanded {
-      transform: rotate(180deg);
-    }
-  }
-
-  &__children {
-    padding-left: 16px;
-  }
-}
-</style>

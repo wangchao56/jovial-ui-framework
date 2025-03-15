@@ -92,19 +92,19 @@ function isArray(value: any): value is (...args: any[]) => any {
   return Array.isArray(value)
 }
 
-function isNull(value: any): boolean {
+function isNull(value: any): value is null {
   return getType(value) === TypeOptions.Null
 }
 
-function isBoolean(value: any): boolean {
+function isBoolean(value: any): value is boolean {
   return getType(value) === TypeOptions.Boolean
 }
 
-function isDate(value: any): boolean {
+function isDate(value: any): value is Date {
   return getType(value) === TypeOptions.Date
 }
 
-function isFunction(value: any): boolean {
+function isFunction(value: any): value is Function {
   return getType(value) === TypeOptions.Function
 }
 /**
@@ -113,7 +113,7 @@ function isFunction(value: any): boolean {
  * @param value 需要判断的值。
  * @returns 如果值为数字或NaN，则返回true；否则返回false。
  */
-function isNumber(value: any): boolean {
+function isNumber(value: any): value is number {
   return (
     getType(value) === TypeOptions['Number&NaN']
     || (typeof value === 'number' && Number.isNaN(value))
@@ -126,20 +126,20 @@ function isNumber(value: any): boolean {
  * @param value 需要判断的值。
  * @returns 如果值为数字或NaN，则返回true；否则返回false。
  */
-function isNumberExcludeNaN(value: any): boolean {
+function isNumberExcludeNaN(value: any): value is number {
   return getType(value) === TypeOptions['Number&NaN'] && !Number.isNaN(value)
 }
 
-function isRegExp(value: any): boolean {
+function isRegExp(value: any): value is RegExp {
   return getType(value) === TypeOptions.RegExp
 }
 
-function isString(value: any): boolean {
+function isString(value: any): value is string {
   return getType(value) === TypeOptions.String
 }
 
 // 判断是否为空
-function isEmpty(value: any): boolean {
+function isEmpty(value: any): value is string | number | object {
   if (isArray(value) || isString(value)) {
     return value.length === 0
   }
@@ -153,7 +153,7 @@ function isEmpty(value: any): boolean {
   return !value
 }
 /** 是否为undfined  */
-function isUndefined(value: any): boolean {
+function isUndefined(value: any): value is undefined {
   return getType(value) === TypeOptions.Undefined
 }
 

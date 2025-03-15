@@ -14,7 +14,7 @@ export const jvInputProps = {
     default: '',
   },
   type: {
-    type: String,
+    type: String as PropType<'text' | 'password' >,
     default: 'text',
   },
   variant: {

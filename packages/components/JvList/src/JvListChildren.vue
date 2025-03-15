@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ListGroupType, ListItem, SubHeaderType } from './types'
+import type { DividerType, ListGroupType, ListItem, ListItemType, SubHeaderType } from './types'
 import JvDivider from '@components/JvDivider'
 import JvListGroup from './JvListGroup.vue'
 import JvListItem from './JvListItem.vue'
@@ -19,32 +19,26 @@ defineProps({
     type: Number,
     default: 0,
   },
-  type: {
-    type: String as PropType<'item' | 'group' | 'divider' | 'subheader'>,
-    default: 'item',
-  },
 })
 
 // 类型守卫函数
 function isGroupType(item: ListItem): item is ListGroupType {
   return item.type === 'group'
 }
-
+function isItemType(item: ListItem): item is ListItemType {
+  return item.type === 'item'
+}
 function isSubheaderType(item: ListItem): item is SubHeaderType {
   return item.type === 'subheader'
+}
+function isDividerType(item: ListItem): item is DividerType {
+  return item.type === 'divider'
 }
 </script>
 
 <template>
-  <JvListItem v-if="type === 'item'" v-bind="item.props" :meta-raw="item" />
-  <JvListGroup
-    v-else-if="type === 'group' && isGroupType(item)"
-    :title="item.title"
-    :item="item"
-  />
-  <JvListSubheader
-    v-else-if="type === 'subheader' && isSubheaderType(item)"
-    :title="item.title"
-  />
-  <JvDivider v-else-if="type === 'divider'" v-bind="item" />
+  <JvListItem v-if="isItemType(item)" v-bind="item" :meta-raw="item" />
+  <JvListGroup v-else-if="isGroupType(item)" :title="item.title" :children="item.children" />
+  <JvListSubheader v-else-if="isSubheaderType(item)" :title="item.title" />
+  <JvDivider v-else-if="isDividerType(item)" v-bind="item" />
 </template>

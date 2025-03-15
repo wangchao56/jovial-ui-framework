@@ -98,7 +98,18 @@ export enum SizeOptions {
   'LARGE' = 'large',
   'X-LARGE' = 'x-large',
 }
-
+/**
+ * 形状
+ * 方形 border-radius: 4px
+ * 圆角 border-radius: 8px
+ * 圆形 border-radius: 50%
+ */
+export type Shape = 'square' | 'rounded' | 'circle' | 'block'
+export enum ShapeOptions {
+  SQUARE = 'square',
+  ROUNDED = 'rounded',
+  CIRCLE = 'circle',
+}
 /** 按钮的 DOM 的 type 属性 */
 export type NativeType = 'button' | 'submit' | 'reset'
 /**

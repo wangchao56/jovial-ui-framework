@@ -1,5 +1,11 @@
 import type { Slot } from 'vue'
-import type { EmitOptions, JvListItemActionProps, JvListItemPrependProps, ListGroupType, ListItem, RoundedType } from './types'
+import type {
+  JvListItemActionProps,
+  JvListItemPrependProps,
+  ListGroupType,
+  ListItem,
+  RoundedType,
+} from './types'
 
 // Props 类型定义
 export const jvListItemProps = {
@@ -20,32 +26,15 @@ export const jvListItemProps = {
   },
   /** 根元素类名 */
   class: String,
-  /** 激活状态 */
-  active: {
-    type: Boolean,
-    default: false,
-  },
   /** 激活状态下的背景色 */
   activeColor: String,
   /** 非激活状态下的背景色 */
   inactiveColor: String,
-  /** 是否可悬浮 */
-  hoverable: {
-    type: Boolean,
-    default: false,
-  },
   /** 是否显示分割线 */
   showDivider: {
     type: Boolean,
     default: false,
   },
-  /** 是否为链接 */
-  link: {
-    type: Boolean,
-    default: false,
-  },
-  /** 链接地址 */
-  href: String,
   /** 前置头像 */
   prependAvatar: String,
   /** 前置图标 */
@@ -98,16 +87,6 @@ export const jvListItemProps = {
     type: Boolean,
     default: false,
   },
-  /** 是否可以展开 */
-  expandable: {
-    type: Boolean,
-    default: false,
-  },
-  /** 是否展开 */
-  expanded: {
-    type: Boolean,
-    default: false,
-  },
   /** 元数据 */
   metaRaw: {
     type: Object as PropType<ListItem | ListGroupType>,
@@ -124,7 +103,13 @@ export const jvListItemEmits = {
   'expand': (options: EmitOptions) => options,
   'update:expanded': (value: boolean) => typeof value === 'boolean',
 } as const
-
+export interface EmitOptions {
+  key: string
+  isActive: boolean
+  isSelected: boolean
+  isClickable: boolean
+  isDisabled: boolean
+}
 // Emits 类型
 export interface JvListItemEmits {
   (e: 'click', event: MouseEvent | KeyboardEvent, options: EmitOptions): void

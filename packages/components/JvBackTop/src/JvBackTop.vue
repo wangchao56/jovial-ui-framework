@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { JvBackTopEmits } from './JvBackTop'
+import type { JvBacktopEmits } from './JvBacktop'
 import JvAffix from '@components/JvAffix/src/JvAffix.vue'
 import JvButton from '@components/JvButton/src/JvButton.vue'
 import { createNamespace } from '@jienix/utils'
 import { h, onBeforeUnmount, onMounted, ref } from 'vue'
-import { jvBackTopProps } from './JvBackTop'
+import { jvBacktopProps } from './JvBacktop'
 
-defineOptions({ name: 'JvBackTop', inheritAttrs: false })
+defineOptions({ name: 'JvBacktop', inheritAttrs: false })
 
-const { right, bottom, visibilityHeight, duration, target } = defineProps(jvBackTopProps)
-const emit = defineEmits<JvBackTopEmits>()
+const { right, bottom, visibilityHeight, duration, target } = defineProps(jvBacktopProps)
+const emit = defineEmits<JvBacktopEmits>()
 const bem = createNamespace('backTop')
 const visible = ref(false)
 const el = ref<HTMLElement | null>(null)

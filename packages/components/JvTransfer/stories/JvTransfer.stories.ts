@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvTransfer from '@components/JvTransfer/src/JvTransfer.vue'
+import JvTransfer from '@components/JvTransfer'
 import { ref } from 'vue'
 
 const meta: Meta<typeof JvTransfer> = {

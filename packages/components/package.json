@@ -1,17 +1,21 @@
 {
   "name": "@jienix/jovial-components",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
-  "license": "ISC",
+  "description": "jovial components",
+  "author": "jienix",
+  "license": "MIT",
   "keywords": [],
   "main": "index.js",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest --config vitest.config.ts",
+    "coverage": "vitest run --coverage",
     "tsc": "vue-tsc -b"
   },
   "dependencies": {
     "@jienix/jovial-theme": "workspace:*",
     "@jienix/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@vitest/coverage-istanbul": "2.1.9"
   }
 }

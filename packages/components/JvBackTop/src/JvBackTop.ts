@@ -1,6 +1,6 @@
 import type { Slot } from 'vue'
 
-export const jvBackTopProps = {
+export const jvBacktopProps = {
   /** 滚动高度达到此参数值才出现 */
   visibilityHeight: {
     type: Number,
@@ -28,21 +28,21 @@ export const jvBackTopProps = {
   },
 } as const
 
-export type JvBackTopProps = ExtractPropTypes<typeof jvBackTopProps>
+export type JvBacktopProps = ExtractPropTypes<typeof jvBacktopProps>
 
-export interface JvBackTopEmits {
+export interface JvBacktopEmits {
   /** 滚动事件 */
   (e: 'scroll', data: { scrollTop: number }): void
   /** 点击事件 */
   (e: 'click', event: MouseEvent): void
 }
 
-export interface JvBackTopSlots {
+export interface JvBacktopSlots {
   /** 默认插槽 */
   default?: Slot
 }
 
-export interface JvBackTopExpose {
+export interface JvBacktopExpose {
   /** 滚动事件 */
   handleScroll: () => void
   /** 滚动到顶部 */

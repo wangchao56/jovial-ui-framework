@@ -12,7 +12,7 @@ const defaultTheme: ThemeOptions = {
       colors: {
         primary: '#409EFF',
         background: '#F5f5f5',
-        surface: '#121212',
+        surface: '#ffffff',
         success: '#67C23A',
         warning: '#E6A23C',
         error: '#F56C6C',

@@ -14,18 +14,22 @@ const meta = {
     size: {
       control: 'select',
       options: ['tiny', 'small', 'medium', 'large', 'x-large'],
+      defaultValue: 'medium',
     },
     type: {
       control: 'select',
-      options: ['primary', 'success', 'warning', 'error', 'info'],
+      options: ['primary', 'success', 'warning', 'error', 'info', 'default'],
+      defaultValue: 'default',
     },
     variant: {
       control: 'select',
       options: ['text', 'plain', 'tonal', 'elevated', 'outlined', 'flat'],
+      defaultValue: 'outlined',
     },
     loading: {
       control: 'boolean',
       description: '加载状态插槽',
+      defaultValue: false,
     },
   },
   args: {
@@ -44,7 +48,6 @@ type Story = StoryObj<typeof meta>
 
 export const DefaultButton: Story = {
   args: {
-    default: 'Default Button',
   },
   render: args => ({
     components: { JvButton, JvSpace },
@@ -53,7 +56,7 @@ export const DefaultButton: Story = {
     },
     template: `
       <JvButton v-bind="args">
-        {{ args.default }}
+       Default Button
       </JvButton>
     `,
   }),
@@ -61,7 +64,6 @@ export const DefaultButton: Story = {
 
 export const TypeButton: Story = {
   args: {
-    default: 'Primary Button',
   },
   render: args => ({
     components: { JvButton, JvSpace },
@@ -82,7 +84,6 @@ export const TypeButton: Story = {
 export const SizeButton: Story = {
   args: {
     size: 'large',
-    default: 'Large Button',
   },
   render: args => ({
     components: { JvButton, JvSpace },
@@ -104,7 +105,6 @@ export const SizeButton: Story = {
 export const VariantButton: Story = {
   args: {
     variant: 'text',
-    default: 'Text Button',
   },
   render: args => ({
     components: { JvButton, JvSpace },
@@ -141,13 +141,13 @@ export const TestButton: Story = {
     },
     template: `
       <JvButton v-bind="args">
-        {{ args.default }}
+        Test Button
       </JvButton>
     `,
   }),
   play: async ({ canvasElement }: any) => {
     const canvas = within(canvasElement)
-    const button = canvas.getByRole('button', { name: /Primary Button/i })
+    const button = canvas.getByRole('button', { name: /Test Button/i })
     await expect(button).toBeInTheDocument()
   },
 }

@@ -1,100 +1,125 @@
-/* JvLoadingBar 基础样式 */
+/* JvLoadingBar 基础样式 - Metal Design 风格 */
 .jv-loading-bar {
-  --jv-loading-bar-height: 2px;
-  --jv-loading-bar-color: var(--jv-color-primary, #409eff);
-  --jv-loading-bar-bg-color: transparent;
+  --loading-bar-track-color: rgba(0, 0, 0, 0.05);
+  --loading-bar-path-color: var(--jv-color-primary, #409eff);
+  --loading-bar-shine-color: rgba(255, 255, 255, 0.8);
   --jv-loading-bar-z-index: 9999;
 
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: var(--jv-loading-bar-height);
-  background-color: var(--jv-loading-bar-bg-color);
   z-index: var(--jv-loading-bar-z-index);
   pointer-events: none;
+  overflow: hidden;
+  backdrop-filter: blur(4px);
 }
 
-/* 进度条 */
-.jv-loading-bar__inner {
+/* SVG 样式 */
+.jv-loading-bar__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.jv-loading-bar__track {
+  stroke: var(--loading-bar-track-color);
+  stroke-linecap: round;
+  filter: blur(0.5px);
+}
+
+.jv-loading-bar__path {
+  stroke: var(--loading-bar-path-color);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 2px var(--loading-bar-path-color));
+}
+
+.jv-loading-bar__shadow {
+  stroke: var(--loading-bar-path-color);
+  stroke-linecap: round;
+  filter: blur(2px);
+  transition: stroke-dashoffset 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.4;
+}
+
+/* 金属光泽效果 */
+.jv-loading-bar::after {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
-  width: 0;
+  right: 0;
   height: 100%;
-  transition: width 0.2s linear;
-  background-color: var(--jv-loading-bar-color);
+  background: linear-gradient(90deg, transparent, var(--loading-bar-shine-color), transparent);
+  opacity: 0;
+  animation: jv-loading-bar-shine 2s ease-in-out infinite;
+  pointer-events: none;
 }
 
-/* 加载中状态 */
-.jv-loading-bar--loading .jv-loading-bar__inner {
-  animation: jv-loading-bar-stripes 1s linear infinite;
-  background-image: linear-gradient(
-    45deg,
-    rgb(255 255 255 / 15%) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgb(255 255 255 / 15%) 50%,
-    rgb(255 255 255 / 15%) 75%,
-    transparent 75%,
-    transparent
-  );
-  background-size: 40px 40px;
-}
-
-@keyframes jv-loading-bar-stripes {
-  from {
-    background-position: 40px 0;
-  }
-
-  to {
-    background-position: 0 0;
-  }
-}
-
-/* 完成状态 */
-.jv-loading-bar--success .jv-loading-bar__inner {
-  background-color: var(--jv-color-success, #67c23a);
-  transition: width 0.3s ease-out;
-}
-
-/* 错误状态 */
-.jv-loading-bar--error .jv-loading-bar__inner {
-  background-color: var(--jv-color-danger, #f56c6c);
-  transition: width 0.3s ease-out;
-}
-
-/* 警告状态 */
-.jv-loading-bar--warning .jv-loading-bar__inner {
-  background-color: var(--jv-color-warning, #e6a23c);
-  transition: width 0.3s ease-out;
-}
-
-/* 不确定状态 - 无法确定进度时的动画效果 */
-.jv-loading-bar--indeterminate .jv-loading-bar__inner {
-  width: 100%;
-  transform: translateX(-100%);
-  animation: jv-loading-bar-indeterminate 2s infinite linear;
-}
-
-@keyframes jv-loading-bar-indeterminate {
+@keyframes jv-loading-bar-shine {
   0% {
+    opacity: 0;
     transform: translateX(-100%);
   }
-
-  60% {
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
     transform: translateX(100%);
   }
+}
 
+/* 类型变体 - 金属质感色彩 */
+.jv-loading-bar--primary {
+  --loading-bar-path-color: linear-gradient(90deg, #3a8ee6, #64b5f6);
+}
+
+.jv-loading-bar--success {
+  --loading-bar-path-color: linear-gradient(90deg, #4caf50, #81c784);
+}
+
+.jv-loading-bar--warning {
+  --loading-bar-path-color: linear-gradient(90deg, #ff9800, #ffb74d);
+}
+
+.jv-loading-bar--error {
+  --loading-bar-path-color: linear-gradient(90deg, #f44336, #e57373);
+}
+
+/* 活动状态 */
+.jv-loading-bar--active .jv-loading-bar__path,
+.jv-loading-bar--active .jv-loading-bar__shadow {
+  transition: stroke-dashoffset 0.2s cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.jv-loading-bar--active::after {
+  animation-duration: 1.5s;
+}
+
+/* 阴影效果 */
+.jv-loading-bar--shadow .jv-loading-bar__shadow {
+  animation: jv-loading-bar-shadow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes jv-loading-bar-shadow-pulse {
+  0%,
   100% {
-    transform: translateX(100%);
+    filter: blur(2px);
+    opacity: 0.3;
+  }
+  50% {
+    filter: blur(3px);
+    opacity: 0.5;
   }
 }
 
 /* 淡入淡出效果 */
 .jv-loading-bar--fade-enter-active,
 .jv-loading-bar--fade-leave-active {
-  transition: opacity 0.3s;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .jv-loading-bar--fade-enter-from,
@@ -104,13 +129,21 @@
 
 /* 尺寸变体 */
 .jv-loading-bar--small {
-  --jv-loading-bar-height: 1px;
+  height: 2px;
 }
 
 .jv-loading-bar--medium {
-  --jv-loading-bar-height: 2px;
+  height: 3px;
 }
 
 .jv-loading-bar--large {
-  --jv-loading-bar-height: 3px;
+  height: 4px;
+}
+
+/* 毛玻璃效果 - 仅在支持的浏览器中启用 */
+@supports (backdrop-filter: blur(4px)) {
+  .jv-loading-bar {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+  }
 }

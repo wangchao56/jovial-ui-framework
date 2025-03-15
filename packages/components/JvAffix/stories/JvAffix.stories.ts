@@ -49,7 +49,7 @@ export const CustomContainer: Story = {
         style="height: 200px; overflow: auto; border: 1px solid #ccc; padding: 20px;"
       >
         <div style="height: 400px; padding: 20px;">
-          <JvAffix :target="getContainer" :offset="0">
+          <JvAffix :target="getContainer" :offset="10">
             <JvButton type="primary">在容器内固定</JvButton>
           </JvAffix>
         </div>

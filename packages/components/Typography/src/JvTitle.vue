@@ -28,11 +28,10 @@ const Tag = `h${props.level}`
       bem.e('sr-only'),
       bem.e(`level-${level}`),
       classComputed,
-    ]"
-    :style="styleComputed"
-    role="heading"
-    :aria-level="level"
+    ]" :style="styleComputed" role="heading" :aria-level="level"
   >
-    <slot />
+    <slot>
+      {{ title }}
+    </slot>
   </Tag>
 </template>

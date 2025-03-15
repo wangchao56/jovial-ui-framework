@@ -17,3 +17,4 @@ export * from './src/propsFactory';
 export * from './src/resize-event';
 export * from './src/vue';
 export * from './src/with-install';
+export * from './src/constants';

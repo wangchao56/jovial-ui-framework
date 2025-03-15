@@ -2,17 +2,74 @@
 
 @include b(list) {
   width: 100%;
+  max-width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 8px 0;
   list-style: none;
+  background-color: var(--jv-color-bg-default);
+  border-radius: 4px;
+  overflow: hidden;
+
+  &--bordered {
+    border: 1px solid var(--jv-color-border-default);
+  }
+
+  &--show-divider {
+    .jv-list-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 16px;
+      right: 16px;
+      height: 1px;
+      background-color: var(--jv-color-border-default);
+    }
+  }
+
+  @include m(hoverable) {
+    .jv-list-item {
+      &:hover {
+        background-color: var(--jv-color-bg-hover);
+      }
+    }
+  }
+
+  @include m(one) {
+    .jv-list-item {
+      height: 48px;
+    }
+  }
+
+  @include m(two) {
+    .jv-list-item {
+      height: 56px;
+    }
+  }
+
+  @include m(three) {
+    .jv-list-item {
+      height: 64px;
+    }
+  }
 }
 
-@include b(list-item) {
-  display: flex;
-  align-items: center;
-  padding: 12px 20px;
-  transition: background-color 0.3s;
-  &:hover {
-    background-color: var(--jv-hover-bg-color);
-  }
+@include b(list-subheader) {
+  --jv-list-subheader-padding: 16px 16px 8px;
+  --jv-list-subheader-color: var(--jv-color-text-secondary);
+  --jv-list-subheader-bg-color: transparent;
+  --jv-list-subheader-font-size: 0.875rem;
+  --jv-list-subheader-font-weight: 500;
+  --jv-list-subheader-line-height: 1.5;
+  --jv-list-subheader-margin: 0;
+  --jv-list-subheader-letter-spacing: 0.1px;
+  box-sizing: border-box;
+  padding: var(--jv-list-subheader-padding);
+  color: var(--jv-list-subheader-color);
+  background-color: var(--jv-list-subheader-bg-color);
+  font-size: var(--jv-list-subheader-font-size);
+  font-weight: var(--jv-list-subheader-font-weight);
+  line-height: var(--jv-list-subheader-line-height);
+  letter-spacing: var(--jv-list-subheader-letter-spacing);
+  text-transform: uppercase;
+  height: 48px;
 }

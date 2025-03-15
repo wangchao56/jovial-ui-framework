@@ -1,20 +1,62 @@
-import type { Size, Type } from '@jienix/typings'
+import type { Shape, Size, Type } from '@jienix/typings'
 import type { ExtractPropTypes, PropType, Ref, Slot } from 'vue'
 
+// 标签变体 outlined, filled
+type TagVariant = 'outlined' | 'filled'
+
+export const typeSet = [
+  'primary',
+  'success',
+  'warning',
+  'error',
+  'info',
+  'default',
+] as const
+export const variantSet = [
+  'text',
+  'flat',
+  'tonal',
+  'plain',
+  'elevated',
+  'outlined',
+] as const
+
 export const jvTagProps = {
+  /**
+   * 标签文本
+   */
+  label: {
+    type: String,
+    default: '',
+  },
   /**
    * 类型
    */
   type: {
     type: String as PropType<Type>,
-    default: 'primary',
+    default: 'default',
   },
+
   /**
    * 尺寸
    */
   size: {
     type: String as PropType<Size>,
     default: 'medium',
+  },
+  /**
+   * 形状
+   */
+  shape: {
+    type: String as PropType<Shape>,
+    default: 'square',
+  },
+  /**
+   * 变体
+   */
+  variant: {
+    type: String as PropType<TagVariant>,
+    default: 'outlined',
   },
   /**
    * 是否可关闭
@@ -49,7 +91,7 @@ export const jvTagProps = {
    */
   showIcon: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   /**
    * 图标
@@ -66,7 +108,7 @@ export interface JvTagEmits {
   /**
    * 关闭时触发
    */
-  (event: 'close', evt: MouseEvent): void
+  (event: 'close'): void
 }
 
 export interface JvTagSlots {

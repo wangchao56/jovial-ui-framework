@@ -1,8 +1,8 @@
 <script lang="ts" setup>
+import JvLoading from '@components/JvLoading'
 import { useTheme } from '@jienix/jovial-theme'
 import { createNamespace } from '@jienix/utils'
 import { ref } from 'vue'
-import JvLoadingBar from '../../JvLoading/src/JvLoadingBar.vue'
 
 defineOptions({ name: 'JvApp', inheritAttrs: false })
 withDefaults(defineProps<{
@@ -24,7 +24,7 @@ const loadingPercentage = ref(0)
       theme.themeClasses.value,
     ]"
   >
-    <JvLoadingBar
+    <JvLoading.Bar
       v-if="loading" :percentage="loadingPercentage"
       :type="theme.name.value === 'light' ? 'primary' : 'success'" active shadow
     />

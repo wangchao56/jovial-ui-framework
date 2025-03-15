@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import JvIcon from '@components/JvIcon/src/JvIcon.vue'
-import { ZoomOutTwotone } from '@vicons/material'
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
   title: '通用组件/JvIcon',
@@ -33,41 +32,54 @@ type Story = StoryObj<typeof meta>
  * to learn how to use render functions.
  */
 export const Default: Story = {
+  args: {
+    name: '$close',
+  },
   render: args => ({
-    components: { JvIcon, ZoomOutTwotone },
+    components: { JvIcon },
     setup() {
       return { args }
     },
     template: `
       <JvIcon v-bind="args">
-        <ZoomOutTwotone />
       </JvIcon>
     `,
   }),
 }
 
-export const Colored: Story = {
+export const Types: Story = {
   args: {
-    color: '#1ea7fd',
+    size: 'x-large',
+    name: '$alarmCheck',
   },
   render: args => ({
-    components: { JvIcon, ZoomOutTwotone },
+    components: { JvIcon },
     setup() {
-      return { args }
+      const typeOptions = [
+        'default',
+        'primary',
+        'success',
+        'warning',
+        'error',
+        'info',
+      ]
+      return { args, typeOptions }
     },
     template: `
-      <JvIcon v-bind="args">
-              <ZoomOutTwotone />
+    <JvSpace direction="vertical">
+      <JvIcon v-for="type in typeOptions" v-bind="args" :type="type">
       </JvIcon>
+    </JvSpace>
     `,
   }),
 }
 
 export const SizeIcon: Story = {
   args: {
+    name: '$alarmCheck',
   },
   render: args => ({
-    components: { JvIcon, ZoomOutTwotone },
+    components: { JvIcon },
     setup() {
       const sizeOptions = ['tiny', 'small', 'medium', 'large', 'x-large']
 
@@ -76,7 +88,6 @@ export const SizeIcon: Story = {
     template: `
     <JvSpace direction="vertical">
       <JvIcon v-for="size in sizeOptions" v-bind="args" :size="size">
-         <ZoomOutTwotone />
       </JvIcon>
     </JvSpace>
     `,

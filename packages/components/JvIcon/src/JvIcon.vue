@@ -1,47 +1,17 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { SizeOptions } from '@jienix/typings'
-import { createNamespace, isNumberExcludeNaN, isString } from '@jienix/utils'
-import { useDebounceFn } from '@vueuse/core'
-import { computed, nextTick, ref, watch } from 'vue'
+import { createNamespace, isNumberExcludeNaN, isString, sizeOptions } from '@jienix/utils'
+import { computed, normalizeClass } from 'vue'
 import { icons, jvIconProps } from './JvIcon'
 
 defineOptions({ name: 'JvIcon', inheritAttrs: false })
 const { color, size, name, class: className } = defineProps(jvIconProps)
 
 const bem = createNamespace('icon')
-const iconRef = ref<HTMLElement | null>(null)
 
-const iconClass = computed(() => {
-  const baseClass = bem.b()
-  const sizeClass = isString(size) && (size as string).toUpperCase() in SizeOptions
-    ? bem.m(size as string)
-    : ''
-  return [baseClass, sizeClass].filter(Boolean)
-})
 const iconStyle = computed(() => {
   const result = {} as Record<string, string>
-
-  if (color) {
-    switch (color) {
-      case 'success':
-        result.color = 'rgb(var(--jv-theme-success))'
-        break
-      case 'warning':
-        result.color = 'rgb(var(--jv-theme-warning))'
-        break
-      case 'error':
-        result.color = 'rgb(var(--jv-theme-error))'
-        break
-      case 'info':
-        result.color = 'rgb(var(--jv-theme-info))'
-        break
-      default:
-        result.color = color
-    }
-  }
-
-  if (size || isNumberExcludeNaN(size)) {
+  if (isNumberExcludeNaN(size)) {
     result.fontSize = `${size}px`
     result.lineHeight = `${size}px`
     result.width = `${size}px`
@@ -62,76 +32,21 @@ const internalIconVnode = computed(() => {
   return null
 })
 
-// 优化 setPathFill 函数
-function setPathFill(fill: string) {
-  if (!iconRef.value)
-    return
-
-  const svg = iconRef.value.querySelector('svg')
-  if (!svg)
-    return
-
-  // 使用一次性查询所有 SVG 图形元素
-  const elements = svg.querySelectorAll<SVGElement>('path, circle, rect, polygon, ellipse')
-  // 使用 requestAnimationFrame 优化性能
-  requestAnimationFrame(() => {
-    elements.forEach((element) => {
-      if (!element.hasAttribute('stroke')) {
-        element.setAttribute('fill', fill)
-        element.setAttribute('width', '1em')
-        element.setAttribute('height', '1em')
-      }
-    })
-  })
-}
-
-// 优化 watch，添加防抖
-const debouncedSetFill = useDebounceFn((fill: string) => {
-  if (fill) {
-    nextTick(() => {
-      setPathFill(fill)
-    })
+const innerSize = computed(() => {
+  if (isString(size) && sizeOptions.includes(size as string)) {
+    return size
   }
-}, 16) // 约一帧的时间
-
-watch(() => [name], ([newName]) => {
-  if (newName) {
-    debouncedSetFill(newName)
-  }
-}, { immediate: true })
-
-// 暴露方法和引用
-defineExpose({
-  setPathFill,
-  iconRef,
+  return ''
 })
 </script>
 
 <template>
-  <i ref="iconRef" :class="[iconClass, className]" :style="iconStyle">
+  <i
+    :class="[bem.b(), { [bem.m(innerSize)]: innerSize }, normalizeClass(className), { [bem.m(type)]: type !== 'default' }]"
+    :style="iconStyle"
+  >
     <slot v-if="$slots.default" />
     <Icon v-else-if="show && name" :icon="name" :color="color" />
     <component :is="internalIconVnode" v-else-if="internalIconVnode" />
   </i>
 </template>
-
-<style lang="css" scoped>
-.jv-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.jv-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.jv-icon svg path,
-.jv-icon svg circle,
-.jv-icon svg rect,
-.jv-icon svg polygon,
-.jv-icon svg ellipse {
-  transition: fill 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-</style>

@@ -1,0 +1,6 @@
+export const sizeOptions = ['tiny', 'small', 'medium', 'large', 'x-large']
+export const typeOptions = ['default', 'primary', 'success', 'warning', 'error', 'info']
+export const variantOptions = ['text', 'flat', 'tonal', 'plain', 'elevated', 'outlined']
+export const statusOptions = ['loading', 'disabled']
+export const nativeTypeOptions = ['button', 'submit', 'reset']
+export const shapeOptions = ['square', 'rounded', 'circle']

@@ -1,4 +1,6 @@
-hr {
+@use '../mixins/bem' as *;
+
+@include b(divider) {
   --jv-divider-color: #c8c8c8;
   --jv-divider-margin: 0px;
   --jv-divider-stroke-width: 1px;
@@ -26,25 +28,23 @@ hr {
   border-left: none;
   border-right: none;
 
-  /* 分割线标题样式 */
-}
+  @include when(dashed) {
+    border-top-style: dashed;
+  }
 
-.is-dashed {
-  border-top-style: dashed;
-}
-
-.is-title {
-  &::after {
-    position: absolute;
-    top: 50%;
-    left: var(--jv-divider-after-left);
-    width: max-content;
-    padding: 0 10px;
-    background-color: rgb(var(--jv-divider-title-bgcolor));
-    color: var(--jv-divider-color);
-    font-size: 14px;
-    line-height: 20px;
-    transform: translate(-50%, var(--jv-offset-top));
-    content: attr(data-title);
+  @include when(title) {
+    &::after {
+      position: absolute;
+      top: 50%;
+      left: var(--jv-divider-after-left);
+      width: max-content;
+      padding: 0 10px;
+      background-color: rgb(var(--jv-divider-title-bgcolor));
+      color: var(--jv-divider-color);
+      font-size: 14px;
+      line-height: 20px;
+      transform: translate(-50%, var(--jv-offset-top));
+      content: attr(data-title);
+    }
   }
 }

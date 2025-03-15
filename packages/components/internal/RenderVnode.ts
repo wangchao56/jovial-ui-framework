@@ -1,6 +1,6 @@
 import type { VNodeArrayChildren } from 'vue'
 
-type RawChildren = string | number | boolean | VNode | VNodeArrayChildren | (() => any)
+export type RawChildren = string | number | boolean | VNode | VNodeArrayChildren | (() => any)
 export default defineComponent({
   name: 'RenderVNode',
   props: {
@@ -15,9 +15,8 @@ export default defineComponent({
   },
   setup(props, { attrs }) {
     return () => {
-      const content = typeof props.vnode === 'function'
-        ? props.vnode()
-        : props.vnode
+      const content
+        = typeof props.vnode === 'function' ? props.vnode() : props.vnode
 
       const tag = props.tag || 'div'
 

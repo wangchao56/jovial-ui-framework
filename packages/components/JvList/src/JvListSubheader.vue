@@ -1,6 +1,12 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { JvText } from '@components/Typography'
+import { computed, inject } from 'vue'
 import { JvListContextKey } from './JvList'
+
+defineOptions({
+  name: 'JvListSubheader',
+  inheritAttrs: false,
+})
 
 const props = defineProps({
   title: String,
@@ -21,7 +27,7 @@ const style = computed(() => {
 <template>
   <li class="jv-list-subheader" :style="style">
     <slot>
-      <JvText :text="title" />
+      <JvText :text="title" type="secondary" align="start" />
     </slot>
   </li>
 </template>

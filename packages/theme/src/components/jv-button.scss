@@ -1,23 +1,34 @@
 @use '../mixins/bem' as *;
 
-@supports selector(:focus-visible) {
-  .jv-button::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+$button-type-options: ('primary', 'success', 'warning', 'error', 'info');
+$button-size-options: ('tiny', 'small', 'medium', 'large', 'x-large');
+$button-variant-options: ('text', 'plain', 'tonal', 'elevated', 'outlined');
+$button-shape-options: ('square', 'rounded', 'circle', 'block');
+
+@mixin button-type-style($type) {
+  @include m($type) {
+    --jv-btn-color: var(--jv-theme-on-#{$type});
+    --jv-btn-bgcolor: var(--jv-theme-#{$type});
   }
 }
 
-@supports selector(:focus-visible) {
-  .jv-button::after {
-    pointer-events: none;
-    border: 2px solid currentcolor;
-    border-radius: inherit;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+@mixin button-size-style($size) {
+  @include m($size) {
+    --jv-btn-size: #{$size};
+  }
+}
+
+@mixin button-variant-style($variant) {
+  @include m($variant) {
+    --jv-btn-color: var(--jv-theme-on-#{$variant});
+    --jv-btn-bgcolor: var(--jv-theme-#{$variant});
+    --jv-btn-border-color: var(--jv-theme-#{$variant});
+  }
+}
+
+@mixin button-shape-style($shape) {
+  @include m($shape) {
+    --jv-btn-border-radius: #{$shape};
   }
 }
 
@@ -85,6 +96,24 @@
     outline: 2px solid var(--jv-btn-border-color);
   }
 
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+
+    &:hover {
+      display: block;
+      background-color: rgba(0, 0, 0, 0.211);
+    }
+  }
+
+  &:hover {
+    background-color: #222;
+  }
+
   @include e(content) {
     border-radius: inherit;
     color: inherit;
@@ -129,7 +158,7 @@
 
     padding: 0 18px;
 
-    & > .button__content {
+    & > .jv-button__content {
       font-size: var(--jv-btn-size) !important;
       line-height: calc(var(--jv-btn-size) + 3px);
     }
@@ -172,30 +201,9 @@
     }
   }
 
-  @include m(primary) {
-    /* 主色 */
-    --jv-btn-color: var(--jv-theme-on-primary);
-    --jv-btn-bgcolor: var(--jv-theme-primary);
-  }
-
-  @include m(success) {
-    --jv-btn-color: var(--jv-theme-on-success);
-    --jv-btn-bgcolor: var(--jv-theme-success);
-  }
-
-  @include m(warning) {
-    --jv-btn-color: var(--jv-theme-on-warning);
-    --jv-btn-bgcolor: var(--jv-theme-warning);
-  }
-
-  @include m(error) {
-    --jv-btn-color: var(--jv-theme-on-error);
-    --jv-btn-bgcolor: var(--jv-theme-error);
-  }
-
-  @include m(info) {
-    --jv-btn-color: var(--jv-theme-on-info);
-    --jv-btn-bgcolor: var(--jv-theme-info);
+  //类型
+  @each $type in $button-type-options {
+    @include button-type-style($type);
   }
 
   /* 变体 */
@@ -280,6 +288,10 @@
     }
   }
 
+  @include when(icon-button) {
+    padding: 0;
+  }
+
   @include when(rounded) {
     border-radius: 20px;
   }
@@ -315,5 +327,25 @@
 
   & > .jv-button__icon {
     color: black;
+  }
+}
+@supports selector(:focus-visible) {
+  .jv-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@supports selector(:focus-visible) {
+  .jv-button::after {
+    pointer-events: none;
+    border: 2px solid currentcolor;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
   }
 }

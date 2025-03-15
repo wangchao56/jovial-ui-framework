@@ -38,12 +38,6 @@ const _listItems = computed<ListItem[]>(() => {
   }
   return props.menuOptions ? props.menuOptions.map(transformItem) : []
 })
-
-// function handleClickItem(item: ListItem) {
-//   if (item.type === 'divider')
-//     return
-//   visible.value = false
-// }
 </script>
 
 <template>

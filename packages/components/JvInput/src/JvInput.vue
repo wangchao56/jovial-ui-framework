@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import { getUid } from '@jienix/utils'
 import { onMounted, ref } from 'vue'
-import { jvInputProps } from './JvInput'
+import { type JvInputEmits, jvInputProps } from './JvInput'
 
 defineOptions({
   name: 'JvInput',
@@ -11,16 +11,16 @@ defineOptions({
 
 defineProps(jvInputProps)
 
-const emit = defineEmits(['update:modelValue', 'focus', 'blur', 'input'])
+const emit = defineEmits<JvInputEmits>()
 
 const id = ref(getUid())
-const input = ref(null)
+const input = ref<HTMLInputElement | null>(null)
 const isFocused = ref(false)
 
 // 输入事件处理
 function onInput(event: Event) {
   emit('update:modelValue', (event.target as HTMLInputElement).value)
-  emit('input', event)
+  emit('input', (event.target as HTMLInputElement).value)
 }
 
 // 焦点事件处理
@@ -38,6 +38,11 @@ function onBlur(event: FocusEvent) {
 // 清除事件处理
 function onClear() {
   emit('update:modelValue', '')
+}
+
+// 键盘按下事件处理
+function onKeydown(event: KeyboardEvent) {
+  emit('keydown', event)
 }
 
 // 挂载时生成唯一ID
@@ -78,6 +83,7 @@ onMounted(() => {
         :id="id" ref="input" class="jv-input__field" :value="modelValue" :type="type" :placeholder="placeholder"
         :disabled="disabled" :readonly="readonly" :required="required" :autocomplete="autocomplete" :min="min"
         :max="max" :step="step" :maxlength="maxlength" @input="onInput" @focus="onFocus" @blur="onBlur"
+        @keydown="onKeydown"
       >
 
       <div v-if="$slots.suffix || suffix || clearable" class="jv-input__suffix">

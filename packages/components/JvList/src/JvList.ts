@@ -1,10 +1,17 @@
-import type { ExtractPropTypes, InjectionKey, PropType, Slot, ToRefs } from 'vue'
+import type {
+  ExtractPropTypes,
+  InjectionKey,
+  PropType,
+  Ref,
+  Slot,
+  ToRefs,
+} from 'vue'
 import type { ListItem, ListItemType } from './types'
 
 export const jvListProps = {
   tag: {
     type: String as PropType<string>,
-    default: 'div',
+    default: 'ul',
     description: '自定义根标签',
     required: false,
   },
@@ -24,10 +31,16 @@ export const jvListProps = {
     description: '列表项是否有可点击样式',
     required: false,
   },
+  activeable: {
+    type: Boolean,
+    description: '列表项是否可激活',
+    required: false,
+  },
   hoverable: {
     type: Boolean,
     description: '列表项是否有悬浮样式',
     required: false,
+    default: true,
   },
   selectable: {
     type: Boolean,
@@ -40,16 +53,22 @@ export const jvListProps = {
     description: '是否显示标项之间的分割线',
     required: false,
   },
-  expandedKeys: {
+  defaultExpandedKeys: {
     type: Array as PropType<string[]>,
     default: () => [],
-    description: '展开的节点keys',
+    description: '默认展开的节点keys',
     required: false,
   },
-  defaultExpandAll: {
-    type: Boolean,
-    default: false,
-    description: '是否默认展开所有节点',
+  defaultSelectedKeys: {
+    type: Array as PropType<string[]>,
+    default: () => [],
+    description: '默认选中的节点keys',
+    required: false,
+  },
+  defaultActiveKey: {
+    type: String,
+    default: '',
+    description: '定义激活的节点key',
     required: false,
   },
   accordion: {
@@ -66,7 +85,7 @@ export const jvListProps = {
   },
   itemHeight: {
     type: Number,
-    default: 40,
+    default: 45,
     description: '列表项高度',
     required: false,
   },
@@ -76,85 +95,75 @@ export const jvListProps = {
     description: '是否虚拟列表',
     required: false,
   },
-  keyField: {
-    type: String,
-    default: 'key',
-    description: '唯一标识的属性名',
-    required: false,
-  },
-  titleField: {
-    type: String,
-    default: 'title',
-    description: '标题的属性名',
-    required: false,
-  },
-  subtitleField: {
-    type: String,
-    default: 'subtitle',
-    description: '副标题的属性名',
-    required: false,
-  },
-  descriptionField: {
-    type: String,
-    default: 'description',
-    description: '描述的属性名',
-    required: false,
-  },
-  childrenField: {
-    type: String,
-    default: 'children',
-    description: '子节点的属性名',
-    required: false,
-  },
   lines: {
-    type: String,
+    type: String as PropType<'one' | 'two' | 'three'>,
     default: 'one',
     description: '行数',
     required: false,
   },
   expandIcon: {
     type: String,
-    default: 'chevron-right',
+    default: '$chevron-right',
     description: '展开图标',
     required: false,
   },
   collapseIcon: {
     type: String,
-    default: 'chevron-down',
+    default: '$chevron-down',
     description: '折叠图标',
     required: false,
   },
 } as const
 export type JvListPropsType = ExtractPropTypes<typeof jvListProps>
 
-export const jvListEmits = {
-  'clickItem': (val: ListItemType) => val,
-  'selectItem': (val: ListItemType) => val,
-  'activateItem': (val: ListItemType) => val,
-  'update:expandedKeys': (keys: string[]) => keys.length > 0,
-  'expand': (key: string, expanded: boolean) => key && expanded,
-} as const
-
 export interface JvListEmits {
+  /** 点击列表项 */
   (e: 'clickItem', val: ListItemType): void
+  /** 选中列表项 */
   (e: 'selectItem', val: ListItemType): void
+  /** 激活列表项 */
   (e: 'activateItem', val: ListItemType): void
-  (e: 'update:expandedKeys', keys: string[]): void
-  (e: 'expand', key: string, expanded: boolean): void
 }
 
 export interface JvListSlots {
+  /** 默认插槽 */
   default: Slot
+  /** 列表项插槽 */
   item: Slot<{ item: ListItem }>
+  /** 头部插槽 */
   header: Slot
+  /** 底部插槽 */
   footer: Slot
 }
 
-export interface JvListExpose {}
-export const JvListContextKey: InjectionKey<{
+export interface JvListExpose {
+  /** 展开节点 */
+  expandItem: (key: string, expanded: boolean) => void
+  /** 选中节点 */
+  selectItem: (key: string) => void
+  /** 激活节点 */
+  activateItem: (key: string) => void
+}
+
+export interface JvListContext {
   handleClickListItem: (val: ListItemType) => void
   handleSelectListItem: (val: ListItemType) => void
+  handleActivateListItem: (val: ListItemType) => void
+  /** 展开节点 */
+  onExpanded: (key: string, expanded: boolean) => void
+  /** 选中节点 */
+  selectedKeys: Ref<string[]>
+  /** 激活节点 */
+  activeKey: Ref<string>
+  /** 展开节点 */
+  expandedKeys: Ref<string[]>
+  /** 缩进 */
   indent: number
+  /** 列表数据 */
   items: ListItem[]
+  /** 属性 */
   props: ToRefs<JvListPropsType>
-}> = Symbol('JvListContextKey')
+}
+
+export const JvListContextKey: InjectionKey<JvListContext>
+  = Symbol.for('JvListContextKey')

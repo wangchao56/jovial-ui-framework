@@ -1,0 +1,8 @@
+@use '../mixins/bem' as *;
+
+@include b(tab-panel) {
+  padding: 16px;
+  @include e(content) {
+    background-color: #fff;
+  }
+}

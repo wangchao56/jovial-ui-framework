@@ -92,3 +92,23 @@ export const Round: Story = {
     template: '<JvTag v-bind="args">圆角标签</JvTag>',
   }),
 }
+
+// 变体
+export const Variant: Story = {
+  args: {
+    type: 'success',
+    size: 'medium',
+  },
+  render: args => ({
+    components: { JvTag },
+    setup() {
+      const variantOptions = ['filled', 'outlined']
+      return { args, variantOptions }
+    },
+    template: `
+    <JvSpace direction="vertical">
+      <JvTag v-for="variant in variantOptions" v-bind="args" :variant="variant">标签</JvTag>
+    </JvSpace>
+    `,
+  }),
+}

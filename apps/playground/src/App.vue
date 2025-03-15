@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import type { ListItem } from '@jienix/jovial-components/JvList'
+import { reactive, ref } from 'vue'
 
 const themeName = ref('light')
 
@@ -16,18 +17,94 @@ const loading = ref(true)
 setTimeout(() => {
   loading.value = false
 }, 3000)
+
+const items = reactive<ListItem[]>([
+  {
+    type: 'item',
+    key: 'item1',
+    prependIcon: '$chevronRight',
+    title: '标题一',
+    subtitle: '副标题',
+    description: '描述',
+  },
+  {
+    type: 'subheader',
+    key: 'subheader',
+    title: '子标题',
+  },
+  {
+    type: 'item',
+    key: 'item2',
+    title: '标题二',
+    subtitle: '副标题二',
+    description: '描述二',
+  },
+  {
+    type: 'item',
+    key: 'item3',
+    title: '标题三',
+    subtitle: '副标题三',
+    description: '描述三',
+  },
+  {
+    type: 'divider',
+    key: 'divider',
+  },
+  {
+    type: 'group',
+    key: 'group1',
+    title: '组标题',
+    children: [
+      {
+        type: 'item',
+        key: 'item4',
+        title: '标题四',
+        subtitle: '副标题四',
+        description: '描述四',
+      },
+      {
+        type: 'item',
+        key: 'item5',
+        title: '标题五',
+        subtitle: '副标题五',
+        description: '描述五',
+      },
+      {
+        type: 'group',
+        key: 'group1-2',
+        title: '组标题2',
+        children: [
+          {
+            type: 'item',
+            key: 'item6',
+            title: '标题六',
+            subtitle: '副标题六',
+            description: '描述六',
+          },
+          {
+            type: 'item',
+            key: 'item7',
+            title: '标题七',
+            subtitle: '副标题七',
+            description: '描述七',
+          },
+        ],
+      },
+    ],
+  },
+])
 </script>
 
 <template>
   <JvApp :theme="themeName" @change="handleClick">
-    <JvSwitch v-model="visible" size="large" />
-    <JvAlert v-model:visible="visible" type="success" variant="filled" title="成功" dismissible message="这是一个成功提示" />
-    <JvAlert v-model:visible="visible2" variant="outlined" type="success" title="成功" dismissible message="这是一个成功提示" />
-    <JvAlert type="success" title="成功" dismissible message="这是一个成功提示" variant="outlined" />
-    <JvAlert type="warning" title="警告" dismissible message="这是一个警告提示" variant="outlined" />
-    <JvAlert type="error" title="错误" dismissible message="这是一个错误提示" variant="outlined" />
-    <JvAlert type="info" title="信息" dismissible message="这是一个信息提示" variant="outlined" />
-    <JvAlert type="info" title="信息" dismissible message="这是一个信息提示" variant="filled" />
+    <JvList>
+      <template v-for="item in items" :key="item.key">
+        <JvListItem v-if="item.type === 'item'" v-bind="item" />
+        <JvListSubheader v-else-if="item.type === 'subheader'" v-bind="item" />
+        <JvListGroup v-else-if="item.type === 'group'" v-bind="item" />
+        <JvDivider v-else-if="item.type === 'divider'" v-bind="item" />
+      </template>
+    </JvList>
   </JvApp>
 </template>
 

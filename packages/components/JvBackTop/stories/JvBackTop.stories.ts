@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvBackTop from '@components/JvBackTop/src/JvBackTop.vue'
+import JvBacktop from '@components/JvBacktop/src/JvBacktop.vue'
 
-const meta: Meta<typeof JvBackTop> = {
-  title: '导航组件/JvBackTop',
-  component: JvBackTop,
+const meta: Meta<typeof JvBacktop> = {
+  title: '导航组件/JvBacktop',
+  component: JvBacktop,
   tags: ['autodocs'],
   argTypes: {
     visibilityHeight: {
@@ -32,7 +32,7 @@ const meta: Meta<typeof JvBackTop> = {
 }
 
 export default meta
-type Story = StoryObj<typeof JvBackTop>
+type Story = StoryObj<typeof JvBacktop>
 
 // 创建一个长内容的容器用于演示
 function LongContent() {
@@ -51,11 +51,11 @@ function LongContent() {
 
 export const Default: Story = {
   render: () => ({
-    components: { JvBackTop },
+    components: { JvBacktop },
     template: `
       <div  style="height: 50vh; overflow: auto;">
         ${LongContent()}
-        <JvBackTop :visibility-height="100" target="#container" />
+        <JvBacktop :visibility-height="100" target="#container" />
       </div>
     `,
   }),
@@ -63,11 +63,11 @@ export const Default: Story = {
 
 export const CustomStyle: Story = {
   render: () => ({
-    components: { JvBackTop },
+    components: { JvBacktop },
     template: `
       <div  style="height: 50vh; overflow: auto;">
         ${LongContent()}
-        <JvBackTop :right="100" :bottom="100" target="#container" >
+        <JvBacktop :right="100" :bottom="100" target="#container" >
           <div style="
             background-color: #409eff;
             color: white;
@@ -76,7 +76,7 @@ export const CustomStyle: Story = {
           ">
             返回顶部
           </div>
-        </JvBackTop>
+        </JvBacktop>
       </div>
     `,
   }),
@@ -84,13 +84,13 @@ export const CustomStyle: Story = {
 
 export const CustomTarget: Story = {
   render: () => ({
-    components: { JvBackTop },
+    components: { JvBacktop },
     template: `
       <div>
         <div style="height: 300px; overflow: auto;" id="custom-container">
           ${LongContent()}
         </div>
-        <JvBackTop target="#custom-container" :visibilityHeight="200"  />
+        <JvBacktop target="#custom-container" :visibilityHeight="200"  />
       </div>
     `,
   }),

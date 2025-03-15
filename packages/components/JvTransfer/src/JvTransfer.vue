@@ -101,12 +101,8 @@ defineExpose({
 
     <!-- 中间操作按钮 -->
     <div :class="bem.e('buttons')">
-      <JvButton :disabled="selectedTargetKeys.length === 0 || disabled" @click="transferToLeft">
-        ←
-      </JvButton>
-      <JvButton :disabled="selectedSourceKeys.length === 0 || disabled" @click="transferToRight">
-        →
-      </JvButton>
+      <JvButton icon="$arrowLeft" :disabled="selectedTargetKeys.length === 0 || disabled" @click="transferToLeft" />
+      <JvButton icon="$arrowRight" :disabled="selectedSourceKeys.length === 0 || disabled" @click="transferToRight" />
     </div>
 
     <!-- 右侧面板 -->

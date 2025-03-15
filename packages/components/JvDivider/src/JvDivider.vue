@@ -55,7 +55,9 @@ defineExpose({
 
 <template>
   <hr
-    ref="divider" :class="[bem.b(), bem.is('dashed', dashed), bem.is('title', !!title)]" :data-title="title"
-    :style="dividerStyle"
+    ref="divider" :class="[bem.b(), {
+      [bem.m('dashed')]: dashed,
+      [bem.m('title')]: !!title,
+    }]" :data-title="title" :style="dividerStyle"
   >
 </template>

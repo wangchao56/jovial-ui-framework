@@ -77,15 +77,9 @@ export const jvUploadProps = {
 
 export type JvUploadProps = Partial<ExtractPropTypes<typeof jvUploadProps>>
 
-export const jvUploadEmits = {
-  success: (value: (string | number)[]) => Array.isArray(value),
-  error: (value: (string | number)[]) => Array.isArray(value),
-  progress: (value: (string | number)[]) => Array.isArray(value),
-  change: (value: (string | number)[]) => Array.isArray(value),
-}
 export interface JvUploadEmits {
   /** 上传成功 */
-  (e: 'success', value: (string | number)[]): void
+  (e: 'success', value: File[]): void
   /** 上传失败 */
   (e: 'error', value: (string | number)[]): void
   /** 上传进度 */

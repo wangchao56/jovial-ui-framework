@@ -1760,6 +1760,12 @@ function withInstall(comp) {
   };
   return comp;
 }
+const sizeOptions = ["tiny", "small", "medium", "large", "x-large"];
+const typeOptions = ["default", "primary", "success", "warning", "error", "info"];
+const variantOptions = ["text", "flat", "tonal", "plain", "elevated", "outlined"];
+const statusOptions = ["loading", "disabled"];
+const nativeTypeOptions = ["button", "submit", "reset"];
+const shapeOptions = ["square", "rounded", "circle"];
 export {
   CircularBuffer,
   EventProp,
@@ -1883,6 +1889,7 @@ export {
   lime,
   matchesSelector,
   mergeDeep,
+  nativeTypeOptions,
   noop,
   off,
   omit,
@@ -1905,6 +1912,9 @@ export {
   removeCSSRule,
   removeResizeListener,
   shades,
+  shapeOptions,
+  sizeOptions,
+  statusOptions,
   success,
   teal,
   templateRef,
@@ -1914,7 +1924,9 @@ export {
   toJson,
   toKebabCase,
   toPhysical,
+  typeOptions,
   useContainerManager,
+  variantOptions,
   warning,
   withInstall,
   wrapInArray,

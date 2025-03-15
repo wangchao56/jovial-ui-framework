@@ -1,85 +1,73 @@
-<script lang="ts">
-import type { JvUploadSlots } from './JvUpload'
+<script setup lang="ts">
+import type { JvUploadEmits, JvUploadSlots } from './JvUpload'
 import { createNamespace } from '@jienix/utils'
-import { defineComponent, ref, type SlotsType } from 'vue'
-import { jvUploadEmits, jvUploadProps } from './JvUpload'
+import { ref } from 'vue'
+import { jvUploadProps } from './JvUpload'
 
-export default defineComponent({
+defineOptions({
   name: 'JvUpload',
   inheritAttrs: false,
-  props: jvUploadProps,
-  emits: jvUploadEmits,
-  slots: Object as SlotsType<JvUploadSlots>,
-  setup() {
-    const files = ref<File[]>([])
-    const uploadProgress = ref<number | null>(null)
-    const fileInput = ref<HTMLInputElement | null>(null)
-    const bem = createNamespace('upload')
-    const triggerFileInput = () => {
-      if (fileInput.value) {
-        fileInput.value.click()
-      }
-    }
-
-    const handleFileChange = (event: Event) => {
-      const target = event.target as HTMLInputElement
-      if (target.files) {
-        Array.from(target.files).forEach((file) => {
-          files.value.push(file)
-        })
-      }
-    }
-
-    const handleDrop = (event: DragEvent) => {
-      if (event.dataTransfer?.files) {
-        Array.from(event.dataTransfer.files).forEach((file) => {
-          files.value.push(file)
-        })
-      }
-    }
-
-    const removeFile = (index: number) => {
-      files.value.splice(index, 1)
-    }
-
-    const uploadFiles = async () => {
-      uploadProgress.value = 0
-      const formData = new FormData()
-
-      files.value.forEach((file) => {
-        formData.append('files[]', file)
-      })
-
-      // 这里是模拟一个上传过程，你应该替换为实际的上传接口
-      const fakeUpload = new Promise((resolve) => {
-        const interval = setInterval(() => {
-          uploadProgress.value = (uploadProgress.value ?? 0) + 10
-          if (uploadProgress.value >= 100) {
-            clearInterval(interval)
-            resolve(true)
-          }
-        }, 100)
-      })
-
-      await fakeUpload
-      uploadProgress.value = null
-      // alert('文件上传成功！')
-      files.value = [] // 清除已上传的文件
-    }
-
-    return {
-      files,
-      uploadProgress,
-      triggerFileInput,
-      handleFileChange,
-      handleDrop,
-      removeFile,
-      uploadFiles,
-      fileInput,
-      bem,
-    }
-  },
 })
+
+defineProps(jvUploadProps)
+const emit = defineEmits<JvUploadEmits>()
+defineSlots<JvUploadSlots>()
+
+const files = ref<File[]>([])
+const uploadProgress = ref<number | null>(null)
+const fileInput = ref<HTMLInputElement | null>(null)
+const bem = createNamespace('upload')
+function triggerFileInput() {
+  if (fileInput.value) {
+    fileInput.value.click()
+  }
+}
+
+function handleFileChange(event: Event) {
+  const target = event.target as HTMLInputElement
+  if (target.files) {
+    Array.from(target.files).forEach((file) => {
+      files.value.push(file)
+    })
+  }
+}
+
+function handleDrop(event: DragEvent) {
+  if (event.dataTransfer?.files) {
+    Array.from(event.dataTransfer.files).forEach((file) => {
+      files.value.push(file)
+    })
+  }
+}
+
+function removeFile(index: number) {
+  files.value.splice(index, 1)
+}
+
+async function uploadFiles() {
+  uploadProgress.value = 0
+  const formData = new FormData()
+
+  files.value.forEach((file) => {
+    formData.append('files[]', file)
+  })
+
+  // 这里是模拟一个上传过程，你应该替换为实际的上传接口
+  const fakeUpload = new Promise((resolve) => {
+    const interval = setInterval(() => {
+      uploadProgress.value = (uploadProgress.value ?? 0) + 10
+      if (uploadProgress.value >= 100) {
+        clearInterval(interval)
+        resolve(true)
+      }
+    }, 100)
+  })
+
+  await fakeUpload
+  uploadProgress.value = null
+  emit('success', files.value)
+  files.value = [] // 清除已上传的文件
+}
 </script>
 
 <template>

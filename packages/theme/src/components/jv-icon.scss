@@ -1,32 +1,59 @@
 @use '../mixins/bem' as *;
 
-@mixin icon-size($size) {
-  --jv-icon-size: $size;
+$icon-sizes: (
+  tiny: 16px,
+  small: 20px,
+  medium: 28px,
+  large: 36px,
+  x-large: 44px,
+);
 
+@mixin icon-size($size) {
+  --jv-icon-size: #{$size};
+}
+
+@include b(icon) {
+  --jv-icon-size: 1.5rem;
+  --jv-icon-color: currentColor;
+
+  display: inline-block;
   width: var(--jv-icon-size);
   height: var(--jv-icon-size);
   font-size: var(--jv-icon-size);
   line-height: var(--jv-icon-size);
   max-height: var(--jv-icon-size);
-}
-
-@include b(icon) {
-  display: inline-block;
-  width: 1.5rem;
-  height: 1.5rem;
-  font-size: 1.5rem;
-  line-height: 1.5rem;
   text-align: center;
   vertical-align: middle;
   transition-property: color, width, height, transform;
   transition-duration: 250ms;
   transition-timing-function: ease;
+  color: var(--jv-icon-color);
+
+  @include m(primary) {
+    --jv-icon-color: rgb(var(--jv-theme-primary));
+  }
+
+  @include m(success) {
+    --jv-icon-color: rgb(var(--jv-theme-success));
+  }
+
+  @include m(warning) {
+    --jv-icon-color: rgb(var(--jv-theme-warning));
+  }
+
+  @include m(error) {
+    --jv-icon-color: rgb(var(--jv-theme-error));
+  }
+
+  @include m(info) {
+    --jv-icon-color: rgb(var(--jv-theme-info));
+  }
 
   svg {
     width: 1em;
     height: 1em;
     background-clip: text;
-    fill: currentcolor;
+    fill: var(--jv-icon-color);
   }
 
   svg path,
@@ -41,8 +68,8 @@
     animation: spin 1s linear infinite;
   }
 
-  @each $size, $value in (tiny, small, medium, large, x-large), (16px, 20px, 28px, 36px, 44px) {
-    .jv-icon--#{$size} {
+  @each $size, $value in $icon-sizes {
+    &.jv-icon--#{$size} {
       @include icon-size($value);
     }
   }
