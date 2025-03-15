@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import { JvAside, JvContainer, JvFooter, JvHeader, JvMain } from '../index'
 
 const meta = {
-  title: 'Layout组件/PageContainer 页面容器',
+  title: '布局组件/PageContainer 页面容器',
   component: JvContainer,
   tags: ['autodocs'],
   argTypes: {

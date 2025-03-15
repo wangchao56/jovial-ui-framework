@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { JvRadio, JvRadioGroup } from '../index'
 
 const meta: Meta<typeof JvRadioGroup> = {
-  title: 'Components/JvRadio',
+  title: '数据录入组件/JvRadio 单选框',
   component: JvRadioGroup,
   tags: ['autodocs'],
   argTypes: {

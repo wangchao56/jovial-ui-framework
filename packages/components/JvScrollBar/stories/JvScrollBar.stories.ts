@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import JvScrollBar from '@components/JvScrollBar/src/JvScrollBar.vue'
 
 const meta: Meta<typeof JvScrollBar> = {
-  title: 'Components/JvScrollBar',
+  title: '通用组件/JvScrollBar',
   component: JvScrollBar,
   tags: ['autodocs'],
 }

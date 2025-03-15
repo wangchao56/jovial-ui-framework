@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { JvBacktopEmits } from './JvBacktop'
-import JvAffix from '@components/JvAffix/src/JvAffix.vue'
-import JvButton from '@components/JvButton/src/JvButton.vue'
+import JvAffix from '@components/JvAffix'
+import { JvButton } from '@components/JvButton'
 import { createNamespace } from '@jienix/utils'
 import { h, onBeforeUnmount, onMounted, ref } from 'vue'
 import { jvBacktopProps } from './JvBacktop'

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import JvBacktop from '@components/JvBacktop/src/JvBacktop.vue'
+import JvBacktop from '@components/JvBacktop'
 
 const meta: Meta<typeof JvBacktop> = {
   title: '导航组件/JvBacktop',
