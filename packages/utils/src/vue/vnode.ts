@@ -1,7 +1,6 @@
-import type { VNodeArrayChildren, VNodeChild } from 'vue'
-import { isVNode } from 'vue'
+import type { MaybeRefOrGetter, VNode, VNodeArrayChildren, VNodeChild } from 'vue'
+import { isVNode, unref } from 'vue'
 import { isArray, isFunction } from '../common'
-// Start of Selection
 /**
  * 确保只有一个子节点。
  * 如果传入的 children 不是数组或者数组长度大于1，将抛出错误。

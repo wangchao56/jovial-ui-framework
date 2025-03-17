@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import JvSpace from '@components/JvSpace'
-import { JvTabPanel, JvTabs } from '@components/JvTabs'
+import JvTabs, { JvTabPanel } from '@components/JvTabs'
 import { ref } from 'vue'
 
 const meta = {
@@ -61,30 +61,27 @@ export const Basic: Story = {
     components: { JvTabs },
     setup() {
       const activeKey = ref('1')
-      const items = [
+      const tabs = [
         {
-          key: '1',
-          label: '标签一',
+          name: '标签一',
           content: '标签一的内容',
         },
         {
-          key: '2',
-          label: '标签二',
+          name: '标签二',
           content: '标签二的内容',
         },
         {
-          key: '3',
-          label: '标签三',
+          name: '标签三',
           content: '标签三的内容',
         },
       ]
 
-      return { activeKey, items }
+      return { activeKey, tabs }
     },
     template: `
       <jv-tabs
         v-model:active-key="activeKey"
-        :tabs="items"
+        :tabs="tabs"
       />
     `,
   }),
@@ -105,13 +102,11 @@ export const Positions: Story = {
       const activeKey = ref('1')
       const items = [
         {
-          key: '1',
-          label: '标签一',
+          name: '标签一',
           content: '标签一的内容',
         },
         {
-          key: '2',
-          label: '标签二',
+          name: '标签二',
           content: '标签二的内容',
         },
       ]
@@ -144,13 +139,11 @@ export const Types: Story = {
       const activeKey = ref('1')
       const items = [
         {
-          key: '1',
-          label: '标签一',
+          name: '标签一',
           content: '标签一的内容',
         },
         {
-          key: '2',
-          label: '标签二',
+          name: '标签二',
           content: '标签二的内容',
         },
       ]
@@ -174,50 +167,47 @@ export const Types: Story = {
   },
 }
 
-// // 带图标
-// export const WithIcons: Story = {
-//   render: () => ({
-//     components: { JvTabs },
-//     setup() {
-//       const activeKey = ref('1')
-//       const items = [
-//         {
-//           key: '1',
-//           label: '首页',
-//           icon: 'home',
-//           content: '首页内容',
-//         },
-//         {
-//           key: '2',
-//           label: '用户',
-//           icon: 'user',
-//           content: '用户内容',
-//         },
-//         {
-//           key: '3',
-//           label: '设置',
-//           icon: 'setting',
-//           content: '设置内容',
-//         },
-//       ]
+// 带图标
+export const WithIcons: Story = {
+  render: () => ({
+    components: { JvTabs },
+    setup() {
+      const activeKey = ref('1')
+      const items = [
+        {
+          name: '首页',
+          icon: 'mdi:home',
+          content: '首页内容',
+        },
+        {
+          name: '用户',
+          icon: 'mdi:account',
+          content: '用户内容',
+        },
+        {
+          name: '设置',
+          icon: 'mdi:cog',
+          content: '设置内容',
+        },
+      ]
 
-//       return { activeKey, items }
-//     },
-//     template: `
-//       <jv-tabs
-//         v-model="activeKey"
-//         :items="items"
-//       />
-//     `,
-//   }),
-//   parameters: {
-//     docs: {
-//       description: {
-//         story: '标签可以配置图标。',
-//       },
-//     },
-//   },
-// }
+      return { activeKey, items }
+    },
+    template: `
+      <jv-tabs
+        v-model="activeKey"
+        :items="items"
+      />
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: '标签可以配置图标。',
+      },
+    },
+  },
+}
 
 // // 可关闭和新增
 // export const DynamicTabs: Story = {
@@ -326,20 +316,16 @@ export const Types: Story = {
 // 自定义标签页内容
 export const CustomContent: Story = {
   render: () => ({
-    components: { JvTabs, JvTabPanel },
+    components: { JvTabs, JvTabPanel, JvSpace },
     setup() {
       const activeKey = ref('1')
       const items = [
         {
-          key: '1',
-          label: '标签一',
-          content: () => (
-            '自定义渲染的内容'
-          ),
+          name: '标签一',
+          content: () => '自定义渲染的内容',
         },
         {
-          key: '2',
-          label: '标签二',
+          name: '标签二',
           content: '普通文本内容',
         },
       ]
@@ -347,13 +333,16 @@ export const CustomContent: Story = {
       return { activeKey, items }
     },
     template: `
-      <jv-tabs
-        v-model:active-key="activeKey"
-      >
-        <jv-tab-panel name="1" label="标签一" content="自定义渲染的内容" />
-        <jv-tab-panel name="2" label="标签二" content="普通文本内容" />
-        <jv-tab-panel name="3" label="标签三" content="普通文本内容" />
-      </jv-tabs>
+       <JvSpace direction="vertical" :gap="32">
+        <jv-tabs v-model:active-key="activeKey" :tabs="items" type="card" />
+        <JvTabs>
+          <jv-tab-panel name="标签一"   content="自定义渲染的内容">
+          </jv-tab-panel>
+          <jv-tab-panel name="标签二" >
+            <div>普通文本内容</div>
+          </jv-tab-panel>
+        </JvTabs>
+      </JvSpace>
     `,
   }),
   parameters: {

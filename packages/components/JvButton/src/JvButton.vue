@@ -90,7 +90,7 @@ defineExpose<JvButtonExposed>({
       bem.is('disabled', _disabled),
       bem.is('block', block),
       bem.is('stacked', stacked),
-      bem.is('icon-button', icon),
+      { [bem.m('icon')]: icon },
       props.class,
       theme.themeClasses.value,
     ]" :style="buttonStyle" :type="nativeType" :autofocus="autofocus" @click="emitClick($event)"

@@ -7,8 +7,8 @@ const JvTabs = withInstall(_JvTabs)
 const JvTabPanel = withInstall(_JvTabPanel)
 export * from './src/JvTabs'
 
-export { JvTabPanel, JvTabs }
-
+export { JvTabPanel }
+export default JvTabs
 declare module 'vue' {
   export interface GlobalComponents {
     JvTabs: typeof JvTabs

@@ -37,7 +37,7 @@ export function getCurrentInstanceName(name = 'composables') {
   const vm = getCurrentInstance(name).type
 
   // 返回组件实例的名称，格式为 kebab-case
-  return toKebabCase(vm?.aliasName || vm?.name)
+  return toKebabCase((vm as any)?.aliasName || vm?.name)
 }
 
 let _uid = 0

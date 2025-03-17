@@ -13,7 +13,6 @@ const iconStyle = computed(() => {
   const result = {} as Record<string, string>
   if (isNumberExcludeNaN(size)) {
     result.fontSize = `${size}px`
-    result.lineHeight = `${size}px`
     result.width = `${size}px`
     result.height = `${size}px`
     result.maxHeight = `${size}px`

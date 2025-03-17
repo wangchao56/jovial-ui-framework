@@ -1,12 +1,17 @@
+import type { Slot } from 'vue'
+
 export const jvEmptyProps = {
+  /** 图片 */
   image: {
     type: String,
     default: '',
   },
+  /** 图片大小 */
   imageSize: {
     type: Number,
     default: 100,
   },
+  /** 描述文字 */
   description: {
     type: String,
     default: '暂无数据',
@@ -20,12 +25,14 @@ export interface JvEmptyEmits {
 }
 
 export interface JvEmptySlots {
-  // 图片区域的插槽
-  image?: () => any
-  // 描述文字区域的插槽
-  description?: () => any
-  // 底部内容的插槽
-  default?: () => any
+  /** 图片区域的插槽 */
+  image?: Slot
+  /** 描述文字区域的插槽 */
+  description?: Slot
+  /** 空状态内容的插槽 */
+  default?: Slot
+  /** 底部内容的插槽 */
+  footer?: Slot
 }
 
 export interface JvEmptyExpose {

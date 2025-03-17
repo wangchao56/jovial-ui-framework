@@ -488,7 +488,7 @@ type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N
 export function wrapInArray<T>(
   v: T | null | undefined,
 ): T extends readonly any[] ? IfAny<T, T[], T> : NonNullable<T>[] {
-  return v == null ? [] : Array.isArray(v) ? (v as any) : [v]
+  return (v == null ? [] : Array.isArray(v) ? v : [v]) as any
 }
 
 export function defaultFilter(value: any, search: string | null, _item: any) {
@@ -650,6 +650,8 @@ export function mergeDeep(
  *   h('div', 'Hello'),
  *   h('div', 'World'),
  * ])
+ *
+ *
  * ```
  */
 export function flattenFragments(nodes: VNode[]): VNode[] {
@@ -728,7 +730,7 @@ export function findChildrenWithProvide(
     return vnode.map(child => findChildrenWithProvide(key, child)).flat(1)
   }
   else if (vnode.suspense) {
-    return findChildrenWithProvide(key, vnode.ssContent!)
+    return findChildrenWithProvide(key, (vnode as any).ssContent!)
   }
   else if (Array.isArray(vnode.children)) {
     return vnode.children
@@ -737,7 +739,7 @@ export function findChildrenWithProvide(
   }
   else if (vnode.component) {
     if (
-      Object.getOwnPropertySymbols(vnode.component.provides).includes(
+      Object.getOwnPropertySymbols((vnode.component as any).provides).includes(
         key as symbol,
       )
     ) {

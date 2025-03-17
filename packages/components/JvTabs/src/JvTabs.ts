@@ -12,11 +12,16 @@ import type { Slot } from 'vue'
  */
 export type TabPosition = 'top' | 'right' | 'bottom' | 'left'
 export type TabType = 'line' | 'card' | 'segment'
+export type TabAlign = 'start' | 'center' | 'end'
+export enum TabPositionEnum {
+  TOP = 'top',
+  RIGHT = 'right',
+  BOTTOM = 'bottom',
+  LEFT = 'left',
+}
 
 /** 标签页配置 */
 export interface JvTabPaneProps {
-  /** 标签页标题 */
-  label: string
   /** 标签页名称 */
   name: string
   /** 标签页图标 */
@@ -37,17 +42,27 @@ export const jvTabsProps = {
   },
   /** 标签页列表 */
   tabs: {
-    type: Array as () => JvTabPaneProps[],
+    type: Array as PropType<JvTabPaneProps[]>,
     default: () => [],
   },
   /** 标签页位置 */
   position: {
-    type: String as () => TabPosition,
+    type: String as PropType<TabPosition>,
     default: 'top',
+  },
+  /** 标签页对齐方式 */
+  align: {
+    type: String as PropType<TabAlign>,
+    default: 'start',
+  },
+  /** 激活项居中 */
+  centerActive: {
+    type: Boolean,
+    default: false,
   },
   /** 标签页类型 */
   type: {
-    type: String as () => TabType,
+    type: String as PropType<TabType>,
     default: 'line',
   },
   /** 是否可关闭标签页 */
@@ -88,6 +103,8 @@ export interface JvTabsEmits {
 export interface JvTabsSlots {
   /** 自定义标签页内容 */
   default?: Slot
+  /** 空状态内容 */
+  empty?: Slot
 }
 
 export interface JvTabsContext {
@@ -95,6 +112,9 @@ export interface JvTabsContext {
   closable: Ref<JvTabsProps['closable']>
   addable: Ref<JvTabsProps['addable']>
   type: Ref<JvTabsProps['type']>
+  position: Ref<JvTabsProps['position']>
+  align: Ref<JvTabsProps['align']>
+  centerActive: Ref<JvTabsProps['centerActive']>
   bem: Readonly<BemRecord>
   // 改变激活的标签页
   changeActiveKey: (key: string) => void

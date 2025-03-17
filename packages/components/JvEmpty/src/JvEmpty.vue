@@ -23,7 +23,7 @@ const bem = createNamespace('empty')
       </slot>
     </div>
     <div :class="bem.e('bottom')">
-      <slot />
+      <slot name="footer" />
     </div>
   </div>
 </template>

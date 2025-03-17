@@ -1,6 +1,6 @@
-import { VNodeArrayChildren, VNodeChild, VNode, RendererNode, RendererElement } from 'vue';
+import { MaybeRefOrGetter, VNode, VNodeArrayChildren, VNodeChild, RendererNode, RendererElement } from 'vue';
 
-export declare function ensureOnlyChild(children: VNodeArrayChildren | undefined): VNodeArrayChildren | (string | number | boolean | void | VNode<RendererNode, RendererElement, {
+export declare function ensureOnlyChild(children: VNodeArrayChildren | undefined): VNodeArrayChildren | (string | number | boolean | void | VNode< RendererNode, RendererElement, {
     [key: string]: any;
 }> | null | undefined);
 export declare function getSlotsFirstChild(slots: () => VNodeArrayChildren | undefined): VNodeChild;

@@ -7,15 +7,12 @@
   "keywords": [],
   "main": "index.js",
   "scripts": {
-    "test": "vitest --config vitest.config.ts",
-    "coverage": "vitest run --coverage",
-    "tsc": "vue-tsc -b"
+    "tsc": "vue-tsc -b",
+    "test": "npx vitest run  filename.spec.ts"
   },
   "dependencies": {
     "@jienix/jovial-theme": "workspace:*",
+    "@jienix/typings": "workspace:*",
     "@jienix/utils": "workspace:*"
-  },
-  "devDependencies": {
-    "@vitest/coverage-istanbul": "2.1.9"
   }
 }

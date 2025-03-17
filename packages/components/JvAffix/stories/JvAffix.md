@@ -1,95 +1,162 @@
-我来帮你创建 JvAffix 组件的文档。这个组件是一个固钉组件，用于将页面元素固定在可视范围。
-import { Meta } from '@storybook/blocks'
+# JvAffix 固钉组件
 
-<Meta title="Components/JvAffix" />
+JvAffix 是一个固钉组件，用于将内容固定在页面的特定位置，常用于导航栏、侧边栏等需要在页面滚动时保持可见的元素。
 
-# JvAffix 固钉
-
-将页面元素固定在可视范围。
-
-## 介绍
-
-固钉组件可以将页面元素固定在特定位置，常用于需要在滚动过程中保持元素可见的场景，如导航栏、返回顶部按钮等。
-
-## 功能特性
-
-- 支持固定在顶部或底部
-- 可自定义偏移距离
-- 可监听自定义滚动容器
-- 支持固定状态改变事件
-- 支持滚动位置监听
-
-## 代码示例
-
-### 基础用法
+## 基础用法
 
 ```vue
 <template>
-  <jv-affix :offset="80">
-    <jv-button type="primary">
+  <JvAffix :offset="20">
+    <div class="demo-content">
       固定在顶部
-    </jv-button>
-  </jv-affix>
+    </div>
+  </JvAffix>
 </template>
 ```
 
-### 底部固定
+## 固定在底部
 
 ```vue
 <template>
-  <jv-affix position="bottom" :bottom-offset="20">
-    <jv-button type="primary">
+  <JvAffix position="bottom" :offset="20">
+    <div class="demo-content">
       固定在底部
-    </jv-button>
-  </jv-affix>
+    </div>
+  </JvAffix>
+</template>
+```
+
+## 自定义滚动容器
+
+默认情况下，JvAffix 组件会监听 window 的滚动事件。你可以通过 `target` 属性指定一个自定义的滚动容器。
+
+```vue
+<script setup>
+import { ref } from 'vue'
+
+const container = ref(null)
+const getContainer = () => container.value
+</script>
+
+<template>
+  <div ref="container" style="height: 400px; overflow: auto;">
+    <div style="height: 800px; padding-top: 100px;">
+      <JvAffix :target="getContainer">
+        <div class="demo-content">
+          在容器内固定
+        </div>
+      </JvAffix>
+    </div>
+  </div>
+</template>
+```
+
+## 动态控制
+
+你可以通过 `enabled` 属性动态控制固钉功能的启用状态，或者通过组件实例的 `setFixed` 方法手动设置固定状态。
+
+```vue
+<script setup>
+import { ref } from 'vue'
+
+const enabled = ref(true)
+const fixed = ref(false)
+const affixRef = ref(null)
+
+function handleChange(value) {
+  fixed.value = value
+}
+
+function manualSetFixed() {
+  if (affixRef.value) {
+    affixRef.value.setFixed(!fixed.value)
+  }
+}
+</script>
+
+<template>
+  <div>
+    <button @click="enabled = !enabled">
+      {{ enabled ? '禁用' : '启用' }}
+    </button>
+    <button @click="manualSetFixed">
+      手动{{ fixed ? '取消固定' : '固定' }}
+    </button>
+
+    <JvAffix
+      ref="affixRef"
+      :enabled="enabled"
+      @change="handleChange"
+    >
+      <div class="demo-content">
+        动态控制
+      </div>
+    </JvAffix>
+  </div>
+</template>
+```
+
+## 主题支持
+
+JvAffix 组件支持 light 和 dark 两种主题。
+
+```vue
+<script setup>
+import { ref } from 'vue'
+
+const theme = ref('light')
+</script>
+
+<template>
+  <JvAffix :theme="theme">
+    <div class="demo-content">
+      {{ theme }} 主题
+    </div>
+  </JvAffix>
 </template>
 ```
 
 ## API
 
-### Props
+### 属性
 
-| 参数         | 说明                                | 类型                        | 默认值       |
-| ------------ | ----------------------------------- | --------------------------- | ------------ |
-| offset       | 距离窗口顶部的偏移量                | number                      | 0            |
-| bottomOffset | 距离窗口底部的偏移量                | number                      | 0            |
-| position     | 固定的位置，可选值：`top`、`bottom` | string                      | 'top'        |
-| target       | 设置需要监听其滚动事件的元素        | () => HTMLElement \| Window | () => window |
-| zIndex       | 固定时的 z-index                    | number                      | 100          |
+| 属性名       | 说明                               | 类型                                  | 默认值         |
+| ------------ | ---------------------------------- | ------------------------------------- | -------------- |
+| position     | 固定的位置                         | `'top' \| 'bottom'`                   | `'top'`        |
+| offset       | 距离窗口顶部或底部的偏移量         | `number`                              | `0`            |
+| zIndex       | z-index 值                         | `number`                              | `100`          |
+| target       | 设置需要监听其滚动事件的元素       | `() => HTMLElement \| Window \| null` | `() => window` |
+| enabled      | 是否启用固钉功能                   | `boolean`                             | `true`         |
+| customClass  | 自定义类名                         | `string`                              | `''`           |
+| targetMargin | 滚动容器的外边距，影响固钉触发条件 | `number`                              | `0`            |
+| theme        | 主题                               | `'light' \| 'dark'`                   | `'light'`      |
 
-### Events
+### 事件
 
-| 事件名 | 说明               | 回调参数                                |
-| ------ | ------------------ | --------------------------------------- |
-| change | 固定状态改变时触发 | (fixed: boolean)                        |
-| scroll | 滚动时触发         | ({ scrollTop: number, fixed: boolean }) |
+| 事件名 | 说明                 | 回调参数                                                |
+| ------ | -------------------- | ------------------------------------------------------- |
+| change | 固定状态改变时触发   | `(fixed: boolean) => void`                              |
+| scroll | 滚动时触发           | `(data: { scrollTop: number, fixed: boolean }) => void` |
+| ready  | 组件初始化完成时触发 | `() => void`                                            |
 
-### Methods
+### 插槽
 
-| 方法名   | 说明             | 参数 |
-| -------- | ---------------- | ---- |
-| update   | 手动更新固钉状态 | -    |
-| getFixed | 获取当前固定状态 | -    |
+| 插槽名  | 说明                             |
+| ------- | -------------------------------- |
+| default | 默认插槽，用于放置需要固定的内容 |
+
+### 方法
+
+| 方法名          | 说明             | 参数                       |
+| --------------- | ---------------- | -------------------------- |
+| update          | 更新固钉状态     | -                          |
+| getFixed        | 获取当前固定状态 | -                          |
+| setFixed        | 手动设置固定状态 | `(value: boolean) => void` |
+| getScrollTarget | 获取当前滚动容器 | -                          |
 
 ## 注意事项
 
-1. 固钉组件会自动监听滚动事件和窗口大小变化事件，在组件销毁时会自动清理相关事件监听器。
-
-2. 当使用自定义滚动容器时，需要确保容器具有明确的高度和 `overflow` 属性。
-
-3. 固钉组件会保持原始宽度，以避免固定后出现宽度变化。
-
-## 最佳实践
-
-1. 顶部固定场景：
-
-   - 网站导航栏
-   - 工具栏
-   - 筛选条件栏
-
-2. 底部固定场景：
-   - 返回顶部按钮
-   - 悬浮操作按钮
-   - 购物车结算栏
-
-这个文档包含了 JvAffix 组件的主要功能说明、使用示例、API 文档以及最佳实践建议。文档结构清晰，便于用户快速了解和使用该组件。
+1. 当使用自定义滚动容器时，确保容器具有正确的定位属性（如 `position: relative`）。
+2. 为了避免页面抖动，组件会在固定时创建一个占位元素，保持原有布局不变。
+3. 当组件被禁用时，会自动取消固定状态。
+4. 组件会在挂载、窗口大小变化和滚动时自动更新固定状态。

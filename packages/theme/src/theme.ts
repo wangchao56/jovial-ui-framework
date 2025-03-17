@@ -1,6 +1,7 @@
 import type { App, DeepReadonly, InjectionKey, Ref } from 'vue'
 import {
   getCurrentInstance,
+  getForeground,
   getLuma,
   IN_BROWSER,
   parseColor,
@@ -92,6 +93,8 @@ export interface ThemeOptions {
 }
 
 export interface ThemeInstance {
+  /** 安装主题 */
+  install: (app: App) => void
   /** 禁用主题 */
   readonly isDisabled: boolean
   /** 主题名称 */
@@ -117,15 +120,6 @@ export interface ThemeInstance {
 
 export const ThemeSymbol: InjectionKey<ThemeInstance>
   = Symbol.for('jovial-ui-theme')
-
-// 替换原有的getForeground函数
-function getContrastText(background: string): string {
-  const rgb = parseColor(background)
-  // 计算相对亮度（WCAG公式）
-  const luminance = (0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b) / 255
-  // 根据对比度选择前景色
-  return luminance > 0.179 ? '#000000' : '#ffffff' // 阈值调整为4.5:1对比度
-}
 
 // 修正默认主题中的错误对比色
 function genDefaults(): ThemeOptions {
@@ -169,7 +163,7 @@ function genDefaults(): ThemeOptions {
  */
 export function createTheme(
   options: ThemeOptions = {} as ThemeOptions,
-): ThemeInstance & { install: (app: App) => void } {
+): ThemeInstance {
   const parsedOptions = Object.assign(
     {},
     genDefaults(),
@@ -196,7 +190,7 @@ export function createTheme(
           continue
         const onColor = `on-${color}` as keyof OnColors
         // 使用新的对比度计算方法
-        theme.colors[onColor] = getContrastText(value)
+        theme.colors[onColor] = getForeground(value)
       }
     }
     return result
@@ -274,7 +268,7 @@ export function createTheme(
     // 如果head实例不存在
     // 如果在浏览器环境中
     let styleEl = IN_BROWSER
-      ? document.getElementById('vuetify-theme-stylesheet')
+      ? document.getElementById('jovial-theme-stylesheet')
       : null
 
     // 如果在浏览器环境中
@@ -314,6 +308,15 @@ export function createTheme(
   const themeClasses = computed(() =>
     parsedOptions.isDisabled ? undefined : `${THEME_CLASS}--${name.value}`,
   )
+  const result = {
+    isDisabled: false,
+    name: unref(name),
+    current: unref(current),
+    themes: unref(themes),
+    themeClasses: unref(themeClasses),
+    styles: unref(styles),
+  }
+  console.log(result)
   return {
     install,
     isDisabled: false,

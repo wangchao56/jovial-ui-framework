@@ -7,6 +7,8 @@ examples
 
 # Editor directories and files
 .vscode/*
+.vscode
+.cursor
 !.vscode/extensions.json
 .idea
 .DS_Store
@@ -22,4 +24,7 @@ storybook*
 .vitepress
 
 # Storybook生成目录
-packages/jovial/storybook-static/
+storybook-static
+
+# 临时文件
+temp/*

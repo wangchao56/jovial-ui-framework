@@ -1,0 +1,184 @@
+@charset "UTF-8";
+:root {
+  --jv-theme-primary: #1976d2;
+  --jv-theme-primary-rgb: 25, 118, 210;
+  --jv-theme-primary-light: #42a5f5;
+  --jv-theme-primary-dark: #1565c0;
+  --jv-theme-surface: #ffffff;
+  --jv-theme-surface-variant: #f5f5f5;
+  --jv-theme-surface-disabled: #fafafa;
+  --jv-theme-on-surface: rgba(0, 0, 0, 0.87);
+  --jv-theme-on-surface-medium: rgba(0, 0, 0, 0.6);
+  --jv-theme-on-surface-disabled: rgba(0, 0, 0, 0.38);
+  --jv-theme-border: rgba(0, 0, 0, 0.12);
+  --jv-theme-error: #d32f2f;
+  --jv-theme-error-rgb: 211, 47, 47;
+  --jv-theme-warning: #ed6c02;
+  --jv-theme-warning-rgb: 237, 108, 2;
+  --jv-theme-success: #2e7d32;
+  --jv-theme-success-rgb: 46, 125, 50;
+  --jv-theme-info: #0288d1;
+  --jv-theme-info-rgb: 2, 136, 209;
+  --jv-font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --jv-font-size-xs: 12px;
+  --jv-font-size-sm: 14px;
+  --jv-font-size-md: 16px;
+  --jv-font-size-lg: 18px;
+  --jv-font-size-xl: 20px;
+  --jv-radius-small: 4px;
+  --jv-radius-medium: 8px;
+  --jv-radius-large: 12px;
+  --jv-radius-full: 9999px;
+  --jv-spacing-xs: 4px;
+  --jv-spacing-sm: 8px;
+  --jv-spacing-md: 16px;
+  --jv-spacing-lg: 24px;
+  --jv-spacing-xl: 32px;
+  --jv-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --jv-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --jv-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --jv-transition-duration: 0.2s;
+  --jv-transition-timing: ease-in-out;
+  --jv-easing-standard: ease-in-out;
+  --jv-transition-normal: 0.3s;
+  --jv-transition-fast: 0.1s;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --jv-theme-surface: #121212;
+    --jv-theme-surface-variant: #1e1e1e;
+    --jv-theme-surface-disabled: #2c2c2c;
+    --jv-theme-on-surface: rgba(255, 255, 255, 0.87);
+    --jv-theme-on-surface-medium: rgba(255, 255, 255, 0.6);
+    --jv-theme-on-surface-disabled: rgba(255, 255, 255, 0.38);
+    --jv-theme-border: rgba(255, 255, 255, 0.12);
+    --jv-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --jv-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    --jv-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  }
+}
+.jv-tag {
+  --jv-tag-color: rgba(var(--jv-theme-on-surface), 1);
+  --jv-tag-bgcolor: rgba(var(--jv-theme-surface), 1);
+  --jv-tag-border-color: rgba(var(--jv-theme-on-surface), 80%);
+  --jv-tag-height: 32px;
+  --jv-tag-font-size: 14px;
+  --jv-tag-border-radius: 4px;
+  --jv-tag-padding: 0 10px;
+  --jv-tag-white-space: nowrap;
+  --jv-tag-margin: 0;
+  --jv-tag-line-height: 1.5;
+  display: inline-flex;
+  height: var(--jv-tag-height);
+  margin: var(--jv-tag-margin);
+  padding: var(--jv-tag-padding);
+  border-radius: var(--jv-tag-border-radius);
+  font-size: var(--jv-tag-font-size);
+  line-height: var(--jv-tag-line-height);
+  font-weight: var(--jv-font-weight-medium);
+  align-items: center;
+  white-space: var(--jv-tag-white-space);
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--jv-tag-border-color);
+  background-color: var(--jv-tag-bgcolor);
+  color: var(--jv-tag-color);
+}
+.jv-tag__icon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.jv-tag__close {
+  margin-left: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.jv-tag__close:hover {
+  opacity: 0.8;
+}
+
+.jv-tag.jv-tag--primary {
+  --jv-tag-bgcolor: rgba(var(--jv-theme-background), 1); /* 使用 $(type) 的 10% 作为背景颜色 */
+  --jv-tag-color: rgba(var(--jv-theme-primary), 1); /* 使用 $(type) 作为文字颜色 */
+  --jv-tag-border-color: rgba(var(--jv-theme-primary), 80%); /* 使用 $(type) 的 20% 作为边框颜色 */
+}
+
+.jv-tag.jv-tag--success {
+  --jv-tag-bgcolor: rgba(var(--jv-theme-background), 1); /* 使用 $(type) 的 10% 作为背景颜色 */
+  --jv-tag-color: rgba(var(--jv-theme-success), 1); /* 使用 $(type) 作为文字颜色 */
+  --jv-tag-border-color: rgba(var(--jv-theme-success), 80%); /* 使用 $(type) 的 20% 作为边框颜色 */
+}
+
+.jv-tag.jv-tag--warning {
+  --jv-tag-bgcolor: rgba(var(--jv-theme-background), 1); /* 使用 $(type) 的 10% 作为背景颜色 */
+  --jv-tag-color: rgba(var(--jv-theme-warning), 1); /* 使用 $(type) 作为文字颜色 */
+  --jv-tag-border-color: rgba(var(--jv-theme-warning), 80%); /* 使用 $(type) 的 20% 作为边框颜色 */
+}
+
+.jv-tag.jv-tag--error {
+  --jv-tag-bgcolor: rgba(var(--jv-theme-background), 1); /* 使用 $(type) 的 10% 作为背景颜色 */
+  --jv-tag-color: rgba(var(--jv-theme-error), 1); /* 使用 $(type) 作为文字颜色 */
+  --jv-tag-border-color: rgba(var(--jv-theme-error), 80%); /* 使用 $(type) 的 20% 作为边框颜色 */
+}
+
+.jv-tag.jv-tag--info {
+  --jv-tag-bgcolor: rgba(var(--jv-theme-background), 1); /* 使用 $(type) 的 10% 作为背景颜色 */
+  --jv-tag-color: rgba(var(--jv-theme-info), 1); /* 使用 $(type) 作为文字颜色 */
+  --jv-tag-border-color: rgba(var(--jv-theme-info), 80%); /* 使用 $(type) 的 20% 作为边框颜色 */
+}
+
+.jv-tag.jv-tag--outlined {
+  --jv-tag-bgcolor: transparent;
+}
+
+.jv-tag.jv-tag--filled {
+  background-color: var(--jv-tag-color);
+}
+.jv-tag.jv-tag--filled .jv-tag__label {
+  color: hsl(0, 0%, 110%);
+}
+
+.jv-tag.jv-tag--tiny {
+  --jv-tag-height: 20px;
+  --jv-tag-font-size: 12px;
+  --jv-tag-padding: 0 8px;
+}
+
+.jv-tag.jv-tag--small {
+  --jv-tag-height: 24px;
+  --jv-tag-font-size: 12px;
+  --jv-tag-padding: 0 8px;
+}
+
+.jv-tag.jv-tag--medium {
+  --jv-tag-height: 32px;
+  --jv-tag-font-size: 14px;
+  --jv-tag-padding: 0 10px;
+}
+
+.jv-tag.jv-tag--large {
+  --jv-tag-height: 40px;
+  --jv-tag-font-size: 16px;
+  --jv-tag-padding: 0 12px;
+}
+
+.jv-tag.jv-tag--x-large {
+  --jv-tag-height: 48px;
+  --jv-tag-font-size: 18px;
+  --jv-tag-padding: 0 14px;
+}
+
+.jv-tag.is-rounded {
+  --jv-tag-border-radius: 999px;
+}
+
+.jv-tag-leave-active {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.jv-tag-leave-to {
+  opacity: 0;
+}

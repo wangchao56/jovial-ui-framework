@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import JvLoading from '@components/JvLoading'
-import { useTheme } from '@jienix/jovial-theme'
+import { provideTheme, useTheme } from '@jienix/jovial-theme'
 import { createNamespace } from '@jienix/utils'
 import { ref } from 'vue'
 
@@ -11,8 +11,10 @@ withDefaults(defineProps<{
   theme: 'light',
 })
 const bem = createNamespace('app')
+// use theme
 const theme = useTheme()
-
+// provide theme
+provideTheme({ theme: theme.name.value })
 const loading = ref(false)
 const loadingPercentage = ref(0)
 </script>

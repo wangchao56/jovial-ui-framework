@@ -2,7 +2,7 @@ import type BScroll from '@better-scroll/core'
 import type { Options } from '@better-scroll/core'
 import type { MouseWheelOptions } from '@better-scroll/mouse-wheel'
 import type { ScrollbarOptions } from '@better-scroll/scroll-bar'
-import type { Slot, VNode, VNodeChild } from 'vue'
+import type { Ref, Slot, VNode, VNodeChild } from 'vue'
 
 export type RenderFunction = Slot | VNode | string | null | undefined
 
@@ -17,5 +17,10 @@ export type ScrollPanelOptions = Options & { scrollbar: ScrollbarOptions } & { m
 export interface ScrollPanelExpose {
   refresh: () => void
   scrollTo: (x: number, y: number, time?: number) => void
-  instance?: BScroll | null
+  scrollBy: (x: number, y: number, time?: number) => void
+  scrollToElement: (el: HTMLElement, time?: number, offsetX?: number, offsetY?: number) => void
+  stop: () => void
+  enable: () => void
+  disable: () => void
+  instance: Ref<BScroll | null>
 }

@@ -8,12 +8,7 @@ const meta = {
   title: '配置组件/JvApp',
   component: JvApp,
   tags: ['autodocs'],
-  argTypes: {
-    themeTransition: {
-      control: 'boolean',
-      description: '是否启用主题切换动画',
-    },
-  },
+  argTypes: {},
 } satisfies Meta<typeof JvApp>
 
 export default meta
@@ -46,9 +41,6 @@ export const Basic: Story = {
       </JvApp>
     `,
   }),
-  args: {
-    themeTransition: true,
-  },
 }
 
 export const WithoutTransition: Story = {
@@ -78,7 +70,4 @@ export const WithoutTransition: Story = {
       </JvApp>
     `,
   }),
-  args: {
-    themeTransition: false,
-  },
 }

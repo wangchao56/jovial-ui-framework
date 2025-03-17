@@ -6,11 +6,22 @@ var __privateGet = (obj, member, getter) => (__accessCheck(obj, member, "read fr
 var __privateAdd = (obj, member, value) => member.has(obj) ? __typeError("Cannot add the same private member more than once") : member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
 var __privateSet = (obj, member, value, setter) => (__accessCheck(obj, member, "write to private field"), setter ? setter.call(obj, value) : member.set(obj, value), value);
 var _arr, _pointer;
-import { Fragment, reactive, computed, watchEffect, toRefs, capitalize, isVNode, Comment, shallowRef, readonly, unref as unref$1, warn, onUnmounted, getCurrentInstance as getCurrentInstance$1 } from "vue";
+import { Fragment, reactive, computed, watchEffect, toRefs, capitalize, isVNode, Comment, shallowRef, readonly, unref, warn, onUnmounted, getCurrentInstance as getCurrentInstance$1 } from "vue";
 const IN_BROWSER = typeof window !== "undefined";
 const SUPPORTS_INTERSECTION = IN_BROWSER && "IntersectionObserver" in window;
 const SUPPORTS_TOUCH = IN_BROWSER && ("ontouchstart" in window || window.navigator.maxTouchPoints > 0);
 const SUPPORTS_EYE_DROPPER = IN_BROWSER && "EyeDropper" in window;
+function isMobile() {
+  if (!IN_BROWSER)
+    return false;
+  const uaCheck = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+  const touchCheck = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const mediaCheck = IN_BROWSER ? window.matchMedia("(max-width: 768px), (pointer: coarse)").matches : false;
+  return uaCheck || touchCheck && mediaCheck;
+}
+const IS_MOBILE = isMobile();
 function getNestedValue(obj, path, fallback) {
   const last = path.length - 1;
   if (last < 0)
@@ -288,7 +299,7 @@ function debounce(fn, delay) {
   let timeoutId = 0;
   const wrap = (...args) => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn(...args), unref$1(delay));
+    timeoutId = setTimeout(() => fn(...args), unref(delay));
   };
   wrap.clear = () => {
     clearTimeout(timeoutId);
@@ -1353,6 +1364,12 @@ function isEmpty(value) {
 function isUndefined(value) {
   return getType(value) === "[object Undefined]";
 }
+const sizeOptions = ["tiny", "small", "medium", "large", "x-large"];
+const typeOptions = ["default", "primary", "success", "warning", "error", "info"];
+const variantOptions = ["text", "flat", "tonal", "plain", "elevated", "outlined"];
+const statusOptions = ["loading", "disabled"];
+const nativeTypeOptions = ["button", "submit", "reset"];
+const shapeOptions = ["square", "rounded", "circle"];
 const containerStore = /* @__PURE__ */ new Map();
 function generateContainerId(namespace) {
   return `jv-global-${namespace}`;
@@ -1642,16 +1659,6 @@ function propsFactory(props, source) {
     }, {});
   };
 }
-function addResizeListener(element, fn) {
-  const observer = new ResizeObserver(fn);
-  observer.observe(element);
-  return observer;
-}
-function removeResizeListener(element, fn) {
-  const observer = new ResizeObserver(fn);
-  observer.unobserve(element);
-  observer.disconnect();
-}
 var freeGlobal = typeof global == "object" && global && global.Object === Object && global;
 var freeSelf = typeof self == "object" && self && self.Object === Object && self;
 var root = freeGlobal || freeSelf || Function("return this")();
@@ -1760,12 +1767,6 @@ function withInstall(comp) {
   };
   return comp;
 }
-const sizeOptions = ["tiny", "small", "medium", "large", "x-large"];
-const typeOptions = ["default", "primary", "success", "warning", "error", "info"];
-const variantOptions = ["text", "flat", "tonal", "plain", "elevated", "outlined"];
-const statusOptions = ["loading", "disabled"];
-const nativeTypeOptions = ["button", "submit", "reset"];
-const shapeOptions = ["square", "rounded", "circle"];
 export {
   CircularBuffer,
   EventProp,
@@ -1778,6 +1779,7 @@ export {
   HexToHSV,
   HexToRGB,
   IN_BROWSER,
+  IS_MOBILE,
   RGBToInt,
   RGBtoCSS,
   RGBtoHSV,
@@ -1786,7 +1788,6 @@ export {
   SUPPORTS_INTERSECTION,
   SUPPORTS_TOUCH,
   addCSSRule,
-  addResizeListener,
   amber,
   arrayDiff,
   attachedRoot,
@@ -1868,6 +1869,7 @@ export {
   isEmpty,
   isEmptyObject,
   isFunction$1 as isFunction,
+  isMobile,
   isNull,
   isNumber,
   isNumberExcludeNaN,
@@ -1910,7 +1912,6 @@ export {
   red,
   refElement,
   removeCSSRule,
-  removeResizeListener,
   shades,
   shapeOptions,
   sizeOptions,

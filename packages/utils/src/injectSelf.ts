@@ -19,7 +19,7 @@ export function injectSelf(
   vm = getCurrentInstance('injectSelf'),
 ) {
   // 获取组件实例的 provides 对象
-  const { provides } = vm
+  const { provides } = vm as any
 
   // 如果 provides 对象存在，并且键存在于 provides 对象中
   if (provides && (key as string | symbol) in provides) {

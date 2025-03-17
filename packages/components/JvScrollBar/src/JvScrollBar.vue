@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { addResizeListener, createNamespace, removeResizeListener } from '@jienix/utils'
+import { createNamespace } from '@jienix/utils'
+import { useResizeObserver } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 import Bar from './bar.vue'
 import { type JvScrollBarEmits, jvScrollBarProps } from './JvScrollBar'
@@ -76,18 +77,19 @@ function setScrollLeft(value: number) {
     return
   wrapRef.value.scrollLeft = value
 }
-
+let stopObserver: (() => void) | null = null
 // lifecycle
 onMounted(() => {
   if (!props.noresize) {
-    addResizeListener(viewRef.value!, update)
+    const { stop } = useResizeObserver(viewRef.value!, update)
+    stopObserver = stop
     update()
   }
 })
 
 onUnmounted(() => {
   if (!props.noresize) {
-    removeResizeListener(viewRef.value!, update)
+    stopObserver?.()
   }
 })
 

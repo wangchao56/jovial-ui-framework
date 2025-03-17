@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '../mixins/bem' as *;
 
 @mixin type-style($type) {
@@ -66,7 +67,7 @@ $size-options: ('tiny', 'small', 'medium', 'large', 'x-large');
   @include m(filled) {
     background-color: var(--jv-tag-color);
     .jv-tag__label {
-      color: lighten(#fff, 10%);
+      color: color.adjust(#fff, $lightness: 10%);
     }
   }
 

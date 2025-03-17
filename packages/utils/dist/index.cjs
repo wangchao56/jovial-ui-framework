@@ -13,6 +13,17 @@ const IN_BROWSER = typeof window !== "undefined";
 const SUPPORTS_INTERSECTION = IN_BROWSER && "IntersectionObserver" in window;
 const SUPPORTS_TOUCH = IN_BROWSER && ("ontouchstart" in window || window.navigator.maxTouchPoints > 0);
 const SUPPORTS_EYE_DROPPER = IN_BROWSER && "EyeDropper" in window;
+function isMobile() {
+  if (!IN_BROWSER)
+    return false;
+  const uaCheck = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+  const touchCheck = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const mediaCheck = IN_BROWSER ? window.matchMedia("(max-width: 768px), (pointer: coarse)").matches : false;
+  return uaCheck || touchCheck && mediaCheck;
+}
+const IS_MOBILE = isMobile();
 function getNestedValue(obj, path, fallback) {
   const last = path.length - 1;
   if (last < 0)
@@ -1355,6 +1366,12 @@ function isEmpty(value) {
 function isUndefined(value) {
   return getType(value) === "[object Undefined]";
 }
+const sizeOptions = ["tiny", "small", "medium", "large", "x-large"];
+const typeOptions = ["default", "primary", "success", "warning", "error", "info"];
+const variantOptions = ["text", "flat", "tonal", "plain", "elevated", "outlined"];
+const statusOptions = ["loading", "disabled"];
+const nativeTypeOptions = ["button", "submit", "reset"];
+const shapeOptions = ["square", "rounded", "circle"];
 const containerStore = /* @__PURE__ */ new Map();
 function generateContainerId(namespace) {
   return `jv-global-${namespace}`;
@@ -1644,16 +1661,6 @@ function propsFactory(props, source) {
     }, {});
   };
 }
-function addResizeListener(element, fn) {
-  const observer = new ResizeObserver(fn);
-  observer.observe(element);
-  return observer;
-}
-function removeResizeListener(element, fn) {
-  const observer = new ResizeObserver(fn);
-  observer.unobserve(element);
-  observer.disconnect();
-}
 var freeGlobal = typeof global == "object" && global && global.Object === Object && global;
 var freeSelf = typeof self == "object" && self && self.Object === Object && self;
 var root = freeGlobal || freeSelf || Function("return this")();
@@ -1726,7 +1733,7 @@ function getSlotsFirstChild(slots) {
   return firstChild;
 }
 function isTextNode(vnode) {
-  const _vnode = unref(vnode);
+  const _vnode = vue.unref(vnode);
   if (!vue.isVNode(_vnode)) {
     return false;
   }
@@ -1734,7 +1741,7 @@ function isTextNode(vnode) {
   return result;
 }
 function isSlotNode(vnode) {
-  const _vnode = unref(vnode);
+  const _vnode = vue.unref(vnode);
   return vue.isVNode(_vnode) && _vnode.type === Symbol.for("v-fgt");
 }
 function getComponentName(vnode) {
@@ -1762,12 +1769,6 @@ function withInstall(comp) {
   };
   return comp;
 }
-const sizeOptions = ["tiny", "small", "medium", "large", "x-large"];
-const typeOptions = ["default", "primary", "success", "warning", "error", "info"];
-const variantOptions = ["text", "flat", "tonal", "plain", "elevated", "outlined"];
-const statusOptions = ["loading", "disabled"];
-const nativeTypeOptions = ["button", "submit", "reset"];
-const shapeOptions = ["square", "rounded", "circle"];
 exports.CircularBuffer = CircularBuffer;
 exports.EventProp = EventProp;
 exports.HSLtoHSV = HSLtoHSV;
@@ -1779,6 +1780,7 @@ exports.HSVtoRGB = HSVtoRGB;
 exports.HexToHSV = HexToHSV;
 exports.HexToRGB = HexToRGB;
 exports.IN_BROWSER = IN_BROWSER;
+exports.IS_MOBILE = IS_MOBILE;
 exports.RGBToInt = RGBToInt;
 exports.RGBtoCSS = RGBtoCSS;
 exports.RGBtoHSV = RGBtoHSV;
@@ -1787,7 +1789,6 @@ exports.SUPPORTS_EYE_DROPPER = SUPPORTS_EYE_DROPPER;
 exports.SUPPORTS_INTERSECTION = SUPPORTS_INTERSECTION;
 exports.SUPPORTS_TOUCH = SUPPORTS_TOUCH;
 exports.addCSSRule = addCSSRule;
-exports.addResizeListener = addResizeListener;
 exports.amber = amber;
 exports.arrayDiff = arrayDiff;
 exports.attachedRoot = attachedRoot;
@@ -1869,6 +1870,7 @@ exports.isElement = isElement;
 exports.isEmpty = isEmpty;
 exports.isEmptyObject = isEmptyObject;
 exports.isFunction = isFunction$1;
+exports.isMobile = isMobile;
 exports.isNull = isNull;
 exports.isNumber = isNumber;
 exports.isNumberExcludeNaN = isNumberExcludeNaN;
@@ -1911,7 +1913,6 @@ exports.purple = purple;
 exports.red = red;
 exports.refElement = refElement;
 exports.removeCSSRule = removeCSSRule;
-exports.removeResizeListener = removeResizeListener;
 exports.shades = shades;
 exports.shapeOptions = shapeOptions;
 exports.sizeOptions = sizeOptions;

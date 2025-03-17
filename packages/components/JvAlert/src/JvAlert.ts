@@ -1,3 +1,4 @@
+import type { Type } from '@jienix/typings'
 import type { ExtractPropTypes, PropType, Slot } from 'vue'
 
 export const jvAlertProps = {
@@ -12,7 +13,7 @@ export const jvAlertProps = {
    * 类型
    */
   type: {
-    type: String as PropType<'info' | 'success' | 'warning' | 'error'>,
+    type: String as PropType<Type>,
     default: 'info',
     validator: (value: string) => ['info', 'success', 'warning', 'error'].includes(value),
   },

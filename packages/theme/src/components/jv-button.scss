@@ -2,70 +2,89 @@
 
 $button-type-options: ('primary', 'success', 'warning', 'error', 'info');
 $button-size-options: ('tiny', 'small', 'medium', 'large', 'x-large');
+$button-size-options-map: (
+  tiny: (
+    size: 12px,
+    height: 20px,
+    padding: 0 15px,
+  ),
+  small: (
+    size: 14px,
+    height: 28px,
+    padding: 0 18px,
+  ),
+  medium: (
+    size: 16px,
+    height: 36px,
+    padding: 0 20px,
+  ),
+  large: (
+    size: 18px,
+    height: 44px,
+    padding: 0 22px,
+  ),
+  x-large: (
+    size: 20px,
+    height: 52px,
+    padding: 0 25px,
+  ),
+);
 $button-variant-options: ('text', 'plain', 'tonal', 'elevated', 'outlined');
 $button-shape-options: ('square', 'rounded', 'circle', 'block');
 
 @mixin button-type-style($type) {
   @include m($type) {
-    --jv-btn-color: var(--jv-theme-on-#{$type});
-    --jv-btn-bgcolor: var(--jv-theme-#{$type});
+    --jv-button-color: rgb(var(--jv-theme-on-#{$type}));
+    --jv-button-bgcolor: rgb(var(--jv-theme-#{$type}));
+    --jv-button-border-color: rgb(var(--jv-theme-#{$type}));
   }
 }
 
 @mixin button-size-style($size) {
-  @include m($size) {
-    --jv-btn-size: #{$size};
+  @if map-has-key($button-size-options-map, #{$size}) {
+    --jv-button-font-size: map-get(map-get($button-size-options-map, #{$size}), size);
+    --jv-button-height: map-get(map-get($button-size-options-map, #{$size}), height);
+    --jv-button-padding: map-get(map-get($button-size-options-map, #{$size}), padding);
   }
 }
 
 @mixin button-variant-style($variant) {
   @include m($variant) {
-    --jv-btn-color: var(--jv-theme-on-#{$variant});
-    --jv-btn-bgcolor: var(--jv-theme-#{$variant});
-    --jv-btn-border-color: var(--jv-theme-#{$variant});
+    --jv-button-color: var(--jv-theme-on-#{$variant});
+    --jv-button-bgcolor: var(--jv-theme-#{$variant});
+    --jv-button-border-color: var(--jv-theme-#{$variant});
   }
 }
 
 @mixin button-shape-style($shape) {
   @include m($shape) {
-    --jv-btn-border-radius: #{$shape};
+    --jv-button-border-radius: #{$shape};
   }
 }
 
 @include b(button) {
-  /* 按钮大小 */
-  --jv-btn-size: 14px;
+  /* 基础变量 */
+  --jv-button-font-size: 14px;
+  --jv-button-color: rgb(var(--jv-theme-on-surface));
+  --jv-button-bgcolor: rgb(var(--jv-theme-surface));
+  --jv-button-border-color: rgb(var(--jv-theme-on-surface));
+  --jv-button-disabled-color: rgba(var(--jv-theme-on-surface), 0.6);
+  --jv-button-disabled-bg: rgba(var(--jv-theme-on-surface), 0.6);
+  --jv-button-border-radius: var(--jv-rounded-full, 4px);
+  --jv-button-width: fit-content;
+  --jv-button-height: 36px;
+  --jv-button-padding: 0 20px;
+  --jv-button-hover-opacity: 0.08;
+  --jv-button-active-opacity: 0.12;
 
-  /* 按钮高度 */
-  --jv-btn-height: 36px;
-
-  /* 文本颜色 */
-  --jv-btn-color: var(--jv-theme-on-surface);
-
-  /* 背景颜色 */
-  --jv-btn-bgcolor: var(--jv-theme-surface);
-
-  /* 边框颜色 */
-  --jv-btn-border-color: var(--jv-theme-on-surface);
-
-  /* 禁用状态文本颜色 */
-  --jv-btn-disabled-color: var(--jv-theme-on-surface);
-
-  /* 禁用状态背景颜色 */
-  --jv-btn-disabled-bg: var(--jv-theme-on-surface);
-
-  /* 按钮圆角 */
-  --jv-btn-border-radius: 4px;
-
-  /* 按钮宽度 */
-  --jv-btn-width: fit-content;
-
+  /* 基础样式 */
   display: inline-grid;
   position: relative;
-  width: var(--jv-btn-width);
-  height: var(--jv-btn-height);
+  width: var(--jv-button-width);
+  height: var(--jv-button-height);
+  padding: var(--jv-button-padding);
   border: 0;
-  border-radius: var(--jv-btn-border-radius);
+  border-radius: var(--jv-button-border-radius);
   font-weight: 500;
   line-height: normal;
   text-decoration: none;
@@ -77,53 +96,64 @@ $button-shape-options: ('square', 'rounded', 'circle', 'block');
   max-width: 100%;
   text-indent: 0.0892857em;
   text-transform: uppercase;
-  transition-property: box-shadow, transform, opacity, background;
-  transition-duration: 0.28s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
   vertical-align: middle;
   flex-shrink: 0;
   outline: none;
   box-sizing: border-box;
   column-gap: 4px;
-  background-color: rgba(var(--jv-btn-bgcolor), 1);
+  background-color: rgba(var(--jv-button-bgcolor), 1);
 
+  /* 焦点状态 */
   &:focus {
     outline: none;
   }
 
   &:focus-visible {
-    outline: 2px solid var(--jv-btn-border-color);
+    outline: 2px solid var(--jv-button-border-color);
   }
 
+  /* 悬停效果优化 */
   &::after {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    display: none;
-
-    &:hover {
-      display: block;
-      background-color: rgba(0, 0, 0, 0.211);
-    }
-  }
-
-  &:hover {
-    background-color: #222;
-  }
-
-  @include e(content) {
     border-radius: inherit;
-    color: inherit;
-    font-size: 1rem;
-    line-height: 1.25;
-    text-align: center;
+    opacity: 0;
+    background-color: currentColor;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  &:hover::after {
+    opacity: var(--jv-button-hover-opacity);
+  }
+
+  &:active::after {
+    opacity: var(--jv-button-active-opacity);
+  }
+
+  /* 内容区域 */
+  @include e(content) {
     grid-area: content;
-    flex-direction: column;
+    justify-content: center;
+    color: var(--jv-button-color);
+    font-size: var(--jv-button-font-size);
+    line-height: var(--jv-button-line-height, 1);
+    text-align: center;
     overflow: hidden;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   @include e(prepend) {
@@ -140,64 +170,12 @@ $button-shape-options: ('square', 'rounded', 'circle', 'block');
     color: inherit;
   }
 
-  @include m(tiny) {
-    --jv-btn-size: 0.625rem;
-    --jv-btn-height: 20px;
-
-    padding: 0 15px;
-
-    & > .button__content {
-      font-size: var(--jv-btn-size) !important;
-      line-height: calc(var(--jv-btn-size) + 3px);
-    }
-  }
-
-  @include m(small) {
-    --jv-btn-size: 0.75rem;
-    --jv-btn-height: 28px;
-
-    padding: 0 18px;
-
-    & > .jv-button__content {
-      font-size: var(--jv-btn-size) !important;
-      line-height: calc(var(--jv-btn-size) + 3px);
-    }
-  }
-
-  @include m(medium) {
-    --jv-btn-size: 0.875rem;
-    --jv-btn-height: 36px;
-
-    padding: 0 20px;
-
-    & > .button__content {
-      font-size: var(--jv-btn-size) !important;
-      line-height: calc(var(--jv-btn-size) + 3px);
-    }
-  }
-
-  @include m(large) {
-    --jv-btn-size: 1rem;
-    --jv-btn-height: 44px;
-
-    padding: 0 22px;
-
-    & > .button__content {
-      font-size: var(--jv-btn-size);
-      line-height: calc(var(--jv-btn-size) + 3px);
-    }
-  }
-
-  @include m(x-large) {
-    --jv-btn-size: 1.125rem;
-    --jv-btn-height: 52px;
-
-    height: var(--jv-btn-height);
-    padding: 0 25px;
-
-    & > .button__content {
-      font-size: var(--jv-btn-size) !important;
-      line-height: calc(var(--jv-btn-size) + 3px);
+  // 大小
+  @each $size, $value in $button-size-options-map {
+    @include m($size) {
+      --jv-button-font-size: #{map-get($value, size)};
+      --jv-button-height: #{map-get($value, height)};
+      --jv-button-padding: #{map-get($value, padding)};
     }
   }
 
@@ -206,98 +184,83 @@ $button-shape-options: ('square', 'rounded', 'circle', 'block');
     @include button-type-style($type);
   }
 
-  /* 变体 */
+  /* 变体样式 */
   @include m(text) {
-    /* 文本变体
-      描述:移除背景颜色和阴影
-    */
+    /* 文本变体 */
     background-color: transparent;
-    color: rgba(var(--jv-btn-color), 1);
+    color: rgba(var(--jv-button-color), 1);
 
-    &:hover {
-      background-color: rgba(var(--jv-btn-bgcolor), 0.04);
+    &:hover::after {
+      background-color: rgba(var(--jv-button-bgcolor), 0.04);
     }
   }
 
   @include m(plain) {
-    /* 朴素变体
-      描述:移除背景颜色并且在未悬停时降低透明度
-    */
+    /* 朴素变体 */
     background-color: transparent;
-
-    /* 朴素变体的颜色 变亮 */
-    color: rgba(var(--jv-btn-color), 0.6);
+    color: rgba(var(--jv-button-color), 0.6);
 
     &:hover {
-      color: rgba(var(--jv-btn-color), 1);
+      color: rgba(var(--jv-button-color), 1);
     }
   }
 
   @include m(flat) {
-    /* 平面变体
-      描述:移除按钮的阴影效果
-    */
+    /* 平面变体 */
     box-shadow: none;
   }
 
   @include m(tonal) {
-    /* 色调变体
-      描述:按钮的背景颜色被设为文字颜色的高透明度版本
-    */
-    background-color: rgba(var(--jv-btn-color), 0.04);
+    /* 色调变体 */
+    background-color: rgba(var(--jv-button-color), 0.04);
   }
 
   @include m(outlined) {
-    /* 轮廓变体
-      描述:
-      1. 按钮有边框
-      2. 按钮有阴影
-    */
+    /* 轮廓变体 */
     border: thin solid currentcolor;
     background-color: transparent;
     color: rgb(var(--jv-theme-primary));
   }
 
   @include m(elevated) {
-    /* 提升变体
-      描述:使用按钮的阴影强调
-    */
-    background-color: rgb(var(--jv-btn-bgcolor));
+    /* 提升变体 */
+    background-color: rgb(var(--jv-button-bgcolor));
     box-shadow:
       0 3px 1px -2px rgb(0 0 0 / 20%),
       0 2px 2px 0 rgb(0 0 0 / 14%),
       0 1px 5px 0 rgb(0 0 0 / 12%);
-    color: rgb(var(--jv-btn-color));
+    color: rgb(var(--jv-button-color));
   }
 
   /* 禁用状态 */
   @include when(disabled) {
     opacity: 0.6;
-    color: rgb(var(--jv-btn-disabled-color), 0.6);
-    background-color: rgb(var(--jv-btn-disabled-bg), 0.6);
+    color: rgb(var(--jv-button-disabled-color));
+    background-color: rgb(var(--jv-button-disabled-bg));
     border-color: transparent;
     cursor: not-allowed;
+    pointer-events: none;
 
-    & > .jv-button__content {
-      cursor: not-allowed;
-    }
-
-    &:hover,
-    &:focus {
-      cursor: not-allowed;
+    &::after {
+      display: none;
     }
   }
 
-  @include when(icon-button) {
+  /* 图标按钮 */
+  @include m(icon) {
     padding: 0;
+    border-radius: var(--jv-rounded-full, 50%) !important;
+    width: calc(var(--jv-button-height) + 12px) !important;
+    height: calc(var(--jv-button-height) + 12px) !important;
   }
 
+  /* 形状变体 */
   @include when(rounded) {
     border-radius: 20px;
   }
 
   @include when(block) {
-    display: block grid;
+    display: grid;
     width: 100%;
   }
 
@@ -326,26 +289,14 @@ $button-shape-options: ('square', 'rounded', 'circle', 'block');
   }
 
   & > .jv-button__icon {
-    color: black;
-  }
-}
-@supports selector(:focus-visible) {
-  .jv-button::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    color: currentColor;
   }
 }
 
+/* 焦点可见性支持 */
 @supports selector(:focus-visible) {
-  .jv-button::after {
-    pointer-events: none;
+  .jv-button:focus-visible::after {
     border: 2px solid currentcolor;
-    border-radius: inherit;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+    opacity: 0.2;
   }
 }

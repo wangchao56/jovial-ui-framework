@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { ListItem } from '@jienix/jovial-components/JvList'
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 
 const themeName = ref('light')
 
@@ -18,93 +17,60 @@ setTimeout(() => {
   loading.value = false
 }, 3000)
 
-const items = reactive<ListItem[]>([
+const tabs = [
   {
-    type: 'item',
-    key: 'item1',
-    prependIcon: '$chevronRight',
-    title: '标题一',
-    subtitle: '副标题',
-    description: '描述',
+    name: '标签一',
+    content: '标签一的内容',
   },
   {
-    type: 'subheader',
-    key: 'subheader',
-    title: '子标题',
+    name: '标签二',
+    content: '标签二的内容',
   },
   {
-    type: 'item',
-    key: 'item2',
-    title: '标题二',
-    subtitle: '副标题二',
-    description: '描述二',
+    name: '标签三',
+    content: '标签三的内容',
   },
   {
-    type: 'item',
-    key: 'item3',
-    title: '标题三',
-    subtitle: '副标题三',
-    description: '描述三',
+    name: '标签四',
+    content: '标签四的内容',
   },
   {
-    type: 'divider',
-    key: 'divider',
+    name: '标签五',
+    content: '标签五的内容',
   },
   {
-    type: 'group',
-    key: 'group1',
-    title: '组标题',
-    children: [
-      {
-        type: 'item',
-        key: 'item4',
-        title: '标题四',
-        subtitle: '副标题四',
-        description: '描述四',
-      },
-      {
-        type: 'item',
-        key: 'item5',
-        title: '标题五',
-        subtitle: '副标题五',
-        description: '描述五',
-      },
-      {
-        type: 'group',
-        key: 'group1-2',
-        title: '组标题2',
-        children: [
-          {
-            type: 'item',
-            key: 'item6',
-            title: '标题六',
-            subtitle: '副标题六',
-            description: '描述六',
-          },
-          {
-            type: 'item',
-            key: 'item7',
-            title: '标题七',
-            subtitle: '副标题七',
-            description: '描述七',
-          },
-        ],
-      },
-    ],
+    name: '标签六',
+    content: '标签六的内容',
   },
-])
+  {
+    name: '标签七',
+    content: '标签七的内容',
+  },
+  {
+    name: '标签八',
+    content: '标签八的内容',
+  },
+  {
+    name: '标签九',
+    content: '标签九的内容',
+  },
+]
 </script>
 
 <template>
   <JvApp :theme="themeName" @change="handleClick">
-    <JvList>
-      <template v-for="item in items" :key="item.key">
-        <JvListItem v-if="item.type === 'item'" v-bind="item" />
-        <JvListSubheader v-else-if="item.type === 'subheader'" v-bind="item" />
-        <JvListGroup v-else-if="item.type === 'group'" v-bind="item" />
-        <JvDivider v-else-if="item.type === 'divider'" v-bind="item" />
-      </template>
-    </JvList>
+    <JvButton icon="$close" variant="tonal" size="small" />
+    <JvTabs closable :tabs="tabs" addable width="500px" align="center" />
+    <!-- <JvTabs type="card" position="right">
+      <JvTabPanel name="标签一" icon="mdi:home" content="标签一的内容" />
+      <JvTabPanel name="标签二" icon="mdi:home" content="标签二的内容" />
+      <JvTabPanel name="标签三" icon="mdi:home" content="标签三的内容" />
+    </JvTabs>
+    <JvTabs type="segment" position="right">
+      <JvTabPanel name="标签一" icon="mdi:home" content="标签一的内容" />
+      <JvTabPanel name="标签二" icon="mdi:home" content="标签二的内容" />
+      <JvTabPanel name="标签三" icon="mdi:home" content="标签三的内容" />
+    </JvTabs> -->
   </JvApp>
 </template>
 
